@@ -10,6 +10,8 @@ import { ItinerarioPage } from './pages/ItinerarioPage'
 import { DetallesPage } from './pages/DetallesPage'
 import { ElViajePage } from './pages/ElViajePage'
 import { ConsejosPage } from './pages/ConsejosPage'
+import { NosotrosPage } from './pages/NosotrosPage'
+import { ContactoPage } from './pages/ContactoPage'
 import { ReservaPage } from './pages/ReservaPage'
 import { TuViajePage } from './pages/TuViajePage'
 import { CreditosPage } from './pages/CreditosPage'
@@ -28,6 +30,8 @@ export const router = createBrowserRouter([
       { path: '/packs/:slug/detalles', element: <DetallesPage /> },      // pág. 7
       { path: '/packs/:slug/viaje', element: <ElViajePage /> },          // pág. 8
       { path: '/consejos', element: <ConsejosPage /> },                  // pág. 10
+      { path: '/nosotros', element: <NosotrosPage /> },
+      { path: '/contacto', element: <ContactoPage /> },
       { path: '/packs/:slug', element: <PackHubPage /> },                // pág. 11
       { path: '/creditos', element: <CreditosPage /> },
     ],

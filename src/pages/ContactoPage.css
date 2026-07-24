@@ -1,0 +1,193 @@
+/* Página de contacto. El bloque de datos va en oscuro, con el teléfono a
+   tamaño de titular, y el formulario debajo sobre crema. */
+
+/* ---------- Panel oscuro ---------- */
+
+.cto-panel {
+  background: var(--c-brand-500);
+  color: var(--on-photo);
+  padding-block: var(--space-7);
+}
+
+.cto-panel .label {
+  color: color-mix(in srgb, var(--on-photo) 62%, transparent);
+}
+
+.cto-label-soft {
+  color: color-mix(in srgb, var(--on-photo) 38%, transparent) !important;
+}
+
+.cto-panel-top,
+.cto-panel-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.cto-panel-top {
+  align-items: flex-start;
+}
+
+.cto-panel-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  text-align: right;
+}
+
+/* El teléfono es el elemento grande del bloque. */
+.cto-phone {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: var(--weight-title);
+  line-height: var(--leading-title);
+  letter-spacing: var(--track-1);
+}
+
+.cto-panel-lines a:last-child {
+  font-size: var(--text-body);
+  color: var(--on-photo-soft);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-md) var(--easing);
+}
+
+.cto-panel-lines a:last-child:hover {
+  border-bottom-color: var(--on-photo-line);
+}
+
+.cto-mark {
+  display: flex;
+  justify-content: center;
+  margin-block: var(--space-7);
+  opacity: 0.6;
+}
+
+.cto-panel-bottom {
+  align-items: flex-end;
+}
+
+.cto-place {
+  font-family: var(--font-display);
+  font-size: var(--text-2);
+  margin-bottom: var(--space-3);
+}
+
+.cto-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+}
+
+.cto-socials a {
+  color: var(--on-photo-soft);
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur-md) var(--easing),
+              border-color var(--dur-md) var(--easing);
+}
+
+.cto-socials a:hover {
+  color: var(--on-photo);
+  border-bottom-color: var(--on-photo-line);
+}
+
+.cto-hours {
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+  min-width: 16rem;
+}
+
+.cto-hours > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid color-mix(in srgb, var(--on-photo) 20%, transparent);
+}
+
+.cto-hours dd {
+  margin: 0;
+  font-size: var(--text-body);
+}
+
+/* ---------- Formulario ---------- */
+
+.cto-form-section {
+  padding: var(--space-7) var(--padding);
+}
+
+.cto-form-inner {
+  max-width: 52rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cto-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  text-align: left;
+}
+
+.cto-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cto-field--wide {
+  grid-column: 1 / -1;
+}
+
+/* Campos en filete, sin caja ni redondeo: el mismo lenguaje recto. */
+.cto-field input,
+.cto-field textarea {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line-strong);
+  padding: var(--space-2) 0;
+  transition: border-color var(--dur-md) var(--easing);
+}
+
+.cto-field textarea {
+  resize: vertical;
+}
+
+.cto-field input:focus,
+.cto-field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--ink);
+}
+
+.cto-submit {
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin-top: var(--space-3);
+}
+
+.cto-sent {
+  margin-top: var(--space-6);
+  font-size: var(--text-2);
+  font-family: var(--font-display);
+}
+
+@media (max-width: 1023px) {
+  .cto-panel-lines {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .cto-form {
+    grid-template-columns: 1fr;
+  }
+}

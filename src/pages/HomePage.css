@@ -46,13 +46,23 @@
   color: var(--on-photo);
 }
 
-/* El logotipo repartido de borde a borde. */
+/* El logotipo repartido de borde a borde, dibujado en contorno: sobre una
+   foto a sangre pesa menos que en macizo y deja ver el paisaje detrás. */
 .hz-wordmark {
-  color: var(--on-photo);
   padding: 0 var(--padding);
   margin-top: auto;
   margin-bottom: auto;
   width: 100%;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.92);
+}
+
+/* Safari en iOS ignora el grosor por debajo de 1px real; el color de relleno
+   sirve de respaldo si el navegador no soporta text-stroke. */
+@supports not (-webkit-text-stroke: 1px white) {
+  .hz-wordmark {
+    color: var(--on-photo);
+  }
 }
 
 /* El pie de portada se apoya abajo a la izquierda.

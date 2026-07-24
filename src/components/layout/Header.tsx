@@ -3,15 +3,21 @@ import { Link, NavLink } from 'react-router'
 import './Header.css'
 
 /* Navegación del wireframe. `boxed` marca el enlace que va en caja, como el
-   botón de "Elegir viaje".
+   botón de "Elegir viaje". */
+type NavLinkDef = { to: string; label: string; end?: boolean; boxed?: boolean }
 
-   Nota: /nosotros y /contacto todavía no existen como páginas. Hasta que se
-   creen, "Nosotros" apunta a Consejos y "Contacto" abre el correo. */
-const links = [
+const links: NavLinkDef[] = [
   { to: '/', label: 'Inicio', end: true },
   { to: '/packs', label: 'Packs', boxed: true },
   { to: '/destinos', label: 'Destinos' },
-  { to: '/consejos', label: 'Nosotros' },
+  { to: '/nosotros', label: 'Nosotros' },
+  { to: '/contacto', label: 'Contacto' },
+]
+
+/* El resto de secciones vive en el panel del menú. */
+const extra: NavLinkDef[] = [
+  { to: '/consejos', label: 'Consejos' },
+  { to: '/puntos-de-interes', label: 'Puntos de interés' },
 ]
 
 /**
@@ -60,9 +66,6 @@ export function Header() {
                 <span className="label">{l.label}</span>
               </NavLink>
             ))}
-            <a href="mailto:info@kavanviajes.com" onClick={() => setOpen(false)}>
-              <span className="label">Contacto</span>
-            </a>
           </nav>
 
           <button
@@ -81,7 +84,7 @@ export function Header() {
 
       {/* Panel a pantalla completa para móvil y para el botón de menú */}
       <nav className="site-menu">
-        {links.map((l) => (
+        {[...links, ...extra].map((l) => (
           <NavLink
             key={l.label}
             to={l.to}
@@ -92,12 +95,6 @@ export function Header() {
             {l.label}
           </NavLink>
         ))}
-        <NavLink to="/puntos-de-interes" onClick={() => setOpen(false)}>
-          Puntos de interés
-        </NavLink>
-        <a href="mailto:info@kavanviajes.com" onClick={() => setOpen(false)}>
-          Contacto
-        </a>
       </nav>
     </header>
   )

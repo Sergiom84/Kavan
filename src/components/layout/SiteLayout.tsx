@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { AdvisorButton } from './AdvisorButton'
+import { Preloader } from '../fx/Preloader'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -49,12 +50,15 @@ smoothWheel: true,
       [/^\/packs\//, 'Pack de viaje — Kavan'],
       [/^\/puntos-de-interes$/, 'Puntos de interés — Kavan'],
       [/^\/consejos$/, 'Consejos de viaje — Kavan'],
+      [/^\/nosotros$/, 'Nosotros — Kavan'],
+      [/^\/contacto$/, 'Contacto — Kavan'],
     ]
     document.title = titles.find(([re]) => re.test(pathname))?.[1] ?? 'Kavan — Viajes a Marruecos'
   }, [pathname])
 
   return (
     <>
+      <Preloader />
       <Header />
       <main>
         <Outlet />

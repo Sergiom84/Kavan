@@ -1,0 +1,147 @@
+/* Página "Nosotros". Mismo ritmo que la portada: bloques amplios, una idea
+   por bloque y mucho aire entre ellos. */
+
+.nos-eyebrow {
+  margin-bottom: var(--space-5);
+}
+
+/* ---------- Misión ---------- */
+
+.nos-mission {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: var(--space-7) var(--padding);
+}
+
+.nos-mission-inner {
+  max-width: 56rem;
+}
+
+/* ---------- Cifras ---------- */
+
+.nos-figures {
+  padding-bottom: var(--space-7);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nos-figures::-webkit-scrollbar {
+  display: none;
+}
+
+.nos-figures-track {
+  display: flex;
+  gap: 1px;
+  padding: 0 var(--padding);
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+
+.nos-figure {
+  flex: 0 0 21rem;
+  background: var(--bg-2);
+  padding: var(--space-4) var(--space-4) var(--space-6);
+}
+
+.nos-figure-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.nos-figure-value {
+  font-family: var(--font-display);
+  font-size: var(--text-number);
+  font-weight: var(--weight-title);
+  line-height: 0.8;
+  letter-spacing: var(--track-1);
+}
+
+.nos-figure-unit {
+  padding-top: 0.5rem;
+}
+
+.nos-figure-detail {
+  margin-top: var(--space-5);
+  font-size: var(--text-body);
+}
+
+/* ---------- Cita ---------- */
+
+.nos-quote {
+  background: var(--bg-2);
+  padding: var(--space-7) var(--padding);
+  text-align: center;
+}
+
+.nos-quote blockquote {
+  margin: 0 auto;
+  max-width: 48rem;
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: var(--weight-title);
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.nos-quote-author {
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  color: var(--ink-faint);
+}
+
+/* ---------- Equipo ---------- */
+
+.nos-team {
+  padding-block: var(--space-7);
+}
+
+.nos-section-head {
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--space-5);
+}
+
+.nos-team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.nos-person-photo {
+  aspect-ratio: 3 / 4;
+  margin-bottom: var(--space-3);
+}
+
+.nos-person h3 {
+  margin-bottom: var(--space-1);
+}
+
+/* ---------- Cierre ---------- */
+
+.nos-cta {
+  padding: var(--space-7) var(--padding);
+  text-align: center;
+}
+
+.nos-cta-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+@media (max-width: 1023px) {
+  .nos-team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nos-figure {
+    flex-basis: 15rem;
+  }
+}
