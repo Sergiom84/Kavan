@@ -46,7 +46,6 @@
   transition: transform 0.6s var(--entrada), box-shadow 2s var(--entrada);
   box-shadow:
     rgba(255, 255, 255, 0.18) 0 0 2.5rem 0.25rem,
-    rgba(255, 255, 255, 0.85) 0 0 0 1px,
     rgba(0, 0, 0, 0.34) 0 1.75rem 3.25rem 0;
 }
 
@@ -76,28 +75,22 @@
 }
 
 /* ---------- Línea interior ----------
-   Lo que se ve en el original es una línea blanca fina recorriendo la
-   tarjeta por dentro. El anillo que lleva detrás es `#333`: un neutro que
-   se funde con la fotografía y sólo la oscurece un punto. Con el color de
-   la marca se convertía en un marco verde, que no es lo que hay que ver. */
+   Sólo una línea blanca fina recorriendo la tarjeta por dentro. Nada de
+   anillo detrás: la fotografía llega hasta el borde redondeado. */
 
 .pack-card-inline {
   position: absolute;
-  inset: 0;
+  inset: 0.5rem;
   z-index: 1;
-  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 0.3125rem;
   pointer-events: none;
-  box-shadow:
-    inset rgba(0, 0, 0, 0.32) 0 0 0 0.3125rem,
-    inset rgba(255, 255, 255, 0.55) 0 0 0 0.375rem;
-  transition: box-shadow 2s var(--regreso);
+  transition: border-color 2s var(--regreso);
 }
 
 .pack-card-stage:hover .pack-card-inline {
-  transition: box-shadow 2s var(--entrada);
-  box-shadow:
-    inset rgba(0, 0, 0, 0.32) 0 0 0 0.3125rem,
-    inset rgba(255, 255, 255, 0.95) 0 0 0 0.375rem;
+  transition: border-color 2s var(--entrada);
+  border-color: rgba(255, 255, 255, 0.95);
 }
 
 /* ---------- Precio ---------- */
