@@ -3,6 +3,7 @@ import { useFeaturedPacks } from '../queries/hooks'
 import { Pic } from '../components/ui/Pic'
 import { Carousel } from '../components/ui/Carousel'
 import { PackCard } from '../components/travel/PackCard'
+import { MoroccoMap } from '../components/travel/MoroccoMap'
 import { Reveal, RevealGroup } from '../components/fx/RevealText'
 import { SplitTitle } from '../components/fx/SplitTitle'
 import './HomePage.css'
@@ -136,6 +137,9 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ---- Marruecos te ofrece: mapa real con las ciudades del catálogo ---- */}
+      <MoroccoMap />
     </>
   )
 }
