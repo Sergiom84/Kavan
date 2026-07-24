@@ -1,204 +1,411 @@
-/* ---------- Hero: fotografía a sangre, texto anclado abajo a la izquierda ---------- */
+/* ============================================================
+   Home con el ritmo de Horizonte Village.
 
-.home-hero {
-  position: relative;
-  min-height: 100svh;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
-}
+   La regla que gobierna la página: cada bloque ocupa una pantalla
+   y sólo lleva una idea. La fotografía va a sangre, el texto se
+   apoya encima, y entre bloque y bloque hay vacío de verdad.
+   ============================================================ */
 
-.home-hero-media {
+/* ---------- Velo compartido ----------
+   Los dos únicos gradientes del sistema, siempre en vertical. */
+.hz-scrim {
   position: absolute;
   inset: 0;
-}
-
-/* Los dos velos del sistema: uno arriba para que respire la cabecera, otro
-   abajo para que el titular se lea. Sin degradado lateral: Horizonte apoya
-   siempre en vertical. */
-.home-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    var(--scrim-top),
-    var(--scrim-bottom);
+  pointer-events: none;
+  background: var(--scrim-top), var(--scrim-bottom);
   background-repeat: no-repeat;
-  background-size: 100% 40%, 100% 60%;
+  background-size: 100% 45%, 100% 55%;
   background-position: top, bottom;
 }
 
-.home-hero-content {
+/* ---------- Portada ---------- */
+
+.hz-hero {
   position: relative;
+  height: 100svh;
+  min-height: 40rem;
+  overflow: hidden;
+}
+
+.hz-hero-media,
+.hz-claim-media,
+.hz-location-media {
+  position: absolute;
+  inset: 0;
+}
+
+.hz-hero-media img,
+.hz-claim-media img,
+.hz-location-media img {
   width: 100%;
-  color: var(--on-photo);
-  padding-bottom: clamp(3rem, 7vw, 6.5rem);
-  padding-top: 140px;
+  height: 100%;
+  object-fit: cover;
 }
 
-.home-hero-label {
-  color: var(--on-photo-soft);
-  margin-bottom: var(--space-4);
-}
-
-/* El titular de portada es lo único que usa el tamaño de héroe. */
-.home-hero-title {
-  max-width: 15ch;
-  font-size: var(--text-display);
-}
-
-.home-hero-text {
-  margin-top: var(--space-4);
-  max-width: var(--measure-wide);
-  font-size: var(--text-2);
-  line-height: 1.35;
-  color: var(--on-photo-soft);
-}
-
-.home-hero-actions {
-  margin-top: var(--space-5);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-}
-
-.home-hero-play {
-  gap: var(--space-3);
-}
-
-/* ---------- Bloque informativo: dos entradas en filete, sin tarjetas centradas ---------- */
-
-.home-help {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border-top: 1px solid var(--line);
-}
-
-.home-help-item {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: start;
-  gap: var(--space-4);
-  padding: var(--space-5) var(--space-5) var(--space-5) 0;
-  border-bottom: 1px solid var(--line);
-  transition: background 0.3s var(--ease-out);
-}
-
-.home-help-item + .home-help-item {
-  padding-left: var(--space-5);
-  border-left: 1px solid var(--line);
-}
-
-.home-help-item:hover {
-  background: color-mix(in srgb, var(--bg-2) 55%, transparent);
-}
-
-.home-help-n {
-  font-size: var(--text-3);
-  font-weight: var(--weight-heading);
-  letter-spacing: var(--track-label);
-  color: var(--accent);
-  padding-top: 0.35rem;
-}
-
-.home-help-body {
+.hz-hero-inner {
+  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  justify-content: center;
+  color: var(--on-photo);
 }
 
-.home-help-body p {
-  max-width: 46ch;
+/* El logotipo estirado de borde a borde. Es lo primero que se ve del
+   original y lo que fija el tono: una sola palabra, finísima, ocupando
+   todo el ancho. */
+.hz-wordmark {
+  color: var(--on-photo);
+  padding: 0 var(--padding);
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
 }
 
-.home-help-arrow {
-  color: var(--ink-faint);
-  padding-top: 0.35rem;
-  transition: transform 0.35s var(--ease-out), color 0.3s;
+/* Todo el pie de portada se apoya abajo a la izquierda, como en el original:
+   el párrafo, y debajo las pastillas de categoría.
+
+   width: 100% es obligatorio — .container lleva margin: 0 auto, y en un
+   contenedor flex un margen auto encoge el elemento a su contenido en vez
+   de estirarlo. */
+.hz-hero-foot {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding-bottom: var(--space-6);
 }
 
-.home-help-item:hover .home-help-arrow {
-  color: var(--accent);
-  transform: translateX(6px);
+.hz-hero-actions {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-3);
 }
 
-/* ---------- Marruecos: rejilla asimétrica, imagen desplazada ---------- */
+.hz-hero-lede {
+  max-width: 24rem;
+  font-size: var(--text-2);
+  line-height: 1.3;
+  color: var(--on-photo);
+}
 
-.home-morocco {
+.hz-scroll-caption {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--on-photo-soft);
+}
+
+/* Pastillas de categoría: caja de borde fino, la activa se rellena. */
+.hz-pills {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid var(--on-photo-line);
+}
+
+.hz-pill {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  line-height: 1;
+  padding: 0.75rem 1.25rem;
+  color: var(--on-photo);
+  transition: background-color var(--dur-md) var(--easing),
+              color var(--dur-md) var(--easing);
+}
+
+.hz-pill.is-active,
+.hz-pill:hover {
+  background: var(--on-photo);
+  color: var(--ink);
+}
+
+/* ---------- Claim sobre fotografía ---------- */
+
+.hz-claim {
+  position: relative;
+  height: 100svh;
+  min-height: 36rem;
+  overflow: hidden;
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: clamp(2rem, 5vw, 5rem);
+  place-items: center;
+}
+
+.hz-claim-inner {
+  position: relative;
+  padding: 0 var(--padding);
+  max-width: 62rem;
+}
+
+.hz-claim-title {
+  color: var(--on-photo);
+}
+
+/* ---------- Concepto ----------
+   Una sección casi vacía. El aire es el contenido. */
+
+.hz-concept {
+  background: var(--bg-1);
+  min-height: var(--section-mid);
+  display: grid;
+  place-items: center;
+  padding: var(--space-7) var(--padding);
+  text-align: center;
+}
+
+.hz-concept-inner {
+  max-width: 48rem;
+}
+
+.hz-eyebrow {
+  margin-bottom: var(--space-6);
+}
+
+.hz-concept-text {
+  font-family: var(--font-display);
+  font-size: var(--text-2);
+  font-weight: var(--weight-text);
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+/* ---------- Ubicación ---------- */
+
+.hz-location {
+  position: relative;
+  min-height: var(--section-tall);
+  overflow: hidden;
+  display: flex;
   align-items: center;
 }
 
-.home-morocco-media {
-  position: relative;
-}
-
-.home-morocco-media .home-morocco-frame {
-  aspect-ratio: 4 / 5;
-  max-height: 640px;
-}
-
-/* Segunda foto solapada: rompe el bloque rectangular */
-.home-morocco-media .home-morocco-frame-small {
+/* La foto queda al fondo, muy lavada: el protagonista es el titular. */
+.hz-location-media::after {
+  content: "";
   position: absolute;
-  right: -8%;
-  bottom: -10%;
-  width: 44%;
-  aspect-ratio: 1 / 1;
-  border: 8px solid var(--bg-2);
+  inset: 0;
+  background: color-mix(in srgb, var(--bg-1) 82%, transparent);
 }
 
-.home-morocco-text {
+.hz-location-inner {
+  position: relative;
+  width: 100%;
+  padding-block: var(--space-7);
+}
+
+.hz-location-title {
+  max-width: 32rem;
+}
+
+.hz-location-cta {
+  margin-top: var(--space-5);
+}
+
+.hz-location-tag {
+  position: absolute;
+  top: var(--space-7);
+  right: var(--padding);
+}
+
+/* ---------- Cifras ---------- */
+
+.hz-figures {
+  background: var(--bg-1);
+  padding-block: var(--space-7);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.hz-figures::-webkit-scrollbar {
+  display: none;
+}
+
+.hz-figures-track {
   display: flex;
-  flex-direction: column;
+  gap: 1px;
+  padding: 0 var(--padding);
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+
+.hz-figure {
+  flex: 0 0 21rem;
+  background: var(--bg-2);
+  padding: var(--space-4) var(--space-4) var(--space-6);
+}
+
+.hz-figure-head {
+  display: flex;
   align-items: flex-start;
   gap: var(--space-3);
 }
 
-.home-morocco-text h2 {
-  max-width: 18ch;
+/* El número gigante en serif fina es el recurso más reconocible del
+   original después del logotipo. */
+.hz-figure-value {
+  font-family: var(--font-display);
+  font-size: var(--text-number);
+  font-weight: var(--weight-title);
+  line-height: 0.8;
+  letter-spacing: var(--track-1);
+  color: var(--ink);
 }
 
-.home-morocco-link {
-  margin-top: var(--space-3);
+.hz-figure-unit {
+  padding-top: 0.5rem;
 }
 
-@media (max-width: 900px) {
-  .home-help {
+.hz-figure-detail {
+  margin-top: var(--space-6);
+  font-size: var(--text-body);
+  color: var(--ink);
+}
+
+/* ---------- Claim sobre crema ---------- */
+
+.hz-statement {
+  background: var(--bg-1);
+  min-height: var(--section-mid);
+  display: grid;
+  place-items: center;
+  padding: var(--space-7) var(--padding);
+}
+
+.hz-statement-title {
+  max-width: 56rem;
+  color: var(--ink);
+}
+
+/* ---------- Viajes ---------- */
+
+.hz-packs {
+  background: var(--bg-1);
+  padding-block: var(--space-7);
+}
+
+.hz-packs-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--space-6);
+}
+
+.hz-packs-head .hz-eyebrow {
+  margin-bottom: 0;
+}
+
+/* ---------- Ayuda ---------- */
+
+.hz-help-section {
+  padding-block: var(--space-7);
+}
+
+.hz-help {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line);
+}
+
+.hz-help-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-5) var(--space-6) 0;
+  border-bottom: 1px solid var(--line);
+  transition: background-color var(--dur-md) var(--easing);
+}
+
+.hz-help-item + .hz-help-item {
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--line);
+}
+
+.hz-help-item:hover {
+  background: var(--bg-2);
+}
+
+.hz-help-n {
+  padding-top: 0.4rem;
+}
+
+.hz-help-body h3 {
+  margin-bottom: var(--space-3);
+}
+
+.hz-help-body p {
+  font-size: var(--text-body);
+  max-width: var(--measure-text);
+}
+
+.hz-help-arrow {
+  transition: transform var(--dur-md) var(--easing);
+}
+
+.hz-help-item:hover .hz-help-arrow {
+  transform: translateX(0.5rem);
+}
+
+/* ---------- Botón de vídeo ---------- */
+
+.hz-video-cta {
+  border: 1px solid var(--on-photo-line);
+  padding: 0 1.25rem;
+  transition: background-color var(--dur-md) var(--easing);
+}
+
+.hz-video-cta .label {
+  color: var(--on-photo);
+}
+
+.hz-video-cta:hover {
+  background: var(--on-photo);
+}
+
+.hz-video-cta:hover .label {
+  color: var(--ink);
+}
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 1023px) {
+  .hz-hero-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .hz-hero-lede {
+    max-width: none;
+  }
+
+  .hz-location {
+    min-height: 0;
+  }
+
+  .hz-location-tag {
+    position: static;
+    display: block;
+    margin-top: var(--space-5);
+  }
+
+  .hz-figure {
+    flex-basis: 15rem;
+  }
+
+  .hz-help {
     grid-template-columns: 1fr;
   }
 
-  .home-help-item {
-    padding-right: 0;
-  }
-
-  .home-help-item + .home-help-item {
+  .hz-help-item + .hz-help-item {
     padding-left: 0;
     border-left: 0;
-  }
-
-  .home-morocco {
-    grid-template-columns: 1fr;
-  }
-
-  .home-morocco-media .home-morocco-frame {
-    aspect-ratio: 3 / 2;
-  }
-
-  .home-morocco-media .home-morocco-frame-small {
-    display: none;
-  }
-}
-
-@media (max-width: 620px) {
-  /* El rótulo fijo de asesoría se ancla abajo: dejamos aire bajo los botones */
-  .home-hero-content {
-    padding-bottom: 5.5rem;
-  }
-
-  .home-hero-actions .btn {
-    flex: 1 1 100%;
   }
 }

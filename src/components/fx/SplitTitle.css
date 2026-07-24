@@ -1,0 +1,45 @@
+.split-title {
+  font-family: var(--font-display);
+  font-weight: var(--weight-title);
+  line-height: var(--leading-title);
+  letter-spacing: var(--track-1);
+  text-transform: uppercase;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.split-title--display {
+  font-size: var(--text-display);
+}
+
+/* El logotipo del hero: una sola palabra repartida de borde a borde. Cada
+   letra es un elemento y flex reparte el hueco, así que llena el ancho sea
+   cual sea el tamaño de pantalla. */
+.split-title--wordmark {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--text-wordmark);
+  line-height: 0.78;
+  letter-spacing: 0;
+}
+
+.split-title__char {
+  display: block;
+}
+
+.split-title--center {
+  text-align: center;
+}
+
+.split-title--left {
+  text-align: left;
+}
+
+/* Las palabras de enlace: caja baja, menos de la mitad de cuerpo, y un
+   pelín levantadas para que no se descuelguen de la línea. */
+.split-title__minor {
+  font-size: calc(1em * var(--minor-scale));
+  text-transform: lowercase;
+  letter-spacing: 0;
+}

@@ -90,14 +90,22 @@
 
   /* Escala exacta del original: .h1 3rem · .h2 1.5rem · .p1 y
      .l1-rg 0.75rem. Los rem escalan solos con el viewport. */
-  --text-display: 6rem;   /*  96px @1440 — sólo héroes */
-  --text-1: 3rem;         /*  48px @1440 — h1 */
-  --text-2: 1.5rem;       /*  24px @1440 — h2/h3/h4 */
-  --text-3: 0.75rem;      /*  12px @1440 — texto corrido, en mono */
-  --text-label: 0.75rem;  /*  12px @1440 — rótulos, botones, navegación */
+  --text-wordmark: 17rem;  /* 272px — el logotipo gigante del hero */
+  --text-display: 4rem;    /*  64px — frases de sección a tamaño grande */
+  --text-number: 5rem;     /*  80px — cifras sueltas */
+  --text-1: 3rem;          /*  48px — .h1 */
+  --text-2: 1.5rem;        /*  24px — .h2 y prosa destacada */
+  --text-body: 1.125rem;   /*  18px — prosa corrida en serif */
+  --text-3: 0.75rem;       /*  12px — alias heredado */
+  --text-label: 0.75rem;   /*  12px — rótulos, botones, navegación (mono) */
 
-  /* Interlineado 100% en títulos, 133.3% en texto: es la firma. */
+  /* Proporción de las palabras de enlace dentro de una frase mezclada:
+     "PANORAMIC views, SPACIOUS LAYOUTS". Es la firma tipográfica. */
+  --minor-scale: 0.46;
+
+  /* Interlineado 100% en títulos. La prosa respira más. */
   --leading-title: 100%;
+  --leading-body: 1.35;
   --leading-text: 133.3%;
 
   --track-1: -0.006em;    /* .h1 */
@@ -172,9 +180,12 @@
     --viewport: 375;
     --viewheight: 812;
 
-    --text-display: 3rem;
+    --text-wordmark: 4.5rem;
+    --text-display: 2rem;
+    --text-number: 3rem;
     --text-1: 2rem;
     --text-2: 1.25rem;
+    --text-body: 1rem;
 
     --padding: 1.25rem;
     --space-7: 7.5rem;

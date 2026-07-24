@@ -1,45 +1,81 @@
+/* Botón circular flotante con anillos concéntricos, como el de contacto de
+   Horizonte. Es el único elemento redondo del sistema. */
+
 .advisor {
   position: fixed;
-  right: 0;
-  bottom: 0;
+  right: var(--padding);
+  bottom: var(--space-4);
   z-index: 60;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-end;
+  gap: var(--space-3);
 }
 
-/* Rótulo anclado a la esquina, en el mismo lenguaje recto del resto */
 .advisor-toggle {
-  padding: 1rem 1.6rem;
+  position: relative;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--radius-round);
   background: var(--ink);
   color: var(--accent-ink);
-  font-size: var(--text-3);
-  font-weight: var(--weight-heading);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
   letter-spacing: var(--track-label);
+  line-height: 1.2;
   text-transform: uppercase;
-  text-align: center;
-  transition: background 0.25s, color 0.25s;
+  display: grid;
+  place-items: center;
+  padding: 0 0.5rem;
+  transition: background-color var(--dur-md) var(--easing),
+              color var(--dur-md) var(--easing);
+}
+
+/* Los dos anillos que laten hacia fuera. La animación se detiene sola si el
+   usuario ha pedido menos movimiento (regla global en global.css). */
+.advisor-toggle::before,
+.advisor-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-round);
+  opacity: 0;
+  animation: advisor-ring 3.2s var(--second-ease) infinite;
+  pointer-events: none;
+}
+
+.advisor-toggle::after {
+  animation-delay: 1.6s;
+}
+
+@keyframes advisor-ring {
+  0% { opacity: 0; transform: scale(1); }
+  25% { opacity: 0.5; transform: scale(1.18); }
+  75% { opacity: 0.2; transform: scale(1.4); }
+  100% { opacity: 0; transform: scale(1.55); }
 }
 
 .advisor-toggle:hover {
-  background: var(--accent-sun);
-  color: var(--accent-sun-ink);
+  background: var(--c-base-0);
+  color: var(--ink);
 }
 
 .advisor-menu {
   display: flex;
   flex-direction: column;
-  min-width: 200px;
-  background: var(--card);
+  min-width: 12rem;
+  background: var(--bg-2);
   border: 1px solid var(--line);
-  border-bottom: 0;
 }
 
 .advisor-option {
-  padding: 0.9rem 1.6rem;
-  font-family: var(--font);
-  font-size: var(--text-3);
-  transition: background 0.2s, color 0.2s;
+  padding: 0.875rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  transition: background-color var(--dur-md) var(--easing);
 }
 
 .advisor-option + .advisor-option {
@@ -47,13 +83,13 @@
 }
 
 .advisor-option:hover {
-  background: var(--bg-2);
-  color: var(--accent-2);
+  background: var(--bg-3);
 }
 
-@media (max-width: 620px) {
+@media (max-width: 1023px) {
   .advisor-toggle {
-    padding: 0.8rem 1.1rem;
-    font-size: 0.78rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 0.4375rem;
   }
 }

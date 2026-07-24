@@ -53,14 +53,14 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* El texto corrido va en mono, pequeño y con interlineado 133.3%. En este
-   sistema la serif se reserva para titular. */
+/* La prosa va en serif y caja baja. La mono se reserva para rótulos,
+   navegación, botones y microcopia: nunca para leer. */
 body {
   margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-3);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
   font-weight: var(--weight-text);
-  line-height: var(--leading-text);
+  line-height: var(--leading-body);
   color: var(--ink);
   background: var(--bg-1);
 }
