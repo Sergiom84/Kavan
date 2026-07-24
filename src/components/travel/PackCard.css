@@ -1,61 +1,72 @@
 .pack-card {
   display: flex;
   flex-direction: column;
-  transition: transform 0.35s var(--ease-out), box-shadow 0.35s;
-}
-
-.pack-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-card);
+  background: transparent;
+  border: 0;
+  height: 100%;
 }
 
 .pack-card-media {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
+  background: var(--bg-3);
+  position: relative;
 }
 
+/* Las fotos de paisaje traen mucho cielo: bajamos el encuadre hacia el terreno */
 .pack-card-media img {
-  transition: transform 0.6s var(--ease-out);
+  object-position: 50% 62%;
+  transition: transform 0.8s var(--ease-out);
 }
 
 .pack-card:hover .pack-card-media img {
-  transform: scale(1.05);
+  transform: scale(1.06);
+}
+
+/* Precio sobre la fotografía, en la esquina inferior */
+.pack-card-tag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: var(--accent-sun);
+  color: var(--accent-sun-ink);
+  padding: 0.55rem 1rem;
+  font-size: var(--text-3);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--track-2);
 }
 
 .pack-card-body {
-  padding: var(--space-4);
+  padding: var(--space-4) 0 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  text-align: center;
+  text-align: left;
+  flex: 1;
 }
 
 .pack-card-title {
-  font-size: var(--text-2);
-  font-family: var(--font);
+  font-size: clamp(1.4rem, 1.9vw, 1.9rem);
+  line-height: 1.12;
 }
 
 .pack-card-subtitle {
   font-size: var(--text-3);
-}
-
-.pack-card-price {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--line);
-  padding-top: var(--space-2);
-}
-
-.pack-card-price strong {
-  font-family: var(--font);
-  font-size: var(--text-2);
-  font-weight: var(--weight-heading);
+  max-width: 38ch;
 }
 
 .pack-card-cities {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  font-size: var(--text-3);
+  color: var(--ink-faint);
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--line);
-  padding-top: var(--space-2);
-  font-size: var(--text-3);
+  gap: 2px;
+}
+
+.pack-card-cities strong {
+  font-weight: var(--weight-text);
+  color: var(--ink-soft);
 }

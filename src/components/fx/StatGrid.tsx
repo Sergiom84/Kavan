@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { armarRefrescoScroll } from '../../lib/scroll'
 import './StatGrid.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -25,6 +26,7 @@ export function StatGrid({ stats }: { stats: Stat[] }) {
       nodes.forEach((n, i) => (n.textContent = `${stats[i].value}${stats[i].suffix ?? ''}`))
       return
     }
+    armarRefrescoScroll()
     const ctx = gsap.context(() => {
       nodes.forEach((node, i) => {
         const counter = { value: 0 }
@@ -32,7 +34,7 @@ export function StatGrid({ stats }: { stats: Stat[] }) {
           value: stats[i].value,
           duration: 1.6,
           ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+          scrollTrigger: { trigger: el, start: 'top 92%', once: true },
           onUpdate: () => {
             node.textContent = `${Math.round(counter.value)}${stats[i].suffix ?? ''}`
           },

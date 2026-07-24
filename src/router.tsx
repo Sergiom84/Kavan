@@ -12,6 +12,7 @@ import { ElViajePage } from './pages/ElViajePage'
 import { ConsejosPage } from './pages/ConsejosPage'
 import { ReservaPage } from './pages/ReservaPage'
 import { TuViajePage } from './pages/TuViajePage'
+import { CreditosPage } from './pages/CreditosPage'
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
       { path: '/packs/:slug/viaje', element: <ElViajePage /> },          // pág. 8
       { path: '/consejos', element: <ConsejosPage /> },                  // pág. 10
       { path: '/packs/:slug', element: <PackHubPage /> },                // pág. 11
+      { path: '/creditos', element: <CreditosPage /> },
     ],
   },
   // Páginas con layout propio (9, 12/13)

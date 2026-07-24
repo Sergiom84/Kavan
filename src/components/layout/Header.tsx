@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router'
 import './Header.css'
 
@@ -12,23 +12,37 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false)
+  const [solid, setSolid] = useState(false)
+
+  // Sobre el hero la cabecera va en claro; en cuanto se abandona, pasa a fondo sólido.
+  useEffect(() => {
+    const onScroll = () => setSolid(window.scrollY > 80)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${solid ? 'is-solid' : ''} ${open ? 'is-open' : ''}`}>
       <div className="container site-header-inner">
         <Link to="/" className="brand" onClick={() => setOpen(false)}>
-          <span className="brand-mark" aria-hidden="true" />
-          <span className="brand-text">
-            Kavan
-            <small>Viajes a Marruecos</small>
-          </span>
+          <span className="brand-name">Kavan</span>
+          <span className="brand-tag">Viajes a Marruecos</span>
         </Link>
 
-        <nav className={`site-nav ${open ? 'is-open' : ''}`}>
+        <nav className="site-nav">
           {links.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
+              end={l.to === '/'}
               onClick={() => setOpen(false)}
               className={({ isActive }) => (isActive ? 'is-active' : '')}
             >
@@ -39,11 +53,10 @@ export function Header() {
 
         <button
           className="nav-toggle"
-          aria-label="Menú"
+          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          <span />
           <span />
           <span />
         </button>

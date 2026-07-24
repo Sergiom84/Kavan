@@ -1,122 +1,168 @@
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
+  left: 0;
+  right: 0;
+  z-index: 100;
   background: transparent;
-  padding-top: var(--space-3);
+  color: var(--on-photo);
+  transition: background 0.35s var(--ease-out), color 0.35s, border-color 0.35s;
+  border-bottom: 1px solid transparent;
+}
+
+/* Al salir del hero: fondo de papel y tinta oscura */
+.site-header.is-solid {
+  background: color-mix(in srgb, var(--bg-1) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--ink);
+  border-bottom-color: var(--line);
 }
 
 .site-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-4);
-  height: 60px;
+  gap: var(--space-5);
+  height: 84px;
 }
+
+/* ---------- Marca ---------- */
 
 .brand {
   display: flex;
-  align-items: center;
-  gap: 0.7rem;
-}
-
-.brand-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 30%, var(--bg-3), transparent 60%),
-    conic-gradient(from 220deg, var(--accent-sun), var(--ink) 55%, var(--accent-sun));
-}
-
-.brand-text {
-  font-family: var(--font);
-  font-size: var(--text-2);
-  line-height: 1;
-  display: flex;
   flex-direction: column;
-  color: var(--ink);
+  gap: 2px;
+  line-height: 1;
 }
 
-.brand-text small {
+.brand-name {
   font-family: var(--font);
-  font-size: var(--text-3);
-  font-weight: var(--weight-heading);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-top: 3px;
+  font-size: 1.65rem;
+  font-weight: var(--weight-title);
+  letter-spacing: var(--track-2);
 }
 
-/* Enlaces en píldora de cristal, siempre visibles sobre hero o fondo claro */
+.brand-tag {
+  font-size: 0.68rem;
+  font-weight: var(--weight-heading);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+/* ---------- Navegación ---------- */
+
 .site-nav {
   display: flex;
-  gap: var(--space-1);
-  padding: 4px;
-  border-radius: 999px;
-  background: var(--glass);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--glass-line);
+  align-items: center;
+  gap: var(--space-5);
 }
 
 .site-nav a {
-  display: flex;
-  align-items: center;
-  padding: 0.55rem 1.1rem;
-  border-radius: 999px;
+  position: relative;
   font-family: var(--font);
-  font-size: var(--text-3);
+  font-size: 0.78rem;
   font-weight: var(--weight-heading);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink);
-  transition: background 0.25s var(--ease-out), color 0.25s;
+  padding-bottom: 6px;
+  color: inherit;
+  opacity: 0.82;
+  transition: opacity 0.25s;
+}
+
+/* Filete que crece bajo el enlace: sustituye a la píldora */
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 0;
+  background: currentColor;
+  transition: width 0.35s var(--ease-out);
 }
 
 .site-nav a:hover {
-  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  opacity: 1;
+}
+
+.site-nav a:hover::after,
+.site-nav a.is-active::after {
+  width: 100%;
 }
 
 .site-nav a.is-active {
-  background: var(--accent-sun);
-  color: var(--accent-sun-ink);
+  opacity: 1;
 }
+
+/* ---------- Botón de menú ---------- */
 
 .nav-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
-  padding: 8px;
+  justify-content: center;
+  gap: 6px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
 }
 
 .nav-toggle span {
-  width: 22px;
-  height: 2px;
-  background: var(--ink);
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease-out), opacity 0.2s;
 }
 
-@media (max-width: 860px) {
+.site-header.is-open .nav-toggle span:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+
+.site-header.is-open .nav-toggle span:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+
+@media (max-width: 980px) {
+  .site-header-inner {
+    height: 72px;
+  }
+
   .nav-toggle {
     display: flex;
   }
+
+  /* Panel a pantalla completa, tipografía grande */
   .site-nav {
-    position: absolute;
-    top: 64px;
-    left: var(--space-4);
-    right: var(--space-4);
+    position: fixed;
+    inset: 72px 0 0;
     flex-direction: column;
-    gap: 2px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-m);
-    display: none;
-  }
-  .site-nav.is-open {
-    display: flex;
-  }
-  .site-nav a {
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-4);
+    padding: 0 var(--gutter);
+    background: var(--bg-1);
     color: var(--ink);
-    justify-content: flex-start;
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform 0.45s var(--ease-out), visibility 0.45s;
+  }
+
+  .site-header.is-open .site-nav {
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .site-nav a {
+    font-size: var(--text-2);
+    letter-spacing: var(--track-2);
+    text-transform: none;
+    opacity: 1;
+  }
+
+  .site-header.is-open {
+    color: var(--ink);
   }
 }

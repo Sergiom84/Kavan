@@ -1,34 +1,43 @@
 :root {
-  /* Paleta del Sáhara — calibrada sobre los tokens reales de la referencia
-     (bg-1..5, dark, yellow) reescritos en tonos de arena y terracota. */
+  /* Paleta del Sáhara — crema, marrón profundo y sol, sobre los tonos reales
+     de arena y terracota que ya usaba la marca. */
   --bg-1: #f5f0ea;  /* papel cálido, fondo base */
   --bg-2: #ebe1cd;  /* arena clara, fondo alterno de sección */
   --bg-3: #d9bfa0;  /* arena */
   --bg-4: #c9926a;  /* terracota clara */
-  --ink: #2a2119;   /* texto principal, marrón casi negro (idéntico a la referencia) */
+  --ink: #2a2119;   /* texto principal, marrón casi negro */
   --ink-soft: color-mix(in srgb, var(--ink) 64%, transparent);
   --ink-faint: color-mix(in srgb, var(--ink) 40%, transparent);
   --line: color-mix(in srgb, var(--ink) 16%, transparent);
+  --line-strong: color-mix(in srgb, var(--ink) 32%, transparent);
   --accent: #c4622d;      /* terracota intensa, acciones */
   --accent-2: #8a4b2b;    /* terracota profunda, hover */
   --accent-ink: #f8f3ea;  /* texto sobre acento */
-  --accent-sun: #e2a13a;  /* sol del desierto — equivalente al amarillo de la referencia */
+  --accent-sun: #e2a13a;  /* sol del desierto */
   --accent-sun-ink: #2a2119;
-  --glass: color-mix(in srgb, var(--card) 40%, transparent);
-  --glass-line: color-mix(in srgb, var(--card) 70%, transparent);
   --card: #faf6ee;        /* superficies elevadas */
   --ok: #4a6741;
   --danger: #9d3c23;
 
-  /* Tipografía — una sola tipología, tres tamaños: título / subtítulo / texto */
+  /* Escala de blancos sobre fotografía, para rótulos y filetes */
+  --on-photo: #f8f3ea;
+  --on-photo-soft: color-mix(in srgb, var(--on-photo) 78%, transparent);
+  --on-photo-line: color-mix(in srgb, var(--on-photo) 38%, transparent);
+
+  /* Tipografía — una sola familia, tres tamaños: título / subtítulo / texto.
+     Los títulos escalan con el ancho de pantalla para llenar el formato. */
   --font: "Fraunces", Georgia, serif;
   --weight-title: 620;
   --weight-heading: 520;
   --weight-text: 400;
 
-  --text-1: clamp(3.1rem, 7.2vw, 6.4rem); /* título */
-  --text-2: clamp(1.9rem, 3.4vw, 2.75rem); /* subtítulos */
-  --text-3: 1rem; /* texto */
+  --text-1: clamp(3rem, 7.4vw, 7.5rem);     /* título */
+  --text-2: clamp(1.75rem, 3vw, 3rem);      /* subtítulos */
+  --text-3: clamp(1rem, 0.94vw, 1.15rem);   /* texto */
+
+  --track-1: -0.035em;
+  --track-2: -0.02em;
+  --track-label: 0.14em;
 
   /* Espaciado y forma */
   --space-1: 0.25rem;
@@ -38,10 +47,20 @@
   --space-5: 2.5rem;
   --space-6: 4rem;
   --space-7: 6.5rem;
-  --radius-s: 8px;
-  --radius-m: 16px;
-  --radius-l: 24px;
-  --container: 1180px;
+  --space-8: 10rem;
+
+  /* Lenguaje editorial: ángulos rectos. El único radio es el del sello. */
+  --radius-s: 0;
+  --radius-m: 0;
+  --radius-l: 0;
+
+  /* Contenedor ancho, casi a sangre: el contenido no vive en una columna estrecha */
+  --container: 1800px;
+  --gutter: clamp(1.25rem, 3.2vw, 3.5rem);
+
+  /* Medidas de línea: anchos generosos para que el texto no se parta cada tres palabras */
+  --measure-wide: 62ch;
+  --measure-text: 52ch;
 
   --shadow-card: 0 2px 10px color-mix(in srgb, var(--ink) 7%, transparent),
     0 12px 32px color-mix(in srgb, var(--ink) 6%, transparent);

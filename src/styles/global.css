@@ -1,5 +1,10 @@
 @import "./tokens.css";
 
+/* Las utilidades comunes viven en una capa: así los estilos de cada componente
+   y de cada página siempre las sobrescriben, sin depender del orden en que el
+   empaquetador inyecte las hojas ni de trucos de especificidad. */
+@layer kavan {
+
 *,
 *::before,
 *::after {
@@ -15,7 +20,7 @@ body {
   font-family: var(--font);
   font-size: var(--text-3);
   font-weight: var(--weight-text);
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--ink);
   background: var(--bg-1);
   -webkit-font-smoothing: antialiased;
@@ -24,25 +29,27 @@ body {
 /* Una sola tipología, tres tamaños: h1 = título, h2/h3/h4 = subtítulos, el resto = texto */
 h1, h2, h3, h4 {
   font-family: var(--font);
-  line-height: 1.08;
+  line-height: 1.02;
   margin: 0;
+  text-wrap: balance;
 }
 
 h1 {
   font-size: var(--text-1);
   font-weight: var(--weight-title);
-  letter-spacing: -0.03em;
+  letter-spacing: var(--track-1);
 }
 
 h2, h3, h4 {
   font-size: var(--text-2);
   font-weight: var(--weight-heading);
-  letter-spacing: -0.015em;
+  letter-spacing: var(--track-2);
 }
 
 p {
   margin: 0;
   color: var(--ink-soft);
+  text-wrap: pretty;
 }
 
 a {
@@ -64,50 +71,125 @@ button {
   font-size: var(--text-3);
 }
 
-/* Utilidades compartidas */
+/* ---------- Estructura ---------- */
+
 .container {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 var(--space-4);
+  padding: 0 var(--gutter);
 }
 
+/* Sólo vertical: un mismo elemento suele llevar .section y .container juntos,
+   y el atajo `padding` anularía las calles laterales del contenedor. */
 .section {
-  padding: var(--space-6) 0;
+  padding-block: var(--space-7);
 }
+
+.section-tight {
+  padding-block: var(--space-6);
+}
+
+/* Banda de sección con fondo propio: rompe la monotonía de bloques iguales */
+.band-sand {
+  background: var(--bg-2);
+}
+
+.band-ink {
+  background: var(--ink);
+  color: var(--on-photo);
+}
+
+.band-ink p {
+  color: var(--on-photo-soft);
+}
+
+.band-ink .label {
+  color: color-mix(in srgb, var(--accent-sun) 88%, transparent);
+}
+
+/* ---------- Tipografía de apoyo ---------- */
 
 .label {
   font-family: var(--font);
   font-size: var(--text-3);
   font-weight: var(--weight-heading);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--ink-faint);
+  display: block;
 }
 
-.section-heading {
+/* Medidas de línea generosas: el texto no se rompe cada tres palabras */
+.measure {
+  max-width: var(--measure-text);
+}
+
+.measure-wide {
+  max-width: var(--measure-wide);
+}
+
+/* ---------- Cabecera de sección: rótulo y título a la izquierda, enlace a la derecha ---------- */
+
+.section-head {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
   gap: var(--space-4);
   margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
 }
 
-.section-heading::before,
-.section-heading::after {
-  content: "";
-  height: 1px;
-  background: var(--line);
-  flex: 1;
+.section-head-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: var(--measure-wide);
+}
+
+.section-head h2 {
+  max-width: 20ch;
+}
+
+/* Variante heredada, usada por el resto de páginas: mismo criterio editorial,
+   alineada a la izquierda y sin filetes decorativos a los lados. */
+.section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
 }
 
 .section-heading h2 {
-  text-align: center;
-  white-space: nowrap;
+  text-align: left;
+  max-width: 20ch;
 }
 
-@media (max-width: 640px) {
-  .section-heading h2 {
-    white-space: normal;
-  }
+/* ---------- Enlaces y botones: rectangulares, sin píldoras ---------- */
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  font-size: var(--text-3);
+  color: var(--accent-2);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 4px;
+  transition: color 0.25s, border-color 0.25s, gap 0.25s var(--ease-out);
+}
+
+.link-arrow:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+  gap: var(--space-3);
 }
 
 .btn {
@@ -115,18 +197,14 @@ button {
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  padding: 0.8rem 1.7rem;
-  border-radius: 999px;
+  padding: 1.05rem 2rem;
+  border-radius: var(--radius-s);
   font-family: var(--font);
   font-size: var(--text-3);
   font-weight: var(--weight-heading);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
-  transition: transform 0.25s var(--ease-out), background 0.25s, color 0.25s, border-color 0.25s;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
 
 .btn-primary {
@@ -138,8 +216,18 @@ button {
   background: var(--accent);
 }
 
+.btn-sun {
+  background: var(--accent-sun);
+  color: var(--accent-sun-ink);
+}
+
+.btn-sun:hover {
+  background: var(--ink);
+  color: var(--accent-ink);
+}
+
 .btn-outline {
-  border: 1px solid var(--ink);
+  border: 1px solid var(--line-strong);
   color: var(--ink);
   background: transparent;
 }
@@ -147,13 +235,47 @@ button {
 .btn-outline:hover {
   background: var(--ink);
   color: var(--accent-ink);
+  border-color: var(--ink);
 }
+
+/* Sobre fotografía */
+.btn-ghost {
+  border: 1px solid var(--on-photo-line);
+  color: var(--on-photo);
+  background: transparent;
+}
+
+.btn-ghost:hover {
+  background: var(--on-photo);
+  color: var(--ink);
+}
+
+/* ---------- Superficies ---------- */
 
 .card {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: var(--radius-m);
+  border-radius: var(--radius-s);
   overflow: hidden;
+}
+
+/* Marco de fotografía: filete fino, sin redondeo */
+.frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-3);
+}
+
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rule-dashed {
+  border: 0;
+  border-top: 1px dashed var(--line-strong);
+  margin: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -167,4 +289,6 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
 }

@@ -1,7 +1,7 @@
 .carousel {
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
 .carousel-track {
@@ -10,8 +10,7 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  flex: 1;
-  padding: 4px;
+  padding-bottom: 2px;
 }
 
 .carousel-track::-webkit-scrollbar {
@@ -23,17 +22,27 @@
   flex: 0 0 calc((100% - 48px) / 3);
 }
 
+/* Controles cuadrados al pie, alineados a la derecha */
+.carousel-nav {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
 .carousel-arrow {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
   color: var(--ink);
-  padding: var(--space-2);
-  border-radius: 50%;
-  transition: color 0.2s, transform 0.2s;
-  flex-shrink: 0;
+  border: 1px solid var(--line-strong);
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
 
 .carousel-arrow:hover {
-  color: var(--accent);
-  transform: scale(1.15);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--accent-ink);
 }
 
 @media (max-width: 960px) {

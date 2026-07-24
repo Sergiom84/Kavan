@@ -7,7 +7,7 @@ export function AdvisorButton() {
   return (
     <div className="advisor">
       {open && (
-        <div className="advisor-menu card">
+        <div className="advisor-menu">
           <a
             href="https://wa.me/34600000000"
             target="_blank"

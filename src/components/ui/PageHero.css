@@ -3,39 +3,43 @@
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  margin-top: -72px; /* debajo de la cabecera sticky transparente */
 }
 
-.page-hero-s { min-height: 320px; }
-.page-hero-m { min-height: 55vh; }
-.page-hero-l { min-height: 86vh; }
+.page-hero-s { min-height: 46vh; }
+.page-hero-m { min-height: 64vh; }
+.page-hero-l { min-height: 88vh; }
 
 .page-hero-media {
   position: absolute;
   inset: 0;
 }
 
+/* Lateral para asentar el texto, inferior para el remate */
 .page-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(43, 33, 24, 0.18) 0%, rgba(43, 33, 24, 0.05) 45%, rgba(43, 33, 24, 0.55) 100%);
+  background:
+    linear-gradient(95deg, rgba(28, 21, 15, 0.74) 0%, rgba(28, 21, 15, 0.38) 45%, rgba(28, 21, 15, 0.05) 78%),
+    linear-gradient(to top, rgba(28, 21, 15, 0.68) 0%, transparent 42%);
 }
 
 .page-hero-content {
   position: relative;
   width: 100%;
-  padding-top: var(--space-7);
-  padding-bottom: var(--space-5);
-  color: var(--accent-ink);
+  /* Deja sitio a la cabecera fija */
+  padding-top: 150px;
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--on-photo);
 }
 
 .page-hero-content h1 {
-  text-wrap: balance;
+  max-width: 16ch;
 }
 
 .page-hero-subtitle {
-  margin-top: var(--space-3);
-  max-width: 560px;
-  color: rgba(248, 243, 234, 0.92);
-  font-size: var(--text-2);
+  margin-top: var(--space-4);
+  max-width: 54ch;
+  color: var(--on-photo-soft);
+  font-size: clamp(1.05rem, 1.2vw, 1.3rem);
+  line-height: 1.6;
 }

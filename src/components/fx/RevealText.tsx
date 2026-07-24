@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { armarRefrescoScroll } from '../../lib/scroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -24,6 +25,7 @@ export function Reveal({
   useLayoutEffect(() => {
     const el = ref.current
     if (!el || reduced()) return
+    armarRefrescoScroll()
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el,
@@ -34,7 +36,7 @@ export function Reveal({
           duration: 0.9,
           delay,
           ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          scrollTrigger: { trigger: el, start: 'top 92%', once: true },
         },
       )
     })
@@ -63,6 +65,7 @@ export function RevealGroup({
   useLayoutEffect(() => {
     const el = ref.current
     if (!el || reduced()) return
+    armarRefrescoScroll()
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el.children,
@@ -73,7 +76,7 @@ export function RevealGroup({
           duration: 0.8,
           stagger,
           ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 86%', once: true },
+          scrollTrigger: { trigger: el, start: 'top 92%', once: true },
         },
       )
     })

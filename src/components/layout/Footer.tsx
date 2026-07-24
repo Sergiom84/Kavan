@@ -7,6 +7,7 @@ const legal = [
   { label: 'Privacidad', to: '/privacidad' },
   { label: 'Política de cookies', to: '/cookies' },
   { label: 'Política de insolvencia', to: '/insolvencia' },
+  { label: 'Créditos fotográficos', to: '/creditos' },
 ]
 
 const MARQUEE_WORDS = ['Marruecos', 'Sáhara', 'Kasbahs', 'Dunas', 'Marrakech', 'Kavan']

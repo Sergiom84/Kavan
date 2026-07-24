@@ -1,7 +1,7 @@
 import { useRef, type ReactNode } from 'react'
 import './Carousel.css'
 
-/** Carrusel horizontal con flechas: N tarjetas visibles, desplazamiento por tarjeta. */
+/** Carrusel horizontal: el carril ocupa todo el ancho y los controles van al pie. */
 export function Carousel({ children, className }: { children: ReactNode; className?: string }) {
   const trackRef = useRef<HTMLDivElement>(null)
 
@@ -15,19 +15,22 @@ export function Carousel({ children, className }: { children: ReactNode; classNa
 
   return (
     <div className={`carousel ${className ?? ''}`}>
-      <button className="carousel-arrow" aria-label="Anterior" onClick={() => scrollBy(-1)}>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-          <path d="M15 5l-7 7 7 7" />
-        </svg>
-      </button>
       <div className="carousel-track" ref={trackRef}>
         {children}
       </div>
-      <button className="carousel-arrow" aria-label="Siguiente" onClick={() => scrollBy(1)}>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-          <path d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+
+      <div className="carousel-nav">
+        <button className="carousel-arrow" aria-label="Anterior" onClick={() => scrollBy(-1)}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+            <path d="M15 5l-7 7 7 7" />
+          </svg>
+        </button>
+        <button className="carousel-arrow" aria-label="Siguiente" onClick={() => scrollBy(1)}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
     </div>
   )
 }

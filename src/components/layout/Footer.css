@@ -1,25 +1,24 @@
 .site-footer {
-  margin-top: var(--space-7);
-  background: var(--accent-sun);
-  color: var(--accent-sun-ink);
-  border-top-left-radius: var(--radius-l);
-  border-top-right-radius: var(--radius-l);
+  margin-top: var(--space-6);
+  background: var(--ink);
+  color: var(--on-photo);
   overflow: hidden;
-  padding-bottom: var(--space-4);
+  padding-bottom: var(--space-5);
 }
+
+/* ---------- Cinta de palabras ---------- */
 
 .footer-marquee {
   overflow: hidden;
-  padding: var(--space-4) 0 var(--space-6);
-  border-bottom: 1px solid color-mix(in srgb, var(--accent-sun-ink) 18%, transparent);
-  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  padding: var(--space-6) 0 var(--space-5);
+  mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 }
 
 .footer-marquee-track {
   display: flex;
   width: max-content;
   gap: var(--space-5);
-  animation: footer-marquee 32s linear infinite;
+  animation: footer-marquee 42s linear infinite;
 }
 
 .footer-marquee-track span {
@@ -29,15 +28,18 @@
   font-family: var(--font);
   font-size: var(--text-1);
   font-weight: var(--weight-title);
-  letter-spacing: -0.03em;
+  letter-spacing: var(--track-1);
   white-space: nowrap;
+  /* Tipografía en contorno: presencia sin peso */
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--on-photo) 42%, transparent);
 }
 
 .footer-marquee-dot {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--accent-sun-ink) 55%, transparent);
+  background: var(--accent-sun);
   flex-shrink: 0;
 }
 
@@ -46,45 +48,55 @@
   to { transform: translateX(-33.3333%); }
 }
 
+/* ---------- Datos ---------- */
+
 .footer-top {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1.6fr 1fr 1fr;
   gap: var(--space-5);
   padding: var(--space-5) 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--accent-sun-ink) 18%, transparent);
+  border-top: 1px dashed color-mix(in srgb, var(--on-photo) 26%, transparent);
+  border-bottom: 1px dashed color-mix(in srgb, var(--on-photo) 26%, transparent);
 }
 
 .footer-title {
   font-family: var(--font);
   font-size: var(--text-2);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--track-2);
   display: block;
   margin-bottom: var(--space-2);
 }
 
 .footer-brand p {
-  color: color-mix(in srgb, var(--accent-sun-ink) 72%, transparent);
+  color: var(--on-photo-soft);
+  max-width: 34ch;
 }
 
 .footer-contact,
 .footer-social {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-2);
 }
 
 .footer-contact a,
 .footer-social a {
-  color: color-mix(in srgb, var(--accent-sun-ink) 88%, transparent);
-  transition: opacity 0.2s;
+  color: var(--on-photo-soft);
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s, border-color 0.25s;
 }
 
 .footer-contact a:hover,
 .footer-social a:hover {
-  opacity: 0.6;
+  color: var(--on-photo);
+  border-bottom-color: var(--accent-sun);
 }
 
 .site-footer .label {
-  color: color-mix(in srgb, var(--accent-sun-ink) 55%, transparent);
+  color: color-mix(in srgb, var(--accent-sun) 82%, transparent);
+  margin-bottom: var(--space-1);
 }
 
 .footer-legal {
@@ -97,12 +109,12 @@
 }
 
 .footer-legal a {
-  color: color-mix(in srgb, var(--accent-sun-ink) 65%, transparent);
-  transition: color 0.2s;
+  color: color-mix(in srgb, var(--on-photo) 52%, transparent);
+  transition: color 0.25s;
 }
 
 .footer-legal a:hover {
-  color: var(--accent-sun-ink);
+  color: var(--on-photo);
 }
 
 @media (max-width: 760px) {

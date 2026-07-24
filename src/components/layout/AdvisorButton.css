@@ -1,42 +1,45 @@
 .advisor {
   position: fixed;
-  right: var(--space-4);
-  bottom: var(--space-4);
+  right: 0;
+  bottom: 0;
   z-index: 60;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-2);
+  align-items: stretch;
 }
 
+/* Rótulo anclado a la esquina, en el mismo lenguaje recto del resto */
 .advisor-toggle {
-  padding: 0.85rem 1.5rem;
-  border-radius: 999px;
-  background: var(--accent);
+  padding: 1rem 1.6rem;
+  background: var(--ink);
   color: var(--accent-ink);
   font-size: var(--text-3);
-  letter-spacing: 0.08em;
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
-  box-shadow: var(--shadow-card);
-  transition: transform 0.25s var(--ease-out), background 0.25s;
+  text-align: center;
+  transition: background 0.25s, color 0.25s;
 }
 
 .advisor-toggle:hover {
-  transform: translateY(-2px);
-  background: var(--ink);
+  background: var(--accent-sun);
+  color: var(--accent-sun-ink);
 }
 
 .advisor-menu {
   display: flex;
   flex-direction: column;
-  min-width: 180px;
+  min-width: 200px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-bottom: 0;
 }
 
 .advisor-option {
-  padding: 0.85rem 1.2rem;
+  padding: 0.9rem 1.6rem;
   font-family: var(--font);
   font-size: var(--text-3);
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
 .advisor-option + .advisor-option {
@@ -45,4 +48,12 @@
 
 .advisor-option:hover {
   background: var(--bg-2);
+  color: var(--accent-2);
+}
+
+@media (max-width: 620px) {
+  .advisor-toggle {
+    padding: 0.8rem 1.1rem;
+    font-size: 0.78rem;
+  }
 }

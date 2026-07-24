@@ -10,24 +10,21 @@ export function PackCard({ pack, showCities = true }: { pack: Pack; showCities?:
   const cityNames = pack.citySlugs
     .map((s) => cities.find((c) => c.slug === s)?.name)
     .filter(Boolean)
-    .join(', ')
+    .join(' · ')
 
   return (
-    <Link to={`/packs/${pack.slug}`} className="pack-card card">
+    <Link to={`/packs/${pack.slug}`} className="pack-card">
       <div className="pack-card-media">
         <Pic src={pack.heroImageUrl} alt={pack.title} />
+        <span className="pack-card-tag">Desde {formatPrice(pack.priceFrom)}</span>
       </div>
       <div className="pack-card-body">
         <h3 className="pack-card-title">{pack.title}</h3>
         <p className="pack-card-subtitle">{pack.subtitle}</p>
-        <div className="pack-card-price">
-          <span className="label">Salida desde</span>
-          <strong>{formatPrice(pack.priceFrom)}</strong>
-        </div>
         {showCities && (
           <p className="pack-card-cities">
             <span className="label">Visitando</span>
-            {cityNames}
+            <strong>{cityNames}</strong>
           </p>
         )}
       </div>
