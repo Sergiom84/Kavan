@@ -32,11 +32,12 @@ export function Footer() {
             <span className="footer-title">Kavan</span>
             <p>Viajes a Marruecos diseñados a tu medida.</p>
           </div>
+          {/* Contacto y redes en una sola línea, no en columnas apiladas */}
           <div className="footer-contact">
             <span className="label">Contacto</span>
             <a href="mailto:info@kavanviajes.com">info@kavanviajes.com</a>
             <a href="https://wa.me/34600000000" target="_blank" rel="noreferrer">
-              WhatsApp +34 600 000 000
+              +34 600 000 000
             </a>
           </div>
           <div className="footer-social">

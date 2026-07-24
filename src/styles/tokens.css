@@ -92,6 +92,7 @@
      .l1-rg 0.75rem. Los rem escalan solos con el viewport. */
   --text-wordmark: 17rem;  /* 272px — el logotipo gigante del hero */
   --text-display: 4rem;    /*  64px — frases de sección a tamaño grande */
+  --text-lead: 2.25rem;    /*  36px — frases largas sobre fotografía */
   --text-number: 5rem;     /*  80px — cifras sueltas */
   --text-1: 3rem;          /*  48px — .h1 */
   --text-2: 1.5rem;        /*  24px — .h2 y prosa destacada */
@@ -182,6 +183,7 @@
 
     --text-wordmark: 4.5rem;
     --text-display: 2rem;
+    --text-lead: 1.375rem;
     --text-number: 3rem;
     --text-1: 2rem;
     --text-2: 1.25rem;

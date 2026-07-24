@@ -17,7 +17,7 @@ type Props = {
   text: string
   as?: 'h1' | 'h2' | 'h3' | 'p'
   align?: 'left' | 'center'
-  size?: 'display' | 'wordmark'
+  size?: 'display' | 'lead' | 'wordmark'
   className?: string
 }
 

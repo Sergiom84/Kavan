@@ -2,18 +2,22 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router'
 import './Header.css'
 
+/* Navegación del wireframe. `boxed` marca el enlace que va en caja, como el
+   botón de "Elegir viaje".
+
+   Nota: /nosotros y /contacto todavía no existen como páginas. Hasta que se
+   creen, "Nosotros" apunta a Consejos y "Contacto" abre el correo. */
 const links = [
-  { to: '/packs', label: 'Packs' },
+  { to: '/', label: 'Inicio', end: true },
+  { to: '/packs', label: 'Packs', boxed: true },
   { to: '/destinos', label: 'Destinos' },
-  { to: '/puntos-de-interes', label: 'Puntos de interés' },
-  { to: '/consejos', label: 'Consejos' },
+  { to: '/consejos', label: 'Nosotros' },
 ]
 
 /**
- * Cabecera de tres zonas con el logotipo centrado, como en Horizonte:
- * a la izquierda el menú y las dos acciones principales, en el centro la
- * marca, y a la derecha el contacto. Sobre la portada va en claro y sin
- * fondo; en cuanto se abandona, pasa a crema opaco.
+ * Cabecera del wireframe: marca a la izquierda, navegación y menú a la
+ * derecha. Sobre la portada va en claro y sin fondo; al abandonarla pasa a
+ * crema opaco.
  */
 export function Header() {
   const [open, setOpen] = useState(false)
@@ -36,8 +40,31 @@ export function Header() {
   return (
     <header className={`site-header ${solid ? 'is-solid' : ''} ${open ? 'is-open' : ''}`}>
       <div className="site-header-inner">
-        {/* Izquierda: menú + acciones */}
-        <div className="site-header-left">
+        <Link to="/" className="brand" onClick={() => setOpen(false)}>
+          <span className="brand-name">Kavan</span>
+          <span className="brand-tag label">Viajes a Marruecos</span>
+        </Link>
+
+        <div className="site-header-right">
+          <nav className="site-nav">
+            {links.map((l) => (
+              <NavLink
+                key={l.label}
+                to={l.to}
+                end={l.end}
+                onClick={() => setOpen(false)}
+                className={({ isActive }) =>
+                  `${l.boxed ? 'nav-boxed' : ''} ${isActive ? 'is-active' : ''}`
+                }
+              >
+                <span className="label">{l.label}</span>
+              </NavLink>
+            ))}
+            <a href="mailto:info@kavanviajes.com" onClick={() => setOpen(false)}>
+              <span className="label">Contacto</span>
+            </a>
+          </nav>
+
           <button
             className="menu-button"
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
@@ -48,47 +75,29 @@ export function Header() {
               <span />
               <span />
             </span>
-            <span className="label">Menú</span>
           </button>
-
-          <Link to="/packs" className="header-cta" onClick={() => setOpen(false)}>
-            <span className="label">Elegir viaje</span>
-          </Link>
-
-          <Link to="/destinos" className="header-link" onClick={() => setOpen(false)}>
-            <span className="label">Mapa de destinos</span>
-          </Link>
-        </div>
-
-        {/* Centro: la marca */}
-        <Link to="/" className="brand" onClick={() => setOpen(false)}>
-          <span className="brand-name">Kavan</span>
-        </Link>
-
-        {/* Derecha: contacto */}
-        <div className="site-header-right">
-          <a href="tel:+34600000000" className="header-link">
-            <span className="label">+34 600 000 000</span>
-          </a>
-          <span className="header-divider" aria-hidden="true" />
-          <a href="mailto:info@kavanviajes.com" className="header-link">
-            <span className="label">Contacto</span>
-          </a>
         </div>
       </div>
 
-      {/* Panel de navegación a pantalla completa */}
-      <nav className="site-nav">
+      {/* Panel a pantalla completa para móvil y para el botón de menú */}
+      <nav className="site-menu">
         {links.map((l) => (
           <NavLink
-            key={l.to}
+            key={l.label}
             to={l.to}
+            end={l.end}
             onClick={() => setOpen(false)}
             className={({ isActive }) => (isActive ? 'is-active' : '')}
           >
             {l.label}
           </NavLink>
         ))}
+        <NavLink to="/puntos-de-interes" onClick={() => setOpen(false)}>
+          Puntos de interés
+        </NavLink>
+        <a href="mailto:info@kavanviajes.com" onClick={() => setOpen(false)}>
+          Contacto
+        </a>
       </nav>
     </header>
   )

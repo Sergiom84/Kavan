@@ -1,9 +1,6 @@
 /* ============================================================
-   Home con el ritmo de Horizonte Village.
-
-   La regla que gobierna la página: cada bloque ocupa una pantalla
-   y sólo lleva una idea. La fotografía va a sangre, el texto se
-   apoya encima, y entre bloque y bloque hay vacío de verdad.
+   Home según el wireframe:
+   cabecera · hero · bloque informativo · Marruecos · packs · pie
    ============================================================ */
 
 /* ---------- Velo compartido ----------
@@ -18,7 +15,7 @@
   background-position: top, bottom;
 }
 
-/* ---------- Portada ---------- */
+/* ---------- Hero ---------- */
 
 .hz-hero {
   position: relative;
@@ -28,15 +25,13 @@
 }
 
 .hz-hero-media,
-.hz-claim-media,
-.hz-location-media {
+.hz-claim-media {
   position: absolute;
   inset: 0;
 }
 
 .hz-hero-media img,
-.hz-claim-media img,
-.hz-location-media img {
+.hz-claim-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -51,9 +46,7 @@
   color: var(--on-photo);
 }
 
-/* El logotipo estirado de borde a borde. Es lo primero que se ve del
-   original y lo que fija el tono: una sola palabra, finísima, ocupando
-   todo el ancho. */
+/* El logotipo repartido de borde a borde. */
 .hz-wordmark {
   color: var(--on-photo);
   padding: 0 var(--padding);
@@ -62,8 +55,7 @@
   width: 100%;
 }
 
-/* Todo el pie de portada se apoya abajo a la izquierda, como en el original:
-   el párrafo, y debajo las pastillas de categoría.
+/* El pie de portada se apoya abajo a la izquierda.
 
    width: 100% es obligatorio — .container lleva margin: 0 auto, y en un
    contenedor flex un margen auto encoge el elemento a su contenido en vez
@@ -75,12 +67,6 @@
   align-items: flex-start;
   gap: var(--space-5);
   padding-bottom: var(--space-6);
-}
-
-.hz-hero-actions {
-  display: flex;
-  align-items: stretch;
-  gap: var(--space-3);
 }
 
 .hz-hero-lede {
@@ -124,288 +110,125 @@
   color: var(--ink);
 }
 
-/* ---------- Claim sobre fotografía ---------- */
+/* ---------- Bloque informativo ----------
+   Dos cajas iguales, icono arriba y texto centrado, como en el wireframe. */
+
+.hz-help-section {
+  padding-block: var(--space-6);
+}
+
+.hz-help {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.hz-help-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  border: 1px solid var(--line);
+  transition: background-color var(--dur-md) var(--easing),
+              border-color var(--dur-md) var(--easing);
+}
+
+.hz-help-item:hover {
+  background: var(--bg-2);
+  border-color: var(--line-strong);
+}
+
+.hz-help-icon {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  color: var(--ink);
+}
+
+.hz-help-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hz-help-item h3 {
+  margin: 0;
+}
+
+.hz-help-item p {
+  font-size: var(--text-body);
+  max-width: 32ch;
+}
+
+.hz-help-arrow {
+  margin-top: var(--space-2);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 0.25rem;
+  transition: border-color var(--dur-md) var(--easing);
+}
+
+.hz-help-item:hover .hz-help-arrow {
+  border-color: var(--ink);
+}
+
+/* ---------- Marruecos sobre fotografía ---------- */
 
 .hz-claim {
   position: relative;
-  height: 100svh;
-  min-height: 36rem;
+  min-height: var(--section-mid);
   overflow: hidden;
   display: grid;
   place-items: center;
+  padding-block: var(--space-7);
 }
 
 .hz-claim-inner {
   position: relative;
   padding: 0 var(--padding);
-  max-width: 62rem;
+  max-width: 68rem;
 }
 
 .hz-claim-title {
   color: var(--on-photo);
 }
 
-/* ---------- Concepto ----------
-   Una sección casi vacía. El aire es el contenido. */
-
-.hz-concept {
-  background: var(--bg-1);
-  min-height: var(--section-mid);
-  display: grid;
-  place-items: center;
-  padding: var(--space-7) var(--padding);
-  text-align: center;
-}
-
-.hz-concept-inner {
-  max-width: 48rem;
-}
-
-.hz-eyebrow {
-  margin-bottom: var(--space-6);
-}
-
-.hz-concept-text {
-  font-family: var(--font-display);
-  font-size: var(--text-2);
-  font-weight: var(--weight-text);
-  line-height: 1.4;
-  color: var(--ink);
-}
-
-/* ---------- Ubicación ---------- */
-
-.hz-location {
-  position: relative;
-  min-height: var(--section-tall);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-/* La foto queda al fondo, muy lavada: el protagonista es el titular. */
-.hz-location-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: color-mix(in srgb, var(--bg-1) 82%, transparent);
-}
-
-.hz-location-inner {
-  position: relative;
-  width: 100%;
-  padding-block: var(--space-7);
-}
-
-.hz-location-title {
-  max-width: 32rem;
-}
-
-.hz-location-cta {
-  margin-top: var(--space-5);
-}
-
-.hz-location-tag {
-  position: absolute;
-  top: var(--space-7);
-  right: var(--padding);
-}
-
-/* ---------- Cifras ---------- */
-
-.hz-figures {
-  background: var(--bg-1);
-  padding-block: var(--space-7);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.hz-figures::-webkit-scrollbar {
-  display: none;
-}
-
-.hz-figures-track {
-  display: flex;
-  gap: 1px;
-  padding: 0 var(--padding);
-  background: var(--line);
-  border-block: 1px solid var(--line);
-}
-
-.hz-figure {
-  flex: 0 0 21rem;
-  background: var(--bg-2);
-  padding: var(--space-4) var(--space-4) var(--space-6);
-}
-
-.hz-figure-head {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-}
-
-/* El número gigante en serif fina es el recurso más reconocible del
-   original después del logotipo. */
-.hz-figure-value {
-  font-family: var(--font-display);
-  font-size: var(--text-number);
-  font-weight: var(--weight-title);
-  line-height: 0.8;
-  letter-spacing: var(--track-1);
-  color: var(--ink);
-}
-
-.hz-figure-unit {
-  padding-top: 0.5rem;
-}
-
-.hz-figure-detail {
-  margin-top: var(--space-6);
-  font-size: var(--text-body);
-  color: var(--ink);
-}
-
-/* ---------- Claim sobre crema ---------- */
-
-.hz-statement {
-  background: var(--bg-1);
-  min-height: var(--section-mid);
-  display: grid;
-  place-items: center;
-  padding: var(--space-7) var(--padding);
-}
-
-.hz-statement-title {
-  max-width: 56rem;
-  color: var(--ink);
-}
-
-/* ---------- Viajes ---------- */
+/* ---------- Viajes más deseados ----------
+   Aire justo: el carrusel no necesita separarse tanto como una sección
+   de portada. */
 
 .hz-packs {
   background: var(--bg-1);
-  padding-block: var(--space-7);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-5);
 }
 
 .hz-packs-head {
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--space-5);
+}
+
+.hz-eyebrow {
+  display: block;
+}
+
+/* "Ver todos" centrado bajo el carrusel, como en el wireframe. */
+.hz-packs-foot {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--line);
-  margin-bottom: var(--space-6);
-}
-
-.hz-packs-head .hz-eyebrow {
-  margin-bottom: 0;
-}
-
-/* ---------- Ayuda ---------- */
-
-.hz-help-section {
-  padding-block: var(--space-7);
-}
-
-.hz-help {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--line);
-}
-
-.hz-help-item {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: start;
-  gap: var(--space-4);
-  padding: var(--space-5) var(--space-5) var(--space-6) 0;
-  border-bottom: 1px solid var(--line);
-  transition: background-color var(--dur-md) var(--easing);
-}
-
-.hz-help-item + .hz-help-item {
-  padding-left: var(--space-5);
-  border-left: 1px solid var(--line);
-}
-
-.hz-help-item:hover {
-  background: var(--bg-2);
-}
-
-.hz-help-n {
-  padding-top: 0.4rem;
-}
-
-.hz-help-body h3 {
-  margin-bottom: var(--space-3);
-}
-
-.hz-help-body p {
-  font-size: var(--text-body);
-  max-width: var(--measure-text);
-}
-
-.hz-help-arrow {
-  transition: transform var(--dur-md) var(--easing);
-}
-
-.hz-help-item:hover .hz-help-arrow {
-  transform: translateX(0.5rem);
-}
-
-/* ---------- Botón de vídeo ---------- */
-
-.hz-video-cta {
-  border: 1px solid var(--on-photo-line);
-  padding: 0 1.25rem;
-  transition: background-color var(--dur-md) var(--easing);
-}
-
-.hz-video-cta .label {
-  color: var(--on-photo);
-}
-
-.hz-video-cta:hover {
-  background: var(--on-photo);
-}
-
-.hz-video-cta:hover .label {
-  color: var(--ink);
+  justify-content: center;
+  margin-top: var(--space-4);
 }
 
 /* ---------- Móvil ---------- */
 
 @media (max-width: 1023px) {
-  .hz-hero-foot {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-4);
-  }
-
   .hz-hero-lede {
     max-width: none;
   }
 
-  .hz-location {
-    min-height: 0;
-  }
-
-  .hz-location-tag {
-    position: static;
-    display: block;
-    margin-top: var(--space-5);
-  }
-
-  .hz-figure {
-    flex-basis: 15rem;
-  }
-
   .hz-help {
     grid-template-columns: 1fr;
-  }
-
-  .hz-help-item + .hz-help-item {
-    padding-left: 0;
-    border-left: 0;
   }
 }

@@ -6,7 +6,7 @@
 
 .carousel-track {
   display: flex;
-  gap: 24px;
+  gap: var(--space-4);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -17,9 +17,13 @@
   display: none;
 }
 
+/* Tres tarjetas visibles descontando los dos huecos. El cálculo va con el
+   token de espaciado, no con un 24px suelto, para que no se descuadre
+   cuando la página escala. */
 .carousel-item {
   scroll-snap-align: start;
-  flex: 0 0 calc((100% - 48px) / 3);
+  flex: 0 0 calc((100% - var(--space-4) * 2) / 3);
+  min-width: 0;
 }
 
 /* Controles cuadrados al pie, alineados a la derecha */
@@ -32,11 +36,13 @@
 .carousel-arrow {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: 2.875rem;
+  height: 2.875rem;
   color: var(--ink);
   border: 1px solid var(--line-strong);
-  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  transition: background-color var(--dur-md) var(--easing),
+              color var(--dur-md) var(--easing),
+              border-color var(--dur-md) var(--easing);
 }
 
 .carousel-arrow:hover {
@@ -47,7 +53,7 @@
 
 @media (max-width: 960px) {
   .carousel-item {
-    flex: 0 0 calc((100% - 24px) / 2);
+    flex: 0 0 calc((100% - var(--space-4)) / 2);
   }
 }
 

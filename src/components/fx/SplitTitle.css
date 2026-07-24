@@ -12,6 +12,13 @@
   font-size: var(--text-display);
 }
 
+/* Tamaño intermedio para párrafos largos que aun así deben leerse como
+   titular: mantiene el recurso de tamaños mezclados sin comerse la pantalla. */
+.split-title--lead {
+  font-size: var(--text-lead);
+  line-height: 1.12;
+}
+
 /* El logotipo del hero: una sola palabra repartida de borde a borde. Cada
    letra es un elemento y flex reparte el hueco, así que llena el ancho sea
    cual sea el tamaño de pantalla. */
