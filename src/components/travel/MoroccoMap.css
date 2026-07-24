@@ -1,184 +1,93 @@
-/* Mapa de Marruecos con las ciudades del catálogo.
-   El dibujo es plano y en un solo tono: la chincheta debe destacar sobre él,
-   no competir. */
+/* Mapa de Marruecos. La imagen va a sangre y las zonas activas son
+   invisibles: la chincheta ya está dibujada, aquí sólo se le da vida. */
 
 .mmap {
   background: var(--bg-1);
-  padding-block: var(--space-6) var(--space-7);
+  padding-bottom: var(--space-6);
 }
 
-.mmap-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--line);
-  margin-bottom: var(--space-6);
-}
-
-.mmap-region {
-  color: var(--ink-faint);
-}
-
-/* ---------- Lienzo ---------- */
-
-/* El mapa se limita en alto: a ancho completo el país se convierte en una
-   mancha y deja de leerse como mapa. */
 .mmap-canvas {
   position: relative;
-  aspect-ratio: 1000 / 620;
   width: 100%;
-  max-height: 34rem;
-  max-width: calc(34rem * 1000 / 620);
-  margin: 0 auto;
+  line-height: 0;
 }
 
-/* Los bordes este y sur del dibujo son el recorte del recuadro, no una
-   frontera real. Se disuelven con una máscara para que no se lean como tal:
-   sólo la costa, que sí es real, queda dibujada con nitidez. */
-.mmap-shape {
+.mmap-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Zonas activas ---------- */
+
+.mmap-hit {
   position: absolute;
-  inset: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  transform: translate(-50%, -50%);
+  border-radius: var(--radius-round);
+  display: grid;
+  place-items: center;
+}
+
+/* Anillo que late al señalar, el mismo gesto que el botón de asesoría. */
+.mmap-ring {
   width: 100%;
   height: 100%;
-  mask-image: linear-gradient(to right, #000 62%, transparent 97%),
-              linear-gradient(to bottom, #000 66%, transparent 98%);
-  mask-composite: intersect;
-  -webkit-mask-image: linear-gradient(to right, #000 62%, transparent 97%),
-                      linear-gradient(to bottom, #000 66%, transparent 98%);
-  -webkit-mask-composite: source-in;
-}
-
-.mmap-shape path {
-  fill: color-mix(in srgb, var(--ink) 7%, transparent);
-  stroke: var(--line-strong);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-
-/* ---------- Referencias sin enlace ---------- */
-
-.mmap-ref {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  color: var(--ink-faint);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-/* ---------- Chinchetas ---------- */
-
-.mmap-pin {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  white-space: nowrap;
-}
-
-/* Rótulo por encima del punto, para las ciudades que caen juntas */
-.mmap-pin--arriba {
-  flex-direction: column-reverse;
-}
-
-.mmap-dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: var(--radius-round);
-  background: var(--ink);
-  transition: transform var(--dur-md) var(--easing);
-}
-
-/* Anillo que late al señalar la ciudad, el mismo gesto del botón de asesoría */
-.mmap-pin::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin: -1rem 0 0 -1.25rem;
   border: 1px solid var(--ink);
   border-radius: var(--radius-round);
   opacity: 0;
-  transform: scale(0.4);
+  transform: scale(0.45);
   transition: opacity var(--dur-lg) var(--easing),
               transform var(--dur-lg) var(--easing);
-  pointer-events: none;
 }
 
-.mmap-pin:hover::before,
-.mmap-pin:focus-visible::before,
-.mmap-pin.is-active::before {
-  opacity: 0.45;
+.mmap-hit:hover .mmap-ring,
+.mmap-hit:focus-visible .mmap-ring,
+.mmap-hit.is-active .mmap-ring {
+  opacity: 0.55;
   transform: scale(1);
 }
 
-.mmap-pin:hover .mmap-dot,
-.mmap-pin.is-active .mmap-dot {
-  transform: scale(1.4);
+.mmap-hit:focus-visible {
+  outline: none;
 }
 
-.mmap-name {
-  font-family: var(--font-display);
-  font-size: var(--text-2);
-  font-weight: var(--weight-title);
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: var(--track-2);
-  color: var(--ink);
-  opacity: 0.75;
-  transition: opacity var(--dur-md) var(--easing);
-}
+/* ---------- Ficha ---------- */
 
-.mmap-pin:hover .mmap-name,
-.mmap-pin.is-active .mmap-name {
-  opacity: 1;
-}
-
-/* ---------- Vista previa ----------
-   Se apoya en la esquina libre del mapa, que en Marruecos es el Atlántico. */
-
-.mmap-preview {
+.mmap-card {
   position: absolute;
-  left: 0;
-  top: 0;
+  z-index: var(--z-base);
   width: 17rem;
   padding: var(--space-3);
   background: var(--bg-2);
-  border: 1px solid var(--line);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(0.75rem);
-  transition: opacity var(--dur-md) var(--easing),
-              transform var(--dur-md) var(--easing),
-              visibility var(--dur-md);
+  border: 1px solid var(--line-strong);
+  line-height: var(--leading-body);
+  /* Se apoya encima de la chincheta, separada por el alto del anillo. */
+  transform: translate(-50%, calc(-100% - 2.5rem));
   pointer-events: none;
+  animation: mmap-card-in var(--dur-md) var(--easing) both;
 }
 
-.mmap-preview.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+@keyframes mmap-card-in {
+  from { opacity: 0; transform: translate(-50%, calc(-100% - 1.75rem)); }
+  to   { opacity: 1; transform: translate(-50%, calc(-100% - 2.5rem)); }
 }
 
-.mmap-preview-photo {
+.mmap-card-photo {
   aspect-ratio: 4 / 3;
   margin-bottom: var(--space-3);
 }
 
-.mmap-preview h3 {
+.mmap-card h3 {
   margin-bottom: var(--space-2);
 }
 
-.mmap-preview p {
+.mmap-card p {
   font-size: var(--text-body);
 }
 
-.mmap-preview-cta {
+.mmap-card-cta {
   margin-top: var(--space-3);
   color: var(--ink);
   border-bottom: 1px solid var(--line-strong);
@@ -186,13 +95,11 @@
   display: inline-block;
 }
 
-/* ---------- Listado ----------
-   Alternativa al mapa: sirve con teclado, con lector de pantalla y en móvil,
-   donde las chinchetas quedan demasiado juntas. */
+/* ---------- Listado ---------- */
 
 .mmap-list {
   list-style: none;
-  margin: var(--space-6) 0 0;
+  margin: var(--space-5) 0 0;
   padding: var(--space-4) 0 0;
   border-top: 1px solid var(--line);
   display: flex;
@@ -213,18 +120,18 @@
 }
 
 /* ---------- Móvil ----------
-   Las seis ciudades caen muy juntas en el sur; a este tamaño el mapa deja de
-   ser legible, así que se oculta y manda el listado. */
+   A este ancho las seis ciudades caen unas encima de otras y la ficha no
+   cabe: se dejan las zonas activas fuera y manda el listado. */
 
 @media (max-width: 1023px) {
-  .mmap-canvas {
+  .mmap-hit,
+  .mmap-card {
     display: none;
   }
+}
 
-  .mmap-list {
-    margin-top: 0;
-    border-top: 0;
-    flex-direction: column;
-    gap: var(--space-3);
+@media (prefers-reduced-motion: reduce) {
+  .mmap-card {
+    animation: none;
   }
 }

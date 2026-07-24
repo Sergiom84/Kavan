@@ -6,35 +6,96 @@
   height: 100%;
 }
 
+/* ---------- Inclinación ----------
+   El escenario aporta la perspectiva; la tarjeta gira dentro de él siguiendo
+   al cursor. Las variables las escribe el componente en cada movimiento. */
+
+.pack-card-stage {
+  perspective: 900px;
+}
+
 .pack-card-media {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+
+  position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
   background: var(--bg-3);
-  position: relative;
+  border-radius: 0.75rem;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  will-change: transform;
+  /* Lento al volver a su sitio, rápido mientras sigue al cursor: el retorno
+     se nota como un muelle y el seguimiento no arrastra. */
+  transition: transform var(--dur-lg) var(--easing);
+}
+
+.pack-card-stage:hover .pack-card-media {
+  transition: transform 0.12s linear;
 }
 
 /* Las fotos de paisaje traen mucho cielo: bajamos el encuadre hacia el terreno */
 .pack-card-media img {
   object-position: 50% 62%;
-  transition: transform 0.8s var(--ease-out);
+  transform: scale(1.06);
+  transition: transform var(--dur-xl) var(--easing);
 }
 
 .pack-card:hover .pack-card-media img {
-  transform: scale(1.06);
+  transform: scale(1.12);
 }
 
-/* Precio sobre la fotografía, en la esquina inferior */
+/* ---------- Filete interior ---------- */
+
+.pack-card-inline {
+  position: absolute;
+  inset: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 0.375rem;
+  pointer-events: none;
+}
+
+/* ---------- Reflejo ----------
+   Un brillo suave anclado al cursor. Da la pista de que la superficie es
+   física y está girando. */
+
+.pack-card-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    38% 38% at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0) 70%
+  );
+  transition: opacity var(--dur-md) var(--easing);
+}
+
+.pack-card-stage:hover .pack-card-sheen {
+  opacity: 1;
+}
+
+/* ---------- Precio ---------- */
+
 .pack-card-tag {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  background: var(--accent-sun);
-  color: var(--accent-sun-ink);
-  padding: 0.55rem 1rem;
-  font-size: var(--text-3);
-  font-weight: var(--weight-heading);
-  letter-spacing: var(--track-2);
+  left: 0.625rem;
+  bottom: 0.625rem;
+  background: var(--c-base-0);
+  color: var(--ink);
+  padding: 0.5rem 0.875rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  line-height: 1;
+  text-transform: uppercase;
 }
+
+/* ---------- Texto, fuera de la tarjeta ---------- */
 
 .pack-card-body {
   padding: var(--space-4) 0 0;
@@ -46,12 +107,12 @@
 }
 
 .pack-card-title {
-  font-size: clamp(1.4rem, 1.9vw, 1.9rem);
+  font-size: var(--text-2);
   line-height: 1.12;
 }
 
 .pack-card-subtitle {
-  font-size: var(--text-3);
+  font-size: var(--text-body);
   max-width: 38ch;
 }
 
@@ -59,7 +120,7 @@
   margin-top: auto;
   padding-top: var(--space-3);
   border-top: 1px solid var(--line);
-  font-size: var(--text-3);
+  font-size: var(--text-body);
   color: var(--ink-faint);
   display: flex;
   flex-direction: column;
@@ -69,4 +130,15 @@
 .pack-card-cities strong {
   font-weight: var(--weight-text);
   color: var(--ink-soft);
+}
+
+/* Sin inclinación ni reflejo si se ha pedido menos movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  .pack-card-media {
+    transform: none !important;
+  }
+
+  .pack-card-sheen {
+    display: none;
+  }
 }
