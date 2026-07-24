@@ -1,5 +1,34 @@
 @import "./tokens.css";
 
+/* Las dos familias del original. Canela Thin es de Commercial Type y
+   ApercuMono de Colophon: ambas son comerciales. Se sirven aquí para poder
+   evaluar el diseño con la tipografía real; para publicar hay que
+   licenciarlas o cambiarlas por las sustitutas libres (ver RESTYLE.md). */
+@font-face {
+  font-family: Canela;
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("/fonts/Canela-Thin-Web.woff2") format("woff2"),
+       url("/fonts/Canela-Thin-Web.woff") format("woff");
+}
+
+@font-face {
+  font-family: ApercuMono;
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/apercu-mono-light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: ApercuMono;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/apercu-mono-regular.woff2") format("woff2");
+}
+
 /* Las utilidades comunes viven en una capa: así los estilos de cada componente
    y de cada página siempre las sobrescriben, sin depender del orden en que el
    empaquetador inyecte las hojas ni de trucos de especificidad. */
@@ -11,29 +40,29 @@
   box-sizing: border-box;
 }
 
-/* El root escala con el ancho de pantalla: 1rem = 16px sobre una maqueta de
-   1440px. Como todo el sistema está en rem, la página entera crece y encoge
-   en proporción en lugar de reflowear. Es la pieza central del diseño de
-   Horizonte. El clamp evita que el texto se vuelva ilegible en pantallas
-   pequeñas o gigante en un ultrawide. */
+/* La regla central del diseño, copiada tal cual del original:
+     html { font-size: calc(16/var(--viewport)*100vw) }
+   Como todo el sistema está en rem, la página entera crece y encoge en
+   proporción en lugar de reflowear. Sin clamp, igual que Horizonte. */
 html {
-  font-size: clamp(
-    var(--root-min),
-    calc(100vw / var(--viewport) * 16),
-    var(--root-max)
-  );
+  font-size: calc(16 / var(--viewport) * 100vw);
   scroll-behavior: smooth;
+  background-color: var(--bg-1);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* El texto corrido va en mono, pequeño y con interlineado 133.3%. En este
+   sistema la serif se reserva para titular. */
 body {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: var(--text-3);
   font-weight: var(--weight-text);
   line-height: var(--leading-text);
   color: var(--ink);
   background: var(--bg-1);
-  -webkit-font-smoothing: antialiased;
 }
 
 /* Títulos: serif de peso ligero, versales, interlineado 1.0 y tracking

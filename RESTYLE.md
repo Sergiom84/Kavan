@@ -19,15 +19,15 @@ El proyecto original en `Aplicaciones/Kavan` no se ha tocado.
 **1. El root escala con el ancho de pantalla.**
 
 ```css
-html { font-size: clamp(11px, calc(100vw / 1440 * 16), 22px); }
+:root { --viewport: 1440 }
+html  { font-size: calc(16 / var(--viewport) * 100vw) }
+@media (max-width: 1023px) { :root { --viewport: 375 } }
 ```
 
+Copiado literal del original (`entry`, bloque `<style>` de `index.html`).
 Todo el sistema está en `rem` contra una maqueta de 1440px, así que la página
-entera crece y encoge en proporción en lugar de reflowear. Es lo que hace que
-Horizonte se vea como se ve; sin esto el resto de cambios no bastan. Por debajo
-de 1024px la maqueta de referencia pasa a 390px.
-
-Comprobado: 16px a 1440, 17px a 768, 16px a 390.
+entera crece y encoge en proporción en lugar de reflowear. Sin clamp, igual
+que Horizonte.
 
 **2. Cuatro colores.**
 
@@ -53,17 +53,33 @@ fotografía y siempre para que se lea el texto.
 
 | | Antes | Ahora |
 |---|---|---|
-| Familia | Fraunces (una sola) | Cormorant Garamond + JetBrains Mono |
-| Peso de titular | 620 | 300 |
-| Interlineado de titular | 1.02 | 1.0 |
+| Familia | Fraunces (una sola) | Canela Thin + ApercuMono |
+| Peso de titular | 620 | 100 |
+| Interlineado de titular | 1.02 | 100% |
 | Caja | normal | versales |
-| Tracking | -0.035em | -0.018em |
+| Tracking | -0.035em | -0.006em (h1) · -0.009rem (h2) |
+| Texto corrido | Fraunces 16px | ApercuMono 12px, 133.3% |
 
-Serif ligera para todo lo que titula, mono para todo lo que etiqueta, navega o
-llama a la acción. Canela y ApercuMono son de pago; Cormorant Garamond y
-JetBrains Mono son las equivalentes libres más cercanas.
+Serif ligera para todo lo que titula, mono para todo lo demás. Escala calcada
+del original (px sobre maqueta de 1440): h1 48 · h2 24 · texto y rótulo 12.
+Se añade `--text-display` a 96px, que no existe en Horizonte, para el titular
+de portada.
 
-Escala (px sobre maqueta de 1440): display 96 · h1 48 · h2 24 · texto 14 · rótulo 12.
+> ### Licencias
+>
+> **Canela** (Commercial Type) y **ApercuMono** (Colophon) son tipografías
+> comerciales. Los archivos en `public/fonts/` salen del volcado del sitio
+> original y están aquí para poder juzgar el diseño con la tipografía real.
+> **No se pueden publicar sin licencia.** Para producción: licenciarlas, o
+> volver a las sustitutas libres más cercanas — Cormorant Garamond y
+> JetBrains Mono — cambiando `--canela` y `--apercu-mono-pro` en `tokens.css`.
+
+## Densidad
+
+Es la otra mitad del parecido, y la que más se nota. Las secciones de
+Horizonte miden entre 34rem y 71.5rem de alto, con 8.5rem de padding
+vertical. Kavan venía de 6.5rem. Los tokens `--section-tall`,
+`--section-mid` y `--media-tall` recogen esas medidas.
 
 ## Movimiento
 
