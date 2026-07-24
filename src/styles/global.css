@@ -170,6 +170,35 @@ button {
   max-width: 20ch;
 }
 
+/* Pie de sección: el enlace de continuación va al filete, no centrado en un botón */
+.section-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- Rejillas de contenido ---------- */
+
+.grid-2,
+.grid-3 {
+  display: grid;
+  gap: clamp(1.5rem, 2.6vw, 3rem);
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 960px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .grid-2,
+  .grid-3 { grid-template-columns: 1fr; }
+}
+
 /* ---------- Enlaces y botones: rectangulares, sin píldoras ---------- */
 
 .link-arrow {
