@@ -1,0 +1,308 @@
+.tuviaje {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: var(--space-6);
+}
+
+.tuviaje-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 60vh;
+}
+
+.tuviaje-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+}
+
+.tuviaje-veil {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(43, 33, 24, 0.6), rgba(43, 33, 24, 0.3) 45%, rgba(43, 33, 24, 0.6));
+}
+
+.tuviaje-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  max-width: var(--container);
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.tuviaje-header-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.tuviaje-header-btn {
+  border-color: rgba(248, 243, 234, 0.7);
+  color: var(--accent-ink);
+}
+
+.tuviaje-header-btn:hover {
+  background: var(--accent-ink);
+  color: var(--ink);
+}
+
+.tuviaje-main {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-4);
+}
+
+.tuviaje-hero {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+
+.tuviaje-hero-media {
+  min-height: 150px;
+}
+
+.tuviaje-hero-body {
+  padding: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.tuviaje-hero-body h1 {
+  font-size: var(--text-2);
+}
+
+.tuviaje-dates {
+  font-family: var(--font);
+  font-size: var(--text-3);
+  margin-top: var(--space-1);
+}
+
+.tuviaje-tabs {
+  display: flex;
+  gap: var(--space-1);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px;
+}
+
+.tuviaje-tab {
+  position: relative;
+  padding: 0.6rem 1.6rem;
+  border-radius: 999px;
+  font-size: var(--text-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tuviaje-tab-pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--ink);
+}
+
+.tuviaje-tab-label {
+  position: relative;
+  z-index: 1;
+}
+
+.tuviaje-tab.is-active {
+  color: var(--accent-ink);
+}
+
+.tuviaje-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.tuviaje-content {
+  padding: var(--space-4);
+}
+
+.tuviaje-stay + .tuviaje-stay {
+  margin-top: var(--space-5);
+}
+
+.tuviaje-stay-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: var(--space-2);
+}
+
+.tuviaje-hotel {
+  display: grid;
+  grid-template-columns: 110px 1fr 110px;
+  gap: var(--space-3);
+  width: 100%;
+  text-align: left;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  margin-bottom: var(--space-2);
+  transition: border-color 0.2s, background 0.2s, transform 0.25s var(--ease-out);
+  background: var(--bg-1);
+}
+
+.tuviaje-hotel:hover {
+  transform: translateY(-2px);
+  border-color: var(--ink-faint);
+}
+
+.tuviaje-hotel.is-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg-1));
+}
+
+.tuviaje-hotel-media {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-s);
+  overflow: hidden;
+}
+
+.tuviaje-hotel-body h4 {
+  font-size: var(--text-3);
+}
+
+.tuviaje-hotel-cat {
+  font-family: var(--font);
+  font-size: var(--text-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin: 2px 0 var(--space-1);
+}
+
+.tuviaje-hotel-body p {
+  font-size: var(--text-3);
+}
+
+.tuviaje-hotel-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
+}
+
+.tuviaje-hotel-price strong {
+  font-family: var(--font);
+  font-size: var(--text-2);
+  font-weight: 500;
+}
+
+.tuviaje-hotel-included {
+  font-family: var(--font);
+  font-size: var(--text-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ok);
+  border: 1px solid var(--ok);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+}
+
+.tuviaje-price {
+  position: sticky;
+  top: var(--space-4);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.tuviaje-price-travelers,
+.tuviaje-price-supplements ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tuviaje-price-travelers li,
+.tuviaje-price-supplements li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-3);
+}
+
+.tuviaje-price-travelers small,
+.tuviaje-price-supplements small {
+  color: var(--ink-faint);
+}
+
+.tuviaje-price-supplements .label {
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+.tuviaje-price-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: var(--space-2);
+  border-top: 2px solid var(--ink);
+}
+
+.tuviaje-price-total span {
+  font-family: var(--font);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--text-3);
+}
+
+.tuviaje-price-total strong {
+  font-family: var(--font);
+  font-size: var(--text-2);
+  font-weight: 500;
+}
+
+.tuviaje-price-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+@media (max-width: 960px) {
+  .tuviaje-layout {
+    grid-template-columns: 1fr;
+  }
+  .tuviaje-price {
+    position: static;
+  }
+  .tuviaje-hero {
+    grid-template-columns: 1fr;
+  }
+  .tuviaje-hotel {
+    grid-template-columns: 90px 1fr;
+  }
+  .tuviaje-hotel-price {
+    grid-column: 2;
+    flex-direction: row;
+    gap: var(--space-2);
+    align-items: center;
+    justify-content: flex-start;
+  }
+}

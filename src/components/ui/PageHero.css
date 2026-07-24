@@ -1,0 +1,41 @@
+.page-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  margin-top: -72px; /* debajo de la cabecera sticky transparente */
+}
+
+.page-hero-s { min-height: 320px; }
+.page-hero-m { min-height: 55vh; }
+.page-hero-l { min-height: 86vh; }
+
+.page-hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(43, 33, 24, 0.18) 0%, rgba(43, 33, 24, 0.05) 45%, rgba(43, 33, 24, 0.55) 100%);
+}
+
+.page-hero-content {
+  position: relative;
+  width: 100%;
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-5);
+  color: var(--accent-ink);
+}
+
+.page-hero-content h1 {
+  text-wrap: balance;
+}
+
+.page-hero-subtitle {
+  margin-top: var(--space-3);
+  max-width: 560px;
+  color: rgba(248, 243, 234, 0.92);
+  font-size: var(--text-2);
+}

@@ -1,0 +1,161 @@
+.elviaje-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.elviaje-head {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+  align-items: start;
+}
+
+.elviaje-desc {
+  margin-top: var(--space-3);
+  max-width: 640px;
+}
+
+.elviaje-price {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.elviaje-price strong {
+  font-family: var(--font);
+  font-size: var(--text-2);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.elviaje-slider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.elviaje-slider-media {
+  position: relative;
+  flex: 1;
+  aspect-ratio: 16 / 8;
+  border-radius: var(--radius-s);
+  overflow: hidden;
+}
+
+.elviaje-slider-dots {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.elviaje-slider-dots button {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(248, 243, 234, 0.5);
+  transition: background 0.2s, transform 0.2s;
+  padding: 0;
+}
+
+.elviaje-slider-dots button.is-active {
+  background: var(--accent-ink);
+  transform: scale(1.25);
+}
+
+.elviaje-days {
+  display: flex;
+  flex-direction: column;
+}
+
+.elviaje-day {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.elviaje-day-media {
+  aspect-ratio: 1;
+  border-radius: var(--radius-s);
+  overflow: hidden;
+}
+
+.elviaje-day h3 {
+  font-size: var(--text-2);
+}
+
+.elviaje-day-title {
+  font-family: var(--font);
+  color: var(--accent);
+  font-size: var(--text-3);
+  margin: var(--space-1) 0;
+}
+
+.elviaje-day-desc {
+  font-size: var(--text-3);
+}
+
+.elviaje-side {
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.elviaje-side-block {
+  padding: var(--space-4);
+}
+
+.elviaje-side-block h4 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.elviaje-side-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.elviaje-side-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--ink-soft);
+  font-size: var(--text-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+@media (max-width: 960px) {
+  .elviaje-layout {
+    grid-template-columns: 1fr;
+  }
+  .elviaje-side {
+    position: static;
+  }
+  .elviaje-head {
+    grid-template-columns: 1fr;
+  }
+}

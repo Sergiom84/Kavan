@@ -1,0 +1,48 @@
+.advisor {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.advisor-toggle {
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: var(--text-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s var(--ease-out), background 0.25s;
+}
+
+.advisor-toggle:hover {
+  transform: translateY(-2px);
+  background: var(--ink);
+}
+
+.advisor-menu {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+}
+
+.advisor-option {
+  padding: 0.85rem 1.2rem;
+  font-family: var(--font);
+  font-size: var(--text-3);
+  transition: background 0.2s;
+}
+
+.advisor-option + .advisor-option {
+  border-top: 1px solid var(--line);
+}
+
+.advisor-option:hover {
+  background: var(--bg-2);
+}

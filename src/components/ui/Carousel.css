@@ -1,0 +1,49 @@
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  flex: 1;
+  padding: 4px;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  scroll-snap-align: start;
+  flex: 0 0 calc((100% - 48px) / 3);
+}
+
+.carousel-arrow {
+  color: var(--ink);
+  padding: var(--space-2);
+  border-radius: 50%;
+  transition: color 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.carousel-arrow:hover {
+  color: var(--accent);
+  transform: scale(1.15);
+}
+
+@media (max-width: 960px) {
+  .carousel-item {
+    flex: 0 0 calc((100% - 24px) / 2);
+  }
+}
+
+@media (max-width: 620px) {
+  .carousel-item {
+    flex: 0 0 86%;
+  }
+}

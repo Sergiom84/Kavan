@@ -1,0 +1,61 @@
+.pack-card {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s;
+}
+
+.pack-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card);
+}
+
+.pack-card-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.pack-card-media img {
+  transition: transform 0.6s var(--ease-out);
+}
+
+.pack-card:hover .pack-card-media img {
+  transform: scale(1.05);
+}
+
+.pack-card-body {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.pack-card-title {
+  font-size: var(--text-2);
+  font-family: var(--font);
+}
+
+.pack-card-subtitle {
+  font-size: var(--text-3);
+}
+
+.pack-card-price {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-2);
+}
+
+.pack-card-price strong {
+  font-family: var(--font);
+  font-size: var(--text-2);
+  font-weight: var(--weight-heading);
+}
+
+.pack-card-cities {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-2);
+  font-size: var(--text-3);
+}

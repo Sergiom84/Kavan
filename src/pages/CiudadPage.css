@@ -1,0 +1,119 @@
+.ciudad-desc {
+  max-width: 720px;
+  margin-top: var(--space-3);
+}
+
+.ciudad-gallery {
+  margin: var(--space-5) 0;
+  padding: var(--space-3);
+}
+
+.ciudad-gallery-main {
+  aspect-ratio: 21 / 9;
+  border-radius: var(--radius-s);
+  overflow: hidden;
+}
+
+.ciudad-gallery-thumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ciudad-thumb {
+  width: 84px;
+  aspect-ratio: 1;
+  border-radius: var(--radius-s);
+  overflow: hidden;
+  padding: 0;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.ciudad-thumb:hover {
+  transform: translateY(-2px);
+}
+
+.ciudad-thumb.is-active {
+  border-color: var(--accent);
+}
+
+.ciudad-content-title {
+  margin-top: var(--space-4);
+}
+
+.ciudad-pois,
+.ciudad-related {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.ciudad-poi-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.ciudad-poi-body {
+  padding: var(--space-4);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ciudad-poi-body h3 {
+  font-size: var(--text-2);
+}
+
+.ciudad-poi-body p {
+  font-size: var(--text-3);
+}
+
+.ciudad-others {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.ciudad-other {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+
+.ciudad-other:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.ciudad-other-media {
+  aspect-ratio: 1;
+  border-radius: var(--radius-s);
+  overflow: hidden;
+}
+
+.ciudad-other h3 {
+  font-size: var(--text-2);
+  margin-bottom: var(--space-1);
+}
+
+.ciudad-other p {
+  font-size: var(--text-3);
+}
+
+@media (max-width: 900px) {
+  .ciudad-pois,
+  .ciudad-related {
+    grid-template-columns: 1fr;
+  }
+  .ciudad-others {
+    grid-template-columns: 1fr;
+  }
+}

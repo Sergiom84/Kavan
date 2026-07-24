@@ -1,0 +1,126 @@
+.home-hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-top: -72px;
+}
+
+.home-hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.home-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(200deg, rgba(43, 33, 24, 0.05) 30%, rgba(43, 33, 24, 0.45) 100%);
+}
+
+.home-hero-content {
+  position: relative;
+  color: var(--accent-ink);
+  padding-top: var(--space-7);
+}
+
+.home-hero-label {
+  color: rgba(248, 243, 234, 0.85);
+  display: block;
+  margin-bottom: var(--space-3);
+}
+
+.home-hero-play {
+  margin-top: var(--space-5);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--accent-ink);
+  font-size: var(--text-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.home-hero-play-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid rgba(248, 243, 234, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, transform 0.3s var(--ease-out);
+}
+
+.home-hero-play:hover .home-hero-play-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.08);
+}
+
+.home-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.home-info-card {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s;
+}
+
+.home-info-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card);
+}
+
+.home-info-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.home-info-card p {
+  max-width: 380px;
+}
+
+.home-morocco {
+  background: var(--bg-2);
+  padding: var(--space-7) 0;
+}
+
+.home-morocco-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.home-morocco-btn {
+  margin-top: var(--space-2);
+}
+
+.home-seeall {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-5);
+}
+
+@media (max-width: 760px) {
+  .home-info {
+    grid-template-columns: 1fr;
+  }
+}

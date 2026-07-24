@@ -1,0 +1,27 @@
+.travel-anim {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.travel-anim-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.travel-anim-text {
+  position: relative;
+  z-index: 2;
+  margin-top: 42vh;
+  font-family: var(--font);
+  font-size: var(--text-3);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+}

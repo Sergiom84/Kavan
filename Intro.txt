@@ -1,0 +1,103 @@
+Vamos a crear una página de viajes, voy a detallarte todos los puntos con el mayor lujo de detalles además de adjuntarte imágenes que te ayudarán a la creación de la misma.
+
+La única duda que me surge de todo el proceso, ya que es mi primera vez haciendo una web de viajes es cómo se van almacenar los packs, las imágenes, el contenido, el nombre de los hoteles y los precios, porque la idea que tiene el cliente es que el usuario seleccione los packs ( ya están definidos ). luego vaya incluyendo actividades ( ya están definidos, me los tienen que facilitar ), también permita, una vez generado el itinerario el poder modificar la calidad del hotel, por ejemplo, pasar de 4 a 5 estrellas e incluso que se sugieran otras actividades que se puedan llevar a cabo en dicho hotel.
+
+No sé si lo podemos subir a Appwrite, por ejemplo. Render, lo tengo claro para que pueda ir viendo el progreso.
+
+Para que el cliente pueda hacerse una idea de lo que irá en cada apartado en vez de que sea un placeholder podemos "inventarnos" el contenido y las imágenes. Es más, no sé si incluso, podría crearle un apartado como hice en ésta app: C:\Users\sergi\Desktop\Aplicaciones\FreeExperience ( Dentro de perfil, Administración .... ( tan sólo acceden los admin ) en la que pueda realizar cambios pequeños e incluso imágenes, ( como si utilizase Wordpress, vaya ) o es añadir complegidad y que pase todo por mi.
+
+Aquí tienes la idea de lo que será la web:
+
+Una infografía que funcione como un mapa del sitio (Sitemap), mostrando visualmente cómo se conectan las páginas (Home, Paquetes, Ciudades, Proceso de Reserva).Un informe detallado que sirva como especificación técnica, organizando cada sección con sus elementos (logos, botones, campos de datos para el motor de reserva) para que sea fácil de traducir a código.A continuación, te presento un resumen estructurado de lo que contienen las fuentes para que ya tengas una base clara:Estructura Principal de la WebPágina 1: Home (Inicio)Cabecera: Logo y menú de servicios.Héroe: Foto/Eslógan con un botón de "clic" para abrir un vídeo flotante de las dunas.Secciones de acceso rápido: Packs, "¿En qué te ayudamos?" (asesoría personalizada) y Requisitos (información práctica).Carrusel: Los 3 paquetes de viajes más deseados.Sección "Marruecos te ofrece": Enlaces visuales a ciudades como Merzouga, Ouarzazate y Marrakech.Pie de página: Redes sociales, contacto y políticas legales.Página 2: Detalle de CiudadInformación específica de la ciudad (ej. Merzouga).Galería de fotos pequeña.Puntos de interés: Enlaces a otras ciudades y paquetes que visitan ese destino.Página 3: Detalle del PaqueteEsta página es dinámica y tiene cuatro pestañas principales:De un vistazo: Título, descripción y ciudades incluidas.Itinerario: Cronograma diario (Día 1, Día 2, etc.) con fotos.Detalles: Qué incluye (alojamiento, traslados en 4x4, guía de habla hispana) y qué no incluye (seguro de viaje, bebidas en cenas).Consejos: Información sobre moneda (MAD), idioma, religión y propinas.Páginas 6 y 7: Flujo de Reserva y CotizaciónCalculadora de precios: Calendario conectado a Booking/plataformas, selector de pasajeros (adultos/niños) y número de habitaciones.Personalización: Selección de categoría de hoteles (Estándar, Superior A/B/C) con suplementos de precio automáticos.Resumen: Visualización del itinerario final antes del pago.¿Te gustaría que proceda a crear la infografía visual y el informe de estructura para código con estos detalles?He iniciado la creación de dos recursos clave que estarán disponibles en la pestaña de Estudio en unos minutos:Infografía (Mapa del Sitio): He diseñado esta pieza para que funcione como un esquema visual claro. Te permitirá ver de un solo vistazo cómo se conectan todas las páginas (desde la Home hasta el sistema de reservas), eliminando la confusión de la letra escrita a mano. Mostrará visualmente el flujo de navegación que Marta explicó en el video.Informe de Estructura Técnica: Este documento está pensado específicamente para el desarrollo del código. En lugar de dibujos, tendrás una lista estructurada de:Componentes de la interfaz: Menús, botones de video, pestañas y pies de página.Estructura de datos: Todos los campos que necesitas programar, como la lista de ciudades (Merzouga, Ouarzazate, etc.), los detalles de "Qué incluye" (alojamientos, 4x4, traslados) y las categorías de hoteles (A, B, C) con sus respectivos suplementos.Lógica del sistema de reserva: El proceso desde que el usuario selecciona fechas en el calendario hasta que el sistema calcula el precio final basado en pasajeros y habitaciones.Con estos dos materiales, tendrás una guía entendible para ti y una hoja de ruta directa para la programación de la web. Ambos aparecerán en la sección de artefactos de tu panel principal.
+
+Éste fue el contenido que me facillitó, y yo, lo llevé a imágenes : C:\Users\sergi\Desktop\Marta Web explicación
+
+Tras una reunión me corrigío más detalles:
+
+
+EN el home,pagína número 1:  entre el bloque informativo y el carrusel de packs,  hay que incluir : Un pequeño texto que hable sobre Marruecos. Cultural, geografía. Añadir un bloque.
+
+Dentro del Home, cuando se pulse en un pack debe de llevar a otra página, no está incluida dentro de la carpeta de las imágenes. Debe tener:
+
+Logo / esloga 
+
+Foto / título
+
+De un vistazo:   Itinerario, Detalles, Consejos, Calculadora  -- ( al pulsar en detalles te lleva a lo que incluye, página 7, Itinerarios , página 6, y Consejos, página 10)
+
+Home / "título del paquete"  ( para seguir un orden y que en nuestras conversaciones tengamos coherencia, a ésta nueva la llamamos 11)
+
+Título 
+
+Ciudades del paquete ( en tarjetas ) si hay más de tres que tenga las flechas para desplazar, y debajo un texto descriptivo.
+
+Al pulsar en cualquiera de las tarjetas, te lleva a la página con el número 3 - Actividad destino 
+
+
+Y debajo de todo ésto : Otros viajes deseados XXX 
+y debajo : Ver todos.
+
+El icono de : te asesoramos por Chat, lo cambiamos por : Te asesoramos y dentro que conduzca a : Whatsapp y Mail o formulario, lo que sea más fácil
+
+
+Página 3 - se le añade el bloque 5 (ptos interés ) y debajo : el resto de Ciudades. Se añaden un par de frases de cada Ciudad
+
+
+
+En la página 5 - Foto / título
+Debajo del título 
+De un vistazo esté incluido : E3 detalles, consejos e itinerario 
+
+Página 7, no incluye el resumen del pack, se elimina
+
+
+Página 9 - En el fondo incluimos una imagen que ocupe toda la página de fondo. 
+En la cabecera se elimina todo, excepto el logo, y en cambio, se incluye una botón nuevo de Ir al viaje, al pulsar les lleva a la página 8
+Hay que añadir un apartado para que se incluya el número de vuelo para el taxista.
+Se elimina el bloque de cotizando el viaje
+Añadir el precio final debajo del resumen del precio.
+En la cajita de : Diseña tu viaje: Calcular precio final se elimina
+En el calendario no se si incluir que te permita seleccionar también el día de regreso, o añadir otro chip desplegable con los días
+Dentro de configura los pasajeros: eliminar el texto de : Configura el número de habitaciones, adultos.... y el botón de continuar, dejar sólo Guardar.
+En el bloque Resumen, iría un resumen del itinerario pero sin precios. Tan sólo los destinos y los días. Y cambiamos Resumen de precio por Resumen.
+Y al final del todo: Calcular Viaje.
+
+( los precios me los darán más adelante )
+
+Cuando pulsen en calcular viaje, le añadimos ésta animación: https://codepen.io/CxSG/pen/yLYwjEb
+
+
+La siguiente página también es nueva, pero te la describo: ( a ésta página 12 )
+
+El fondo también tiene que tener una imagen que abarque toda la página. La idea es que el cliente sienta la diferencia, la ilusión ... de que su viaje comienza.
+En la parte de arriba: Un botón para : Revisar las fechas de viaje. y en la misma línea : Ir al viaje ( página 8 )
+En el hero una pequeña imagen a lo largo y dentro dos botones:
+Hoteles ( es la que se visualiza al abrir la página ) e Itinerario, te lleva a la página 6 - Itinerario del pack ( pero sin la cabecera, título, relacionados ni footer ) tan sólo el itinerario. ( página 13 )
+En la pestaña de hoteles puede seleccionar, dentro de cada hotel, cambiar hotel - categoría superior   + XX en precio, Deben estar todos en cascada, con una imagen en miniatura en la izquierda, la descripción, los días que tendrán pernocta ...
+
+La parte de la derecha una tarjeta a lo largo en vertical: Precio del viaje : desglose por viajero, suplemento ... reserva, preserva ...
+
+En la pestaña Itinerario pero concreto = sin los heros, cabeceras ... 
+
+----------- Hasta aquí la explicación que me ha facilitado ella.
+
+
+Ahora, para nuestro trabajo:
+
+- El cliente es bastante exquisito a la hora de trabajar, aquí sus reglas:
+
+1- Excepto en la página 9  - reserva tu viaje y las nuevas creadas ahora  ( 11, 12 y 13 ): Todas deben seguir el mismo orden visual, en que sentido: Cabecera, Hero, XXX los bloques que correspondan en cada página, y Footer.
+
+2 - Tan sólo 3 letras. Para título, subtítulos y el texto. Misma tipología. Mismos tamaños. 
+
+3 - Nada, 0 de emojis.
+
+4 - Nada, 0 de textos explicativos del estilo: Aquí se pulsa para pagar.
+
+
+Y como sugerencia visual se me ha ocurrido: C:\Users\sergi\Desktop\Idea Web Marta\Explorer, tienes todo el contenido de los efectos visuales.
+
+Pero adaptada a las cabeceras, heros, y footers que te he comentado. Si finalmente la usas, si viene algún nombre del compañero que me lo ha pasado, lo eliminas.
+
+Si te surgen dudas, me preguntas.
+

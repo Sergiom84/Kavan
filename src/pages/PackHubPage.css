@@ -1,0 +1,72 @@
+.packhub-glance {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.packhub-glance-item {
+  padding: var(--space-4);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s, background 0.3s, color 0.3s;
+}
+
+.packhub-glance-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card);
+}
+
+.packhub-glance-item h3 {
+  font-size: var(--text-2);
+}
+
+.packhub-glance-item p {
+  font-size: var(--text-3);
+}
+
+.packhub-glance-item.is-accent {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--accent-ink);
+}
+
+.packhub-glance-item.is-accent p {
+  color: rgba(248, 243, 234, 0.75);
+}
+
+.packhub-glance-item.is-accent:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.packhub-cities {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.packhub-desc {
+  max-width: 720px;
+  margin: var(--space-5) auto 0;
+  text-align: center;
+}
+
+@media (max-width: 960px) {
+  .packhub-glance {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .packhub-cities {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .packhub-glance {
+    grid-template-columns: 1fr;
+  }
+}
