@@ -14,13 +14,17 @@
   inset: 0;
 }
 
-/* Lateral para asentar el texto, inferior para el remate */
+/* Los mismos dos velos verticales que la portada, para que todas las
+   cabeceras del sitio se lean igual. */
 .page-hero-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(95deg, rgba(28, 21, 15, 0.74) 0%, rgba(28, 21, 15, 0.38) 45%, rgba(28, 21, 15, 0.05) 78%),
-    linear-gradient(to top, rgba(28, 21, 15, 0.68) 0%, transparent 42%);
+    var(--scrim-top),
+    var(--scrim-bottom);
+  background-repeat: no-repeat;
+  background-size: 100% 40%, 100% 60%;
+  background-position: top, bottom;
 }
 
 .page-hero-content {

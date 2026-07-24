@@ -3,28 +3,30 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: var(--z-header);
   background: transparent;
   color: var(--on-photo);
-  transition: background 0.35s var(--ease-out), color 0.35s, border-color 0.35s;
+  transition: background-color var(--dur-lg) var(--easing),
+              color var(--dur-lg) var(--easing),
+              border-color var(--dur-lg) var(--easing);
   border-bottom: 1px solid transparent;
 }
 
-/* Al salir del hero: fondo de papel y tinta oscura */
+/* Al salir del hero: fondo crema opaco y tinta oscura. Sin desenfoque:
+   en este sistema no hay backdrop-filter en ninguna parte. */
 .site-header.is-solid {
-  background: color-mix(in srgb, var(--bg-1) 92%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--bg-1);
   color: var(--ink);
   border-bottom-color: var(--line);
 }
 
+/* Altura en rem para que la cabecera escale con el resto de la página. */
 .site-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-5);
-  height: 84px;
+  gap: var(--header-gap);
+  height: 4.4375rem;
 }
 
 /* ---------- Marca ---------- */
@@ -37,16 +39,18 @@
 }
 
 .brand-name {
-  font-family: var(--font);
-  font-size: 1.65rem;
+  font-family: var(--font-display);
+  font-size: var(--text-2);
   font-weight: var(--weight-title);
   letter-spacing: var(--track-2);
+  text-transform: uppercase;
 }
 
 .brand-tag {
-  font-size: 0.68rem;
-  font-weight: var(--weight-heading);
-  letter-spacing: 0.22em;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   opacity: 0.72;
 }
@@ -61,15 +65,15 @@
 
 .site-nav a {
   position: relative;
-  font-family: var(--font);
-  font-size: 0.78rem;
-  font-weight: var(--weight-heading);
-  letter-spacing: 0.16em;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
-  padding-bottom: 6px;
+  padding-bottom: var(--space-1);
   color: inherit;
   opacity: 0.82;
-  transition: opacity 0.25s;
+  transition: opacity var(--dur-md) var(--easing);
 }
 
 /* Filete que crece bajo el enlace: sustituye a la píldora */
@@ -127,7 +131,7 @@
 
 @media (max-width: 980px) {
   .site-header-inner {
-    height: 72px;
+    height: 4rem;
   }
 
   .nav-toggle {
@@ -137,7 +141,7 @@
   /* Panel a pantalla completa, tipografía grande */
   .site-nav {
     position: fixed;
-    inset: 72px 0 0;
+    inset: 4rem 0 0;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;

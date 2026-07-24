@@ -13,13 +13,18 @@
   inset: 0;
 }
 
-/* Doble degradado: lateral para el texto, inferior para el remate */
+/* Los dos velos del sistema: uno arriba para que respire la cabecera, otro
+   abajo para que el titular se lea. Sin degradado lateral: Horizonte apoya
+   siempre en vertical. */
 .home-hero-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(95deg, rgba(28, 21, 15, 0.78) 0%, rgba(28, 21, 15, 0.42) 42%, rgba(28, 21, 15, 0.06) 72%),
-    linear-gradient(to top, rgba(28, 21, 15, 0.72) 0%, transparent 45%);
+    var(--scrim-top),
+    var(--scrim-bottom);
+  background-repeat: no-repeat;
+  background-size: 100% 40%, 100% 60%;
+  background-position: top, bottom;
 }
 
 .home-hero-content {
@@ -35,15 +40,17 @@
   margin-bottom: var(--space-4);
 }
 
+/* El titular de portada es lo único que usa el tamaño de héroe. */
 .home-hero-title {
   max-width: 15ch;
+  font-size: var(--text-display);
 }
 
 .home-hero-text {
   margin-top: var(--space-4);
-  max-width: 54ch;
-  font-size: clamp(1.05rem, 1.25vw, 1.35rem);
-  line-height: 1.6;
+  max-width: var(--measure-wide);
+  font-size: var(--text-2);
+  line-height: 1.35;
   color: var(--on-photo-soft);
 }
 

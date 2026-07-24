@@ -2,8 +2,8 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(43, 33, 24, 0.72);
-  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.72);
+  /* Sin desenfoque: material plano en todo el sistema. */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +21,7 @@
   width: min(960px, 100%);
   border-radius: var(--radius-l);
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-card);
 }
 
 .dunes-modal-scene {
@@ -38,7 +38,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(43, 33, 24, 0.55);
+  background: rgba(0, 0, 0, 0.55);
   color: var(--accent-ink);
   display: flex;
   align-items: center;

@@ -11,26 +11,39 @@
   box-sizing: border-box;
 }
 
+/* El root escala con el ancho de pantalla: 1rem = 16px sobre una maqueta de
+   1440px. Como todo el sistema está en rem, la página entera crece y encoge
+   en proporción en lugar de reflowear. Es la pieza central del diseño de
+   Horizonte. El clamp evita que el texto se vuelva ilegible en pantallas
+   pequeñas o gigante en un ultrawide. */
 html {
+  font-size: clamp(
+    var(--root-min),
+    calc(100vw / var(--viewport) * 16),
+    var(--root-max)
+  );
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  font-family: var(--font);
+  font-family: var(--font-display);
   font-size: var(--text-3);
   font-weight: var(--weight-text);
-  line-height: 1.65;
+  line-height: var(--leading-text);
   color: var(--ink);
   background: var(--bg-1);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Una sola tipología, tres tamaños: h1 = título, h2/h3/h4 = subtítulos, el resto = texto */
+/* Títulos: serif de peso ligero, versales, interlineado 1.0 y tracking
+   negativo. Los cuatro rasgos juntos son la firma de Horizonte; quitar
+   cualquiera de ellos y deja de parecerse. */
 h1, h2, h3, h4 {
-  font-family: var(--font);
-  line-height: 1.02;
+  font-family: var(--font-display);
+  line-height: var(--leading-title);
   margin: 0;
+  text-transform: uppercase;
   text-wrap: balance;
 }
 
@@ -46,6 +59,18 @@ h2, h3, h4 {
   letter-spacing: var(--track-2);
 }
 
+/* Tamaño de héroe. Sólo para el titular de portada de cada página. */
+.display {
+  font-size: var(--text-display);
+  font-weight: var(--weight-title);
+  line-height: var(--leading-title);
+  letter-spacing: var(--track-1);
+  text-transform: uppercase;
+}
+
+/* La prosa se queda en caja baja: el copy de Kavan son frases largas en
+   español y en versales no se leería. Horizonte reserva las versales para
+   titulares y rótulos, que es exactamente lo que hacemos aquí. */
 p {
   margin: 0;
   color: var(--ink-soft);
@@ -62,13 +87,15 @@ img {
   display: block;
 }
 
+/* Todo lo que es interfaz —botones, rótulos, navegación— va en mono,
+   versales y pequeño. */
 button {
-  font-family: var(--font);
+  font-family: var(--font-mono);
   cursor: pointer;
   border: none;
   background: none;
   color: inherit;
-  font-size: var(--text-3);
+  font-size: var(--text-label);
 }
 
 /* ---------- Estructura ---------- */
@@ -104,16 +131,17 @@ button {
 }
 
 .band-ink .label {
-  color: color-mix(in srgb, var(--accent-sun) 88%, transparent);
+  color: color-mix(in srgb, var(--on-photo) 60%, transparent);
 }
 
 /* ---------- Tipografía de apoyo ---------- */
 
 .label {
-  font-family: var(--font);
-  font-size: var(--text-3);
-  font-weight: var(--weight-heading);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
   letter-spacing: var(--track-label);
+  line-height: 1;
   text-transform: uppercase;
   color: var(--ink-faint);
   display: block;
@@ -184,7 +212,7 @@ button {
 .grid-2,
 .grid-3 {
   display: grid;
-  gap: clamp(1.5rem, 2.6vw, 3rem);
+  gap: var(--space-4);
 }
 
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
@@ -199,20 +227,27 @@ button {
   .grid-3 { grid-template-columns: 1fr; }
 }
 
-/* ---------- Enlaces y botones: rectangulares, sin píldoras ---------- */
+/* ---------- Enlaces y botones ----------
+   En Horizonte no hay botones rellenos de color: hay texto en mono con un
+   filete debajo, o una caja de borde fino que se invierte al pasar por
+   encima. El relleno sólido se reserva para una única acción por pantalla. */
 
 .link-arrow {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-weight: var(--weight-heading);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
   letter-spacing: var(--track-label);
+  line-height: 1;
   text-transform: uppercase;
-  font-size: var(--text-3);
-  color: var(--accent-2);
+  color: var(--ink);
   border-bottom: 1px solid var(--line-strong);
-  padding-bottom: 4px;
-  transition: color 0.25s, border-color 0.25s, gap 0.25s var(--ease-out);
+  padding-bottom: var(--space-1);
+  transition: color var(--dur-md) var(--easing),
+              border-color var(--dur-md) var(--easing),
+              gap var(--dur-md) var(--easing);
 }
 
 .link-arrow:hover {
@@ -226,37 +261,46 @@ button {
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  padding: 1.05rem 2rem;
+  padding: 0.875rem 1.5rem;
   border-radius: var(--radius-s);
-  font-family: var(--font);
-  font-size: var(--text-3);
-  font-weight: var(--weight-heading);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
   letter-spacing: var(--track-label);
+  line-height: 1;
   text-transform: uppercase;
-  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  border: 1px solid transparent;
+  transition: background-color var(--dur-md) var(--easing),
+              color var(--dur-md) var(--easing),
+              border-color var(--dur-md) var(--easing);
 }
 
 .btn-primary {
   background: var(--ink);
   color: var(--accent-ink);
+  border-color: var(--ink);
 }
 
 .btn-primary:hover {
-  background: var(--accent);
+  background: transparent;
+  color: var(--ink);
 }
 
+/* El antiguo botón "sol" pasa a ser el secundario claro: fondo crema
+   sobre fondo oscuro, o borde fino sobre fondo claro. */
 .btn-sun {
-  background: var(--accent-sun);
-  color: var(--accent-sun-ink);
+  background: var(--c-base-0);
+  color: var(--ink);
+  border-color: var(--c-base-0);
 }
 
 .btn-sun:hover {
-  background: var(--ink);
-  color: var(--accent-ink);
+  background: transparent;
+  color: var(--c-base-0);
 }
 
 .btn-outline {
-  border: 1px solid var(--line-strong);
+  border-color: var(--line-strong);
   color: var(--ink);
   background: transparent;
 }
@@ -269,7 +313,7 @@ button {
 
 /* Sobre fotografía */
 .btn-ghost {
-  border: 1px solid var(--on-photo-line);
+  border-color: var(--on-photo-line);
   color: var(--on-photo);
   background: transparent;
 }
@@ -277,14 +321,26 @@ button {
 .btn-ghost:hover {
   background: var(--on-photo);
   color: var(--ink);
+  border-color: var(--on-photo);
 }
 
-/* ---------- Superficies ---------- */
+/* Botón circular: el único elemento redondo del sistema, como el FAB de
+   contacto de Horizonte. */
+.btn-round {
+  width: 3.125rem;
+  height: 3.125rem;
+  border-radius: var(--radius-round);
+  padding: 0;
+}
+
+/* ---------- Superficies ----------
+   Sin sombra y sin redondeo: una tarjeta es un filete y un fondo. */
 
 .card {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius-s);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -299,11 +355,44 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: var(--image-transition);
+}
+
+/* Toda foto dentro de un enlace o tarjeta hace un zoom lento al pasar por
+   encima. Es el único efecto de hover sobre imagen del sistema. */
+a:hover > .frame img,
+.card:hover .frame img,
+.frame:hover img {
+  transform: scale(var(--image-scale-value));
+}
+
+/* Velos sobre fotografía: los dos únicos gradientes del sistema. Se ponen
+   como pseudoelemento sobre el marco para que el texto encima se lea. */
+.scrim-top::before,
+.scrim-bottom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: var(--z-base);
+}
+
+.scrim-top::before {
+  top: 0;
+  height: 40%;
+  background: var(--scrim-top);
+}
+
+.scrim-bottom::after {
+  bottom: 0;
+  height: 50%;
+  background: var(--scrim-bottom);
 }
 
 .rule-dashed {
   border: 0;
-  border-top: 1px dashed var(--line-strong);
+  border-top: 1px solid var(--line-strong);
   margin: 0;
 }
 

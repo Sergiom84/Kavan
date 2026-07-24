@@ -55,8 +55,8 @@
   grid-template-columns: 1.6fr 1fr 1fr;
   gap: var(--space-5);
   padding: var(--space-5) 0;
-  border-top: 1px dashed color-mix(in srgb, var(--on-photo) 26%, transparent);
-  border-bottom: 1px dashed color-mix(in srgb, var(--on-photo) 26%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--on-photo) 26%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--on-photo) 26%, transparent);
 }
 
 .footer-title {

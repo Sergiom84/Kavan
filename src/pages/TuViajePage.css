@@ -23,7 +23,7 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(43, 33, 24, 0.6), rgba(43, 33, 24, 0.3) 45%, rgba(43, 33, 24, 0.6));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3) 45%, rgba(0, 0, 0, 0.6));
 }
 
 .tuviaje-header {
@@ -44,7 +44,7 @@
 }
 
 .tuviaje-header-btn {
-  border-color: rgba(248, 243, 234, 0.7);
+  border-color: rgba(255, 255, 255, 0.7);
   color: var(--accent-ink);
 }
 
@@ -94,14 +94,14 @@
   gap: var(--space-1);
   background: var(--bg-2);
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius-s);
   padding: 4px;
 }
 
 .tuviaje-tab {
   position: relative;
   padding: 0.6rem 1.6rem;
-  border-radius: 999px;
+  border-radius: var(--radius-s);
   font-size: var(--text-3);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -110,7 +110,7 @@
 .tuviaje-tab-pill {
   position: absolute;
   inset: 0;
-  border-radius: 999px;
+  border-radius: var(--radius-s);
   background: var(--ink);
 }
 
@@ -216,7 +216,7 @@
   text-transform: uppercase;
   color: var(--ok);
   border: 1px solid var(--ok);
-  border-radius: 999px;
+  border-radius: var(--radius-s);
   padding: 0.3rem 0.8rem;
 }
 

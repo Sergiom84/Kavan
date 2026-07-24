@@ -1,68 +1,167 @@
+/* ============================================================
+   Lenguaje de diseño Horizonte Village aplicado a Kavan.
+
+   Referencia: https://horizonte-village.com  (ver ESTRUCTURA.md)
+
+   Tres decisiones gobiernan todo lo demás:
+   1. El root escala con el ancho de pantalla, así que la página
+      entera crece y encoge en proporción. Todo se mide en rem
+      contra una maqueta de 1440px.
+   2. Cuatro colores. Nada más.
+   3. Material plano: cero sombras, cero redondeos. La profundidad
+      la da el gradiente oscuro sobre la fotografía.
+   ============================================================ */
+
 :root {
-  /* Paleta del Sáhara — crema, marrón profundo y sol, sobre los tonos reales
-     de arena y terracota que ya usaba la marca. */
-  --bg-1: #f5f0ea;  /* papel cálido, fondo base */
-  --bg-2: #ebe1cd;  /* arena clara, fondo alterno de sección */
-  --bg-3: #d9bfa0;  /* arena */
-  --bg-4: #c9926a;  /* terracota clara */
-  --ink: #2a2119;   /* texto principal, marrón casi negro */
-  --ink-soft: color-mix(in srgb, var(--ink) 64%, transparent);
-  --ink-faint: color-mix(in srgb, var(--ink) 40%, transparent);
+  /* --- Escalado fluido -------------------------------------
+     1rem = 16px en una maqueta de 1440px de ancho. El html
+     recalcula el root en global.css a partir de --viewport. */
+  --viewport: 1440;
+  --root-min: 11px;   /* suelo: por debajo el texto deja de leerse */
+  --root-max: 22px;   /* techo: en monitores anchos no se dispara */
+
+  /* --- Color ----------------------------------------------
+     Paleta de Horizonte: crema, verde petróleo, blanco, negro. */
+  --c-base-0: #dfd8cf;      /* crema — fondo base */
+  --c-base-1000: #304143;   /* verde petróleo — texto */
+  --c-brand-500: #21343e;   /* marca, un punto más oscuro */
+  --c-pure-white: #fff;
+  --c-pure-black: #000;
+  --c-error: #ce4a40;
+
+  /* Fondos. Sin saltos bruscos: la banda alterna es la misma
+     crema apenas rebajada, no un color distinto. */
+  --bg-1: var(--c-base-0);
+  --bg-2: #d7cfc5;
+  --bg-3: #cbc2b6;
+  --bg-4: var(--c-brand-500);
+
+  /* Tinta y sus grados */
+  --ink: var(--c-base-1000);
+  --ink-soft: color-mix(in srgb, var(--ink) 62%, transparent);
+  --ink-faint: color-mix(in srgb, var(--ink) 38%, transparent);
   --line: color-mix(in srgb, var(--ink) 16%, transparent);
   --line-strong: color-mix(in srgb, var(--ink) 32%, transparent);
-  --accent: #c4622d;      /* terracota intensa, acciones */
-  --accent-2: #8a4b2b;    /* terracota profunda, hover */
-  --accent-ink: #f8f3ea;  /* texto sobre acento */
-  --accent-sun: #e2a13a;  /* sol del desierto */
-  --accent-sun-ink: #2a2119;
-  --card: #faf6ee;        /* superficies elevadas */
-  --ok: #4a6741;
-  --danger: #9d3c23;
 
-  /* Escala de blancos sobre fotografía, para rótulos y filetes */
-  --on-photo: #f8f3ea;
-  --on-photo-soft: color-mix(in srgb, var(--on-photo) 78%, transparent);
-  --on-photo-line: color-mix(in srgb, var(--on-photo) 38%, transparent);
+  /* Acción. Horizonte es monocromo: el acento es la propia tinta,
+     y el contraste se consigue invirtiendo fondo y texto. */
+  --accent: var(--c-base-1000);
+  --accent-2: var(--c-brand-500);
+  --accent-ink: var(--c-base-0);
+  --accent-sun: var(--c-base-0);
+  --accent-sun-ink: var(--c-base-1000);
 
-  /* Tipografía — una sola familia, tres tamaños: título / subtítulo / texto.
-     Los títulos escalan con el ancho de pantalla para llenar el formato. */
-  --font: "Fraunces", Georgia, serif;
-  --weight-title: 620;
-  --weight-heading: 520;
+  --card: color-mix(in srgb, var(--c-base-0) 60%, var(--c-pure-white));
+  --ok: #3f5a4e;
+  --danger: var(--c-error);
+
+  /* Rótulos sobre fotografía */
+  --on-photo: var(--c-pure-white);
+  --on-photo-soft: color-mix(in srgb, var(--on-photo) 76%, transparent);
+  --on-photo-line: color-mix(in srgb, var(--on-photo) 32%, transparent);
+
+  /* Los dos únicos gradientes del sistema. Siempre sobre foto,
+     siempre para que el texto se lea, nunca decorativos. */
+  --scrim-top: linear-gradient(rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0));
+  --scrim-bottom: linear-gradient(0deg, rgba(0, 0, 0, 0.64), rgba(0, 0, 0, 0));
+
+  /* --- Tipografía ------------------------------------------
+     Dos familias. Serif de peso ligero para todo lo que titula,
+     mono para todo lo que etiqueta, navega o llama a la acción.
+     Canela y ApercuMono son de pago: se sustituyen por las dos
+     equivalentes libres más cercanas. */
+  --font-display: "Cormorant Garamond", Canela, Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ApercuMono, ui-monospace, SFMono-Regular, monospace;
+
+  /* Alias heredado: los componentes que ya escribían var(--font)
+     siguen funcionando y reciben la serif. */
+  --font: var(--font-display);
+
+  --weight-title: 300;
+  --weight-heading: 300;
   --weight-text: 400;
+  --weight-label: 400;
 
-  --text-1: clamp(3rem, 7.4vw, 7.5rem);     /* título */
-  --text-2: clamp(1.75rem, 3vw, 3rem);      /* subtítulos */
-  --text-3: clamp(1rem, 0.94vw, 1.15rem);   /* texto */
+  /* Escala. Los rem escalan solos, así que aquí no hay clamp:
+     el clamp está en el root. */
+  --text-display: 6rem;   /*  96px @1440 — sólo héroes */
+  --text-1: 3rem;         /*  48px @1440 — h1 */
+  --text-2: 1.5rem;       /*  24px @1440 — h2/h3/h4 */
+  --text-3: 0.875rem;     /*  14px @1440 — texto corrido */
+  --text-label: 0.75rem;  /*  12px @1440 — rótulos, botones, navegación */
 
-  --track-1: -0.035em;
-  --track-2: -0.02em;
-  --track-label: 0.14em;
+  /* Interlineado 1.0 en títulos: es la firma de Horizonte. */
+  --leading-title: 1;
+  --leading-text: 1.55;
 
-  /* Espaciado y forma */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 1rem;
-  --space-4: 1.5rem;
-  --space-5: 2.5rem;
-  --space-6: 4rem;
-  --space-7: 6.5rem;
-  --space-8: 10rem;
+  --track-1: -0.018em;
+  --track-2: -0.018em;
+  --track-label: 0.08em;
 
-  /* Lenguaje editorial: ángulos rectos. El único radio es el del sello. */
+  /* --- Espaciado ------------------------------------------
+     La escala de offsets de Horizonte, con los nombres de Kavan. */
+  --space-1: 0.25rem;   /*   4px */
+  --space-2: 0.5rem;    /*   8px */
+  --space-3: 1rem;      /*  16px */
+  --space-4: 1.5rem;    /*  24px */
+  --space-5: 2rem;      /*  32px */
+  --space-6: 4rem;      /*  64px */
+  --space-7: 7.25rem;   /* 116px */
+  --space-8: 13rem;     /* 208px */
+
+  --padding: 3rem;      /* calle lateral del contenedor */
+  --header-gap: 5rem;
+
+  /* --- Forma ----------------------------------------------
+     Ángulos rectos en todo. El único radio es el del círculo. */
   --radius-s: 0;
   --radius-m: 0;
   --radius-l: 0;
+  --radius-round: 50%;
 
-  /* Contenedor ancho, casi a sangre: el contenido no vive en una columna estrecha */
-  --container: 1800px;
-  --gutter: clamp(1.25rem, 3.2vw, 3.5rem);
+  /* Sin sombras. La variable se conserva porque varios componentes
+     la referencian, pero vale `none` a propósito. */
+  --shadow-card: none;
 
-  /* Medidas de línea: anchos generosos para que el texto no se parta cada tres palabras */
-  --measure-wide: 62ch;
-  --measure-text: 52ch;
+  /* --- Medida ---------------------------------------------- */
+  --container: 100%;              /* casi a sangre, como Horizonte */
+  --gutter: var(--padding);
+  --measure-wide: 46ch;
+  --measure-text: 38ch;
 
-  --shadow-card: 0 2px 10px color-mix(in srgb, var(--ink) 7%, transparent),
-    0 12px 32px color-mix(in srgb, var(--ink) 6%, transparent);
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* --- Movimiento ------------------------------------------
+     Un solo easing y tres duraciones. */
+  --easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --second-ease: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  --ease-out: var(--easing);          /* alias heredado */
+  --dur-md: 0.4s;
+  --dur-lg: 0.6s;
+  --dur-xl: 0.8s;
+  --image-transition: transform var(--dur-lg) var(--easing);
+  --image-scale-value: 1.12;
+
+  /* --- Capas ----------------------------------------------- */
+  --z-bg: -1;
+  --z-default: 0;
+  --z-base: 1;
+  --z-header: 100;
+  --z-modal: 200;
+}
+
+/* Por debajo de 1024px la maqueta de referencia pasa a móvil:
+   el mismo diseño, medido contra 390px en lugar de 1440px. */
+@media (max-width: 1023px) {
+  :root {
+    --viewport: 390;
+    --root-min: 13px;
+    --root-max: 17px;
+
+    --text-display: 3rem;
+    --text-1: 2rem;
+    --text-2: 1.25rem;
+
+    --padding: 1.25rem;
+    --space-7: 4rem;
+    --space-8: 6rem;
+  }
 }
