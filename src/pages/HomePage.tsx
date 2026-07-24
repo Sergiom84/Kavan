@@ -6,6 +6,7 @@ import { PackCard } from '../components/travel/PackCard'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
 import { Reveal, RevealGroup } from '../components/fx/RevealText'
 import { SplitTitle } from '../components/fx/SplitTitle'
+import { HeroZoom } from '../components/fx/HeroZoom'
 import './HomePage.css'
 
 /* Orden de la página, según el wireframe:
@@ -47,31 +48,33 @@ export function HomePage() {
 
   return (
     <>
-      {/* ---- Hero: foto a sangre y el logotipo repartido de borde a borde ---- */}
-      <section className="hz-hero">
-        <div className="hz-hero-media">
+      {/* ---- Hero: la fotografía se aleja con el scroll y entran los textos ---- */}
+      <HeroZoom
+        className="hz-hero"
+        media={
           <Pic src="art:dunes:home-hero" alt="Dunas del Erg Chebbi al atardecer" priority position="center 58%" />
-        </div>
-        <div className="hz-scrim" />
+        }
+        beats={[
+          'Cuatro días sin cobertura, sin prisa y sin nadie más en el horizonte.',
+          'Un chófer que conoce las pistas. Una casa donde te esperan con té.',
+        ]}
+      >
+        <SplitTitle as="h1" text="KAVAN" size="wordmark" className="hz-wordmark" />
 
-        <div className="hz-hero-inner">
-          <SplitTitle as="h1" text="KAVAN" size="wordmark" className="hz-wordmark" />
+        <div className="hz-hero-foot container">
+          <p className="hz-hero-lede">
+            Rutas privadas por el sur de Marruecos: dunas del Erg&nbsp;Chebbi, kasbahs de
+            adobe, gargantas del Todra y noches bajo un cielo sin ciudades cerca.
+          </p>
 
-          <div className="hz-hero-foot container">
-            <p className="hz-hero-lede">
-              Rutas privadas por el sur de Marruecos: dunas del Erg&nbsp;Chebbi, kasbahs de
-              adobe, gargantas del Todra y noches bajo un cielo sin ciudades cerca.
-            </p>
-
-            <div className="hz-pills">
-              <Link to="/packs" className="hz-pill is-active">Packs</Link>
-              <Link to="/destinos" className="hz-pill">Destinos</Link>
-            </div>
+          <div className="hz-pills">
+            <Link to="/packs" className="hz-pill is-active">Packs</Link>
+            <Link to="/destinos" className="hz-pill">Destinos</Link>
           </div>
-
-          <span className="hz-scroll-caption label">Scroll down</span>
         </div>
-      </section>
+
+        <span className="hz-scroll-caption label">Scroll down</span>
+      </HeroZoom>
 
       {/* ---- Bloque informativo ---- */}
       <section className="hz-help-section container">
