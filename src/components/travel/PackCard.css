@@ -1,4 +1,12 @@
+/* Tarjeta de pack con el efecto del codepen andymerskin/XNMWvQ.
+
+   Dos curvas distintas: una rápida al seguir al cursor y otra lenta al
+   volver. Es lo que hace que el gesto se sienta elástico en vez de mecánico. */
+
 .pack-card {
+  --entrada: cubic-bezier(0.23, 1, 0.32, 1);
+  --regreso: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
   display: flex;
   flex-direction: column;
   background: transparent;
@@ -6,85 +14,90 @@
   height: 100%;
 }
 
-/* ---------- Inclinación ----------
-   El escenario aporta la perspectiva; la tarjeta gira dentro de él siguiendo
-   al cursor. Las variables las escribe el componente en cada movimiento. */
-
 .pack-card-stage {
-  perspective: 900px;
+  transform: perspective(800px);
+  transform-style: preserve-3d;
 }
 
-.pack-card-media {
-  --rx: 0deg;
-  --ry: 0deg;
-  --mx: 50%;
-  --my: 50%;
+/* ---------- La tarjeta ----------
+   Los dos `inset` de la sombra son la línea por dentro del borde: un anillo
+   oscuro de 5px y, justo detrás, un filete claro de 1px. */
 
+.pack-card-media {
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: var(--bg-3);
-  border-radius: 0.75rem;
-  transform: rotateX(var(--rx)) rotateY(var(--ry));
-  transform-style: preserve-3d;
-  will-change: transform;
-  /* Lento al volver a su sitio, rápido mientras sigue al cursor: el retorno
-     se nota como un muelle y el seguimiento no arrastra. */
-  transition: transform var(--dur-lg) var(--easing);
+  border-radius: 0.625rem;
+  background: var(--c-base-1000);
+  box-shadow: rgba(0, 0, 0, 0.28) 0 1.25rem 2.5rem 0;
+  transition: transform 1s var(--regreso), box-shadow 1s var(--regreso);
 }
 
 .pack-card-stage:hover .pack-card-media {
-  transition: transform 0.12s linear;
+  transition: transform 0.6s var(--entrada), box-shadow 2s var(--entrada);
+  box-shadow:
+    rgba(255, 255, 255, 0.2) 0 0 2.5rem 0.3125rem,
+    rgba(255, 255, 255, 0.9) 0 0 0 1px,
+    rgba(0, 0, 0, 0.4) 0 1.875rem 3.75rem 0;
 }
 
-/* Las fotos de paisaje traen mucho cielo: bajamos el encuadre hacia el terreno */
-.pack-card-media img {
+/* ---------- El fondo ----------
+   Sobresale 1,25rem por cada lado: al desplazarse en sentido contrario al
+   giro nunca deja ver el borde. Es lo que da la sensación de profundidad. */
+
+.pack-card-bg {
+  position: absolute;
+  inset: -1.25rem;
+  pointer-events: none;
+  opacity: 0.82;
+  transition: transform 1s var(--regreso), opacity 5s 1s var(--regreso);
+}
+
+.pack-card-stage:hover .pack-card-bg {
+  transition: transform 0.6s var(--entrada), opacity 5s var(--entrada);
+  opacity: 1;
+}
+
+.pack-card-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Las fotos de paisaje traen mucho cielo: bajamos el encuadre al terreno */
   object-position: 50% 62%;
-  transform: scale(1.06);
-  transition: transform var(--dur-xl) var(--easing);
 }
 
-.pack-card:hover .pack-card-media img {
-  transform: scale(1.12);
-}
-
-/* ---------- Filete interior ---------- */
+/* ---------- Línea interior ----------
+   Los dos `inset` del original: un anillo del color de la tinta y, justo
+   detrás, un filete claro de 1px. Allí se ven a través de un fondo al 50%
+   de opacidad; aquí van en su propia capa por encima de la fotografía, que
+   se queda a plena luz. */
 
 .pack-card-inline {
   position: absolute;
-  inset: 0.625rem;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 0.375rem;
-  pointer-events: none;
-}
-
-/* ---------- Reflejo ----------
-   Un brillo suave anclado al cursor. Da la pista de que la superficie es
-   física y está girando. */
-
-.pack-card-sheen {
-  position: absolute;
   inset: 0;
+  z-index: 1;
+  border-radius: inherit;
   pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    38% 38% at var(--mx) var(--my),
-    rgba(255, 255, 255, 0.28),
-    rgba(255, 255, 255, 0) 70%
-  );
-  transition: opacity var(--dur-md) var(--easing);
+  box-shadow:
+    inset var(--c-base-1000) 0 0 0 0.3125rem,
+    inset rgba(255, 255, 255, 0.5) 0 0 0 0.375rem;
+  transition: box-shadow 2s var(--regreso);
 }
 
-.pack-card-stage:hover .pack-card-sheen {
-  opacity: 1;
+.pack-card-stage:hover .pack-card-inline {
+  transition: box-shadow 2s var(--entrada);
+  box-shadow:
+    inset var(--c-base-1000) 0 0 0 0.3125rem,
+    inset #fff 0 0 0 0.375rem;
 }
 
 /* ---------- Precio ---------- */
 
 .pack-card-tag {
   position: absolute;
-  left: 0.625rem;
-  bottom: 0.625rem;
+  z-index: 2;
+  left: 0.875rem;
+  bottom: 0.875rem;
   background: var(--c-base-0);
   color: var(--ink);
   padding: 0.5rem 0.875rem;
@@ -132,13 +145,10 @@
   color: var(--ink-soft);
 }
 
-/* Sin inclinación ni reflejo si se ha pedido menos movimiento. */
 @media (prefers-reduced-motion: reduce) {
-  .pack-card-media {
+  .pack-card-media,
+  .pack-card-bg {
     transform: none !important;
-  }
-
-  .pack-card-sheen {
-    display: none;
+    transition: none;
   }
 }
