@@ -14,9 +14,18 @@
   height: 100%;
 }
 
+/* La elevación va en el escenario y el giro en la tarjeta: separados, porque
+   el giro lo escribe el componente en el atributo style y aquí no se puede
+   sumar nada a esa misma propiedad. */
 .pack-card-stage {
   transform: perspective(800px);
   transform-style: preserve-3d;
+  transition: transform 1s var(--regreso);
+}
+
+.pack-card-stage:hover {
+  transition: transform 0.6s var(--entrada);
+  transform: perspective(800px) translateY(-0.625rem);
 }
 
 /* ---------- La tarjeta ----------
@@ -28,17 +37,17 @@
   aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: 0.625rem;
-  background: var(--c-base-1000);
-  box-shadow: rgba(0, 0, 0, 0.28) 0 1.25rem 2.5rem 0;
+  background: #2f2f2f;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 0.75rem 1.75rem 0;
   transition: transform 1s var(--regreso), box-shadow 1s var(--regreso);
 }
 
 .pack-card-stage:hover .pack-card-media {
   transition: transform 0.6s var(--entrada), box-shadow 2s var(--entrada);
   box-shadow:
-    rgba(255, 255, 255, 0.2) 0 0 2.5rem 0.3125rem,
-    rgba(255, 255, 255, 0.9) 0 0 0 1px,
-    rgba(0, 0, 0, 0.4) 0 1.875rem 3.75rem 0;
+    rgba(255, 255, 255, 0.18) 0 0 2.5rem 0.25rem,
+    rgba(255, 255, 255, 0.85) 0 0 0 1px,
+    rgba(0, 0, 0, 0.34) 0 1.75rem 3.25rem 0;
 }
 
 /* ---------- El fondo ----------
@@ -67,10 +76,10 @@
 }
 
 /* ---------- Línea interior ----------
-   Los dos `inset` del original: un anillo del color de la tinta y, justo
-   detrás, un filete claro de 1px. Allí se ven a través de un fondo al 50%
-   de opacidad; aquí van en su propia capa por encima de la fotografía, que
-   se queda a plena luz. */
+   Lo que se ve en el original es una línea blanca fina recorriendo la
+   tarjeta por dentro. El anillo que lleva detrás es `#333`: un neutro que
+   se funde con la fotografía y sólo la oscurece un punto. Con el color de
+   la marca se convertía en un marco verde, que no es lo que hay que ver. */
 
 .pack-card-inline {
   position: absolute;
@@ -79,16 +88,16 @@
   border-radius: inherit;
   pointer-events: none;
   box-shadow:
-    inset var(--c-base-1000) 0 0 0 0.3125rem,
-    inset rgba(255, 255, 255, 0.5) 0 0 0 0.375rem;
+    inset rgba(0, 0, 0, 0.32) 0 0 0 0.3125rem,
+    inset rgba(255, 255, 255, 0.55) 0 0 0 0.375rem;
   transition: box-shadow 2s var(--regreso);
 }
 
 .pack-card-stage:hover .pack-card-inline {
   transition: box-shadow 2s var(--entrada);
   box-shadow:
-    inset var(--c-base-1000) 0 0 0 0.3125rem,
-    inset #fff 0 0 0 0.375rem;
+    inset rgba(0, 0, 0, 0.32) 0 0 0 0.3125rem,
+    inset rgba(255, 255, 255, 0.95) 0 0 0 0.375rem;
 }
 
 /* ---------- Precio ---------- */

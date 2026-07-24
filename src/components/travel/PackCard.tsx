@@ -6,11 +6,13 @@ import { Pic } from '../ui/Pic'
 import { cities } from '../../data/seed'
 import './PackCard.css'
 
-/* Valores del original (codepen andymerskin/XNMWvQ):
-   la tarjeta gira hasta 15° por eje y el fondo se desplaza hasta 20px en
-   sentido contrario, que es lo que da la sensación de profundidad. */
-const GIRO = 30 // grados sobre el recorrido completo, ±15 desde el centro
-const DESPLAZAMIENTO = 40 // px sobre el recorrido completo, ±20 desde el centro
+/* El original gira hasta 15° por eje. Aquí las tarjetas son bastante más
+   grandes que las suyas de 240px, y a ese tamaño 15° se siente brusco: se
+   queda en 7°, que es donde el gesto resulta suave. El desplazamiento del
+   fondo en sentido contrario sí se mantiene generoso, porque es lo que da la
+   sensación de profundidad. */
+const GIRO = 14 // grados sobre el recorrido completo, ±7 desde el centro
+const DESPLAZAMIENTO = 26 // px sobre el recorrido completo, ±13 desde el centro
 
 /** Al salir, el original espera un segundo antes de devolver la tarjeta. */
 const RETARDO_SALIDA = 1000
