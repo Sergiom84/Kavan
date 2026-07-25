@@ -1,32 +1,23 @@
 @import "./tokens.css";
 
-/* Las dos familias del original. Canela Thin es de Commercial Type y
-   ApercuMono de Colophon: ambas son comerciales. Se sirven aquí para poder
-   evaluar el diseño con la tipografía real; para publicar hay que
-   licenciarlas o cambiarlas por las sustitutas libres (ver RESTYLE.md). */
+/* Sustitutas libres de Canela/ApercuMono, fijadas en design-system/MASTER.md:
+   Cormorant Garamond (display/heading) + JetBrains Mono (texto/etiquetas,
+   fuente variable: un solo archivo cubre 300-800). SIL Open Font License,
+   auto-alojadas igual que las comerciales que sustituyen. */
 @font-face {
-  font-family: Canela;
-  font-style: normal;
-  font-weight: 100;
-  font-display: swap;
-  src: url("/fonts/Canela-Thin-Web.woff2") format("woff2"),
-       url("/fonts/Canela-Thin-Web.woff") format("woff");
-}
-
-@font-face {
-  font-family: ApercuMono;
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url("/fonts/apercu-mono-light.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: ApercuMono;
+  font-family: "Cormorant Garamond";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/apercu-mono-regular.woff2") format("woff2");
+  src: url("/fonts/CormorantGaramond-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/JetBrainsMono-Variable.woff2") format("woff2-variations"), url("/fonts/JetBrainsMono-Variable.woff2") format("woff2");
 }
 
 /* Las utilidades comunes viven en una capa: así los estilos de cada componente

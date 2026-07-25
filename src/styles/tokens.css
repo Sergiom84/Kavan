@@ -1,13 +1,16 @@
 /* ============================================================
-   Lenguaje de diseño Horizonte Village aplicado a Kavan.
+   Estructura de Horizonte Village + color y tipografía Sáhara.
+   Fuente de verdad: design-system/MASTER.md.
 
-   Referencia: https://horizonte-village.com  (ver ESTRUCTURA.md)
+   Horizonte Village es referencia SOLO de layout, ritmo y motion
+   (ver ESTRUCTURA.md) — nunca de color ni tipografía, ambos
+   sustituidos por decisión de cliente/Sergio.
 
    Tres decisiones gobiernan todo lo demás:
    1. El root escala con el ancho de pantalla, así que la página
       entera crece y encoge en proporción. Todo se mide en rem
       contra una maqueta de 1440px.
-   2. Cuatro colores. Nada más.
+   2. Paleta Sáhara: papel cálido, arena, terracota, sol del desierto.
    3. Material plano: cero sombras, cero redondeos. La profundidad
       la da el gradiente oscuro sobre la fotografía.
    ============================================================ */
@@ -23,45 +26,48 @@
   --viewheight: 832;
 
   /* --- Color ----------------------------------------------
-     Paleta de Horizonte: crema, verde petróleo, blanco, negro. */
-  --c-bg: #e5e0d9;          /* fondo de página */
-  --c-base-0: #dfd8cf;      /* crema — superficies */
-  --c-base-1000: #304143;   /* verde petróleo — texto */
-  --c-brand-500: #21343e;   /* marca, un punto más oscuro */
+     Paleta Sáhara (design-system/MASTER.md): papel cálido, arena,
+     terracota, sol del desierto. Ya no monocroma — reemplaza la
+     paleta crema/verde petróleo importada de Horizonte. */
+  --c-bg: #f5f0ea;          /* papel cálido — fondo de página */
+  --c-base-0: #ebe1cd;      /* arena clara — superficies elevadas */
+  --c-base-1000: #2a2119;   /* ink, marrón casi negro — texto */
+  --c-brand-500: #8a4b2b;   /* terracota profunda — marca, hover */
   --c-pure-white: #fff;
   --c-pure-black: #000;
-  --c-error: #ce4a40;
+  --c-error: #9d3c23;       /* danger */
 
-  /* Fondos. Sin saltos bruscos: la banda alterna es la misma
-     crema apenas rebajada, no un color distinto. */
+  /* Fondos. bg-3 es arena (superficie secundaria); bg-4 es la banda
+     oscura reservada (terracota profunda), sin uso actual en el código. */
   --bg-1: var(--c-bg);
   --bg-2: var(--c-base-0);
-  --bg-3: #d3cbc0;
+  --bg-3: #d9bfa0;
   --bg-4: var(--c-brand-500);
 
   /* Tinta y sus grados */
   --ink: var(--c-base-1000);
-  --ink-soft: color-mix(in srgb, var(--ink) 62%, transparent);
-  --ink-faint: color-mix(in srgb, var(--ink) 38%, transparent);
+  --ink-soft: color-mix(in srgb, var(--ink) 64%, transparent);
+  --ink-faint: color-mix(in srgb, var(--ink) 40%, transparent);
   --line: color-mix(in srgb, var(--ink) 16%, transparent);
   --line-strong: color-mix(in srgb, var(--ink) 32%, transparent);
 
-  /* Acción. Horizonte es monocromo: el acento es la propia tinta,
-     y el contraste se consigue invirtiendo fondo y texto. */
-  --accent: var(--c-base-1000);
-  --accent-2: var(--c-brand-500);
-  --accent-ink: var(--c-base-0);
-  --accent-sun: var(--c-base-0);
+  /* Acción. A diferencia de Horizonte (monocromo), aquí el acento es
+     un color real: terracota intensa. El sol del desierto es un
+     segundo acento puntual, no neutro. */
+  --accent: #c4622d;        /* terracota intensa — CTA, acciones */
+  --accent-2: var(--c-brand-500); /* terracota profunda — hover */
+  --accent-ink: #f8f3ea;    /* texto sobre acento */
+  --accent-sun: #e2a13a;    /* sol del desierto — acento puntual */
   --accent-sun-ink: var(--c-base-1000);
 
-  --card: color-mix(in srgb, var(--c-base-0) 60%, var(--c-pure-white));
-  --ok: #3f5a4e;
+  --card: #faf6ee;          /* superficies elevadas */
+  --ok: #4a6741;
   --danger: var(--c-error);
 
   /* Rótulos sobre fotografía */
-  --on-photo: var(--c-pure-white);
-  --on-photo-soft: color-mix(in srgb, var(--on-photo) 76%, transparent);
-  --on-photo-line: color-mix(in srgb, var(--on-photo) 32%, transparent);
+  --on-photo: #f8f3ea;
+  --on-photo-soft: color-mix(in srgb, var(--on-photo) 78%, transparent);
+  --on-photo-line: color-mix(in srgb, var(--on-photo) 38%, transparent);
 
   /* Los dos únicos gradientes del sistema. Siempre sobre foto,
      siempre para que el texto se lea, nunca decorativos. */
@@ -69,22 +75,26 @@
   --scrim-bottom: linear-gradient(0deg, rgba(0, 0, 0, 0.64), rgba(0, 0, 0, 0));
 
   /* --- Tipografía ------------------------------------------
-     Las dos familias del original, servidas desde public/fonts.
-     ATENCIÓN: Canela (Commercial Type) y ApercuMono (Colophon)
-     son comerciales. Están aquí para poder juzgar el diseño de
-     verdad; para publicar hay que licenciarlas o sustituirlas. */
-  --canela: Canela, Georgia, "Times New Roman", serif;
-  --apercu-mono-pro: ApercuMono, ui-monospace, SFMono-Regular, monospace;
+     Sustitutas libres de Canela/ApercuMono (design-system/MASTER.md),
+     servidas desde public/fonts. SIL Open Font License — sin
+     restricción de licencia comercial, a diferencia de las anteriores. */
+  --cormorant: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --jetbrains-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --font-display: var(--canela);
-  --font-mono: var(--apercu-mono-pro);
+  --font-display: var(--cormorant);
+  --font-mono: var(--jetbrains-mono);
 
   /* Alias heredado: los componentes que ya escribían var(--font)
      siguen funcionando y reciben la serif. */
   --font: var(--font-display);
 
-  --weight-title: 100;   /* Canela Thin: el peso es parte de la identidad */
-  --weight-heading: 100;
+  /* Pesos: solo se auto-alojó Cormorant Garamond Regular (400) — no
+     hay archivo Thin como el que tenía Canela. Peso final pendiente
+     de decisión (ver "Open decisions" en MASTER.md); 400 es el valor
+     de partida más cercano disponible. JetBrains Mono es variable y
+     cubre 300-800 con un solo archivo. */
+  --weight-title: 400;
+  --weight-heading: 400;
   --weight-text: 300;
   --weight-label: 400;
 
