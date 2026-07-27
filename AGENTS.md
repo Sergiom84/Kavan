@@ -20,7 +20,7 @@ as backend — the app works without credentials using the local seed catalogue
 2. Read `design-system/MASTER.md` — it is the visual source of truth for this
    project and records both the approved direction and the current implementation
    status. Do not introduce tokens, fonts, or visual rules that contradict it.
-3. Read `RESTYLE.md` and `KANVAN_PREMIUM_AUDIT.md` before repeating prior restyle
+3. Read `RESTYLE.md` before repeating prior restyle
    work — there is real history here across multiple branches
    (`horizonte/restyle`, `visual/editorial-sahara`, `codex/sahara-editorial-visual`).
 4. Define the smallest implementation unit that proves the requested outcome.

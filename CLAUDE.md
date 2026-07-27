@@ -7,9 +7,8 @@ only adds Claude-specific notes.
 ## Working mode
 
 Work as a senior engineer and visual design partner. Before editing, read
-`AGENTS.md`, `design-system/MASTER.md`, `design-system/anti-ai-ui.md`,
-`RESTYLE.md`, and `KANVAN_PREMIUM_AUDIT.md` — in that order — before proposing a
-change to anything visual.
+`AGENTS.md`, `design-system/MASTER.md`, `design-system/anti-ai-ui.md` and
+`RESTYLE.md` — in that order — before proposing a change to anything visual.
 
 ## Non-negotiable client rules (repeated here because they're easy to miss)
 

@@ -126,8 +126,9 @@ y probados en una rama real de este proyecto):
 ## Responsive behavior
 
 - Mobile navigation / elementos ocultos o reordenados / spacing: pendiente de
-  auditoría dedicada — ver `KANVAN_PREMIUM_AUDIT.md` § "Diseño móvil" para el
-  detalle de qué rutas ya tienen evidencia (390×844) y cuáles no.
+  auditoría dedicada. La evidencia disponible hoy son las capturas de
+  `_restyle-evidencia/` (`final-home-390x844.png`, `final-home-768x1024.png`):
+  solo cubren la Home, el resto de rutas no tiene evidencia móvil.
 - Full-width elements: heredar criterio de Horizonte (elementos a sangre en móvil).
 - Decorative elements removed: a decidir por sección durante implementación.
 
@@ -161,10 +162,9 @@ Footer**, EXCEPTO las páginas 9 (`/reserva/:slug`), 11 (`/packs/:slug` hub), 12
       demostración, siempre marcados como demo** (visual o internamente) para no
       enseñar cifras que luego cambien sin aviso.
 - [ ] Auditoría móvil completa del flujo comercial (Home → Packs → Reserva → Tu
-      Viaje → El Viaje) en 390/768/1024 — pendiente, señalada como Prioridad 2 en
-      `KANVAN_PREMIUM_AUDIT.md`.
+      Viaje → El Viaje) en 390/768/1024 — pendiente.
 - [ ] Congelar qué commit/captura de `_restyle-evidencia/` se considera la
-      referencia válida actual antes de seguir iterando (Prioridad 1 del informe).
+      referencia válida actual antes de seguir iterando.
 
 ## Estado de implementación
 
