@@ -14,6 +14,23 @@
   pointer-events: none;
 }
 
+/* El contador, en el centro de la pantalla y en cifras de titular. */
+.preloader-pct {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: var(--weight-title);
+  line-height: 1;
+  /* Cifras de ancho fijo: sin esto el número se mueve a cada cambio. */
+  font-variant-numeric: tabular-nums;
+  color: var(--on-photo);
+  text-shadow: 0 2px 12px rgba(28, 20, 14, 0.45);
+}
+
 /* Abajo a la izquierda, en el mismo sitio y con el mismo cuerpo que el
    contador de la galería. */
 .preloader-label {

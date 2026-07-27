@@ -191,7 +191,11 @@ export class DesertParticles {
     texture.image = image
     texture.needsUpdate = true
     const imageAspect = image.naturalWidth / image.naturalHeight
-    const total = Math.min(particles, Math.round(pw * ph * .085))
+    /* El tope sigue atado al área para que un lienzo pequeño no reserve
+       memoria de más, pero con .085 se quedaba en 110.000 sobre una pantalla de
+       1900x680 y estrangulaba las 400.000 pedidas: el granulado salía pobre.
+       Con .34 el número pedido manda hasta pantallas muy pequeñas. */
+    const total = Math.min(particles, Math.round(pw * ph * .34))
     const posvel = new Float32Array(total * 4)
     const lifeSeed = new Float32Array(total * 4)
     const color = new Float32Array(total * 3)
