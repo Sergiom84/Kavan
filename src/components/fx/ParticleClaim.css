@@ -55,12 +55,16 @@
   filter: sepia(.22) saturate(1.25) hue-rotate(-8deg) contrast(1.02);
 }
 
+/* La opacidad sube con el revelado, de 0,4 en reposo a 0,9 al final. Con el
+   0,18 fijo la arena no se leía: cada grano toma su color de la propia imagen
+   que sobrevuela, así que nunca contrasta con ella y a esa opacidad quedaba en
+   ruido de textura en vez de arena en movimiento. */
 .pclaim-canvas {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  opacity: .18;
+  opacity: calc(.4 + var(--desert-reveal) * .5);
 }
 
 .pclaim.has-particles .pclaim-canvas {
