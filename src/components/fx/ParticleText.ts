@@ -111,7 +111,7 @@ void main() {
   float razonVida = v_lifeseed.x / vidaMax;
   float alfa = smoothstep(0.0, 0.05, razonVida) * (1.0 - smoothstep(0.7, 1.0, razonVida));
   gl_PointSize = smoothstep(1.0, 0.4, razonVida) * u_size * 1.6 * alfa;
-  v_alpha = alfa * 0.75;
+  v_alpha = alfa * 0.55;
 
   vec2 ndc = v_posvel.xy / u_resolution * 2.0 - 1.0;
   ndc.y    = -ndc.y;
@@ -135,8 +135,8 @@ void main() {
 type Opciones = {
   /** Sección donde se inserta el lienzo. */
   container: HTMLElement
-  /** La frase, en texto llano. */
-  text: string
+  /** El elemento con la frase escrita: de él se calcan las letras. */
+  origen: HTMLElement
   /** Colores de las partículas, en `#rrggbb`. */
   colores: [string, string]
   /** Cuántas partículas. Se recorta si la frase ocupa pocos píxeles. */
@@ -160,7 +160,7 @@ export class ParticleText {
   private gl: Renderer['gl']
   private malla: Mesh | null = null
   private container: HTMLElement
-  private text: string
+  private origen: HTMLElement
   private colores: [string, string]
   private numParticles: number
   private onListo?: () => void
@@ -179,9 +179,9 @@ export class ParticleText {
   private observadorTamano: ResizeObserver | null = null
   private reconstruir = 0
 
-  constructor({ container, text, colores, numParticles = 120000, onListo }: Opciones) {
+  constructor({ container, origen, colores, numParticles = 120000, onListo }: Opciones) {
     this.container = container
-    this.text = text
+    this.origen = origen
     this.colores = colores
     this.numParticles = numParticles
     this.onListo = onListo
@@ -231,45 +231,56 @@ export class ParticleText {
     this.medirYMontar()
   }
 
-  /** El lienzo con la frase, del que salen las posiciones de origen. */
-  private rasterizar(w: number, h: number): { datos: Uint8ClampedArray; ancho: number; alto: number } {
+  /**
+   * Calca la frase escrita del DOM a un lienzo.
+   *
+   * No se vuelve a maquetar el texto: se recorren sus palabras, se pregunta al
+   * navegador dónde ha puesto cada una y con qué tipografía, y se dibuja ahí.
+   * Así las partículas caen justo encima de las letras que se ven. Rehacer la
+   * maquetación aparte daba otro reparto de líneas y se veían dos frases
+   * distintas superpuestas.
+   */
+  private rasterizar(w: number, h: number, dpr: number): Uint8ClampedArray {
     const lienzo = document.createElement('canvas')
     lienzo.width = w
     lienzo.height = h
     const ctx = lienzo.getContext('2d')!
-
-    /* El cuerpo se deduce del ancho para que la frase llene la caja en
-       cualquier pantalla, y se recorta para que no crezca sin freno. */
-    const cuerpo = Math.max(14, Math.min(w / 30, h / 9))
-    ctx.font = `600 ${cuerpo}px "Cormorant Garamond", Georgia, serif`
     ctx.textBaseline = 'middle'
-    ctx.textAlign = 'center'
+    ctx.textAlign = 'left'
     ctx.fillStyle = '#fff'
 
-    const maxAncho = w * 0.78
-    const palabras = this.text.split(' ')
-    const lineas: string[] = []
-    let linea = ''
-    for (const palabra of palabras) {
-      const prueba = linea ? `${linea} ${palabra}` : palabra
-      if (ctx.measureText(prueba).width > maxAncho && linea) {
-        lineas.push(linea)
-        linea = palabra
-      } else {
-        linea = prueba
+    const caja = this.container.getBoundingClientRect()
+    const paseo = document.createTreeWalker(this.origen, NodeFilter.SHOW_TEXT)
+    const rango = document.createRange()
+
+    for (let nodo = paseo.nextNode(); nodo; nodo = paseo.nextNode()) {
+      const texto = nodo.textContent ?? ''
+      if (!texto.trim()) continue
+
+      const padre = nodo.parentElement
+      if (!padre) continue
+      const cs = getComputedStyle(padre)
+      ctx.font = `${cs.fontWeight} ${parseFloat(cs.fontSize) * dpr}px ${cs.fontFamily}`
+
+      /* Palabra a palabra: un rango sobre todo el nodo daría una sola caja por
+         línea y no se sabría dónde empieza cada palabra dentro de ella. */
+      const re = /\S+/g
+      let m: RegExpExecArray | null
+      while ((m = re.exec(texto)) !== null) {
+        rango.setStart(nodo, m.index)
+        rango.setEnd(nodo, m.index + m[0].length)
+        for (const r of rango.getClientRects()) {
+          if (r.width < 0.5) continue
+          ctx.fillText(
+            m[0],
+            (r.left - caja.left) * dpr,
+            (r.top + r.height / 2 - caja.top) * dpr,
+          )
+        }
       }
     }
-    if (linea) lineas.push(linea)
 
-    const interlineado = cuerpo * 1.22
-    const alto = lineas.length * interlineado
-    let y = h / 2 - alto / 2 + interlineado / 2
-    for (const l of lineas) {
-      ctx.fillText(l, w / 2, y)
-      y += interlineado
-    }
-
-    return { datos: ctx.getImageData(0, 0, w, h).data, ancho: w, alto: h }
+    return ctx.getImageData(0, 0, w, h).data
   }
 
   private medirYMontar() {
@@ -284,7 +295,7 @@ export class ParticleText {
     this.u_resolution.value = [pw, ph]
     this.u_size.value = Math.max(1.2, dpr * 1.1)
 
-    const { datos } = this.rasterizar(pw, ph)
+    const datos = this.rasterizar(pw, ph, dpr)
 
     /* Lista de píxeles pintados. Se recorre a saltos: no hacen falta todos,
        y con paso 2 el muestreo sigue siendo denso y cuesta cuatro veces menos. */

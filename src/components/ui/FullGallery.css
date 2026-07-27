@@ -1,0 +1,120 @@
+/* Galería a sangre, con las medidas de la sección `features` de la referencia:
+   una fotografía por pantalla completa, contador abajo a la izquierda y flechas
+   abajo a la derecha. */
+
+.fgal {
+  position: relative;
+  height: 100svh;
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.fgal-track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.fgal-track::-webkit-scrollbar {
+  display: none;
+}
+
+.fgal-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+}
+
+.fgal-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* El velo inferior es el mismo del sistema: sin él el contador se pierde
+   sobre las fotos claras. */
+.fgal-scrim {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  pointer-events: none;
+  background: var(--scrim-bottom);
+}
+
+/* El margen derecho deja libre la burbuja de asesoría, que va fija en esa
+   esquina: sin él las flechas caen justo debajo y no se pueden pulsar. En la
+   referencia los controles también se apartan de su botón flotante. */
+.fgal-bar {
+  position: absolute;
+  left: var(--padding);
+  right: calc(var(--padding) + 6rem);
+  bottom: var(--space-4);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  color: var(--on-photo);
+}
+
+/* Número grande y total a la mitad de cuerpo, como en la referencia. */
+.fgal-count {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+/* Medido en la referencia: el número activo a 53px y el total a la mitad
+   exacta, sobre un viewport de 920 de alto. Se expresa contra --text-2 para
+   que escale con el resto del sistema. */
+.fgal-count-now {
+  font-family: var(--font-display);
+  font-size: calc(var(--text-2) * 2.2);
+  font-weight: var(--weight-title);
+  line-height: 1;
+}
+
+.fgal-count-all {
+  font-family: var(--font-display);
+  font-size: calc(var(--text-2) * 1.1);
+  line-height: 1;
+  opacity: 0.65;
+}
+
+.fgal-place {
+  margin-left: var(--space-3);
+  color: var(--on-photo-soft);
+}
+
+.fgal-arrows {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.fgal-arrow {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--on-photo);
+  border: 0;
+  background: none;
+  transition: opacity var(--dur-md) var(--easing);
+}
+
+.fgal-arrow:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 1023px) {
+  /* A pantalla completa en vertical la foto se lee mal recortada; se deja algo
+     más baja para que quepa el contador sin comerse la imagen. */
+  .fgal {
+    height: 70svh;
+  }
+
+  .fgal-place {
+    display: none;
+  }
+}

@@ -9,9 +9,12 @@
   overflow: hidden;
 }
 
+/* Las partículas van por encima de la frase, no debajo: el texto queda al
+   fondo, legible, y el polvo lo cruza. Dibujadas solas no se distinguían. */
 .pclaim-canvas {
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -29,12 +32,11 @@
   color: var(--ink);
 }
 
-/* Con el efecto en marcha lo que se lee son las partículas. La frase sigue en
-   el DOM para el lector de pantalla, pero deja de dibujarse.
-
-   No se usa visibility ni display: eso también la esconderría del lector. */
+/* Con el efecto en marcha la frase se queda escrita al fondo y las partículas
+   pasan por encima. Se rebaja un punto para que el polvo se distinga sobre
+   ella en vez de competir con el texto a la misma intensidad. */
 .pclaim.has-particles .pclaim-title {
-  opacity: 0;
+  color: var(--ink-soft);
 }
 
 /* El lienzo recibe el puntero sólo cuando hay algo que empujar. */

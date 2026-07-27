@@ -26,7 +26,11 @@ export function AdvisorButton() {
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
-        Te asesoramos
+        {/* Los reflejos de la burbuja: dos los pinta el propio botón con sus
+            pseudoelementos y los otros dos este span, que no hace falta que
+            lea nadie. */}
+        <span className="advisor-glare" aria-hidden="true" />
+        <span className="advisor-label">Te asesoramos</span>
       </button>
     </div>
   )

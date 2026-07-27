@@ -7,6 +7,16 @@
       "runtimeArgs": ["run", "dev"],
       "port": 5173,
       "autoPort": true
+    },
+    {
+      "name": "referencia-horizonte",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "C:/Users/sergi/Documents/Webs/Estilos Visuales Web/Explorer_Kanban/local-server.py",
+        "4173"
+      ],
+      "port": 4173,
+      "autoPort": false
     }
   ]
 }

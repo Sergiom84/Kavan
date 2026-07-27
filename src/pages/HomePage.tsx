@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import { useFeaturedPacks } from '../queries/hooks'
 import { Pic } from '../components/ui/Pic'
 import { Carousel } from '../components/ui/Carousel'
+import { FullGallery } from '../components/ui/FullGallery'
 import { PackCard } from '../components/travel/PackCard'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
 import { Reveal } from '../components/fx/RevealText'
@@ -20,18 +21,14 @@ const AYUDA = [
   { to: '/consejos', title: 'Requisitos' },
 ]
 
-/* La frase sobre Marruecos, en dos formas. Las llaves marcan las palabras que
-   bajan a caja baja; los nombres propios se quedan fuera de ellas o perderían
-   la mayúscula. La versión llana es la que se rasteriza para las partículas,
-   donde las llaves no significan nada. */
+/* La frase sobre Marruecos. Las llaves marcan las palabras que bajan a caja
+   baja; los nombres propios se quedan fuera de ellas o perderían la mayúscula. */
 const CLAIM =
   'ENTRE {el} ATLÁNTICO {y el} SAHARA, MARRUECOS CONCENTRA {en pocos kilómetros} ' +
   'MEDINAS MILENARIAS, {cumbres nevadas del} ATLAS, {valles de palmeras y el} ' +
   'MAYOR MAR DE DUNAS {del norte de} ÁFRICA. UN PAÍS {de té a la menta}, ' +
   'HOSPITALIDAD BEREBER {y ciudades imperiales donde cada puerta esconde un patio}. ' +
   'A MENOS {de tres horas de vuelo}, OTRO MUNDO.'
-
-const CLAIM_LLANO = CLAIM.replace(/[{}]/g, '')
 
 /* Galería del país. Las rutas van directas a public/images y no por Pic: aquí
    la foto concreta importa, no es un motivo intercambiable. */
@@ -76,38 +73,26 @@ export function HomePage() {
             gargantas del Todra y noches bajo un cielo sin ciudades cerca.
           </p>
 
-          {/* Los dos accesos del bloque informativo del wireframe, subidos a la
-              portada: aquí se ven sin tener que bajar. */}
-          <div className="hz-pills">
-            {AYUDA.map((item, i) => (
-              <Link key={item.title} to={item.to} className={`hz-pill ${i === 0 ? 'is-active' : ''}`}>
-                {item.title}
-              </Link>
-            ))}
+          {/* Línea de pie de la portada: los dos accesos a la izquierda y el
+              aviso de scroll centrado, a la misma altura. */}
+          <div className="hz-hero-bottom">
+            <div className="hz-pills">
+              {AYUDA.map((item, i) => (
+                <Link key={item.title} to={item.to} className={`hz-pill ${i === 0 ? 'is-active' : ''}`}>
+                  {item.title}
+                </Link>
+              ))}
+            </div>
+            <span className="hz-scroll-caption label">Scroll down</span>
           </div>
         </div>
-
-        <span className="hz-scroll-caption label">Scroll down</span>
       </HeroZoom>
 
       {/* ---- Marruecos: la frase dibujada con partículas sobre blanco roto ---- */}
-      <ParticleClaim text={CLAIM} plain={CLAIM_LLANO} />
+      <ParticleClaim text={CLAIM} />
 
-      {/* ---- Galería: el país en imágenes, rotando sola ---- */}
-      <section className="hz-gallery">
-        <div className="container">
-          <Carousel className="hz-gallery-carousel" auto={4200}>
-            {GALERIA.map((foto) => (
-              <figure key={foto.src} className="carousel-item hz-gallery-item">
-                <div className="hz-gallery-media">
-                  <img src={foto.src} alt={foto.alt} loading="lazy" decoding="async" />
-                </div>
-                <figcaption className="label">{foto.pie}</figcaption>
-              </figure>
-            ))}
-          </Carousel>
-        </div>
-      </section>
+      {/* ---- Galería a sangre: una fotografía por pantalla ---- */}
+      <FullGallery fotos={GALERIA} auto={4200} />
 
       {/* ---- Viajes más deseados ---- */}
       <section className="hz-packs">

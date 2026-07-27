@@ -12,56 +12,164 @@
   gap: var(--space-3);
 }
 
+/* ---------- La burbuja ----------
+   Pompa de jabón: núcleo hueco y oscuro, iridiscencia empujada al perímetro
+   por gradientes horizontales superpuestos, y cuatro reflejos.
+
+   El original venía dimensionado a 320px con todas las medidas en píxeles
+   sueltos. Aquí todo sale de --burbuja, así que el botón se puede escalar (y
+   se escala en móvil) sin recolocar catorce números a mano. */
 .advisor-toggle {
+  --burbuja: 5rem;
+
   position: relative;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: var(--burbuja);
+  height: var(--burbuja);
+  border: 0;
   border-radius: var(--radius-round);
-  background: var(--ink);
-  color: var(--accent-ink);
+  color: var(--on-photo);
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.5rem;
   letter-spacing: var(--track-label);
   line-height: 1.2;
   text-transform: uppercase;
   display: grid;
   place-items: center;
   padding: 0 0.5rem;
-  /* Filete claro para que el botón siga recortándose cuando pasa por
-     encima de una sección oscura, como el panel de Contacto. */
-  border: 1px solid color-mix(in srgb, var(--on-photo) 28%, transparent);
-  transition: background-color var(--dur-md) var(--easing),
-              color var(--dur-md) var(--easing);
+
+  background:
+    /* Núcleo hueco: mantiene el centro oscuro y expulsa el color al borde. */
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0) 70%),
+    /* Interferencia horizontal principal, densa arriba y abajo. */
+    linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(0, 255, 255, 0.25) 8%,
+      rgba(255, 0, 128, 0.2) 15%,
+      rgba(255, 255, 255, 0) 35%,
+      rgba(255, 255, 255, 0) 65%,
+      rgba(255, 230, 0, 0.2) 82%,
+      rgba(0, 255, 150, 0.25) 90%,
+      rgba(255, 255, 255, 0.5) 100%
+    ),
+    /* Segunda capa de rayas finas, para que la iridiscencia no se lea plana. */
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.3) 2%,
+      rgba(255, 0, 255, 0.15) 12%,
+      rgba(0, 0, 255, 0.15) 22%,
+      rgba(0, 0, 0, 0) 40%,
+      rgba(0, 0, 0, 0) 60%,
+      rgba(0, 255, 255, 0.15) 85%,
+      rgba(255, 255, 255, 0.3) 98%
+    );
+  background-blend-mode: screen;
+
+  /* Refracción del borde: es lo que la hace parecer vidrio y no un círculo. */
+  box-shadow:
+    inset 0 calc(var(--burbuja) * 0.125) calc(var(--burbuja) * 0.156) rgba(255, 255, 255, 0.6),
+    inset 0 calc(var(--burbuja) * -0.094) calc(var(--burbuja) * 0.14) rgba(255, 255, 255, 0.35),
+    inset calc(var(--burbuja) * 0.047) 0 calc(var(--burbuja) * 0.078) rgba(255, 0, 150, 0.2),
+    inset calc(var(--burbuja) * -0.047) 0 calc(var(--burbuja) * 0.078) rgba(0, 200, 255, 0.25),
+    inset 0 0 calc(var(--burbuja) * 0.025) rgba(255, 255, 255, 0.9),
+    0 1px 3px rgba(255, 255, 255, 0.4);
+
+  animation: advisor-flotar 6s ease-in-out infinite alternate;
 }
 
-/* Los dos anillos que laten hacia fuera. La animación se detiene sola si el
-   usuario ha pedido menos movimiento (regla global en global.css). */
-.advisor-toggle::before,
-.advisor-toggle::after {
+/* Reflejo principal sobreexpuesto, arriba a la izquierda. */
+.advisor-toggle::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border: 1px solid var(--ink);
+  top: calc(var(--burbuja) * 0.056);
+  left: calc(var(--burbuja) * 0.14);
+  width: calc(var(--burbuja) * 0.31);
+  height: calc(var(--burbuja) * 0.14);
   border-radius: var(--radius-round);
-  opacity: 0;
-  animation: advisor-ring 3.2s var(--second-ease) infinite;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.8) 25%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(-28deg);
+  mix-blend-mode: overlay;
   pointer-events: none;
 }
 
+/* El punto de luz: el reflejo de la bombilla. */
 .advisor-toggle::after {
-  animation-delay: 1.6s;
+  content: "";
+  position: absolute;
+  top: calc(var(--burbuja) * 0.194);
+  left: calc(var(--burbuja) * 0.113);
+  width: calc(var(--burbuja) * 0.05);
+  height: calc(var(--burbuja) * 0.05);
+  border-radius: var(--radius-round);
+  background: radial-gradient(circle, #fff 20%, rgba(255, 255, 255, 0.4) 60%, transparent 100%);
+  pointer-events: none;
 }
 
-@keyframes advisor-ring {
-  0% { opacity: 0; transform: scale(1); }
-  25% { opacity: 0.5; transform: scale(1.18); }
-  75% { opacity: 0.2; transform: scale(1.4); }
-  100% { opacity: 0; transform: scale(1.55); }
+.advisor-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-round);
+  pointer-events: none;
+}
+
+/* Rebote del suelo, abajo a la derecha. */
+.advisor-glare::before {
+  content: "";
+  position: absolute;
+  bottom: calc(var(--burbuja) * 0.078);
+  right: calc(var(--burbuja) * 0.172);
+  width: calc(var(--burbuja) * 0.234);
+  height: calc(var(--burbuja) * 0.094);
+  border-radius: var(--radius-round);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(-35deg);
+}
+
+/* Veta vertical fina: textura de lente cruzando la burbuja. */
+.advisor-glare::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--burbuja) * 0.188);
+  right: calc(var(--burbuja) * 0.078);
+  width: calc(var(--burbuja) * 0.138);
+  height: calc(var(--burbuja) * 0.44);
+  border-radius: var(--radius-round);
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.12), transparent);
+  transform: rotate(-10deg);
+}
+
+/* El rótulo va por encima de los reflejos, o el de arriba lo lava. */
+.advisor-label {
+  position: relative;
+  z-index: 1;
 }
 
 .advisor-toggle:hover {
-  background: var(--c-base-0);
-  color: var(--ink);
+  --burbuja: 5.5rem;
+}
+
+/* Flotación orgánica. */
+@keyframes advisor-flotar {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateY(calc(var(--burbuja) * -0.15)) scale(1.01, 0.99) rotate(0.5deg);
+  }
+  100% {
+    transform: translateY(calc(var(--burbuja) * 0.075)) scale(0.99, 1.01) rotate(-0.5deg);
+  }
 }
 
 .advisor-menu {
@@ -91,8 +199,11 @@
 
 @media (max-width: 1023px) {
   .advisor-toggle {
-    width: 3.5rem;
-    height: 3.5rem;
+    --burbuja: 4rem;
     font-size: 0.4375rem;
+  }
+
+  .advisor-toggle:hover {
+    --burbuja: 4rem;
   }
 }

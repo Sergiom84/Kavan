@@ -5,8 +5,6 @@ import './ParticleClaim.css'
 type Props = {
   /** La frase con las llaves del recurso tipográfico, como en SplitTitle. */
   text: string
-  /** La misma frase en texto llano, que es lo que se rasteriza. */
-  plain: string
 }
 
 /**
@@ -20,13 +18,15 @@ type Props = {
  * El texto vive siempre en el DOM. Cuando el efecto arranca deja de dibujarse,
  * pero sigue estando ahí para el lector de pantalla y para el buscador.
  */
-export function ParticleClaim({ text, plain }: Props) {
+export function ParticleClaim({ text }: Props) {
   const lienzoRef = useRef<HTMLDivElement>(null)
+  const tituloRef = useRef<HTMLDivElement>(null)
   const [conEfecto, setConEfecto] = useState(false)
 
   useEffect(() => {
     const host = lienzoRef.current
-    if (!host) return
+    const titulo = tituloRef.current
+    if (!host || !titulo) return
 
     const apto =
       window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches &&
@@ -56,7 +56,7 @@ export function ParticleClaim({ text, plain }: Props) {
            texto se queda visible en vez de dejar el bloque en blanco. */
         efecto = new ParticleText({
           container: host,
-          text: plain,
+          origen: titulo,
           colores: [tinta, acento],
           onListo: () => {
             if (vivo) setConEfecto(true)
@@ -75,12 +75,12 @@ export function ParticleClaim({ text, plain }: Props) {
       vivo = false
       efecto?.destroy()
     }
-  }, [plain])
+  }, [text])
 
   return (
     <section className={`pclaim ${conEfecto ? 'has-particles' : ''}`}>
       <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
-      <div className="pclaim-inner">
+      <div className="pclaim-inner" ref={tituloRef}>
         <SplitTitle size="lead" align="center" className="pclaim-title" text={text} />
       </div>
     </section>
