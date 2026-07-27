@@ -1,10 +1,37 @@
-/* Como pantalla de carga, la escena del 4x4 tapa también la cabecera y el
-   botón de asesoría; en la página de reserva se queda en su capa normal. */
+/* El velo tapa también la cabecera y la burbuja de asesoría. El fondo oscuro
+   es el que se ve el instante que el shader tarda en dar el primer cuadro. */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--ink);
+  overflow: hidden;
+  transition: opacity 0.7s var(--easing);
+}
+
+.preloader.is-saliendo {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Abajo a la izquierda, en el mismo sitio y con el mismo cuerpo que el
+   contador de la galería. */
+.preloader-label {
+  position: absolute;
+  left: var(--padding);
+  bottom: var(--space-4);
+  z-index: 1;
+  color: var(--on-photo);
+  text-shadow: 0 1px 4px rgba(28, 20, 14, 0.6);
+}
+
+/* Cuando cae al 4x4, la escena necesita quedar por encima de todo igual. */
 .travel-anim.is-preloader {
   z-index: 999;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .preloader,
   .travel-anim.is-preloader {
     display: none;
   }
