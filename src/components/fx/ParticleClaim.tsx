@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitTitle } from './SplitTitle'
 import './ParticleClaim.css'
 
@@ -18,16 +20,19 @@ type Props = {
  * El texto vive siempre en el DOM. Cuando el efecto arranca deja de dibujarse,
  * pero sigue estando ahí para el lector de pantalla y para el buscador.
  */
+gsap.registerPlugin(ScrollTrigger)
+
 export function ParticleClaim({ text }: Props) {
+  const escenaRef = useRef<HTMLElement>(null)
   const lienzoRef = useRef<HTMLDivElement>(null)
-  const tituloRef = useRef<HTMLDivElement>(null)
+  const imagenRef = useRef<HTMLImageElement>(null)
   const [conEfecto, setConEfecto] = useState(false)
-  const [fondoOk, setFondoOk] = useState(true)
 
   useEffect(() => {
+    const escena = escenaRef.current
     const host = lienzoRef.current
-    const titulo = tituloRef.current
-    if (!host || !titulo) return
+    const imagen = imagenRef.current
+    if (!escena || !host || !imagen) return
 
     const apto =
       window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches &&
@@ -37,35 +42,18 @@ export function ParticleClaim({ text }: Props) {
     let vivo = true
     let efecto: { destroy: () => void } | null = null
 
-    /* La carga es diferida: son ~90 KB de librería que no hacen falta para
-       leer la página, y hay que esperar a que la tipografía esté disponible o
-       el rasterizado saldría con la fuente de respaldo. */
     const arrancar = async () => {
       try {
-        await document.fonts.ready
-        if (!vivo) return
-
-        const { ParticleText } = await import('./ParticleText')
-        if (!vivo) return
-
-        const estilo = getComputedStyle(document.documentElement)
-        const tinta = estilo.getPropertyValue('--particle-1').trim() || '#2a2119'
-        const acento = estilo.getPropertyValue('--particle-2').trim() || '#c4622d'
-
-        /* La frase se oculta sólo cuando hay escena montada. Si el rasterizado
-           no encontrase ni un píxel, o si la sección aún no tuviese tamaño, el
-           texto se queda visible en vez de dejar el bloque en blanco. */
-        efecto = new ParticleText({
-          container: host,
-          origen: titulo,
-          colores: [tinta, acento],
-          onListo: () => {
-            if (vivo) setConEfecto(true)
-          },
+        if (!imagen.complete) await new Promise<void>((resolve, reject) => {
+          imagen.addEventListener('load', () => resolve(), { once: true })
+          imagen.addEventListener('error', () => reject(), { once: true })
         })
+        if (!vivo) return
+        const { DesertParticles } = await import('./DesertParticles')
+        if (!vivo) return
+        efecto = new DesertParticles({ container: host, image: imagen })
+        if (vivo) setConEfecto(true)
       } catch {
-        /* Sin WebGL2, con la GPU en lista negra o si falla la carga: la frase
-           se queda escrita. No hay nada que avisar al visitante. */
         setConEfecto(false)
       }
     }
@@ -78,28 +66,50 @@ export function ParticleClaim({ text }: Props) {
     }
   }, [text])
 
-  return (
-    <section className={`pclaim ${conEfecto ? 'has-particles' : ''}`}>
-      {/* Tres capas: la acuarela al fondo, la frase encima y la arena arriba.
+  useEffect(() => {
+    const escena = escenaRef.current
+    if (!escena || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-          Si la acuarela falta, la capa se retira: un `img` roto deja el icono
-          de imagen ausente en la esquina, y el bloque se queda con su color de
-          respaldo sin que se note nada. */}
-      {fondoOk && (
+    const contexto = gsap.context(() => {
+      gsap.to(escena, {
+        '--desert-reveal': 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: escena,
+          start: 'top 72%',
+          end: 'bottom 42%',
+          scrub: 0.45,
+        },
+      })
+    }, escena)
+
+    return () => contexto.revert()
+  }, [])
+
+  return (
+    <section className={`pclaim ${conEfecto ? 'has-particles' : ''}`} ref={escenaRef}>
+      <div className="pclaim-band pclaim-band--top">
+        <span className="label">Marruecos</span>
+        <span className="label">Entre dos mundos</span>
+      </div>
+      <div className="pclaim-media">
         <img
+          ref={imagenRef}
           className="pclaim-bg"
-          src="/images/kasbah-acuarela.webp"
-          alt=""
-          aria-hidden="true"
+          src="/images/dunas-erg-chebbi.webp"
+          alt="Dunas del Erg Chebbi en el desierto de Marruecos"
           loading="lazy"
           decoding="async"
-          onError={() => setFondoOk(false)}
         />
-      )}
-      <div className="pclaim-inner" ref={tituloRef}>
-        <SplitTitle size="lead" align="center" className="pclaim-title" text={text} />
+        <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
+        <div className="pclaim-inner">
+          <SplitTitle size="display" align="center" className="pclaim-title" text={text} />
+        </div>
       </div>
-      <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
+      <div className="pclaim-band pclaim-band--bottom">
+        <span className="label">Marruecos</span>
+        <span className="label">01 — 05</span>
+      </div>
     </section>
   )
 }
