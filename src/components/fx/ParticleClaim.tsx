@@ -45,7 +45,7 @@ export function ParticleClaim({ beats }: Props) {
         if (!vivo) return
         const { DesertParticles } = await import('./DesertParticles')
         if (!vivo) return
-        efecto = new DesertParticles({ container: host, image: imagen, particles: 250000 })
+        efecto = new DesertParticles({ container: host, image: imagen, particles: 400000 })
         if (vivo) setConEfecto(true)
       } catch {
         setConEfecto(false)
