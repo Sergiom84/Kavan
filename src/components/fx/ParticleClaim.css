@@ -71,9 +71,14 @@
   pointer-events: auto;
 }
 
+/* Transparente al puntero: ocupa todo el bloque y, si no, se come el
+   `pointermove` que necesita el lienzo de arena para que los granos se aparten
+   al pasar el ratón. Aquí dentro no hay nada que se pulse; si algún día se
+   añade un enlace, tendrá que recuperar `pointer-events: auto`. */
 .pclaim-inner {
   position: relative;
   z-index: 3;
+  pointer-events: none;
   height: 100%;
   display: flex;
   flex-direction: column;
