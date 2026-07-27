@@ -5,12 +5,13 @@ import { Carousel } from '../components/ui/Carousel'
 import { PackCard } from '../components/travel/PackCard'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
 import { Reveal } from '../components/fx/RevealText'
-import { SplitTitle } from '../components/fx/SplitTitle'
 import { HeroZoom } from '../components/fx/HeroZoom'
+import { ParticleClaim } from '../components/fx/ParticleClaim'
 import './HomePage.css'
 
 /* Orden de la página:
-   cabecera · hero (con los dos accesos) · Marruecos · carrusel de packs · pie */
+   cabecera · hero (con los dos accesos) · Marruecos en partículas · galería ·
+   carrusel de packs · mapa · pie */
 
 /* Los dos accesos que el wireframe ponía en un bloque propio bajo la portada.
    Ahora viven dentro de la portada, como pastillas. */
@@ -18,6 +19,19 @@ const AYUDA = [
   { to: '/consejos', title: 'Te ayudamos' },
   { to: '/consejos', title: 'Requisitos' },
 ]
+
+/* La frase sobre Marruecos, en dos formas. Las llaves marcan las palabras que
+   bajan a caja baja; los nombres propios se quedan fuera de ellas o perderían
+   la mayúscula. La versión llana es la que se rasteriza para las partículas,
+   donde las llaves no significan nada. */
+const CLAIM =
+  'ENTRE {el} ATLÁNTICO {y el} SAHARA, MARRUECOS CONCENTRA {en pocos kilómetros} ' +
+  'MEDINAS MILENARIAS, {cumbres nevadas del} ATLAS, {valles de palmeras y el} ' +
+  'MAYOR MAR DE DUNAS {del norte de} ÁFRICA. UN PAÍS {de té a la menta}, ' +
+  'HOSPITALIDAD BEREBER {y ciudades imperiales donde cada puerta esconde un patio}. ' +
+  'A MENOS {de tres horas de vuelo}, OTRO MUNDO.'
+
+const CLAIM_LLANO = CLAIM.replace(/[{}]/g, '')
 
 /* Galería del país. Las rutas van directas a public/images y no por Pic: aquí
    la foto concreta importa, no es un motivo intercambiable. */
@@ -76,29 +90,8 @@ export function HomePage() {
         <span className="hz-scroll-caption label">Scroll down</span>
       </HeroZoom>
 
-      {/* ---- Marruecos: cultura y geografía, sobre fotografía ---- */}
-      <section className="hz-claim">
-        <div className="hz-claim-media">
-          <Pic src="art:camel:claim" alt="Dromedarios frente a una kasbah de adobe" position="center 55%" />
-        </div>
-        <div className="hz-scrim" />
-        <Reveal className="hz-claim-inner">
-          <SplitTitle
-            size="lead"
-            align="center"
-            className="hz-claim-title"
-            /* Los nombres propios se quedan fuera de las llaves: dentro se
-               ponen en caja baja y "África" perdería la mayúscula. */
-            text={
-              'ENTRE {el} ATLÁNTICO {y el} SAHARA, MARRUECOS CONCENTRA {en pocos kilómetros} ' +
-              'MEDINAS MILENARIAS, {cumbres nevadas del} ATLAS, {valles de palmeras y el} ' +
-              'MAYOR MAR DE DUNAS {del norte de} ÁFRICA. UN PAÍS {de té a la menta}, ' +
-              'HOSPITALIDAD BEREBER {y ciudades imperiales donde cada puerta esconde un patio}. ' +
-              'A MENOS {de tres horas de vuelo}, OTRO MUNDO.'
-            }
-          />
-        </Reveal>
-      </section>
+      {/* ---- Marruecos: la frase dibujada con partículas sobre blanco roto ---- */}
+      <ParticleClaim text={CLAIM} plain={CLAIM_LLANO} />
 
       {/* ---- Galería: el país en imágenes, rotando sola ---- */}
       <section className="hz-gallery">

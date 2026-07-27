@@ -19,17 +19,6 @@
    La altura, el pegado y el alejamiento los pone HeroZoom. Aquí sólo queda
    lo propio de la portada. */
 
-.hz-claim-media {
-  position: absolute;
-  inset: 0;
-}
-
-.hz-claim-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 /* El pie de portada se apoya abajo a la izquierda.
 
    width: 100% es obligatorio — .container lleva margin: 0 auto, y en un
@@ -86,27 +75,6 @@
 .hz-pill:hover {
   background: var(--on-photo);
   color: var(--ink);
-}
-
-/* ---------- Marruecos sobre fotografía ---------- */
-
-.hz-claim {
-  position: relative;
-  min-height: var(--section-mid);
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  padding-block: var(--space-7);
-}
-
-.hz-claim-inner {
-  position: relative;
-  padding: 0 var(--padding);
-  max-width: 68rem;
-}
-
-.hz-claim-title {
-  color: var(--on-photo);
 }
 
 /* ---------- Galería del país ----------

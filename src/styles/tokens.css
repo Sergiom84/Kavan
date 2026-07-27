@@ -58,6 +58,16 @@
   --accent-2: var(--c-brand-500); /* terracota profunda — hover */
   --accent-ink: #f8f3ea;    /* texto sobre acento */
   --accent-sun: #e2a13a;    /* sol del desierto — acento puntual */
+
+  /* Blanco roto: fondo del bloque de la frase en partículas. Un paso por
+     encima del papel cálido, para separar el bloque sin línea ni caja. */
+  --blanco-roto: #f7f4ee;
+
+  /* Colores de las partículas. Van en hexadecimal literal a propósito: el
+     shader los lee con getPropertyValue, que devuelve el texto del token tal
+     cual — con `var(--ink)` recibiría la cadena, no el color. */
+  --particle-1: #2a2119;
+  --particle-2: #c4622d;
   --accent-sun-ink: var(--c-base-1000);
 
   --card: #faf6ee;          /* superficies elevadas */

@@ -1,0 +1,43 @@
+/* Blanco roto: un paso por encima del papel cálido del resto de la página, para
+   que el bloque se separe sin meter una línea ni una caja. */
+.pclaim {
+  position: relative;
+  background: var(--blanco-roto);
+  min-height: var(--section-mid);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+}
+
+.pclaim-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* La medida no se hereda de .container: 1800px es demasiado ancho para una
+   frase, y así el bloque de texto y el rasterizado de las partículas ocupan
+   aproximadamente lo mismo. */
+.pclaim-inner {
+  position: relative;
+  margin: 0 auto;
+  max-width: 68rem;
+  padding: var(--space-6) var(--padding);
+}
+
+.pclaim-title {
+  color: var(--ink);
+}
+
+/* Con el efecto en marcha lo que se lee son las partículas. La frase sigue en
+   el DOM para el lector de pantalla, pero deja de dibujarse.
+
+   No se usa visibility ni display: eso también la esconderría del lector. */
+.pclaim.has-particles .pclaim-title {
+  opacity: 0;
+}
+
+/* El lienzo recibe el puntero sólo cuando hay algo que empujar. */
+.pclaim.has-particles .pclaim-canvas {
+  pointer-events: auto;
+}
