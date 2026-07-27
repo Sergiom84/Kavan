@@ -47,8 +47,13 @@ export function Header() {
     <header className={`site-header ${solid ? 'is-solid' : ''} ${open ? 'is-open' : ''}`}>
       <div className="site-header-inner">
         <Link to="/" className="brand" onClick={() => setOpen(false)}>
-          <span className="brand-name">Kavan</span>
-          <span className="brand-tag label">Viajes a Marruecos</span>
+          {/* El sello va como símbolo, sin texto alternativo: el nombre ya está
+              escrito al lado y repetirlo lo haría sonar dos veces al lector. */}
+          <img className="brand-mark" src="/images/logo-kavan.png" alt="" width="512" height="512" />
+          <span className="brand-text">
+            <span className="brand-name">Kavan</span>
+            <span className="brand-tag label">Viajes a Marruecos</span>
+          </span>
         </Link>
 
         <div className="site-header-right">
