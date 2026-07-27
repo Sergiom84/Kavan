@@ -5,24 +5,18 @@ import { SplitTitle } from './SplitTitle'
 import './ParticleClaim.css'
 
 type Props = {
-  /** La frase con las llaves del recurso tipográfico, como en SplitTitle. */
-  text: string
+  /** Frases con llaves para el recurso tipográfico de SplitTitle. */
+  beats: string[]
 }
 
 /**
- * La frase sobre blanco roto, dibujada con partículas.
- *
- * El efecto sólo entra en pantalla ancha, con puntero fino y sin
- * `prefers-reduced-motion`: en móvil son cientos de miles de puntos por
- * fotograma para nada. Cuando no entra, o si el navegador no da WebGL2, la
- * frase se queda escrita y no se pierde nada.
- *
- * El texto vive siempre en el DOM. Cuando el efecto arranca deja de dibujarse,
- * pero sigue estando ahí para el lector de pantalla y para el buscador.
+ * Una pausa editorial entre el hero y la galería: acuarela, arena WebGL
+ * y titular que gana foco al avanzar. En móvil, con movimiento reducido o sin
+ * WebGL2 queda como fotografía estática plenamente legible.
  */
 gsap.registerPlugin(ScrollTrigger)
 
-export function ParticleClaim({ text }: Props) {
+export function ParticleClaim({ beats }: Props) {
   const escenaRef = useRef<HTMLElement>(null)
   const lienzoRef = useRef<HTMLDivElement>(null)
   const imagenRef = useRef<HTMLImageElement>(null)
@@ -51,7 +45,7 @@ export function ParticleClaim({ text }: Props) {
         if (!vivo) return
         const { DesertParticles } = await import('./DesertParticles')
         if (!vivo) return
-        efecto = new DesertParticles({ container: host, image: imagen })
+        efecto = new DesertParticles({ container: host, image: imagen, particles: 250000 })
         if (vivo) setConEfecto(true)
       } catch {
         setConEfecto(false)
@@ -64,22 +58,36 @@ export function ParticleClaim({ text }: Props) {
       vivo = false
       efecto?.destroy()
     }
-  }, [text])
+  }, [])
 
   useEffect(() => {
     const escena = escenaRef.current
-    if (!escena || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const apto = window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (!escena || !apto) return
 
     const contexto = gsap.context(() => {
-      gsap.to(escena, {
-        '--desert-reveal': 1,
-        ease: 'none',
+      const frases = gsap.utils.toArray<HTMLElement>('.pclaim-beat')
+      const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: escena,
-          start: 'top 72%',
-          end: 'bottom 42%',
+          start: 'top top',
+          end: () => `+=${Math.round(window.innerHeight * frases.length * .38)}`,
+          pin: true,
           scrub: 0.45,
+          anticipatePin: 1,
         },
+      })
+
+      timeline
+        .set(escena, { '--desert-reveal': 1 })
+        .set(frases.slice(1), { autoAlpha: 0, x: 40, display: 'none', filter: 'blur(0rem)' })
+
+      frases.slice(1).forEach(frase => {
+        timeline
+          .set(frase, { display: 'block' })
+          .to(frase, { autoAlpha: 1, x: 0, duration: .38, ease: 'none' })
+          .to({}, { duration: .42 })
       })
     }, escena)
 
@@ -96,14 +104,23 @@ export function ParticleClaim({ text }: Props) {
         <img
           ref={imagenRef}
           className="pclaim-bg"
-          src="/images/dunas-erg-chebbi.webp"
-          alt="Dunas del Erg Chebbi en el desierto de Marruecos"
+          src="/images/kasbah-acuarela.webp"
+          alt="Acuarela de una kasbah en Marruecos"
           loading="lazy"
           decoding="async"
         />
         <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
         <div className="pclaim-inner">
-          <SplitTitle size="display" align="center" className="pclaim-title" text={text} />
+          {beats.map(beat => (
+            <SplitTitle
+              key={beat}
+              as="p"
+              size="lead"
+              align="center"
+              className="pclaim-beat"
+              text={beat}
+            />
+          ))}
         </div>
       </div>
       <div className="pclaim-band pclaim-band--bottom">

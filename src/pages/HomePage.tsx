@@ -21,14 +21,16 @@ const AYUDA = [
   { to: '/consejos', title: 'Requisitos' },
 ]
 
-/* La frase sobre Marruecos. Las llaves marcan las palabras que bajan a caja
-   baja; los nombres propios se quedan fuera de ellas o perderían la mayúscula. */
-const CLAIM =
-  'ENTRE {el} ATLÁNTICO {y el} SAHARA, MARRUECOS CONCENTRA {en pocos kilómetros} ' +
-  'MEDINAS MILENARIAS, {cumbres nevadas del} ATLAS, {valles de palmeras y el} ' +
-  'MAYOR MAR DE DUNAS {del norte de} ÁFRICA. UN PAÍS {de té a la menta}, ' +
-  'HOSPITALIDAD BEREBER {y ciudades imperiales donde cada puerta esconde un patio}. ' +
-  'A MENOS {de tres horas de vuelo}, OTRO MUNDO.'
+/* La frase de la pausa editorial. Las llaves marcan las palabras que bajan a
+   caja baja; los nombres propios se quedan fuera o perderían la mayúscula. */
+const CLAIM = [
+  'Entre {el} Atlántico {y el} Sahara, Marruecos',
+  'concentra {en pocos kilómetros} medinas milenarias, {cumbres}',
+  '{nevadas del} Atlas, {valles de palmeras y el} mayor mar de dunas {del norte de}',
+  'África. Un país {de té a la menta},',
+  'hospitalidad bereber {y ciudades imperiales donde cada puerta esconde un patio}.',
+  'A menos {de tres horas de vuelo}, otro mundo.',
+]
 
 /* Galería del país. Las rutas van directas a public/images y no por Pic: aquí
    la foto concreta importa, no es un motivo intercambiable. */
@@ -88,8 +90,8 @@ export function HomePage() {
         </div>
       </HeroZoom>
 
-      {/* ---- Marruecos: la frase dibujada con partículas sobre blanco roto ---- */}
-      <ParticleClaim text={CLAIM} />
+      {/* ---- Marruecos: acuarela, arena y texto revelado ---- */}
+      <ParticleClaim beats={CLAIM} />
 
       {/* ---- Galería a sangre: una fotografía por pantalla ---- */}
       <FullGallery fotos={GALERIA} auto={3500} />

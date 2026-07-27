@@ -3,6 +3,12 @@
   background: var(--bg-2);
 }
 
+@media (min-width: 1024px) {
+  .pclaim {
+    min-height: 100svh;
+  }
+}
+
 .pclaim-band {
   min-height: 4.5rem;
   padding: var(--space-3) var(--padding);
@@ -22,10 +28,22 @@
 
 .pclaim-media {
   position: relative;
-  height: 42rem;
+  height: 32rem;
   overflow: hidden;
   isolation: isolate;
   background: var(--ink);
+}
+
+.pclaim-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--scrim-top), var(--scrim-bottom);
+  background-repeat: no-repeat;
+  background-size: 100% 46%, 100% 58%;
+  background-position: top, bottom;
 }
 
 .pclaim-bg {
@@ -34,36 +52,60 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(calc((1 - var(--desert-reveal)) * .55rem)) saturate(calc(.72 + var(--desert-reveal) * .28));
-  transform: scale(calc(1.075 - var(--desert-reveal) * .075));
-  transition: filter var(--dur-md) var(--easing);
+  filter: saturate(.92);
 }
 
 .pclaim-canvas {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
-  opacity: calc(.35 + var(--desert-reveal) * .55);
+  opacity: .18;
+}
+
+.pclaim.has-particles .pclaim-canvas {
+  pointer-events: auto;
 }
 
 .pclaim-inner {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   height: 100%;
-  display: grid;
-  place-items: center;
-  max-width: 58rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  max-width: 68rem;
   margin: 0 auto;
   padding: var(--space-5) var(--padding);
+  overflow: hidden;
 }
 
-.pclaim-title {
+.pclaim-beat {
+  font-family: var(--font-display);
+  font-weight: var(--weight-text);
   color: var(--on-photo);
-  text-shadow: 0 1px 1px color-mix(in srgb, var(--ink) 44%, transparent);
-  opacity: var(--desert-reveal);
-  filter: blur(calc((1 - var(--desert-reveal)) * .32rem));
-  transform: translateY(calc((1 - var(--desert-reveal)) * 1.25rem));
+  max-width: 100%;
+  font-size: calc(var(--text-2) * 1.3 + .0625rem);
+  line-height: 1.3;
+  letter-spacing: normal;
+  text-transform: none;
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+  transform: translateX(2.5rem);
+  will-change: transform, opacity;
+}
+
+/* Sin JavaScript o con movimiento reducido, al menos la primera frase queda
+   disponible sobre una acuarela clara. */
+.pclaim-beat:first-child {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+  filter: none;
+  transform: translateX(0);
 }
 
 @media (max-width: 1023px) {
@@ -80,10 +122,14 @@
   }
 
   .pclaim-media {
-    height: 26rem;
+    height: 28rem;
   }
 
   .pclaim-inner {
-    max-width: 27rem;
+    max-width: 28rem;
+  }
+
+  .pclaim-beat:not(:first-child) {
+    display: none;
   }
 }

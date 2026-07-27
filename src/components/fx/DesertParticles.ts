@@ -29,6 +29,7 @@ uniform vec2 u_mouse;
 uniform vec2 u_mouse_velocity;
 uniform sampler2D u_image;
 uniform float u_image_aspect;
+uniform float u_size;
 
 vec2 coverUv(vec2 uv) {
   float canvasAspect = u_resolution.x / u_resolution.y;
@@ -159,7 +160,7 @@ export class DesertParticles {
     this.render = this.render.bind(this)
     this.onPointerMove = this.onPointerMove.bind(this)
     this.onPointerLeave = this.onPointerLeave.bind(this)
-    window.addEventListener('pointermove', this.onPointerMove, { passive: true })
+    canvas.addEventListener('pointermove', this.onPointerMove, { passive: true })
     canvas.addEventListener('pointerleave', this.onPointerLeave)
 
     this.observer = new IntersectionObserver(([entry]) => { this.#visible = entry.isIntersecting }, { rootMargin: '10%' })
@@ -279,7 +280,7 @@ export class DesertParticles {
   destroy() {
     this.#playing = false
     window.clearTimeout(this.rebuildTimeout)
-    window.removeEventListener('pointermove', this.onPointerMove)
+    ;(this.gl.canvas as HTMLCanvasElement).removeEventListener('pointermove', this.onPointerMove)
     ;(this.gl.canvas as HTMLCanvasElement).removeEventListener('pointerleave', this.onPointerLeave)
     this.observer?.disconnect()
     this.resizeObserver?.disconnect()
