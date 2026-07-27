@@ -1,13 +1,14 @@
 .pclaim {
   --desert-reveal: 0;
+  /* Las palabras de enlace suben del 0,46 del sistema: con la mitad del texto a
+     18px el bloque se leía más pequeño que la portada aunque su cuerpo mayor
+     sea un 6% más grande. Sigue habiendo dos tamaños, pero menos separados. */
+  --minor-scale: 0.68;
   background: var(--bg-2);
 }
 
-@media (min-width: 1024px) {
-  .pclaim {
-    min-height: 100svh;
-  }
-}
+/* Sin `min-height: 100svh`: el contenido no llegaba a esa altura y la
+   diferencia se quedaba en aire muerto debajo de la imagen. */
 
 .pclaim-band {
   min-height: 4.5rem;
@@ -22,13 +23,15 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* La banda de abajo va vacía: es el mismo elemento que la de arriba, así que el
+   aire por debajo de la imagen mide exactamente lo mismo que por encima. */
 .pclaim-band--bottom {
   border-top: 1px solid var(--line);
 }
 
 .pclaim-media {
   position: relative;
-  height: 32rem;
+  height: 36rem;
   overflow: hidden;
   isolation: isolate;
   background: var(--ink);
@@ -131,7 +134,7 @@
   }
 
   .pclaim-media {
-    height: 28rem;
+    min-height: 28rem;
   }
 
   .pclaim-inner {

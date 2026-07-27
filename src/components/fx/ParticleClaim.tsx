@@ -123,10 +123,8 @@ export function ParticleClaim({ beats }: Props) {
           ))}
         </div>
       </div>
-      <div className="pclaim-band pclaim-band--bottom">
-        <span className="label">Marruecos</span>
-        <span className="label">01 — 05</span>
-      </div>
+      {/* Vacía a propósito: sólo iguala el aire de la banda de arriba. */}
+      <div className="pclaim-band pclaim-band--bottom" aria-hidden="true" />
     </section>
   )
 }
