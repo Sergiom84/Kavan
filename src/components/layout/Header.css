@@ -57,12 +57,15 @@
   height: 2.5rem;
 }
 
+/* La tipografía que llevaba el logotipo gigante de la portada, ahora aquí: la
+   misma familia y peso, versales y sin tracking. Lo que no viaja es el
+   contorno hueco — a este cuerpo la línea de 1px se empasta y no se lee. */
 .brand-name {
   font-family: var(--font-display);
   font-size: var(--text-2);
   font-weight: var(--weight-title);
-  letter-spacing: 0.14em;
-  line-height: 1;
+  letter-spacing: 0;
+  line-height: 0.78;
   text-transform: uppercase;
 }
 

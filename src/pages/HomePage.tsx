@@ -19,6 +19,19 @@ const AYUDA = [
   { to: '/consejos', title: 'Requisitos' },
 ]
 
+/* Galería del país. Las rutas van directas a public/images y no por Pic: aquí
+   la foto concreta importa, no es un motivo intercambiable. */
+const GALERIA = [
+  { src: '/images/ait-ben-haddou.webp', pie: 'Aït Ben Haddou', alt: 'Ksar de Aït Ben Haddou al atardecer' },
+  { src: '/images/dunas-erg-chebbi.webp', pie: 'Erg Chebbi', alt: 'Dunas del Erg Chebbi' },
+  { src: '/images/medina.webp', pie: 'Medina de Marrakech', alt: 'Calle de la medina de Marrakech' },
+  { src: '/images/todra-garganta.webp', pie: 'Gargantas del Todra', alt: 'Paredes verticales de las gargantas del Todra' },
+  { src: '/images/kasbah-taourirt.webp', pie: 'Kasbah Taourirt', alt: 'Kasbah Taourirt en Ouarzazate' },
+  { src: '/images/essaouira-puerto.webp', pie: 'Essaouira', alt: 'Barcas azules en el puerto de Essaouira' },
+  { src: '/images/dades-kasbah.webp', pie: 'Valle del Dadés', alt: 'Kasbah de adobe en el valle del Dadés' },
+  { src: '/images/jemaa-el-fna.webp', pie: 'Jemaa el-Fna', alt: 'Plaza de Jemaa el-Fna al anochecer' },
+]
+
 export function HomePage() {
   const { data: featured } = useFeaturedPacks()
 
@@ -35,7 +48,10 @@ export function HomePage() {
           'Un chófer que conoce las pistas. Una casa donde te esperan con té.',
         ]}
       >
-        <SplitTitle as="h1" text="KAVAN" size="wordmark" className="hz-wordmark" />
+        {/* El nombre ya no se pinta en la portada: vive en la cabecera. La
+            página necesita un titular de todos modos, así que queda como
+            encabezado accesible sin representación visual. */}
+        <h1 className="sr-only">Kavan — viajes privados a Marruecos</h1>
 
         <div className="hz-hero-foot container">
           {/* El corte de línea es deliberado: el texto va en dos filas, no en
@@ -84,6 +100,22 @@ export function HomePage() {
         </Reveal>
       </section>
 
+      {/* ---- Galería: el país en imágenes, rotando sola ---- */}
+      <section className="hz-gallery">
+        <div className="container">
+          <Carousel className="hz-gallery-carousel" auto={4200}>
+            {GALERIA.map((foto) => (
+              <figure key={foto.src} className="carousel-item hz-gallery-item">
+                <div className="hz-gallery-media">
+                  <img src={foto.src} alt={foto.alt} loading="lazy" decoding="async" />
+                </div>
+                <figcaption className="label">{foto.pie}</figcaption>
+              </figure>
+            ))}
+          </Carousel>
+        </div>
+      </section>
+
       {/* ---- Viajes más deseados ---- */}
       <section className="hz-packs">
         <div className="container">
@@ -97,7 +129,8 @@ export function HomePage() {
         {/* Dentro del contenedor: si no, las tarjetas llegan al borde de la
             pantalla y el carrusel parece desbordarse. */}
         <div className="container">
-          <Carousel>
+          {/* Sin flechas: son tres tarjetas y caben las tres en pantalla. */}
+          <Carousel arrows={false}>
             {(featured ?? []).map((p) => (
               <div key={p.id} className="carousel-item">
                 <PackCard pack={p} />

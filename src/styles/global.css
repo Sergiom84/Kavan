@@ -176,6 +176,20 @@ button {
   max-width: var(--measure-wide);
 }
 
+/* Texto que existe para el lector de pantalla pero no se dibuja. No se usa
+   display:none ni visibility:hidden: eso también lo esconde del lector. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ---------- Cabecera de sección: rótulo y título a la izquierda, enlace a la derecha ---------- */
 
 .section-head {

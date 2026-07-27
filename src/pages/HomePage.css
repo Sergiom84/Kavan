@@ -30,25 +30,6 @@
   object-fit: cover;
 }
 
-/* El logotipo repartido de borde a borde, dibujado en contorno: sobre una
-   foto a sangre pesa menos que en macizo y deja ver el paisaje detrás. */
-.hz-wordmark {
-  padding: 0 var(--padding);
-  margin-top: auto;
-  margin-bottom: auto;
-  width: 100%;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.92);
-}
-
-/* Safari en iOS ignora el grosor por debajo de 1px real; el color de relleno
-   sirve de respaldo si el navegador no soporta text-stroke. */
-@supports not (-webkit-text-stroke: 1px white) {
-  .hz-wordmark {
-    color: var(--on-photo);
-  }
-}
-
 /* El pie de portada se apoya abajo a la izquierda.
 
    width: 100% es obligatorio — .container lleva margin: 0 auto, y en un
@@ -126,6 +107,40 @@
 
 .hz-claim-title {
   color: var(--on-photo);
+}
+
+/* ---------- Galería del país ----------
+   Rota sola y además se puede recorrer con las flechas. Formato vertical:
+   las fotos de kasbah y medina se leen mejor a lo alto que a lo ancho. */
+
+.hz-gallery {
+  background: var(--bg-1);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-5);
+}
+
+.hz-gallery-item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hz-gallery-media {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--bg-2);
+}
+
+.hz-gallery-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--image-transition);
+}
+
+.hz-gallery-item:hover .hz-gallery-media img {
+  transform: scale(1.04);
 }
 
 /* ---------- Viajes más deseados ----------
