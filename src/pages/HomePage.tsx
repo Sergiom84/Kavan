@@ -92,7 +92,7 @@ export function HomePage() {
       <ParticleClaim text={CLAIM} />
 
       {/* ---- Galería a sangre: una fotografía por pantalla ---- */}
-      <FullGallery fotos={GALERIA} auto={4200} />
+      <FullGallery fotos={GALERIA} auto={3500} />
 
       {/* ---- Viajes más deseados ---- */}
       <section className="hz-packs">
