@@ -1,0 +1,47 @@
+/* Documento legal: una columna de lectura y los epígrafes numerados. */
+
+/* Sin --measure-wide: 46ch se mide sobre el cuerpo de texto, y los epígrafes
+   van en cuerpo de titular, así que se partían en tres líneas. */
+.legal {
+  padding-block: var(--space-6);
+}
+
+.legal-doc {
+  max-width: 62rem;
+}
+
+.legal-pendiente {
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-faint);
+}
+
+.legal-indice {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: legal;
+}
+
+.legal-indice li {
+  counter-increment: legal;
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  align-items: baseline;
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+/* El número va en mono, como los rótulos del sistema. */
+.legal-indice li::before {
+  content: counter(legal, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  color: var(--ink-faint);
+}
+
+.legal-indice h2 {
+  margin: 0;
+}

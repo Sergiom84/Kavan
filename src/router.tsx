@@ -15,6 +15,12 @@ import { ContactoPage } from './pages/ContactoPage'
 import { ReservaPage } from './pages/ReservaPage'
 import { TuViajePage } from './pages/TuViajePage'
 import { CreditosPage } from './pages/CreditosPage'
+import {
+  CondicionesPage,
+  PrivacidadPage,
+  CookiesPage,
+  InsolvenciaPage,
+} from './pages/LegalPage'
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +40,12 @@ export const router = createBrowserRouter([
       { path: '/contacto', element: <ContactoPage /> },
       { path: '/packs/:slug', element: <PackHubPage /> },                // pág. 11
       { path: '/creditos', element: <CreditosPage /> },
+      // Legales del pie. Estaban enlazadas desde el footer sin existir en el
+      // router, así que las cuatro daban error de ruta y página en blanco.
+      { path: '/condiciones', element: <CondicionesPage /> },
+      { path: '/privacidad', element: <PrivacidadPage /> },
+      { path: '/cookies', element: <CookiesPage /> },
+      { path: '/insolvencia', element: <InsolvenciaPage /> },
     ],
   },
   // Páginas con layout propio (9, 12/13)

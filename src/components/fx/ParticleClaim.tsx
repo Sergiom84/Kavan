@@ -94,37 +94,45 @@ export function ParticleClaim({ beats }: Props) {
     return () => contexto.revert()
   }, [])
 
+  /* La envoltura no es decorativa. ScrollTrigger, al pinchar la sección, la mete
+     dentro de un `pin-spacer` que crea él mismo. Si la sección fuese la raíz del
+     componente, al salir de la Home React intentaría quitarla de su padre de
+     siempre —que ya no lo es— y reventaba con «removeChild: the node to be
+     removed is not a child of this node», dejando la página siguiente en blanco.
+     Con la envoltura, React sólo quita este div y se lleva el spacer dentro. */
   return (
-    <section className={`pclaim ${conEfecto ? 'has-particles' : ''}`} ref={escenaRef}>
-      <div className="pclaim-band pclaim-band--top">
-        <span className="label">Marruecos</span>
-        <span className="label">Entre dos mundos</span>
-      </div>
-      <div className="pclaim-media">
-        <img
-          ref={imagenRef}
-          className="pclaim-bg"
-          src="/images/kasbah-acuarela.webp"
-          alt="Acuarela de una kasbah en Marruecos"
-          loading="lazy"
-          decoding="async"
-        />
-        <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
-        <div className="pclaim-inner">
-          {beats.map(beat => (
-            <SplitTitle
-              key={beat}
-              as="p"
-              size="lead"
-              align="center"
-              className="pclaim-beat"
-              text={beat}
-            />
-          ))}
+    <div className="pclaim-wrap">
+      <section className={`pclaim ${conEfecto ? 'has-particles' : ''}`} ref={escenaRef}>
+        <div className="pclaim-band pclaim-band--top">
+          <span className="label">Marruecos</span>
+          <span className="label">Entre dos mundos</span>
         </div>
-      </div>
-      {/* Vacía a propósito: sólo iguala el aire de la banda de arriba. */}
-      <div className="pclaim-band pclaim-band--bottom" aria-hidden="true" />
-    </section>
+        <div className="pclaim-media">
+          <img
+            ref={imagenRef}
+            className="pclaim-bg"
+            src="/images/kasbah-acuarela.webp"
+            alt="Acuarela de una kasbah en Marruecos"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
+          <div className="pclaim-inner">
+            {beats.map(beat => (
+              <SplitTitle
+                key={beat}
+                as="p"
+                size="lead"
+                align="center"
+                className="pclaim-beat"
+                text={beat}
+              />
+            ))}
+          </div>
+        </div>
+        {/* Vacía a propósito: sólo iguala el aire de la banda de arriba. */}
+        <div className="pclaim-band pclaim-band--bottom" aria-hidden="true" />
+      </section>
+    </div>
   )
 }
