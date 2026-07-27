@@ -29,7 +29,9 @@
      Paleta Sáhara (design-system/MASTER.md): papel cálido, arena,
      terracota, sol del desierto. Ya no monocroma — reemplaza la
      paleta crema/verde petróleo importada de Horizonte. */
-  --c-bg: #f5f0ea;          /* papel cálido — fondo de página */
+  /* Fondo de página: muestreado del propio mapa de ciudades, cuyo papel ronda
+     el #e9e2d7. Un tono más asentado que el crema anterior (#f5f0ea). */
+  --c-bg: #e9e2d7;          /* papel cálido — fondo de página */
   --c-base-0: #ebe1cd;      /* arena clara — superficies elevadas */
   --c-base-1000: #2a2119;   /* ink, marrón casi negro — texto */
   --c-brand-500: #8a4b2b;   /* terracota profunda — marca, hover */

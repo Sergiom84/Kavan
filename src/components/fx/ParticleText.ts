@@ -179,7 +179,7 @@ export class ParticleText {
   private observadorTamano: ResizeObserver | null = null
   private reconstruir = 0
 
-  constructor({ container, origen, colores, numParticles = 120000, onListo }: Opciones) {
+  constructor({ container, origen, colores, numParticles = 300000, onListo }: Opciones) {
     this.container = container
     this.origen = origen
     this.colores = colores
@@ -297,10 +297,10 @@ export class ParticleText {
 
     const datos = this.rasterizar(pw, ph, dpr)
 
-    /* Lista de píxeles pintados. Se recorre a saltos: no hacen falta todos,
-       y con paso 2 el muestreo sigue siendo denso y cuesta cuatro veces menos. */
+    /* Lista de píxeles pintados de las letras. Se recorren todos: con paso 2 el
+       reparto salía pobre porque limitaba el techo de partículas. */
     const casas: number[] = []
-    const paso = 2
+    const paso = 1
     for (let y = 0; y < ph; y += paso) {
       for (let x = 0; x < pw; x += paso) {
         if (datos[(y * pw + x) * 4 + 3] > 128) casas.push(x, y)
@@ -311,7 +311,7 @@ export class ParticleText {
     if (totalCasas === 0) return
 
     // Sin sentido tener muchas más partículas que sitios donde nacer.
-    const N = Math.min(this.numParticles, totalCasas * 6)
+    const N = Math.min(this.numParticles, totalCasas * 4)
     this.montarEscena(casas, totalCasas, N)
     this.jugando = true
     this.onListo?.()

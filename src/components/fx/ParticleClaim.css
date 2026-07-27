@@ -1,21 +1,33 @@
 /* Blanco roto: un paso por encima del papel cálido del resto de la página, para
    que el bloque se separe sin meter una línea ni una caja. */
+/* Sin altura mínima: el bloque se ajusta a la frase. Con --section-mid sobraba
+   media pantalla de aire arriba y abajo. */
 .pclaim {
   position: relative;
   background: var(--blanco-roto);
-  min-height: var(--section-mid);
   display: grid;
   align-items: center;
   overflow: hidden;
 }
 
 /* Las partículas van por encima de la frase, no debajo: el texto queda al
-   fondo, legible, y el polvo lo cruza. Dibujadas solas no se distinguían. */
+   fondo, legible, y el polvo lo cruza. Dibujadas solas no se distinguían.
+
+   La máscara difumina el polvo contra los bordes de arriba y abajo. Al
+   compactar el bloque la arena llegaba al canto y se cortaba a hueso contra la
+   fotografía de la portada; así se disuelve. */
 .pclaim-canvas {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
 }
 
 /* La medida no se hereda de .container: 1800px es demasiado ancho para una
@@ -25,7 +37,9 @@
   position: relative;
   margin: 0 auto;
   max-width: 68rem;
-  padding: var(--space-6) var(--padding);
+  /* Lo justo para que el polvo tenga algo de sitio por donde salirse de las
+     letras sin que se recorte contra el borde de la sección. */
+  padding: var(--space-5) var(--padding);
 }
 
 .pclaim-title {

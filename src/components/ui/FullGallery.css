@@ -22,14 +22,36 @@
 }
 
 .fgal-slide {
+  position: relative;
   flex: 0 0 100%;
   height: 100%;
   scroll-snap-align: start;
 }
 
-.fgal-slide img {
+/* Marco difuso: la copia desenfocada ocupa toda la diapositiva. Va escalada
+   porque el desenfoque arrastra los bordes hacia dentro y, sin ese margen, se
+   vería una línea clara alrededor. */
+.fgal-blur {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  filter: blur(2.5rem);
+  transform: scale(1.12);
+}
+
+/* La foto nítida, centrada y algo menor: deja ver el marco difuso alrededor.
+
+   Las medidas van en porcentaje y no con `inset`: en una imagen posicionada en
+   absoluto, un ancho automático se resuelve con su tamaño intrínseco y los
+   márgenes se ignoran, así que se salía de la diapositiva. */
+.fgal-sharp {
+  position: absolute;
+  top: 3%;
+  left: 5%;
+  width: 90%;
+  height: 94%;
   object-fit: cover;
 }
 

@@ -94,7 +94,19 @@ export function FullGallery({ fotos, auto }: Props) {
       <div className="fgal-track" ref={carrilRef}>
         {fotos.map((f, i) => (
           <div className="fgal-slide" key={f.src}>
+            {/* La misma foto dos veces: la de abajo desenfocada y a sangre hace
+                de marco difuso, y la de encima va nítida y algo menor. Es una
+                copia, no una imagen más: el navegador la sirve de caché. */}
             <img
+              className="fgal-blur"
+              src={f.src}
+              alt=""
+              aria-hidden="true"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+            <img
+              className="fgal-sharp"
               src={f.src}
               alt={f.alt}
               loading={i === 0 ? 'eager' : 'lazy'}
