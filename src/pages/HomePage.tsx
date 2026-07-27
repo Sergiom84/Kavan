@@ -4,43 +4,19 @@ import { Pic } from '../components/ui/Pic'
 import { Carousel } from '../components/ui/Carousel'
 import { PackCard } from '../components/travel/PackCard'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
-import { Reveal, RevealGroup } from '../components/fx/RevealText'
+import { Reveal } from '../components/fx/RevealText'
 import { SplitTitle } from '../components/fx/SplitTitle'
 import { HeroZoom } from '../components/fx/HeroZoom'
 import './HomePage.css'
 
-/* Orden de la página, según el wireframe:
-   cabecera · hero · bloque informativo · Marruecos · carrusel de packs · pie */
+/* Orden de la página:
+   cabecera · hero (con los dos accesos) · Marruecos · carrusel de packs · pie */
 
+/* Los dos accesos que el wireframe ponía en un bloque propio bajo la portada.
+   Ahora viven dentro de la portada, como pastillas. */
 const AYUDA = [
-  {
-    to: '/consejos',
-    title: 'Te ayudamos',
-    text: 'Asesoría personalizada para diseñar tu viaje: rutas, fechas y presupuesto a tu medida.',
-    /* El wireframe pedía un apretón de manos, pero a 48px en línea fina no
-       se distingue: se lee como una montaña. Un bocadillo de conversación
-       transmite lo mismo y se reconoce al instante. */
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.1" aria-hidden="true">
-        <path d="M8 10h32a2 2 0 012 2v20a2 2 0 01-2 2H20l-9 7v-7H8a2 2 0 01-2-2V12a2 2 0 012-2z" />
-        <circle cx="17" cy="22" r="1.6" fill="currentColor" stroke="none" />
-        <circle cx="24" cy="22" r="1.6" fill="currentColor" stroke="none" />
-        <circle cx="31" cy="22" r="1.6" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-  },
-  {
-    to: '/consejos',
-    title: 'Requisitos',
-    text: 'Documentación, moneda, clima y toda la información práctica antes de salir de casa.',
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.1" aria-hidden="true">
-        <rect x="12" y="8" width="24" height="34" />
-        <path d="M18 6h12v5H18z" />
-        <path d="M18 20h12M18 27h12M18 34h7" />
-      </svg>
-    ),
-  },
+  { to: '/consejos', title: 'Te ayudamos' },
+  { to: '/consejos', title: 'Requisitos' },
 ]
 
 export function HomePage() {
@@ -62,33 +38,27 @@ export function HomePage() {
         <SplitTitle as="h1" text="KAVAN" size="wordmark" className="hz-wordmark" />
 
         <div className="hz-hero-foot container">
+          {/* El corte de línea es deliberado: el texto va en dos filas, no en
+              cuatro. En móvil no cabe y se deja fluir. */}
           <p className="hz-hero-lede">
-            Rutas privadas por el sur de Marruecos: dunas del Erg&nbsp;Chebbi, kasbahs de
-            adobe, gargantas del Todra y noches bajo un cielo sin ciudades cerca.
+            Rutas privadas por el sur de Marruecos: dunas del Erg&nbsp;Chebbi, kasbahs de adobe,
+            <br />
+            gargantas del Todra y noches bajo un cielo sin ciudades cerca.
           </p>
 
+          {/* Los dos accesos del bloque informativo del wireframe, subidos a la
+              portada: aquí se ven sin tener que bajar. */}
           <div className="hz-pills">
-            <Link to="/packs" className="hz-pill is-active">Packs</Link>
-            <Link to="/destinos" className="hz-pill">Destinos</Link>
+            {AYUDA.map((item, i) => (
+              <Link key={item.title} to={item.to} className={`hz-pill ${i === 0 ? 'is-active' : ''}`}>
+                {item.title}
+              </Link>
+            ))}
           </div>
         </div>
 
         <span className="hz-scroll-caption label">Scroll down</span>
       </HeroZoom>
-
-      {/* ---- Bloque informativo ---- */}
-      <section className="hz-help-section container">
-        <RevealGroup className="hz-help">
-          {AYUDA.map((item) => (
-            <Link key={item.title} to={item.to} className="hz-help-item">
-              <span className="hz-help-icon" aria-hidden="true">{item.icon}</span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-              <span className="hz-help-arrow label">Saber más</span>
-            </Link>
-          ))}
-        </RevealGroup>
-      </section>
 
       {/* ---- Marruecos: cultura y geografía, sobre fotografía ---- */}
       <section className="hz-claim">

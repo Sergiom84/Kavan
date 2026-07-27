@@ -2,11 +2,19 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import './TravelAnimation.css'
 
+type Props = {
+  onDone: () => void
+  /** Rótulo de la escena. También es lo que anuncia el lector de pantalla. */
+  label?: string
+  className?: string
+}
+
 /**
- * Animación al pulsar "Calcular Viaje": un 4x4 cruza las dunas.
+ * Animación del 4x4 que cruza las dunas. Se usa en dos sitios: al pulsar
+ * "Calcular Viaje" y como pantalla de carga del sitio.
  * Reinterpretación propia con GSAP del concepto de escena en movimiento.
  */
-export function TravelAnimation({ onDone }: { onDone: () => void }) {
+export function TravelAnimation({ onDone, label = 'Preparando tu viaje', className = '' }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const doneRef = useRef(onDone)
   doneRef.current = onDone
@@ -46,7 +54,7 @@ export function TravelAnimation({ onDone }: { onDone: () => void }) {
   }, [])
 
   return (
-    <div className="travel-anim" ref={ref} role="status" aria-label="Calculando tu viaje">
+    <div className={`travel-anim ${className}`} ref={ref} role="status" aria-label={label}>
       <svg viewBox="0 0 1000 560" className="travel-anim-scene" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="ta-sky" x1="0" y1="0" x2="0" y2="1">
@@ -92,7 +100,7 @@ export function TravelAnimation({ onDone }: { onDone: () => void }) {
           </g>
         </g>
       </svg>
-      <span className="travel-anim-text">Preparando tu viaje</span>
+      <span className="travel-anim-text">{label}</span>
     </div>
   )
 }

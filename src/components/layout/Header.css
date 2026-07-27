@@ -12,16 +12,24 @@
   border-bottom: 1px solid transparent;
   transition: background-color var(--dur-lg) var(--easing),
               color var(--dur-lg) var(--easing),
-              border-color var(--dur-lg) var(--easing);
+              border-color var(--dur-lg) var(--easing),
+              transform var(--dur-lg) var(--easing);
 }
 
-/* Al salir de la portada: crema opaco y tinta oscura. Sin desenfoque:
+/* Al salir de un hero normal: crema opaco y tinta oscura. Sin desenfoque:
    en este sistema no hay backdrop-filter en ninguna parte. */
 .site-header.is-solid,
 .site-header.is-open {
   background: var(--bg-1);
   color: var(--ink);
   border-bottom-color: var(--line);
+}
+
+/* Sobre la portada que se aleja no hay estado crema: el fondo son las propias
+   dunas, oscurecidas por el velo del hero, y así se queda mientras se recorre.
+   Al despegarse la portada, la cabecera se retira hacia arriba. */
+.site-header.is-hidden {
+  transform: translateY(-100%);
 }
 
 .site-header-inner {
@@ -49,12 +57,6 @@
   height: 2.5rem;
 }
 
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3125rem;
-}
-
 .brand-name {
   font-family: var(--font-display);
   font-size: var(--text-2);
@@ -62,11 +64,6 @@
   letter-spacing: 0.14em;
   line-height: 1;
   text-transform: uppercase;
-}
-
-.brand-tag {
-  color: inherit;
-  opacity: 0.7;
 }
 
 /* ---------- Navegación ---------- */
