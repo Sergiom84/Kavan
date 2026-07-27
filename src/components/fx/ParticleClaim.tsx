@@ -22,6 +22,7 @@ export function ParticleClaim({ text }: Props) {
   const lienzoRef = useRef<HTMLDivElement>(null)
   const tituloRef = useRef<HTMLDivElement>(null)
   const [conEfecto, setConEfecto] = useState(false)
+  const [fondoOk, setFondoOk] = useState(true)
 
   useEffect(() => {
     const host = lienzoRef.current
@@ -79,10 +80,26 @@ export function ParticleClaim({ text }: Props) {
 
   return (
     <section className={`pclaim ${conEfecto ? 'has-particles' : ''}`}>
-      <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
+      {/* Tres capas: la acuarela al fondo, la frase encima y la arena arriba.
+
+          Si la acuarela falta, la capa se retira: un `img` roto deja el icono
+          de imagen ausente en la esquina, y el bloque se queda con su color de
+          respaldo sin que se note nada. */}
+      {fondoOk && (
+        <img
+          className="pclaim-bg"
+          src="/images/kasbah-acuarela.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          onError={() => setFondoOk(false)}
+        />
+      )}
       <div className="pclaim-inner" ref={tituloRef}>
         <SplitTitle size="lead" align="center" className="pclaim-title" text={text} />
       </div>
+      <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
     </section>
   )
 }

@@ -38,8 +38,10 @@
   padding: 0 0.5rem;
 
   background:
-    /* Núcleo hueco: mantiene el centro oscuro y expulsa el color al borde. */
-    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0) 70%),
+    /* Núcleo apenas velado: se ve la página a través de la esfera. El original
+       lo llevaba en negro opaco, que la convertía en un disco. Queda el mínimo
+       de sombra para que el rótulo se sostenga sobre las fotos claras. */
+    radial-gradient(circle at 50% 50%, rgba(28, 20, 14, 0.26) 30%, rgba(28, 20, 14, 0) 72%),
     /* Interferencia horizontal principal, densa arriba y abajo. */
     linear-gradient(
       0deg,
@@ -149,10 +151,13 @@
   transform: rotate(-10deg);
 }
 
-/* El rótulo va por encima de los reflejos, o el de arriba lo lava. */
+/* El rótulo va por encima de los reflejos, o el de arriba lo lava. Al ser la
+   esfera transparente pasa por encima de fondos claros y oscuros, así que la
+   sombra es lo que lo sostiene en los dos casos. */
 .advisor-label {
   position: relative;
   z-index: 1;
+  text-shadow: 0 1px 4px rgba(28, 20, 14, 0.85);
 }
 
 .advisor-toggle:hover {

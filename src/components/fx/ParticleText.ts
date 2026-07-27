@@ -179,7 +179,7 @@ export class ParticleText {
   private observadorTamano: ResizeObserver | null = null
   private reconstruir = 0
 
-  constructor({ container, origen, colores, numParticles = 300000, onListo }: Opciones) {
+  constructor({ container, origen, colores, numParticles = 180000, onListo }: Opciones) {
     this.container = container
     this.origen = origen
     this.colores = colores
