@@ -18,9 +18,8 @@ as backend — the app works without credentials using the local seed catalogue
 
 1. Inspect the repository structure, package scripts, current stack, and this file.
 2. Read `design-system/MASTER.md` — it is the visual source of truth for this
-   project and currently documents a target direction that differs from what
-   `src/styles/tokens.css` implements today (see its "Estado de implementación"
-   section). Do not assume the current tokens are the target.
+   project and records both the approved direction and the current implementation
+   status. Do not introduce tokens, fonts, or visual rules that contradict it.
 3. Read `RESTYLE.md` and `KANVAN_PREMIUM_AUDIT.md` before repeating prior restyle
    work — there is real history here across multiple branches
    (`horizonte/restyle`, `visual/editorial-sahara`, `codex/sahara-editorial-visual`).

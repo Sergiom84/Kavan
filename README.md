@@ -4,7 +4,7 @@ Web de agencia de viajes: el usuario elige un pack, lo personaliza (fechas, habi
 
 ## Stack
 
-- **Frontend**: React 19 + Vite + TypeScript, `react-router`, `@tanstack/react-query`, GSAP (ScrollTrigger, Flip). Estilos con CSS variables ([tokens](src/styles/tokens.css)) — 3 tipografías, paleta terrosa.
+- **Frontend**: React 19 + Vite + TypeScript, `react-router`, `@tanstack/react-query`, GSAP (ScrollTrigger, Flip) y Lenis. Estilos con CSS variables ([tokens](src/styles/tokens.css)) — dos familias tipográficas y tres tamaños, paleta Sáhara.
 - **Backend**: Supabase (Postgres + RLS + Storage). La app funciona sin credenciales con el catálogo local de [seed.ts](src/data/seed.ts); con `.env.local` configurado, las cotizaciones se insertan además en la tabla `quotes`.
 - **Deploy**: Render Static Site ([render.yaml](render.yaml)).
 
@@ -38,7 +38,7 @@ npm run build      # producción en dist/
 ## Reglas del cliente
 
 1. Páginas estándar: Cabecera → Hero → bloques → Footer (excepto 9, 11, 12, 13).
-2. Máximo 3 tipografías: Fraunces (títulos), Inter (texto), Space Grotesk (etiquetas).
+2. Máximo tres tamaños de texto (título / subtítulo / texto) y una o dos familias, nunca las habituales (Inter, Roboto, Arial, system-ui quedan descartadas). Implementado con **Cormorant Garamond** (títulos) y **JetBrains Mono** (texto y etiquetas), autoalojadas en `public/fonts/` bajo licencia SIL OFL. La dirección visual completa está en [design-system/MASTER.md](design-system/MASTER.md).
 3. Cero emojis.
 4. Cero microcopys explicativos.
 

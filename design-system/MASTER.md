@@ -1,10 +1,9 @@
 # Project Design System Master — Kavan (web de viajes a Marruecos)
 
-> Este archivo documenta la dirección visual objetivo del proyecto. La rama actual
-> (`cowork/kavan-village`, construida sobre `horizonte/restyle`) todavía implementa la
-> paleta monocroma importada de Horizonte Village en `src/styles/tokens.css` — este
-> documento define lo que debe implementarse a continuación, no lo que hay hoy en
-> código. Ver "Estado de implementación" al final.
+> Este archivo documenta la dirección visual y el estado actual del proyecto. La rama
+> `cowork/kavan-village` mantiene la estructura, el ritmo y el lenguaje de motion de
+> Horizonte Village, pero la implementación actual ya usa la paleta Sáhara y las
+> fuentes Cormorant Garamond + JetBrains Mono descritas aquí.
 
 ## Project identity
 
@@ -167,10 +166,17 @@ Footer**, EXCEPTO las páginas 9 (`/reserva/:slug`), 11 (`/packs/:slug` hub), 12
 - [ ] Congelar qué commit/captura de `_restyle-evidencia/` se considera la
       referencia válida actual antes de seguir iterando (Prioridad 1 del informe).
 
-## Estado de implementación (no confundir con la dirección objetivo de arriba)
+## Estado de implementación
 
-A fecha de este documento, `src/styles/tokens.css` en la rama `cowork/kavan-village`
-todavía usa la paleta monocroma de Horizonte (crema/verde petróleo) y las
-tipografías Canela/ApercuMono. Este `MASTER.md` define el objetivo (paleta Sáhara +
-Cormorant Garamond/JetBrains Mono); aplicar el cambio de tokens es trabajo de
-implementación pendiente, fuera del alcance de esta sesión de documentación.
+- [x] `src/styles/tokens.css` usa la paleta Sáhara/terracota definida arriba.
+- [x] `src/styles/global.css` carga Cormorant Garamond y JetBrains Mono desde
+      `public/fonts/`.
+- [x] `index.html` precarga las nuevas fuentes.
+- [x] `npm test` y `npm run build` pasan en el estado actual.
+- [ ] Definir pesos tipográficos y tamaños finales en rem.
+- [ ] Completar la auditoría móvil del flujo comercial.
+- [ ] Congelar la captura/commit de `_restyle-evidencia/` que será la referencia válida.
+
+Las fuentes antiguas de Canela/ApercuMono permanecen en `public/fonts/` como archivos
+heredados no utilizados por la implementación actual. Su retirada es una limpieza
+posterior independiente y no se hace automáticamente en esta fase.
