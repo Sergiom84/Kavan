@@ -16,19 +16,16 @@
 
 /* ---------- La tarjeta ---------- */
 
+/* Sin sombra: venía del codepen original y dejaba un halo gris bajo cada
+   tarjeta que ensuciaba el crema. El sistema es material plano —`--shadow-card`
+   vale `none` a propósito—; la profundidad la da la fotografía. */
 .pack-card-media {
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: 0.625rem;
   background: #2f2f2f;
-  box-shadow: rgba(0, 0, 0, 0.16) 0 0.75rem 1.75rem 0;
-  transition: box-shadow 1s var(--regreso);
-}
-
-.pack-card:hover .pack-card-media {
-  transition: box-shadow 0.6s var(--entrada);
-  box-shadow: rgba(0, 0, 0, 0.28) 0 1.25rem 2.5rem 0;
+  box-shadow: var(--shadow-card);
 }
 
 /* ---------- El fondo ---------- */
@@ -231,8 +228,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .pack-card-bg,
-  .pack-card-panel,
-  .pack-card-media {
+  .pack-card-panel {
     transition: none;
   }
 }

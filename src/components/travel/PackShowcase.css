@@ -27,18 +27,28 @@
   padding: 0 var(--space-4) 0 var(--padding);
 }
 
-/* Hereda de `.label` (mono, versalitas, 12px): sólo se le quita el peso de
-   encabezado que trae el `h2` y se le da medida para que parta en dos líneas
-   como la banda de partículas. */
+/* Hereda de `.label` (mono, versalitas): se le quita el peso de encabezado que
+   trae el `h2`, se le da medida para que parta en dos líneas como la banda de
+   partículas, y sube dos puntos sobre el rótulo corriente —a 12px encabezaba
+   un bloque de pantalla entera y se leía como un pie.
+
+   La tinta va plena, no al 40% de `.label`: al lado del botón, que sí es
+   tinta plena, el rótulo desvaído se leía como si el botón fuese negrita. Los
+   dos son peso 400; lo que los separaba era la opacidad. */
 .pack-showcase-title {
+  font-size: calc(var(--text-label) + 0.125rem);
   font-weight: var(--weight-label);
   line-height: 1.5;
   max-width: 14ch;
+  color: var(--ink);
 }
 
 /* Alineado con la base de la fotografía, no con la del bloque: el título de
    la tarjeta cuelga por debajo y el enlace no debe seguirlo. */
+/* Mismo cuerpo que el rótulo: son las dos únicas piezas de la columna y a
+   tamaños distintos una parecía subordinada de la otra. */
 .pack-showcase-link {
+  font-size: calc(var(--text-label) + 0.125rem);
   align-self: flex-start;
   /* Se alinea con la base de la fotografía, no con la del bloque: el título de
      la tarjeta cuelga por debajo y el enlace no debe seguirlo. El margen es
