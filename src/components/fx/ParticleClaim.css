@@ -41,6 +41,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* El borde de abajo corta en seco: el dibujo llega denso hasta el final del
+     encuadre, mientras que arriba el cielo ya se disuelve solo en el papel.
+     Esta máscara apaga el alfa en el último tercio para que la arena se
+     desvanezca. Va en CSS y no horneado en el PNG a propósito: con
+     `object-fit: cover` el recorte cambia con el ancho de pantalla, así que la
+     transición tiene que medirse contra la caja visible, no contra la imagen. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
 }
 
 .pclaim-inner {

@@ -1,7 +1,6 @@
 import { Link } from 'react-router'
 import { useFeaturedPacks } from '../queries/hooks'
 import { Pic } from '../components/ui/Pic'
-import { FullGallery } from '../components/ui/FullGallery'
 import { PackShowcase } from '../components/travel/PackShowcase'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
 import { HeroZoom } from '../components/fx/HeroZoom'
@@ -9,8 +8,13 @@ import { ParticleClaim } from '../components/fx/ParticleClaim'
 import './HomePage.css'
 
 /* Orden de la página:
-   cabecera · hero (con los dos accesos) · Marruecos en partículas · galería ·
-   carrusel de packs · mapa · pie */
+   cabecera · hero (con los dos accesos) · Marruecos · viajes más deseados ·
+   mapa · pie
+
+   La galería a sangre (`FullGallery`) salió de aquí el 2026-07-29: iba justo
+   bajo el bloque de Marruecos y Sergio la reserva para otra página. El bloque
+   sigue disponible en `components/ui/FullGallery` y sus fotos en
+   `data/galeria.ts`; no hay que rehacer nada para recolocarla. */
 
 /* Los dos accesos que el wireframe ponía en un bloque propio bajo la portada.
    Ahora viven dentro de la portada, como pastillas. */
@@ -28,19 +32,6 @@ const CLAIM = [
   'África. Un país {de té a la menta},',
   'hospitalidad bereber {y ciudades imperiales donde cada puerta esconde un patio}.',
   'A menos {de tres horas de vuelo}, otro mundo.',
-]
-
-/* Galería del país. Las rutas van directas a public/images y no por Pic: aquí
-   la foto concreta importa, no es un motivo intercambiable. */
-const GALERIA = [
-  { src: '/images/ait-ben-haddou.webp', pie: 'Aït Ben Haddou', alt: 'Ksar de Aït Ben Haddou al atardecer' },
-  { src: '/images/dunas-erg-chebbi.webp', pie: 'Erg Chebbi', alt: 'Dunas del Erg Chebbi' },
-  { src: '/images/medina.webp', pie: 'Medina de Marrakech', alt: 'Calle de la medina de Marrakech' },
-  { src: '/images/todra-garganta.webp', pie: 'Gargantas del Todra', alt: 'Paredes verticales de las gargantas del Todra' },
-  { src: '/images/kasbah-taourirt.webp', pie: 'Kasbah Taourirt', alt: 'Kasbah Taourirt en Ouarzazate' },
-  { src: '/images/essaouira-puerto.webp', pie: 'Essaouira', alt: 'Barcas azules en el puerto de Essaouira' },
-  { src: '/images/dades-kasbah.webp', pie: 'Valle del Dadés', alt: 'Kasbah de adobe en el valle del Dadés' },
-  { src: '/images/jemaa-el-fna.webp', pie: 'Jemaa el-Fna', alt: 'Plaza de Jemaa el-Fna al anochecer' },
 ]
 
 export function HomePage() {
@@ -88,11 +79,8 @@ export function HomePage() {
         </div>
       </HeroZoom>
 
-      {/* ---- Marruecos: acuarela, arena y texto revelado ---- */}
+      {/* ---- Marruecos: boceto a lápiz y texto revelado ---- */}
       <ParticleClaim beats={CLAIM} />
-
-      {/* ---- Galería a sangre: una fotografía por pantalla ---- */}
-      <FullGallery fotos={GALERIA} auto={3000} />
 
       {/* ---- Viajes más deseados ---- */}
       <PackShowcase packs={featured ?? []} />

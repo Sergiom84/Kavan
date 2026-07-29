@@ -136,11 +136,6 @@ button {
   padding-block: var(--space-6);
 }
 
-/* Banda de sección con fondo propio: rompe la monotonía de bloques iguales */
-.band-sand {
-  background: var(--bg-2);
-}
-
 .band-ink {
   background: var(--ink);
   color: var(--on-photo);

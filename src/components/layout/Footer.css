@@ -2,7 +2,7 @@
    una sola línea. */
 
 .site-footer {
-  background: var(--ink);
+  background: var(--bg-4);
   color: var(--on-photo);
   overflow: hidden;
   padding-bottom: var(--space-3);

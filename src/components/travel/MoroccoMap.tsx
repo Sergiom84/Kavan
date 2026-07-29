@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { useCities } from '../../queries/hooks'
 import { Pic } from '../ui/Pic'
@@ -28,17 +28,41 @@ const PUNTOS: Record<string, { x: number; y: number }> = {
 export function MoroccoMap() {
   const { data: cities } = useCities()
   const [activa, setActiva] = useState<string | null>(null)
+  const lienzoRef = useRef<HTMLDivElement>(null)
 
   const conPunto = (cities ?? []).filter((c) => PUNTOS[c.slug])
   const ciudad = conPunto.find((c) => c.slug === activa)
   const punto = ciudad ? PUNTOS[ciudad.slug] : null
 
+  /* Salir con el ratón cierra la ficha, pero en táctil no hay `mouseleave`: sin
+     esto la ficha se quedaba abierta para siempre tras el primer toque. Pulsar
+     fuera del mapa —o Escape— la cierra. `pointerdown` y no `click` para que
+     responda antes de que el dedo levante. Sólo se escucha si hay ficha
+     abierta, así que no cuelga un listener global de por vida. */
+  useEffect(() => {
+    if (!activa) return
+
+    const fuera = (e: PointerEvent) => {
+      if (!lienzoRef.current?.contains(e.target as Node)) setActiva(null)
+    }
+    const escape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiva(null)
+    }
+
+    document.addEventListener('pointerdown', fuera)
+    document.addEventListener('keydown', escape)
+    return () => {
+      document.removeEventListener('pointerdown', fuera)
+      document.removeEventListener('keydown', escape)
+    }
+  }, [activa])
+
   return (
     <section className="mmap">
-      <div className="mmap-canvas" onMouseLeave={() => setActiva(null)}>
+      <div className="mmap-canvas" ref={lienzoRef} onMouseLeave={() => setActiva(null)}>
         <img
           className="mmap-image"
-          src="/images/mapa-kavan.webp"
+          src="/images/mapa-kavan-alpha.webp"
           alt="Mapa de Marruecos con Essaouira, Marrakech, Agafay, Ouarzazate, Erfoud y Merzouga"
           width={1672}
           height={941}

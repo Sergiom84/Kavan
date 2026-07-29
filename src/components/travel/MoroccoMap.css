@@ -12,10 +12,18 @@
   line-height: 0;
 }
 
+/* El mapa va recortado sobre alfa (`mapa-kavan-alpha.webp`): su papel se
+   sustituyó por transparencia, así que el crema de la sección se ve a través y
+   no hay rectángulo. Quedaban los dos bordes horizontales, donde el mar llega
+   al final del encuadre y corta en seco: arriba se disuelve en el 11% inicial
+   —el titular del mapa empieza en el 20%, así que no lo toca— y abajo en el
+   último 22%. Los laterales no llevan máscara: ahí el mapa ya muere en papel. */
 .mmap-image {
   width: 100%;
   height: auto;
   display: block;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 11%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 11%, #000 78%, transparent 100%);
 }
 
 /* ---------- Zonas activas ---------- */
@@ -60,7 +68,9 @@
   z-index: var(--z-base);
   width: 17rem;
   padding: var(--space-3);
-  background: var(--bg-2);
+  /* El crema del sitio, no la arena de las bandas alternas: la tarjeta flota
+     sobre el mapa y debe leerse como una porción de la propia página. */
+  background: var(--bg-1);
   border: 1px solid var(--line-strong);
   line-height: var(--leading-body);
   /* Se apoya encima de la chincheta, separada por el alto del anillo. */

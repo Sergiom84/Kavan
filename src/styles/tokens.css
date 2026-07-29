@@ -50,7 +50,11 @@
   --bg-1: var(--c-bg);
   --bg-2: var(--c-base-50);
   --bg-3: #d9bfa0;
-  --bg-4: var(--c-brand-500);
+  /* Terracota de duna: muestreado de la fotografía del hero (la duna base da
+     227,134,68) y bajado hasta que el texto del pie pasa AA —el tono directo
+     de la arena da 2,45:1, inservible—. Deja de ser alias de --c-brand-500
+     para no arrastrar el hover de marca con él. Es el fondo del footer. */
+  --bg-4: #764623;
 
   /* Tinta y sus grados */
   --ink: var(--c-base-1000);
