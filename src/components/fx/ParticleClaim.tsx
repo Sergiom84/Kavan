@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './ParticleClaim.css'
@@ -10,9 +10,10 @@ type Props = {
 }
 
 /**
- * Una pausa editorial entre el hero y la galería: boceto a lápiz y titular
- * que gana foco al avanzar. En móvil o con movimiento reducido queda como
- * imagen estática plenamente legible.
+ * Una pausa editorial entre el hero y la galería: el boceto se deshace en arena
+ * que reacciona al puntero, y el titular gana foco al avanzar. En móvil, sin
+ * WebGL2 o con movimiento reducido queda como imagen estática plenamente
+ * legible y el motor de partículas ni se descarga.
  */
 gsap.registerPlugin(ScrollTrigger)
 
@@ -57,6 +58,53 @@ function palabrasDe(beat: string, indice: { valor: number }) {
 export function ParticleClaim({ beats }: Props) {
   const escenaRef = useRef<HTMLElement>(null)
   const imagenRef = useRef<HTMLImageElement>(null)
+  const lienzoRef = useRef<HTMLDivElement>(null)
+  const [conEfecto, setConEfecto] = useState(false)
+
+  /* La arena sólo se monta donde tiene sentido: pantalla grande, puntero fino
+     y sin `prefers-reduced-motion`. El import es dinámico para que quien no
+     cumpla no se descargue ni un byte del motor WebGL. Espera a que la imagen
+     esté decodificada porque el shader muestrea sus píxeles para pintar cada
+     grano: sin ella la arena saldría negra. */
+  useEffect(() => {
+    const escena = escenaRef.current
+    const host = lienzoRef.current
+    const imagen = imagenRef.current
+    if (!escena || !host || !imagen) return
+
+    const apto =
+      window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (!apto) return
+
+    let vivo = true
+    let efecto: { destroy: () => void } | null = null
+
+    const arrancar = async () => {
+      try {
+        if (!imagen.complete) {
+          await new Promise<void>((resolve, reject) => {
+            imagen.addEventListener('load', () => resolve(), { once: true })
+            imagen.addEventListener('error', () => reject(new Error('imagen')), { once: true })
+          })
+        }
+        if (!vivo) return
+        const { DesertParticles } = await import('./DesertParticles')
+        if (!vivo) return
+        efecto = new DesertParticles({ container: host, image: imagen })
+        if (vivo) setConEfecto(true)
+      } catch {
+        setConEfecto(false)
+      }
+    }
+
+    arrancar()
+
+    return () => {
+      vivo = false
+      efecto?.destroy()
+    }
+  }, [])
 
   useEffect(() => {
     const escena = escenaRef.current
@@ -119,7 +167,7 @@ export function ParticleClaim({ beats }: Props) {
 
   return (
     <div className="pclaim-wrap">
-      <section className="pclaim" ref={escenaRef}>
+      <section className={`pclaim${conEfecto ? ' has-particles' : ''}`} ref={escenaRef}>
         <div className="pclaim-band pclaim-band--top">
           <span className="label">Marruecos</span>
           <span className="label">Entre dos mundos</span>
@@ -133,6 +181,7 @@ export function ParticleClaim({ beats }: Props) {
             loading="lazy"
             decoding="async"
           />
+          <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
           <div className="pclaim-inner">
             {beats.map(beat => (
               <p key={beat} className="pclaim-beat" style={{ fontFamily: FUENTE_CLAIM }}>

@@ -51,6 +51,29 @@
   mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
 }
 
+/* La arena. `pointer-events` sólo cuando hay efecto: si no, este div se comería
+   el puntero sin dar nada a cambio. El lienzo va a `--fondo-particulas: 1`
+   (calibrado en Lab-FX), así que la fotografía se ve entera por debajo y la
+   arena se suma encima en vez de sustituirla. */
+.pclaim-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pclaim.has-particles .pclaim-canvas {
+  pointer-events: auto;
+}
+
+.pclaim.has-particles .pclaim-bg {
+  opacity: var(--fondo-particulas, 1);
+}
+
+/* Transparente al puntero: ocupa todo el bloque y, si no, se come el
+   `pointermove` que la arena necesita para apartarse. Aquí dentro no hay nada
+   que se pulse; si algún día se añade un enlace, tendrá que recuperar
+   `pointer-events: auto`. */
 .pclaim-inner {
   position: relative;
   z-index: 3;
