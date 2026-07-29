@@ -3,7 +3,7 @@
      18px el bloque se leía más pequeño que la portada aunque su cuerpo mayor
      sea un 6% más grande. Sigue habiendo dos tamaños, pero menos separados. */
   --minor-scale: 0.68;
-  background: var(--bg-2);
+  background: var(--bg-1);
 }
 
 /* Sin `min-height: 100svh`: el contenido no llegaba a esa altura y la
@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--bg-2);
+  background: var(--bg-1);
 }
 
 /* Sin `border` entre banda e imagen: con el boceto recortado sobre alfa el
@@ -27,7 +27,7 @@
   position: relative;
   height: 36rem;
   overflow: hidden;
-  background: var(--bg-2);
+  background: var(--bg-1);
 }
 
 /* El boceto va recortado sobre alfa (`Oasis_Panorama_alpha.webp`): no trae
@@ -60,7 +60,7 @@
 }
 
 /* Sin caja ni scrim: tinta oscura directa sobre el boceto, que ya es claro de
-   por sí. El halo va en --bg-2, el mismo crema del bloque: sostiene la lectura
+   por sí. El halo va en --bg-1, el mismo crema del bloque: sostiene la lectura
    donde el trazo se densifica sin verse como un resplandor —con un blanco más
    claro que el fondo sí se notaba. */
 .pclaim-beat {
@@ -68,9 +68,9 @@
   font-weight: var(--weight-text);
   color: var(--ink);
   text-shadow:
-    0 0 .5rem var(--bg-2),
-    0 0 .5rem var(--bg-2),
-    0 0 1.25rem var(--bg-2);
+    0 0 .5rem var(--bg-1),
+    0 0 .5rem var(--bg-1),
+    0 0 1.25rem var(--bg-1);
   max-width: 100%;
   font-size: calc(var(--text-2) * 1.3 + .125rem);
   line-height: 1.3;
@@ -112,7 +112,7 @@
   }
 
   .pclaim {
-    background: var(--bg-2);
+    background: var(--bg-1);
   }
 
   .pclaim-media {

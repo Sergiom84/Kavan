@@ -29,21 +29,26 @@
      Paleta Sáhara (design-system/MASTER.md): papel cálido, arena,
      terracota, sol del desierto. Ya no monocroma — reemplaza la
      paleta crema/verde petróleo importada de Horizonte. */
-  /* Fondo de página. Es el tono que usa de verdad la referencia: su `--c-bg`
-     declarado (#e5e0d9) no llega a pintarse, el body toma `--c-base-0`
-     (#dfd8cf). Medido con DevTools sobre la captura. */
-  --c-bg: #dfd8cf;          /* papel cálido — fondo de página */
-  --c-base-0: #ebe1cd;      /* arena clara — superficies elevadas */
+  /* Un único crema gobierna todo el sitio (decisión de Sergio, 2026-07-29). El
+     valor anterior del fondo de página (#dfd8cf) venía medido de Horizonte y
+     era grisáceo —20% de saturación frente al 43% del crema—, así que la web
+     se leía gris alrededor de los bloques que ya usaban el crema. Horizonte no
+     manda en color (ver CLAUDE.md); el crema Sáhara sí. */
+  --c-bg: #ebe1cd;          /* crema — el papel de todo el sitio */
+  --c-base-0: #ebe1cd;      /* mismo crema, para superficies claras sobre oscuro */
+  --c-base-50: #e3d5ba;     /* arena — un paso bajo el crema, para bandas alternas */
   --c-base-1000: #2a2119;   /* ink, marrón casi negro — texto */
   --c-brand-500: #8a4b2b;   /* terracota profunda — marca, hover */
   --c-pure-white: #fff;
   --c-pure-black: #000;
   --c-error: #9d3c23;       /* danger */
 
-  /* Fondos. bg-3 es arena (superficie secundaria); bg-4 es la banda
-     oscura reservada (terracota profunda), sin uso actual en el código. */
+  /* Fondos. bg-1 es el crema base; bg-2 ya no es "superficie elevada más
+     clara" sino la banda alterna un paso por debajo (`.band-sand`), porque el
+     crema pasó a ser el fondo de todo. bg-3 es arena (superficie secundaria);
+     bg-4 es la banda oscura reservada (terracota profunda), sin uso actual. */
   --bg-1: var(--c-bg);
-  --bg-2: var(--c-base-0);
+  --bg-2: var(--c-base-50);
   --bg-3: #d9bfa0;
   --bg-4: var(--c-brand-500);
 

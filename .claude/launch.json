@@ -9,6 +9,13 @@
       "autoPort": true
     },
     {
+      "name": "lab-fx",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4176", "--directory", "C:/Users/sergi/Desktop/Aplicaciones/Lab-FX"],
+      "port": 4176,
+      "autoPort": false
+    },
+    {
       "name": "referencia-horizonte",
       "runtimeExecutable": "python",
       "runtimeArgs": [

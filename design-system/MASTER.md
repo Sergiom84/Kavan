@@ -61,8 +61,13 @@
 Paleta fijada a partir de `visual/editorial-sahara` (valores exactos, ya diseñados
 y probados en una rama real de este proyecto):
 
-- Background (papel cálido): `#f5f0ea`
-- Elevated surface (arena clara, fondo alterno de sección): `#ebe1cd`
+- Background (crema, el papel de todo el sitio): `#ebe1cd` — **decisión de
+  Sergio, 2026-07-29**: un único crema gobierna la web entera. Sustituye al
+  `#f5f0ea` que figuraba aquí y al `#dfd8cf` que llegó a implementarse (medido
+  de Horizonte, 20% de saturación frente al 43% del crema: se leía gris).
+- Banda alterna de sección (arena, un paso bajo el crema): `#e3d5ba` — releva a
+  `#ebe1cd` en ese papel, ahora que el crema es el fondo general. Contraste de
+  `--ink` sobre ella: 10,9:1.
 - Surface secundaria (arena): `#d9bfa0`
 - Surface terciaria (terracota clara): `#c9926a`
 - Primary text (ink): `#2a2119`

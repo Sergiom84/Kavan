@@ -14,6 +14,45 @@ as backend — the app works without credentials using the local seed catalogue
 (`src/data/seed.ts`); with `.env.local` configured, quotes also insert into the
 `quotes` table. Deploy target: Render Static Site.
 
+## Architecture — compose pages from blocks
+
+This project is deliberately modular. There is no monolithic page file and none
+may be introduced.
+
+```
+src/
+├── pages/            one file per route — composes blocks, holds page copy/data
+├── components/
+│   ├── layout/       Header, Footer, SiteLayout, AdvisorButton
+│   ├── ui/           generic and reusable: Carousel, FullGallery, PageHero, Pic
+│   ├── travel/       domain blocks: PackCard, MoroccoMap, ItineraryTimeline
+│   └── fx/           self-contained effects: ParticleClaim, DesertParticles, HeroZoom
+├── styles/           tokens.css (source of truth) + global.css
+├── lib/ data/ queries/
+```
+
+Rules:
+
+- A page imports blocks and arranges them. It must not contain layout internals,
+  effect logic, or WebGL/GSAP setup. If a page file grows past roughly 250 lines,
+  something inside it wants to be a block.
+- Split a block out when it has **its own design, its own behavior, or is reusable**
+  — and when it can break or change without dragging the rest of the page with it.
+- Do **not** create a component per title, paragraph, button, or icon. Think in real
+  sections (hero, gallery, carousel, map, contact), not in atoms.
+- Effects live in `components/fx/` and stay self-contained: they receive a container,
+  an image, and parameters, and expose their own teardown. They never reach into
+  page markup. Every effect must degrade — mobile, no WebGL2, or
+  `prefers-reduced-motion` must leave a legible static state.
+- Each block owns its CSS file next to it. Shared values go through `styles/tokens.css`;
+  do not hardcode colors, type sizes, or spacing inside a block.
+- Search for an existing block before writing a new one. Extend or parameterize
+  before duplicating.
+
+New visual effects are prototyped and calibrated in `Lab-FX`
+(`C:\Users\sergi\Desktop\Aplicaciones\Lab-FX`), not inside this repository. Only
+what survives calibration gets ported here, by hand, as an `fx/` component.
+
 ## Before changing anything
 
 1. Inspect the repository structure, package scripts, current stack, and this file.

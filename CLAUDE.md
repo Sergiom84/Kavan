@@ -32,7 +32,9 @@ or assets from Horizonte Village.
   branches (`horizonte/restyle`, `visual/editorial-sahara`,
   `codex/sahara-editorial-visual`, `cowork/kavan-village`). Check which branch
   you're on and what it already contains before assuming a fresh start.
-- Reuse existing components and tokens.
+- Reuse existing components and tokens. Pages compose blocks and nothing else —
+  see "Architecture" in `AGENTS.md` before adding anything to a `pages/` file.
+- Prototype new effects in `Lab-FX`, not here. Port only what survives calibration.
 - Ask before changing anything in "Open decisions" in `design-system/MASTER.md` —
   those are explicitly unresolved, not silently decidable.
 - Do not add dependencies unless the benefit is clear and verified.
