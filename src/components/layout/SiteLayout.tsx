@@ -6,8 +6,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { AdvisorButton } from './AdvisorButton'
-import { Preloader } from '../fx/Preloader'
 
+/* Sin `Preloader`: la pantalla de arranque con las dunas y el contador de 0 a
+   100% se retiró por decisión de Sergio (2026-07-29), no convencía. El
+   componente sigue en `fx/Preloader` porque `design-system/MASTER.md` lo cita
+   como referencia de tono para los estados de carga; si vuelve a hacer falta
+   una espera real, se parte de ahí. */
 gsap.registerPlugin(ScrollTrigger)
 
 export function SiteLayout() {
@@ -58,7 +62,6 @@ smoothWheel: true,
 
   return (
     <>
-      <Preloader />
       <Header />
       <main>
         <Outlet />

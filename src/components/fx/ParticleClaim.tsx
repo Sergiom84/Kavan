@@ -125,19 +125,23 @@ export function ParticleClaim({ beats }: Props) {
         },
       })
 
-      /* Cada palabra parte desviada como si el viento la hubiera traído desde
-         fuera del encuadre: desplazamiento lateral variable, deriva vertical
-         suave y una rotación sutil. La semilla es su índice global, así el
-         reparto es el mismo en cada recarga. */
+      /* Bruma, no viento. Antes cada palabra llegaba lanzada desde fuera del
+         encuadre (150px de desplazamiento y 10 grados de giro) y se leía como
+         un golpe. Ahora apenas se mueve: sube un poco, como vapor, se contrae
+         desde un 4% de más y sobre todo se condensa desde 16px de desenfoque.
+         El giro casi desaparece —lo justo para que no formen una rejilla—.
+         La semilla es el índice global de la palabra, así el reparto es el
+         mismo en cada recarga. */
       const palabras = gsap.utils.toArray<HTMLElement>('.pclaim-word')
       palabras.forEach(palabra => {
         const i = Number(palabra.dataset.wordIndex)
         gsap.set(palabra, {
-          x: -90 - azar(i * 3 + 1) * 70,
-          y: -18 + azar(i * 3 + 2) * 36,
-          rotate: -10 + azar(i * 3 + 3) * 20,
+          x: -10 - azar(i * 3 + 1) * 22,
+          y: 12 + azar(i * 3 + 2) * 16,
+          rotate: -2 + azar(i * 3 + 3) * 4,
+          scale: 1.04,
           opacity: 0,
-          filter: 'blur(7px)',
+          filter: 'blur(16px)',
         })
       })
 
@@ -147,10 +151,18 @@ export function ParticleClaim({ beats }: Props) {
         const palabrasFrase = frase.querySelectorAll<HTMLElement>('.pclaim-word')
         timeline
           .to(palabrasFrase, {
-            x: 0, y: 0, rotate: 0, opacity: 1, filter: 'blur(0px)',
-            duration: .5, stagger: .045, ease: 'power2.out',
+            x: 0, y: 0, rotate: 0, scale: 1, opacity: 1,
+            duration: .95, stagger: .07, ease: 'sine.out',
           })
-          .to({}, { duration: .42 })
+          /* El desenfoque va aparte y dura más que el movimiento: si se
+             disipara a la vez, esto sería un fundido con desplazamiento. Que la
+             palabra llegue a su sitio y siga aclarándose es lo que la hace
+             leerse como algo que sale de la bruma. */
+          .to(palabrasFrase, {
+            filter: 'blur(0px)',
+            duration: 1.35, stagger: .07, ease: 'sine.out',
+          }, '<')
+          .to({}, { duration: .5 })
       })
     }, escena)
 
