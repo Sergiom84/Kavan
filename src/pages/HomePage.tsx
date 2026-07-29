@@ -1,11 +1,9 @@
 import { Link } from 'react-router'
 import { useFeaturedPacks } from '../queries/hooks'
 import { Pic } from '../components/ui/Pic'
-import { Carousel } from '../components/ui/Carousel'
 import { FullGallery } from '../components/ui/FullGallery'
-import { PackCard } from '../components/travel/PackCard'
+import { PackShowcase } from '../components/travel/PackShowcase'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
-import { Reveal } from '../components/fx/RevealText'
 import { HeroZoom } from '../components/fx/HeroZoom'
 import { ParticleClaim } from '../components/fx/ParticleClaim'
 import './HomePage.css'
@@ -97,32 +95,7 @@ export function HomePage() {
       <FullGallery fotos={GALERIA} auto={3000} />
 
       {/* ---- Viajes más deseados ---- */}
-      <section className="hz-packs">
-        <div className="container">
-          <Reveal>
-            <div className="hz-packs-head">
-              <span className="label hz-eyebrow">Viajes más deseados</span>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Dentro del contenedor: si no, las tarjetas llegan al borde de la
-            pantalla y el carrusel parece desbordarse. */}
-        <div className="container">
-          {/* Sin flechas: son tres tarjetas y caben las tres en pantalla. */}
-          <Carousel arrows={false}>
-            {(featured ?? []).map((p) => (
-              <div key={p.id} className="carousel-item">
-                <PackCard pack={p} />
-              </div>
-            ))}
-          </Carousel>
-
-          <div className="hz-packs-foot">
-            <Link to="/packs" className="btn btn-outline">Ver todos</Link>
-          </div>
-        </div>
-      </section>
+      <PackShowcase packs={featured ?? []} />
 
       {/* ---- Marruecos te ofrece: mapa real con las ciudades del catálogo ---- */}
       <MoroccoMap />

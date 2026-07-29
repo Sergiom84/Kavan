@@ -1,0 +1,86 @@
+/* Bloque de packs: rótulo a la izquierda, carril a la derecha.
+
+   Proporciones de la referencia (Grand Hotel Lviv, bloque de eventos):
+   columna de 25,5% y carril de 74%, que se va por el borde derecho. */
+
+.pack-showcase {
+  background: var(--bg-1);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+  overflow: hidden;
+}
+
+.pack-showcase-inner {
+  display: flex;
+  align-items: stretch;
+}
+
+/* El rótulo arriba y el enlace abajo, a la altura del pie de las tarjetas.
+   Es `space-between` lo que sostiene la columna: no hay medidas fijas. */
+.pack-showcase-sidebar {
+  flex: 0 0 25.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 var(--space-5) 0 var(--padding);
+}
+
+.pack-showcase-title {
+  font-size: var(--text-1);
+  line-height: 1.06;
+  letter-spacing: var(--track-1);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* Alineado con la base de la fotografía, no con la del bloque: el título de
+   la tarjeta cuelga por debajo y el enlace no debe seguirlo. */
+.pack-showcase-link {
+  align-self: flex-start;
+  margin-bottom: 2.625rem;
+}
+
+.pack-showcase-rail {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Dos tarjetas y media a la vista. La tercera cortada por el borde es el
+   único indicador de que el carril sigue. */
+.pack-showcase .carousel-item {
+  flex: 0 0 38%;
+}
+
+/* ---------- Móvil ----------
+   En columna: rótulo, carril y enlace debajo. El carril mantiene la sangría
+   por la derecha. */
+
+@media (max-width: 1023px) {
+  .pack-showcase {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+  }
+
+  .pack-showcase-inner {
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .pack-showcase-sidebar {
+    flex: initial;
+    padding: 0 var(--padding);
+    gap: var(--space-4);
+  }
+
+  .pack-showcase-link {
+    margin-bottom: 0;
+  }
+
+  .pack-showcase-rail {
+    padding-left: var(--padding);
+  }
+
+  .pack-showcase .carousel-item {
+    flex: 0 0 76%;
+  }
+}

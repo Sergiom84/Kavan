@@ -1,7 +1,7 @@
-/* Tarjeta de pack con el efecto del codepen andymerskin/XNMWvQ.
+/* Tarjeta de pack.
 
-   Dos curvas distintas: una rápida al seguir al cursor y otra lenta al
-   volver. Es lo que hace que el gesto se sienta elástico en vez de mecánico. */
+   Sin giro 3D: el gesto del codepen andymerskin/XNMWvQ competía con el panel
+   deslizante y se retiró de todo el sitio. Queda la elevación y el panel. */
 
 .pack-card {
   --entrada: cubic-bezier(0.23, 1, 0.32, 1);
@@ -14,23 +14,7 @@
   height: 100%;
 }
 
-/* La elevación va en el escenario y el giro en la tarjeta: separados, porque
-   el giro lo escribe el componente en el atributo style y aquí no se puede
-   sumar nada a esa misma propiedad. */
-.pack-card-stage {
-  transform: perspective(800px);
-  transform-style: preserve-3d;
-  transition: transform 1s var(--regreso);
-}
-
-.pack-card-stage:hover {
-  transition: transform 0.6s var(--entrada);
-  transform: perspective(800px) translateY(-0.625rem);
-}
-
-/* ---------- La tarjeta ----------
-   Los dos `inset` de la sombra son la línea por dentro del borde: un anillo
-   oscuro de 5px y, justo detrás, un filete claro de 1px. */
+/* ---------- La tarjeta ---------- */
 
 .pack-card-media {
   position: relative;
@@ -39,30 +23,25 @@
   border-radius: 0.625rem;
   background: #2f2f2f;
   box-shadow: rgba(0, 0, 0, 0.16) 0 0.75rem 1.75rem 0;
-  transition: transform 1s var(--regreso), box-shadow 1s var(--regreso);
+  transition: box-shadow 1s var(--regreso);
 }
 
-.pack-card-stage:hover .pack-card-media {
-  transition: transform 0.6s var(--entrada), box-shadow 2s var(--entrada);
-  box-shadow:
-    rgba(255, 255, 255, 0.18) 0 0 2.5rem 0.25rem,
-    rgba(0, 0, 0, 0.34) 0 1.75rem 3.25rem 0;
+.pack-card:hover .pack-card-media {
+  transition: box-shadow 0.6s var(--entrada);
+  box-shadow: rgba(0, 0, 0, 0.28) 0 1.25rem 2.5rem 0;
 }
 
-/* ---------- El fondo ----------
-   Sobresale 1,25rem por cada lado: al desplazarse en sentido contrario al
-   giro nunca deja ver el borde. Es lo que da la sensación de profundidad. */
+/* ---------- El fondo ---------- */
 
 .pack-card-bg {
   position: absolute;
-  inset: -1.25rem;
+  inset: 0;
   pointer-events: none;
-  opacity: 0.82;
-  transition: transform 1s var(--regreso), opacity 5s 1s var(--regreso);
+  opacity: 0.9;
+  transition: opacity var(--dur-lg) var(--easing);
 }
 
-.pack-card-stage:hover .pack-card-bg {
-  transition: transform 0.6s var(--entrada), opacity 5s var(--entrada);
+.pack-card:hover .pack-card-bg {
   opacity: 1;
 }
 
@@ -75,29 +54,28 @@
 }
 
 /* ---------- Línea interior ----------
-   Sólo una línea blanca fina recorriendo la tarjeta por dentro. Nada de
-   anillo detrás: la fotografía llega hasta el borde redondeado. */
+   Por encima del panel: enmarca la tarjeta entera, esté el panel arriba o no. */
 
 .pack-card-inline {
   position: absolute;
   inset: 0.5rem;
-  z-index: 1;
+  z-index: 4;
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 0.3125rem;
   pointer-events: none;
   transition: border-color 2s var(--regreso);
 }
 
-.pack-card-stage:hover .pack-card-inline {
+.pack-card:hover .pack-card-inline {
   transition: border-color 2s var(--entrada);
   border-color: rgba(255, 255, 255, 0.95);
 }
 
-/* ---------- Precio ---------- */
+/* ---------- Precio en reposo ---------- */
 
 .pack-card-tag {
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   left: 0.875rem;
   bottom: 0.875rem;
   background: var(--c-base-0);
@@ -108,6 +86,84 @@
   letter-spacing: var(--track-label);
   line-height: 1;
   text-transform: uppercase;
+  transition: opacity var(--dur-md) var(--easing);
+}
+
+/* El panel es traslúcido: sin apagar la pastilla, el precio se vería dos
+   veces, uno encima del otro. */
+.pack-card--overlay:hover .pack-card-tag,
+.pack-card--overlay:focus-visible .pack-card-tag {
+  opacity: 0;
+}
+
+/* ---------- Panel deslizante ----------
+   Sube desde abajo al pasar el ratón. Sube deprisa y baja despacio, igual que
+   la referencia: entrar es una respuesta, salir es un repliegue. */
+
+.pack-card-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  color: var(--on-photo);
+  transform: translateY(100%);
+  transition: transform var(--dur-lg) linear;
+}
+
+.pack-card:hover .pack-card-panel,
+.pack-card:focus-visible .pack-card-panel {
+  transform: translateY(0);
+  transition: transform 0.3s ease-in;
+}
+
+/* La hora iba al otro extremo de esta fila; mientras no exista, el precio
+   ocupa la línea entera. */
+.pack-card-panel-top {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.pack-card-panel-price {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* `margin-top: auto` empuja el subtítulo al fondo y deja la fotografía
+   respirando por arriba: es lo que hace legible el panel. */
+.pack-card-panel-caption {
+  margin-top: auto;
+  font-size: var(--text-2);
+  line-height: 1.15;
+  /* La prosa hereda tinta oscura por defecto: aquí va sobre fondo oscuro. */
+  color: var(--on-photo);
+}
+
+.pack-card-panel-cities {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--on-photo-line);
+  font-size: var(--text-body);
+  color: var(--on-photo-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* `.label` viene con tinta oscura del sistema; sobre el panel se invierte. */
+.pack-card-panel-cities .label {
+  color: var(--on-photo-soft);
+}
+
+.pack-card-panel-cities strong {
+  font-weight: var(--weight-text);
+  color: var(--on-photo);
 }
 
 /* ---------- Texto, fuera de la tarjeta ---------- */
@@ -121,9 +177,21 @@
   flex: 1;
 }
 
+.pack-card--overlay .pack-card-body {
+  flex: 0 0 auto;
+  padding-top: var(--space-3);
+}
+
 .pack-card-title {
   font-size: var(--text-2);
   line-height: 1.12;
+}
+
+.pack-card--overlay .pack-card-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
 }
 
 .pack-card-subtitle {
@@ -147,10 +215,24 @@
   color: var(--ink-soft);
 }
 
+/* ---------- Táctil ----------
+   Sin ratón no hay hover que valga: el panel se queda arriba, como en la
+   referencia por debajo de 1024px. */
+
+@media (hover: none), (max-width: 1023px) {
+  .pack-card-panel {
+    transform: none;
+  }
+
+  .pack-card--overlay .pack-card-tag {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .pack-card-media,
-  .pack-card-bg {
-    transform: none !important;
+  .pack-card-bg,
+  .pack-card-panel,
+  .pack-card-media {
     transition: none;
   }
 }

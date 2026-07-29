@@ -94,32 +94,7 @@
   color: var(--ink);
 }
 
-/* ---------- Viajes más deseados ----------
-   Aire justo: el carrusel no necesita separarse tanto como una sección
-   de portada. */
-
-.hz-packs {
-  background: var(--bg-1);
-  padding-top: var(--space-6);
-  padding-bottom: var(--space-5);
-}
-
-.hz-packs-head {
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--line);
-  margin-bottom: var(--space-5);
-}
-
-.hz-eyebrow {
-  display: block;
-}
-
-/* "Ver todos" centrado bajo el carrusel, como en el wireframe. */
-.hz-packs-foot {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--space-4);
-}
+/* Los viajes más deseados viven ahora en PackShowcase, con su propio CSS. */
 
 /* ---------- Móvil ---------- */
 
