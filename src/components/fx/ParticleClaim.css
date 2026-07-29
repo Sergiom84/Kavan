@@ -3,6 +3,25 @@
      18px el bloque se leía más pequeño que la portada aunque su cuerpo mayor
      sea un 6% más grande. Sigue habiendo dos tamaños, pero menos separados. */
   --minor-scale: 0.68;
+
+  /* Cómo muere el bloque por abajo. Lo comparten la fotografía y el lienzo de
+     arena: si sólo lo lleva una, la otra sigue a plena densidad hasta el borde
+     y el corte se ve —que es justo lo que pasaba—.
+
+     Los tres tramos no son decoración: una rampa recta arranca de golpe (su
+     pendiente salta de cero a constante) y el ojo lee esa arista. Bajando
+     primero poco (100% -> 72%) y acelerando después se disuelve sin frontera.
+     Va en CSS y no horneado en el archivo porque con `object-fit: cover` el
+     recorte cambia con el ancho de pantalla: la transición tiene que medirse
+     contra la caja visible, no contra la imagen. */
+  --desvanecido: linear-gradient(
+    to bottom,
+    #000 38%,
+    rgba(0, 0, 0, .72) 66%,
+    rgba(0, 0, 0, .26) 86%,
+    transparent 100%
+  );
+
   background: var(--bg-1);
 }
 
@@ -41,14 +60,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* El borde de abajo corta en seco: el dibujo llega denso hasta el final del
-     encuadre, mientras que arriba el cielo ya se disuelve solo en el papel.
-     Esta máscara apaga el alfa en el último tercio para que la arena se
-     desvanezca. Va en CSS y no horneado en el PNG a propósito: con
-     `object-fit: cover` el recorte cambia con el ancho de pantalla, así que la
-     transición tiene que medirse contra la caja visible, no contra la imagen. */
-  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  -webkit-mask-image: var(--desvanecido);
+  mask-image: var(--desvanecido);
 }
 
 /* La arena. `pointer-events` sólo cuando hay efecto: si no, este div se comería
@@ -60,6 +73,11 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
+  /* El mismo desvanecido que la fotografía. La máscara se aplica al lienzo y no
+     al shader a propósito: el shader no sabe dónde acaba la caja visible —el
+     recorte de `cover` cambia con la pantalla— y aquí sale gratis. */
+  -webkit-mask-image: var(--desvanecido);
+  mask-image: var(--desvanecido);
 }
 
 .pclaim.has-particles .pclaim-canvas {
