@@ -24,11 +24,6 @@ function azar(semilla: number) {
   return x - Math.floor(x)
 }
 
-/* Decisión de Sergio tras comparar las seis candidatas en contexto real: Marhey,
-   la que llevaba la frase que empieza por "África". Sustituye a Cormorant
-   Garamond solo en este bloque. */
-const FUENTE_CLAIM = "'Marhey', sans-serif"
-
 /* Reparte una frase en palabras conservando el recurso de SplitTitle: lo que
    va entre llaves se marca como "menor" (caja baja, cuerpo reducido), pero
    aquí cada palabra —menor o no— es su propio nodo, para poder animarla
@@ -196,7 +191,7 @@ export function ParticleClaim({ beats }: Props) {
           <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
           <div className="pclaim-inner">
             {beats.map(beat => (
-              <p key={beat} className="pclaim-beat" style={{ fontFamily: FUENTE_CLAIM }}>
+              <p key={beat} className="pclaim-beat">
                 {palabrasDe(beat, contadorPalabras)}
               </p>
             ))}

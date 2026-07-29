@@ -29,14 +29,15 @@
 
 /* Hereda de `.label` (mono, versalitas): se le quita el peso de encabezado que
    trae el `h2`, se le da medida para que parta en dos líneas como la banda de
-   partículas, y sube dos puntos sobre el rótulo corriente —a 12px encabezaba
-   un bloque de pantalla entera y se leía como un pie.
+   partículas, y sube cuatro puntos sobre el rótulo corriente —a 12px
+   encabezaba un bloque de pantalla entera y se leía como un pie; a 14px
+   Sergio lo pidió aún más grande—.
 
    La tinta va plena, no al 40% de `.label`: al lado del botón, que sí es
    tinta plena, el rótulo desvaído se leía como si el botón fuese negrita. Los
    dos son peso 400; lo que los separaba era la opacidad. */
 .pack-showcase-title {
-  font-size: calc(var(--text-label) + 0.125rem);
+  font-size: calc(var(--text-label) + 0.25rem);
   font-weight: var(--weight-label);
   line-height: 1.5;
   max-width: 14ch;
