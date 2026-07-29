@@ -1,5 +1,4 @@
 .pclaim {
-  --desert-reveal: 0;
   /* Las palabras de enlace suben del 0,46 del sistema: con la mitad del texto a
      18px el bloque se leía más pequeño que la portada aunque su cuerpo mayor
      sea un 6% más grande. Sigue habiendo dos tamaños, pero menos separados. */
@@ -19,65 +18,31 @@
   background: var(--bg-2);
 }
 
-.pclaim-band--top {
-  border-bottom: 1px solid var(--line);
-}
-
-/* La banda de abajo va vacía: es el mismo elemento que la de arriba, así que el
-   aire por debajo de la imagen mide exactamente lo mismo que por encima. */
-.pclaim-band--bottom {
-  border-top: 1px solid var(--line);
-}
+/* Sin `border` entre banda e imagen: con el boceto recortado sobre alfa el
+   crema es continuo de arriba abajo, y la línea era lo único que delataba
+   dónde empieza la imagen. La banda de abajo va vacía a propósito, sólo para
+   que el aire bajo la imagen mida lo mismo que encima. */
 
 .pclaim-media {
   position: relative;
   height: 36rem;
   overflow: hidden;
-  isolation: isolate;
-  background: var(--ink);
+  background: var(--bg-2);
 }
 
-.pclaim-media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: var(--scrim-top), var(--scrim-bottom);
-  background-repeat: no-repeat;
-  background-size: 100% 46%, 100% 58%;
-  background-position: top, bottom;
-}
-
+/* El boceto va recortado sobre alfa (`Oasis_Panorama_alpha.webp`): no trae
+   papel propio, sólo el trazo. Así el crema de la sección se ve *a través* del
+   dibujo y no hay rectángulo que fundir — funciona con cualquier fondo, no
+   sólo con el de hoy. Nada de tintes ni blend modes encima: si el bloque
+   contrasta, el arreglo está en el alfa de la imagen, no en CSS. */
 .pclaim-bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: sepia(.22) saturate(1.25) hue-rotate(-8deg) contrast(1.02);
 }
 
-/* La opacidad sube con el revelado, de 0,4 en reposo a 0,9 al final. Con el
-   0,18 fijo la arena no se leía: cada grano toma su color de la propia imagen
-   que sobrevuela, así que nunca contrasta con ella y a esa opacidad quedaba en
-   ruido de textura en vez de arena en movimiento. */
-.pclaim-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: calc(.4 + var(--desert-reveal) * .5);
-}
-
-.pclaim.has-particles .pclaim-canvas {
-  pointer-events: auto;
-}
-
-/* Transparente al puntero: ocupa todo el bloque y, si no, se come el
-   `pointermove` que necesita el lienzo de arena para que los granos se aparten
-   al pasar el ratón. Aquí dentro no hay nada que se pulse; si algún día se
-   añade un enlace, tendrá que recuperar `pointer-events: auto`. */
 .pclaim-inner {
   position: relative;
   z-index: 3;
@@ -94,20 +59,43 @@
   overflow: hidden;
 }
 
+/* Sin caja ni scrim: tinta oscura directa sobre el boceto, que ya es claro de
+   por sí. El halo va en --bg-2, el mismo crema del bloque: sostiene la lectura
+   donde el trazo se densifica sin verse como un resplandor —con un blanco más
+   claro que el fondo sí se notaba. */
 .pclaim-beat {
   font-family: var(--font-display);
   font-weight: var(--weight-text);
-  color: var(--on-photo);
+  color: var(--ink);
+  text-shadow:
+    0 0 .5rem var(--bg-2),
+    0 0 .5rem var(--bg-2),
+    0 0 1.25rem var(--bg-2);
   max-width: 100%;
   font-size: calc(var(--text-2) * 1.3 + .125rem);
   line-height: 1.3;
   letter-spacing: normal;
   text-transform: none;
+  text-align: center;
   opacity: 0;
   visibility: hidden;
   display: none;
-  transform: translateX(2.5rem);
-  will-change: transform, opacity;
+}
+
+/* Cada palabra es su propio nodo: así puede llegar "traída por el viento" —
+   desplazada, rotada y borrosa— y disolverse sola en vez de mover el bloque
+   entero. El estado de reposo (aquí) es el legible: sin JS, sin WebGL2 o con
+   movimiento reducido, las palabras que sí se muestran (ver más abajo) se ven
+   en su sitio, sin desviación ni desenfoque. GSAP es quien las esconde y las
+   trae, no esta hoja de estilos. */
+.pclaim-word {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+.pclaim-word--minor {
+  font-size: calc(1em * var(--minor-scale));
+  text-transform: lowercase;
 }
 
 /* Sin JavaScript o con movimiento reducido, al menos la primera frase queda
@@ -116,15 +104,9 @@
   opacity: 1;
   visibility: visible;
   display: block;
-  filter: none;
-  transform: translateX(0);
 }
 
 @media (max-width: 1023px) {
-  .pclaim {
-    --desert-reveal: 1;
-  }
-
   .pclaim-band {
     min-height: 3.5rem;
   }

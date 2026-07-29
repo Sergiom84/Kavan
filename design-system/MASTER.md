@@ -121,14 +121,13 @@ y probados en una rama real de este proyecto):
 - Page transitions: a definir en implementación.
 - Reduced-motion fallback: obligatorio (ver `web-workflow/design-system/anti-ai-ui.md`).
 - Motions to avoid: parallax agresivo y scroll-jacking. No introducirlos.
-- **Excepción aprobada (Sergio, 2026-07-27): un único efecto de cursor.** El
-  bloque de la frase sobre Marruecos en la Home (`ParticleClaim`) dibuja el
-  texto con partículas WebGL que reaccionan a la inercia del puntero. Es
-  deliberado y está acotado: sólo ese bloque, sólo en pantalla ≥1024px con
-  puntero fino, y con estas condiciones de retirada — sin WebGL2, con
-  `prefers-reduced-motion` o en móvil, la frase se queda escrita y el motor de
-  partículas ni se descarga. **Fuera de ese bloque la regla sigue en pie: no
-  hay efectos de cursor en ninguna otra parte del sitio.**
+- **Excepción retirada (Sergio, 2026-07-29).** El bloque de la frase sobre
+  Marruecos en la Home (`ParticleClaim`) tuvo entre el 2026-07-27 y el
+  2026-07-29 un efecto de cursor con partículas WebGL (arena reactiva al
+  puntero). Sergio pidió quitarlo por oscurecer el boceto a lápiz de fondo;
+  ahora el bloque solo mantiene el titular animado por scroll (palabras
+  "traídas por el viento") sobre la imagen sin tratar. **No hay efectos de
+  cursor en ninguna parte del sitio.**
 
 ## Responsive behavior
 

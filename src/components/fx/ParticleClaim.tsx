@@ -1,64 +1,62 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { SplitTitle } from './SplitTitle'
 import './ParticleClaim.css'
 
 type Props = {
-  /** Frases con llaves para el recurso tipográfico de SplitTitle. */
+  /** Frases con llaves para el recurso tipográfico heredado de SplitTitle:
+      lo que va entre llaves baja a caja baja y a menos de la mitad de cuerpo. */
   beats: string[]
 }
 
 /**
- * Una pausa editorial entre el hero y la galería: acuarela, arena WebGL
- * y titular que gana foco al avanzar. En móvil, con movimiento reducido o sin
- * WebGL2 queda como fotografía estática plenamente legible.
+ * Una pausa editorial entre el hero y la galería: boceto a lápiz y titular
+ * que gana foco al avanzar. En móvil o con movimiento reducido queda como
+ * imagen estática plenamente legible.
  */
 gsap.registerPlugin(ScrollTrigger)
 
+/* Pseudo-aleatorio determinista: mismo resultado en cada carga, para que el
+   desorden de las palabras no cambie de una visita a otra. */
+function azar(semilla: number) {
+  const x = Math.sin(semilla * 999.7) * 43758.5453
+  return x - Math.floor(x)
+}
+
+/* Decisión de Sergio tras comparar las seis candidatas en contexto real: Marhey,
+   la que llevaba la frase que empieza por "África". Sustituye a Cormorant
+   Garamond solo en este bloque. */
+const FUENTE_CLAIM = "'Marhey', sans-serif"
+
+/* Reparte una frase en palabras conservando el recurso de SplitTitle: lo que
+   va entre llaves se marca como "menor" (caja baja, cuerpo reducido), pero
+   aquí cada palabra —menor o no— es su propio nodo, para poder animarla
+   suelta en vez de mover el bloque entero. `indice` es un contador compartido
+   entre frases: la semilla del viento es la posición de la palabra en el
+   conjunto completo, no en su frase. */
+function palabrasDe(beat: string, indice: { valor: number }) {
+  return beat.split(/(\{[^}]*\})/g).filter(Boolean).flatMap((parte, i) => {
+    const menor = parte.startsWith('{')
+    const contenido = menor ? parte.slice(1, -1) : parte
+    return contenido.split(/(\s+)/).map((trozo, j) => {
+      if (!trozo) return null
+      if (/^\s+$/.test(trozo)) return <span key={`${i}-${j}`}>{trozo}</span>
+      return (
+        <span
+          key={`${i}-${j}`}
+          className={`pclaim-word${menor ? ' pclaim-word--minor' : ''}`}
+          data-word-index={indice.valor++}
+        >
+          {trozo}
+        </span>
+      )
+    })
+  })
+}
+
 export function ParticleClaim({ beats }: Props) {
   const escenaRef = useRef<HTMLElement>(null)
-  const lienzoRef = useRef<HTMLDivElement>(null)
   const imagenRef = useRef<HTMLImageElement>(null)
-  const [conEfecto, setConEfecto] = useState(false)
-
-  useEffect(() => {
-    const escena = escenaRef.current
-    const host = lienzoRef.current
-    const imagen = imagenRef.current
-    if (!escena || !host || !imagen) return
-
-    const apto =
-      window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (!apto) return
-
-    let vivo = true
-    let efecto: { destroy: () => void } | null = null
-
-    const arrancar = async () => {
-      try {
-        if (!imagen.complete) await new Promise<void>((resolve, reject) => {
-          imagen.addEventListener('load', () => resolve(), { once: true })
-          imagen.addEventListener('error', () => reject(), { once: true })
-        })
-        if (!vivo) return
-        const { DesertParticles } = await import('./DesertParticles')
-        if (!vivo) return
-        efecto = new DesertParticles({ container: host, image: imagen, particles: 400000 })
-        if (vivo) setConEfecto(true)
-      } catch {
-        setConEfecto(false)
-      }
-    }
-
-    arrancar()
-
-    return () => {
-      vivo = false
-      efecto?.destroy()
-    }
-  }, [])
 
   useEffect(() => {
     const escena = escenaRef.current
@@ -79,14 +77,31 @@ export function ParticleClaim({ beats }: Props) {
         },
       })
 
-      timeline
-        .set(escena, { '--desert-reveal': 1 })
-        .set(frases.slice(1), { autoAlpha: 0, x: 40, display: 'none', filter: 'blur(0rem)' })
+      /* Cada palabra parte desviada como si el viento la hubiera traído desde
+         fuera del encuadre: desplazamiento lateral variable, deriva vertical
+         suave y una rotación sutil. La semilla es su índice global, así el
+         reparto es el mismo en cada recarga. */
+      const palabras = gsap.utils.toArray<HTMLElement>('.pclaim-word')
+      palabras.forEach(palabra => {
+        const i = Number(palabra.dataset.wordIndex)
+        gsap.set(palabra, {
+          x: -90 - azar(i * 3 + 1) * 70,
+          y: -18 + azar(i * 3 + 2) * 36,
+          rotate: -10 + azar(i * 3 + 3) * 20,
+          opacity: 0,
+          filter: 'blur(7px)',
+        })
+      })
 
-      frases.slice(1).forEach(frase => {
+      timeline.set(frases, { display: 'block', autoAlpha: 1, x: 0 })
+
+      frases.forEach(frase => {
+        const palabrasFrase = frase.querySelectorAll<HTMLElement>('.pclaim-word')
         timeline
-          .set(frase, { display: 'block' })
-          .to(frase, { autoAlpha: 1, x: 0, duration: .38, ease: 'none' })
+          .to(palabrasFrase, {
+            x: 0, y: 0, rotate: 0, opacity: 1, filter: 'blur(0px)',
+            duration: .5, stagger: .045, ease: 'power2.out',
+          })
           .to({}, { duration: .42 })
       })
     }, escena)
@@ -100,9 +115,11 @@ export function ParticleClaim({ beats }: Props) {
      siempre —que ya no lo es— y reventaba con «removeChild: the node to be
      removed is not a child of this node», dejando la página siguiente en blanco.
      Con la envoltura, React sólo quita este div y se lleva el spacer dentro. */
+  const contadorPalabras = { valor: 0 }
+
   return (
     <div className="pclaim-wrap">
-      <section className={`pclaim ${conEfecto ? 'has-particles' : ''}`} ref={escenaRef}>
+      <section className="pclaim" ref={escenaRef}>
         <div className="pclaim-band pclaim-band--top">
           <span className="label">Marruecos</span>
           <span className="label">Entre dos mundos</span>
@@ -111,22 +128,16 @@ export function ParticleClaim({ beats }: Props) {
           <img
             ref={imagenRef}
             className="pclaim-bg"
-            src="/images/kasbah-acuarela.webp"
-            alt="Acuarela de una kasbah en Marruecos"
+            src="/images/Oasis_Panorama_alpha.webp"
+            alt="Boceto a lápiz de un ksar en Marruecos"
             loading="lazy"
             decoding="async"
           />
-          <div className="pclaim-canvas" ref={lienzoRef} aria-hidden="true" />
           <div className="pclaim-inner">
             {beats.map(beat => (
-              <SplitTitle
-                key={beat}
-                as="p"
-                size="lead"
-                align="center"
-                className="pclaim-beat"
-                text={beat}
-              />
+              <p key={beat} className="pclaim-beat" style={{ fontFamily: FUENTE_CLAIM }}>
+                {palabrasDe(beat, contadorPalabras)}
+              </p>
             ))}
           </div>
         </div>
