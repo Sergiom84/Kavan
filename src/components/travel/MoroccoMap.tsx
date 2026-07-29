@@ -7,22 +7,28 @@ import './MoroccoMap.css'
 /* ---------------------------------------------------------------------------
    Mapa de Marruecos con las ciudades del catálogo.
 
-   El mapa es una imagen: relieve, costa, rótulos y chinchetas vienen ya
-   dibujados. Encima se colocan zonas activas invisibles, una por ciudad, que
-   al señalarlas abren su ficha y al pulsarlas llevan a la página del destino.
+   El mapa es una imagen: relieve, costa y rótulos de referencia (Tánger,
+   Rabat, Casablanca, Fez, Agadir) vienen ya dibujados. El titular y las
+   chinchetas SÍ son HTML: la versión anterior de la imagen traía el titular
+   horneado en mayúsculas y, para poder ponerlo en su caso normal sin
+   redibujar píxeles, Sergio reexportó el mapa sin ese texto
+   (`mapa-kavan_2.png`, 2026-07-29) y aquí se reconstruye como texto real.
 
-   Las posiciones están medidas sobre la propia imagen (el vástago de cada
-   chincheta) y van en porcentaje, así que aguantan cualquier tamaño de
-   pantalla. Si se cambia la imagen del mapa hay que volver a medirlas.
+   Las posiciones de las chinchetas están medidas sobre la propia imagen (el
+   vástago de cada una, por análisis de píxeles) y van en porcentaje, así que
+   aguantan cualquier tamaño de pantalla. Si se cambia la imagen del mapa hay
+   que volver a medirlas.
 --------------------------------------------------------------------------- */
 
+const TITULO = 'Ubicación privilegiada entre Essaouira, Marrakech, Agafay, Ouarzazate, Erfoud y Merzouga, en el fascinante norte de África'
+
 const PUNTOS: Record<string, { x: number; y: number }> = {
-  essaouira: { x: 44.7, y: 62.4 },
-  marrakech: { x: 59.8, y: 60.7 },
-  agafay: { x: 61.2, y: 67.0 },
-  ouarzazate: { x: 69.6, y: 72.3 },
-  erfoud: { x: 81.8, y: 65.3 },
-  merzouga: { x: 85.4, y: 72.9 },
+  essaouira: { x: 44.3, y: 52.1 },
+  marrakech: { x: 59.8, y: 50.8 },
+  agafay: { x: 61.3, y: 55.6 },
+  ouarzazate: { x: 69.8, y: 59.7 },
+  erfoud: { x: 82.3, y: 54.3 },
+  merzouga: { x: 86.0, y: 60.1 },
 }
 
 export function MoroccoMap() {
@@ -64,11 +70,13 @@ export function MoroccoMap() {
           className="mmap-image"
           src="/images/mapa-kavan-alpha.webp"
           alt="Mapa de Marruecos con Essaouira, Marrakech, Agafay, Ouarzazate, Erfoud y Merzouga"
-          width={1672}
-          height={941}
+          width={1448}
+          height={1086}
           loading="lazy"
           decoding="async"
         />
+
+        <h2 className="mmap-title">{TITULO}</h2>
 
         {conPunto.map((c) => {
           const p = PUNTOS[c.slug]
