@@ -21,11 +21,11 @@ const VERT = /* glsl */ `#version 300 es
 in vec2 position;
 layout(location=0) in vec4 a_posvel;
 layout(location=1) in vec4 a_lifeseed;
-layout(location=2) in vec3 a_color;
+layout(location=2) in vec4 a_color;
 
 out vec4 v_posvel;
 out vec4 v_lifeseed;
-out vec3 v_color;
+out vec4 v_color;
 out float v_alpha;
 
 uniform vec2 u_resolution;
@@ -34,6 +34,7 @@ uniform vec2 u_mouse;
 uniform vec2 u_mouse_velocity;
 uniform sampler2D u_image;
 uniform float u_image_aspect;
+uniform vec3 u_bg;
 uniform float u_size;
 uniform float u_opacity;
 uniform float u_noise;
@@ -103,13 +104,20 @@ void main() {
     vec2 uv = fract(h.xy * .5 + .5);
     v_posvel = vec4(uv * u_resolution, 0.0, 0.0);
     v_lifeseed = vec4(0.0, maxLife, h.xy);
-    v_color = texture(u_image, coverUv(uv)).rgb;
+    /* El boceto va recortado sobre alfa y su RGB es tinta descompuesta: en
+       crudo son colores extremos (morados, naranjas) que sólo valen mezclados
+       con su propio alfa. Se compone aquí contra el papel de la página, así
+       que el grano nace con el color que se ve, no con el que guarda. En .a
+       queda cuánto dibujo había: donde el papel está vacío, el grano no se
+       enciende y la arena deja de formar un rectángulo. */
+    vec4 tex = texture(u_image, coverUv(uv));
+    v_color = vec4(tex.rgb * tex.a + u_bg * (1.0 - tex.a), tex.a);
   }
 
   float ratio = v_lifeseed.x / maxLife;
   float alpha = smoothstep(0.0, .05, ratio) * (1.0 - smoothstep(.85, 1.0, ratio));
   gl_PointSize = smoothstep(1.0, .5, ratio) * u_size * alpha;
-  v_alpha = alpha * u_opacity;
+  v_alpha = alpha * u_opacity * v_color.a;
   vec2 ndc = v_posvel.xy / u_resolution * 2.0 - 1.0;
   ndc.y = -ndc.y;
   gl_Position = vec4(ndc, 0.0, 1.0);
@@ -117,13 +125,13 @@ void main() {
 
 const FRAG = /* glsl */ `#version 300 es
 precision highp float;
-in vec3 v_color;
+in vec4 v_color;
 in float v_alpha;
 out vec4 fragColor;
 void main() {
   float dist = length(gl_PointCoord - .5);
   float shape = 1.0 - smoothstep(.3, .5, dist);
-  fragColor = vec4(v_color, v_alpha * shape);
+  fragColor = vec4(v_color.rgb, v_alpha * shape);
 }`
 
 /** Calibración de Lab-FX. Los nombres son los del visor, no los del shader. */
@@ -162,6 +170,23 @@ type Options = {
   container: HTMLElement
   image: HTMLImageElement
   ajustes?: Partial<Ajustes>
+  /** Papel sobre el que cae la arena, en CSS. Con imágenes recortadas sobre
+      alfa no es cosmético: es contra lo que se compone la tinta descompuesta
+      para que el grano nazca del color que se ve. Por defecto, `--bg-1`. */
+  colorFondo?: string
+}
+
+/** `#ebe1cd` o `rgb(235,225,205)` -> [0..1, 0..1, 0..1]. */
+function aRgbNormalizado(css: string): [number, number, number] {
+  const limpio = css.trim()
+  const hex = limpio.match(/^#?([0-9a-f]{6})$/i)
+  if (hex) {
+    const n = parseInt(hex[1], 16)
+    return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255]
+  }
+  const nums = limpio.match(/\d+(\.\d+)?/g)
+  if (nums && nums.length >= 3) return [+nums[0] / 255, +nums[1] / 255, +nums[2] / 255]
+  return [1, 1, 1]
 }
 
 export class DesertParticles {
@@ -190,10 +215,17 @@ export class DesertParticles {
   private uFriction: Uniform
   private uMouseForce: Uniform
   private uMouseRadius2: Uniform
+  private uBg: Uniform
+  private colorFondo: [number, number, number]
 
   constructor(private options: Options) {
     this.ajustes = { ...AJUSTES, ...options.ajustes }
     const a = this.ajustes
+
+    const fondoCss = options.colorFondo
+      ?? (getComputedStyle(options.container).getPropertyValue('--bg-1').trim() || '#ebe1cd')
+    this.colorFondo = aRgbNormalizado(fondoCss)
+    this.uBg = new Uniform({ name: 'u_bg', value: this.colorFondo, kind: 'float_vec3' })
 
     this.uOpacity = new Uniform({ name: 'u_opacity', value: a.opacidad, kind: 'float' })
     this.uNoise = new Uniform({ name: 'u_noise', value: a.ruido, kind: 'float' })
@@ -258,7 +290,8 @@ export class DesertParticles {
     const total = Math.min(a.particulas, Math.round(pw * ph * .34))
     const posvel = new Float32Array(total * 4)
     const lifeSeed = new Float32Array(total * 4)
-    const color = new Float32Array(total * 3)
+    const color = new Float32Array(total * 4)
+    const [bgR, bgG, bgB] = this.colorFondo
     const sample = document.createElement('canvas')
     sample.width = image.naturalWidth
     sample.height = image.naturalHeight
@@ -279,9 +312,19 @@ export class DesertParticles {
       const px = Math.min(Math.floor(Math.max(0, Math.min(1, u)) * sample.width), sample.width - 1)
       const py = Math.min(Math.floor(Math.max(0, Math.min(1, v)) * sample.height), sample.height - 1)
       const pixel = (py * sample.width + px) * 4
+      /* Mismo criterio que el shader: componer la tinta contra el papel. El
+         canvas 2d ya devuelve el RGB sin premultiplicar, así que hay que
+         hacerlo a mano o el primer ciclo de vida saldría con los colores
+         extremos del recorte. */
+      const ia = data[pixel + 3] / 255
       posvel.set([x, y, (Math.random() - .5) * .5, (Math.random() - .5) * .5], i * 4)
       lifeSeed.set([Math.random() * life, life, Math.random() * 2 - 1, Math.random() * 2 - 1], i * 4)
-      color.set([data[pixel] / 255, data[pixel + 1] / 255, data[pixel + 2] / 255], i * 3)
+      color.set([
+        (data[pixel] / 255) * ia + bgR * (1 - ia),
+        (data[pixel + 1] / 255) * ia + bgG * (1 - ia),
+        (data[pixel + 2] / 255) * ia + bgB * (1 - ia),
+        ia,
+      ], i * 4)
     }
 
     const program = new Program(this.gl, {
@@ -291,6 +334,7 @@ export class DesertParticles {
         u_mouse_velocity: this.uMouseVelocity,
         u_image: new Uniform({ name: 'u_image', value: texture, kind: 'texture' }),
         u_image_aspect: new Uniform({ name: 'u_image_aspect', value: imageAspect, kind: 'float' }),
+        u_bg: this.uBg,
         u_size: this.uSize, u_opacity: this.uOpacity, u_noise: this.uNoise,
         u_noise_scale: this.uNoiseScale, u_friction: this.uFriction,
         u_mouse_force: this.uMouseForce, u_mouse_radius2: this.uMouseRadius2,
@@ -302,13 +346,13 @@ export class DesertParticles {
       transformFeedbacks: {
         a_posvel: { data: posvel, size: 4, usage: this.gl.STREAM_COPY, varying: 'v_posvel' },
         a_lifeseed: { data: lifeSeed, size: 4, usage: this.gl.STREAM_COPY, varying: 'v_lifeseed' },
-        a_color: { data: color, size: 3, usage: this.gl.STREAM_COPY, varying: 'v_color' },
+        a_color: { data: color, size: 4, usage: this.gl.STREAM_COPY, varying: 'v_color' },
       },
     })
     const cloud = new PointCloud(this.gl, {
       particles: total, dimensions: 2,
       fillFunction: points => { for (let i = 0; i < total; i++) { points[i * 2] = posvel[i * 4]; points[i * 2 + 1] = posvel[i * 4 + 1] } },
-      attributes: { a_posvel: new GeometryAttribute({ size: 4, data: posvel }), a_lifeseed: new GeometryAttribute({ size: 4, data: lifeSeed }), a_color: new GeometryAttribute({ size: 3, data: color }) },
+      attributes: { a_posvel: new GeometryAttribute({ size: 4, data: posvel }), a_lifeseed: new GeometryAttribute({ size: 4, data: lifeSeed }), a_color: new GeometryAttribute({ size: 4, data: color }) },
       transformFeedbacks: feedback,
     })
     this.mesh = new Mesh(this.gl, { mode: this.gl.POINTS, geometry: cloud, program })
