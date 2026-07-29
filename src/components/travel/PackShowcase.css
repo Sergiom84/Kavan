@@ -1,7 +1,9 @@
 /* Bloque de packs: rótulo a la izquierda, carril a la derecha.
 
-   Proporciones de la referencia (Grand Hotel Lviv, bloque de eventos):
-   columna de 25,5% y carril de 74%, que se va por el borde derecho. */
+   Estructura de la referencia (Grand Hotel Lviv, bloque de eventos), pero con
+   la columna estrechada al 18%: allí el rótulo es un titular gigante y aquí es
+   una etiqueta mono de una línea, así que 25,5% dejaba la columna casi vacía y
+   estrujaba el carril hasta sacar la tercera tarjeta de la pantalla. */
 
 .pack-showcase {
   background: var(--bg-1);
@@ -18,37 +20,44 @@
 /* El rótulo arriba y el enlace abajo, a la altura del pie de las tarjetas.
    Es `space-between` lo que sostiene la columna: no hay medidas fijas. */
 .pack-showcase-sidebar {
-  flex: 0 0 25.5%;
+  flex: 0 0 18%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 var(--space-5) 0 var(--padding);
+  padding: 0 var(--space-4) 0 var(--padding);
 }
 
+/* Hereda de `.label` (mono, versalitas, 12px): sólo se le quita el peso de
+   encabezado que trae el `h2` y se le da medida para que parta en dos líneas
+   como la banda de partículas. */
 .pack-showcase-title {
-  font-size: var(--text-1);
-  line-height: 1.06;
-  letter-spacing: var(--track-1);
-  text-transform: uppercase;
-  text-wrap: balance;
+  font-weight: var(--weight-label);
+  line-height: 1.5;
+  max-width: 14ch;
 }
 
 /* Alineado con la base de la fotografía, no con la del bloque: el título de
    la tarjeta cuelga por debajo y el enlace no debe seguirlo. */
 .pack-showcase-link {
   align-self: flex-start;
-  margin-bottom: 2.625rem;
+  /* Se alinea con la base de la fotografía, no con la del bloque: el título de
+     la tarjeta cuelga por debajo y el enlace no debe seguirlo. El margen es
+     justo ese pie —el aire más la línea del título. */
+  margin-bottom: calc(var(--space-3) + var(--text-label) * 1.4);
 }
 
 .pack-showcase-rail {
   flex: 1 1 auto;
   min-width: 0;
+  /* La calle de la derecha: sin ella la tercera tarjeta muere contra el borde
+     de la pantalla. */
+  padding-right: var(--padding);
 }
 
-/* Dos tarjetas y media a la vista. La tercera cortada por el borde es el
-   único indicador de que el carril sigue. */
+/* Las tres tarjetas destacadas caben enteras, descontando los dos huecos. No
+   hay una cuarta que anunciar: cortar la tercera sería prometer de más. */
 .pack-showcase .carousel-item {
-  flex: 0 0 38%;
+  flex: 0 0 calc((100% - var(--space-4) * 2) / 3);
 }
 
 /* ---------- Móvil ----------
@@ -76,8 +85,11 @@
     margin-bottom: 0;
   }
 
+  /* Aquí sí sangra por la derecha: es lo que anuncia que el carril sigue
+     cuando sólo cabe una tarjeta. */
   .pack-showcase-rail {
     padding-left: var(--padding);
+    padding-right: 0;
   }
 
   .pack-showcase .carousel-item {

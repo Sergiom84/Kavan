@@ -31,7 +31,9 @@ export function PackShowcase({
     <section className="pack-showcase">
       <div className="pack-showcase-inner">
         <Reveal className="pack-showcase-sidebar">
-          <h2 className="pack-showcase-title">{title}</h2>
+          {/* Mismo rótulo que la banda del bloque de partículas: mono en
+              versalitas. No es un titular, es una etiqueta de sección. */}
+          <h2 className="label pack-showcase-title">{title}</h2>
           {to && (
             <Link to={to} className="btn btn-outline pack-showcase-link">
               {linkLabel}
