@@ -25,11 +25,18 @@
 }
 
 /* El titular horneado en la imagen anterior —en mayúsculas— se convirtió en
-   texto real cuando Sergio reexportó el mapa sin él. Se apoya en la esquina
-   superior izquierda porque ahí es donde ese hueco queda vacío de verdad:
-   medido sobre el alfa, hasta el 48% del ancho el primer 32% de alto no tiene
-   ni una chincheta ni un trazo de costa. `max-width` se queda corto ese
-   margen a propósito, para no invadir el mar según se acerca a Tánger. */
+   texto real cuando Sergio reexportó el mapa sin él.
+
+   `text-transform: none` es obligatorio, no cosmético: global.css pone en
+   versales TODOS los encabezados (`h1, h2, h3, h4`), así que sin esto el
+   titular vuelve a salir en mayúsculas y no habríamos ganado nada.
+
+   Se apoya arriba a la izquierda, sobre papel y el filo del océano abierto,
+   que es donde lo tenía el original. No hace falta que el hueco esté vacío del
+   todo: medido sobre el recorte, el fondo bajo esta caja va de (217,217,204) a
+   (235,226,216) y la tinta contrasta ahí 11,2:1 en el peor punto. Lo que sí
+   evita `max-width` es la costa y los rótulos horneados (Casablanca es el más
+   cercano, al 59% del ancho). */
 .mmap-title {
   position: absolute;
   z-index: 1;
@@ -40,6 +47,8 @@
   font-weight: var(--weight-text);
   font-size: var(--text-lead);
   line-height: 1.3;
+  letter-spacing: normal;
+  text-transform: none;
   color: var(--ink);
 }
 
