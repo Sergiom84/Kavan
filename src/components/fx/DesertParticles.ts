@@ -107,11 +107,17 @@ void main() {
     /* El boceto va recortado sobre alfa y su RGB es tinta descompuesta: en
        crudo son colores extremos (morados, naranjas) que sólo valen mezclados
        con su propio alfa. Se compone aquí contra el papel de la página, así
-       que el grano nace con el color que se ve, no con el que guarda. En .a
-       queda cuánto dibujo había: donde el papel está vacío, el grano no se
-       enciende y la arena deja de formar un rectángulo. */
+       que el grano nace con el color que se ve, no con el que guarda.
+
+       En .a NO va el alfa tal cual, sino una puerta. El alfa medio del recorte
+       es 0,09: usarlo como factor apagaba la arena entera —dejaba la opacidad
+       efectiva en 0,045 frente al 0,5 calibrado, once veces más tenue—. Lo que
+       hace falta es distinguir papel vacío de trazo, no atenuar el trazo: por
+       encima de 0,06 el grano va a su opacidad completa y sólo se apaga en el
+       papel realmente en blanco, que es lo que evitaba el rectángulo. */
     vec4 tex = texture(u_image, coverUv(uv));
-    v_color = vec4(tex.rgb * tex.a + u_bg * (1.0 - tex.a), tex.a);
+    float puerta = smoothstep(0.012, 0.06, tex.a);
+    v_color = vec4(tex.rgb * tex.a + u_bg * (1.0 - tex.a), puerta);
   }
 
   float ratio = v_lifeseed.x / maxLife;
@@ -174,6 +180,13 @@ type Options = {
       alfa no es cosmético: es contra lo que se compone la tinta descompuesta
       para que el grano nazca del color que se ve. Por defecto, `--bg-1`. */
   colorFondo?: string
+}
+
+/** Gemela del `smoothstep` del shader: separa papel vacío de trazo sin atenuar
+    el trazo. Los dos umbrales deben moverse a la vez que los del GLSL. */
+function puerta(alfa: number) {
+  const t = Math.max(0, Math.min(1, (alfa - 0.012) / (0.06 - 0.012)))
+  return t * t * (3 - 2 * t)
 }
 
 /** `#ebe1cd` o `rgb(235,225,205)` -> [0..1, 0..1, 0..1]. */
@@ -312,10 +325,9 @@ export class DesertParticles {
       const px = Math.min(Math.floor(Math.max(0, Math.min(1, u)) * sample.width), sample.width - 1)
       const py = Math.min(Math.floor(Math.max(0, Math.min(1, v)) * sample.height), sample.height - 1)
       const pixel = (py * sample.width + px) * 4
-      /* Mismo criterio que el shader: componer la tinta contra el papel. El
-         canvas 2d ya devuelve el RGB sin premultiplicar, así que hay que
-         hacerlo a mano o el primer ciclo de vida saldría con los colores
-         extremos del recorte. */
+      /* Mismo criterio que el shader: componer la tinta contra el papel y
+         guardar la puerta —no el alfa crudo— o el primer ciclo de vida saldría
+         con los colores extremos del recorte y a una décima parte de opacidad. */
       const ia = data[pixel + 3] / 255
       posvel.set([x, y, (Math.random() - .5) * .5, (Math.random() - .5) * .5], i * 4)
       lifeSeed.set([Math.random() * life, life, Math.random() * 2 - 1, Math.random() * 2 - 1], i * 4)
@@ -323,7 +335,7 @@ export class DesertParticles {
         (data[pixel] / 255) * ia + bgR * (1 - ia),
         (data[pixel + 1] / 255) * ia + bgG * (1 - ia),
         (data[pixel + 2] / 255) * ia + bgB * (1 - ia),
-        ia,
+        puerta(ia),
       ], i * 4)
     }
 
