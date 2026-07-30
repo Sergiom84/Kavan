@@ -19,6 +19,28 @@
    La altura, el pegado y el alejamiento los pone HeroZoom. Aquí sólo queda
    lo propio de la portada. */
 
+/* El logotipo repartido de borde a borde, dibujado en contorno: sobre una
+   foto a sangre pesa menos que en macizo y deja ver el paisaje detrás. */
+.hz-wordmark {
+  padding: 0 var(--padding);
+  /* Sólo margen arriba: con los dos automáticos, el hueco libre del escenario
+     se repartía en tres (encima, debajo del logotipo y encima del pie) y el
+     logotipo quedaba pegado a la cabecera. Con uno solo, el reparto es a dos
+     y baja al centro real de lo que queda por encima del pie. */
+  margin-top: auto;
+  width: 100%;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.92);
+}
+
+/* Safari en iOS ignora el grosor por debajo de 1px real; el color de relleno
+   sirve de respaldo si el navegador no soporta text-stroke. */
+@supports not (-webkit-text-stroke: 1px white) {
+  .hz-wordmark {
+    color: var(--on-photo);
+  }
+}
+
 /* El pie de portada se apoya abajo a la izquierda.
 
    `margin-top: auto` es lo que lo baja: el escenario centra su contenido, y un

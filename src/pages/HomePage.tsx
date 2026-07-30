@@ -1,9 +1,11 @@
 import { Link } from 'react-router'
 import { useFeaturedPacks } from '../queries/hooks'
+import { lockNav } from '../lib/demoLock'
 import { Pic } from '../components/ui/Pic'
 import { PackShowcase } from '../components/travel/PackShowcase'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
 import { HeroZoom } from '../components/fx/HeroZoom'
+import { SplitTitle } from '../components/fx/SplitTitle'
 import { ParticleClaim } from '../components/fx/ParticleClaim'
 import './HomePage.css'
 
@@ -50,10 +52,7 @@ export function HomePage() {
           'Un chófer que conoce las pistas. Una casa donde te esperan con té.',
         ]}
       >
-        {/* El nombre ya no se pinta en la portada: vive en la cabecera. La
-            página necesita un titular de todos modos, así que queda como
-            encabezado accesible sin representación visual. */}
-        <h1 className="sr-only">Kavan — viajes privados a Marruecos</h1>
+        <SplitTitle as="h1" text="KAVAN" size="wordmark" className="hz-wordmark" />
 
         <div className="hz-hero-foot container">
           {/* El corte de línea es deliberado: el texto va en dos filas, no en
@@ -69,7 +68,12 @@ export function HomePage() {
           <div className="hz-hero-bottom">
             <div className="hz-pills">
               {AYUDA.map((item, i) => (
-                <Link key={item.title} to={item.to} className={`hz-pill ${i === 0 ? 'is-active' : ''}`}>
+                <Link
+                  key={item.title}
+                  to={item.to}
+                  onClick={lockNav}
+                  className={`hz-pill ${i === 0 ? 'is-active' : ''}`}
+                >
                   {item.title}
                 </Link>
               ))}
