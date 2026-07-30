@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import type { Pack } from '../../lib/types'
 import { formatPrice } from '../../lib/pricing'
+import { lockNav } from '../../lib/demoLock'
 import { Pic } from '../ui/Pic'
 import { cities } from '../../data/seed'
 import './PackCard.css'
@@ -20,7 +21,7 @@ export function PackCard({ pack, showCities = true, overlay = false }: Props) {
     .join(' · ')
 
   return (
-    <Link to={`/packs/${pack.slug}`} className={`pack-card ${overlay ? 'pack-card--overlay' : ''}`}>
+    <Link to={`/packs/${pack.slug}`} onClick={lockNav} className={`pack-card ${overlay ? 'pack-card--overlay' : ''}`}>
       <div className="pack-card-media">
         {/* La capa de fondo sobresale por los cuatro lados: heredado del
             encuadre original, ahora sin desplazamiento. */}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router'
+import { lockNav } from '../../lib/demoLock'
 import './Header.css'
 
 /* Navegación del wireframe. `boxed` marca el enlace que va en caja, como el
@@ -99,7 +100,10 @@ export function Header() {
                 key={l.label}
                 to={l.to}
                 end={l.end}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  lockNav(e)
+                  setOpen(false)
+                }}
                 className={({ isActive }) =>
                   `${l.boxed ? 'nav-boxed' : ''} ${isActive ? 'is-active' : ''}`
                 }
@@ -130,7 +134,10 @@ export function Header() {
             key={l.label}
             to={l.to}
             end={l.end}
-            onClick={() => setOpen(false)}
+            onClick={(e) => {
+              lockNav(e)
+              setOpen(false)
+            }}
             className={({ isActive }) => (isActive ? 'is-active' : '')}
           >
             {l.label}

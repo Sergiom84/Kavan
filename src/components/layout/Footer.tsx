@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { lockNav } from '../../lib/demoLock'
 import './Footer.css'
 
 const legal = [
@@ -48,7 +49,7 @@ export function Footer() {
         </div>
         <div className="footer-legal">
           {legal.map((l) => (
-            <Link key={l.label} to={l.to}>{l.label}</Link>
+            <Link key={l.label} to={l.to} onClick={lockNav}>{l.label}</Link>
           ))}
         </div>
       </div>

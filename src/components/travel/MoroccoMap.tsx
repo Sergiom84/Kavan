@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { useCities } from '../../queries/hooks'
+import { lockNav } from '../../lib/demoLock'
 import { Pic } from '../ui/Pic'
 import './MoroccoMap.css'
 
@@ -84,6 +85,7 @@ export function MoroccoMap() {
             <Link
               key={c.slug}
               to={`/destinos/${c.slug}`}
+              onClick={lockNav}
               className={`mmap-hit ${activa === c.slug ? 'is-active' : ''}`}
               style={{ left: `${p.x}%`, top: `${p.y}%` }}
               onMouseEnter={() => setActiva(c.slug)}
@@ -123,6 +125,7 @@ export function MoroccoMap() {
             <li key={c.slug}>
               <Link
                 to={`/destinos/${c.slug}`}
+                onClick={lockNav}
                 onMouseEnter={() => setActiva(c.slug)}
                 onFocus={() => setActiva(c.slug)}
               >

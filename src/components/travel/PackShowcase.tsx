@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import type { Pack } from '../../lib/types'
+import { lockNav } from '../../lib/demoLock'
 import { Carousel } from '../ui/Carousel'
 import { Reveal } from '../fx/RevealText'
 import { PackCard } from './PackCard'
@@ -35,7 +36,7 @@ export function PackShowcase({
               versalitas. No es un titular, es una etiqueta de sección. */}
           <h2 className="label pack-showcase-title">{title}</h2>
           {to && (
-            <Link to={to} className="btn btn-outline pack-showcase-link">
+            <Link to={to} onClick={lockNav} className="btn btn-outline pack-showcase-link">
               {linkLabel}
             </Link>
           )}
