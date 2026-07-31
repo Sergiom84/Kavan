@@ -1,5 +1,6 @@
-/* Botón circular flotante con anillos concéntricos, como el de contacto de
-   Horizonte. Es el único elemento redondo del sistema. */
+/* Botón circular flotante: una brújula con sol, dunas y una aguja que gira,
+   calibrada en Lab-FX (Burbuja-Kavan.labfx.json) antes de portarla aquí. Es el
+   único elemento redondo del sistema. */
 
 .advisor {
   position: fixed;
@@ -13,167 +14,247 @@
 }
 
 /* ---------- La burbuja ----------
-   Pompa de jabón: núcleo hueco y oscuro, iridiscencia empujada al perímetro
-   por gradientes horizontales superpuestos, y cuatro reflejos.
-
-   El original venía dimensionado a 320px con todas las medidas en píxeles
-   sueltos. Aquí todo sale de --burbuja, así que el botón se puede escalar (y
-   se escala en móvil) sin recolocar catorce números a mano. */
+   Diseño original a 200px con medidas en píxeles sueltos; aquí todo sale de
+   --burbuja con la misma convención que ya usaba este componente, así que el
+   botón se escala en móvil sin recolocar cada número a mano. */
 .advisor-toggle {
   --burbuja: 5rem;
+  --advisor-stroke: rgba(183, 150, 91, 0.65);
+  --advisor-stroke-soft: rgba(183, 150, 91, 0.28);
+  --advisor-gold: #d9b75f;
+  --advisor-gold-2: #a88642;
+  --advisor-sand: #d9bc82;
+  --advisor-sand-2: #cba56a;
 
   position: relative;
   width: var(--burbuja);
   height: var(--burbuja);
-  border: 0;
+  border: 1px solid var(--advisor-stroke);
   border-radius: var(--radius-round);
-  color: var(--on-photo);
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: var(--track-label);
-  line-height: 1.2;
-  text-transform: uppercase;
-  display: grid;
-  place-items: center;
-  padding: 0 0.5rem;
+  overflow: hidden;
 
-  background:
-    /* Núcleo apenas velado: se ve la página a través de la esfera. El original
-       lo llevaba en negro opaco, que la convertía en un disco. Queda el mínimo
-       de sombra para que el rótulo se sostenga sobre las fotos claras. */
-    radial-gradient(circle at 50% 50%, rgba(28, 20, 14, 0.26) 30%, rgba(28, 20, 14, 0) 72%),
-    /* Interferencia horizontal principal, densa arriba y abajo. */
-    linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.4) 0%,
-      rgba(0, 255, 255, 0.25) 8%,
-      rgba(255, 0, 128, 0.2) 15%,
-      rgba(255, 255, 255, 0) 35%,
-      rgba(255, 255, 255, 0) 65%,
-      rgba(255, 230, 0, 0.2) 82%,
-      rgba(0, 255, 150, 0.25) 90%,
-      rgba(255, 255, 255, 0.5) 100%
-    ),
-    /* Segunda capa de rayas finas, para que la iridiscencia no se lea plana. */
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.3) 2%,
-      rgba(255, 0, 255, 0.15) 12%,
-      rgba(0, 0, 255, 0.15) 22%,
-      rgba(0, 0, 0, 0) 40%,
-      rgba(0, 0, 0, 0) 60%,
-      rgba(0, 255, 255, 0.15) 85%,
-      rgba(255, 255, 255, 0.3) 98%
-    );
-  background-blend-mode: screen;
+  background: radial-gradient(
+    circle at 28% 20%,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.45) 22%,
+    rgba(222, 231, 223, 0.35) 42%,
+    rgba(232, 214, 224, 0.28) 68%,
+    rgba(201, 184, 145, 0.32) 100%
+  );
 
-  /* Refracción del borde: es lo que la hace parecer vidrio y no un círculo. */
   box-shadow:
-    inset 0 calc(var(--burbuja) * 0.125) calc(var(--burbuja) * 0.156) rgba(255, 255, 255, 0.6),
-    inset 0 calc(var(--burbuja) * -0.094) calc(var(--burbuja) * 0.14) rgba(255, 255, 255, 0.35),
-    inset calc(var(--burbuja) * 0.047) 0 calc(var(--burbuja) * 0.078) rgba(255, 0, 150, 0.2),
-    inset calc(var(--burbuja) * -0.047) 0 calc(var(--burbuja) * 0.078) rgba(0, 200, 255, 0.25),
-    inset 0 0 calc(var(--burbuja) * 0.025) rgba(255, 255, 255, 0.9),
-    0 1px 3px rgba(255, 255, 255, 0.4);
+    inset 0 0 0 calc(var(--burbuja) * 0.025) rgba(255, 255, 255, 0.28),
+    inset 0 0 calc(var(--burbuja) * 0.14) rgba(255, 255, 255, 0.45),
+    0 calc(var(--burbuja) * 0.08) calc(var(--burbuja) * 0.2) rgba(93, 76, 50, 0.16);
 
-  animation: advisor-flotar 6s ease-in-out infinite alternate;
-}
-
-/* Reflejo principal sobreexpuesto, arriba a la izquierda. */
-.advisor-toggle::before {
-  content: "";
-  position: absolute;
-  top: calc(var(--burbuja) * 0.056);
-  left: calc(var(--burbuja) * 0.14);
-  width: calc(var(--burbuja) * 0.31);
-  height: calc(var(--burbuja) * 0.14);
-  border-radius: var(--radius-round);
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.8) 25%,
-    rgba(255, 255, 255, 0.2) 60%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: rotate(-28deg);
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-
-/* El punto de luz: el reflejo de la bombilla. */
-.advisor-toggle::after {
-  content: "";
-  position: absolute;
-  top: calc(var(--burbuja) * 0.194);
-  left: calc(var(--burbuja) * 0.113);
-  width: calc(var(--burbuja) * 0.05);
-  height: calc(var(--burbuja) * 0.05);
-  border-radius: var(--radius-round);
-  background: radial-gradient(circle, #fff 20%, rgba(255, 255, 255, 0.4) 60%, transparent 100%);
-  pointer-events: none;
-}
-
-.advisor-glare {
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-round);
-  pointer-events: none;
-}
-
-/* Rebote del suelo, abajo a la derecha. */
-.advisor-glare::before {
-  content: "";
-  position: absolute;
-  bottom: calc(var(--burbuja) * 0.078);
-  right: calc(var(--burbuja) * 0.172);
-  width: calc(var(--burbuja) * 0.234);
-  height: calc(var(--burbuja) * 0.094);
-  border-radius: var(--radius-round);
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: rotate(-35deg);
-}
-
-/* Veta vertical fina: textura de lente cruzando la burbuja. */
-.advisor-glare::after {
-  content: "";
-  position: absolute;
-  top: calc(var(--burbuja) * 0.188);
-  right: calc(var(--burbuja) * 0.078);
-  width: calc(var(--burbuja) * 0.138);
-  height: calc(var(--burbuja) * 0.44);
-  border-radius: var(--radius-round);
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.12), transparent);
-  transform: rotate(-10deg);
-}
-
-/* El rótulo va por encima de los reflejos, o el de arriba lo lava. Al ser la
-   esfera transparente pasa por encima de fondos claros y oscuros, así que la
-   sombra es lo que lo sostiene en los dos casos. */
-.advisor-label {
-  position: relative;
-  z-index: 1;
-  text-shadow: 0 1px 4px rgba(28, 20, 14, 0.85);
+  animation: advisor-flotar 4.4s ease-in-out infinite;
+  transition: box-shadow var(--dur-lg) var(--easing);
 }
 
 .advisor-toggle:hover {
   --burbuja: 5.5rem;
+  box-shadow:
+    inset 0 0 0 calc(var(--burbuja) * 0.025) rgba(255, 255, 255, 0.34),
+    inset 0 0 calc(var(--burbuja) * 0.14) rgba(255, 255, 255, 0.5),
+    0 calc(var(--burbuja) * 0.11) calc(var(--burbuja) * 0.24) rgba(93, 76, 50, 0.2);
 }
 
-/* Flotación orgánica. */
+/* Anillo interior: separa el borde de vidrio del núcleo. */
+.advisor-toggle::before {
+  content: '';
+  position: absolute;
+  inset: calc(var(--burbuja) * 0.05);
+  border: 1px solid var(--advisor-stroke-soft);
+  border-radius: var(--radius-round);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.advisor-highlight {
+  position: absolute;
+  width: calc(var(--burbuja) * 0.06);
+  height: calc(var(--burbuja) * 0.06);
+  top: calc(var(--burbuja) * 0.11);
+  left: calc(var(--burbuja) * 0.15);
+  border-radius: var(--radius-round);
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 6;
+  pointer-events: none;
+}
+
+/* ---------- La escena: sol y dunas dentro del cristal ---------- */
+
+.advisor-scene {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-round);
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.advisor-sun {
+  position: absolute;
+  width: calc(var(--burbuja) * 0.13);
+  height: calc(var(--burbuja) * 0.13);
+  top: calc(var(--burbuja) * 0.14);
+  left: calc(var(--burbuja) * 0.43);
+  border-radius: var(--radius-round);
+  background: radial-gradient(circle, #efd07a, #dcb24d);
+  box-shadow: 0 0 calc(var(--burbuja) * 0.09) rgba(239, 208, 122, 0.45);
+}
+
+.advisor-dune-back {
+  position: absolute;
+  width: calc(var(--burbuja) * 0.65);
+  height: calc(var(--burbuja) * 0.27);
+  left: calc(var(--burbuja) * 0.16);
+  bottom: calc(var(--burbuja) * 0.22);
+  background: linear-gradient(180deg, rgba(224, 197, 142, 0.7), rgba(201, 164, 98, 0.78));
+  clip-path: polygon(0 100%, 12% 66%, 36% 50%, 54% 62%, 72% 46%, 100% 100%);
+  opacity: 0.55;
+}
+
+.advisor-dune-front {
+  position: absolute;
+  left: calc(var(--burbuja) * -0.02);
+  right: calc(var(--burbuja) * -0.02);
+  bottom: calc(var(--burbuja) * -0.03);
+  height: calc(var(--burbuja) * 0.36);
+  background: linear-gradient(180deg, var(--advisor-sand), var(--advisor-sand-2));
+  clip-path: ellipse(74% 62% at 50% 100%);
+}
+
+/* ---------- La aguja ----------
+   El ángulo lo escribe el componente en el atributo style, según la frase
+   activa: aquí sólo va la transición del giro. */
+
+.advisor-needle-system {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.25, 1.2);
+  pointer-events: none;
+}
+
+.advisor-needle {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--burbuja) * 0.22);
+  width: calc(var(--burbuja) * 0.07);
+  height: calc(var(--burbuja) * 0.43);
+  transform: translateX(-50%);
+  filter: drop-shadow(0 calc(var(--burbuja) * 0.015) calc(var(--burbuja) * 0.015) rgba(65, 50, 30, 0.18));
+}
+
+.advisor-needle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 52%;
+  background: linear-gradient(to bottom, var(--advisor-gold), var(--advisor-gold-2));
+  clip-path: polygon(50% 0, 100% 100%, 50% 80%, 0 100%);
+}
+
+.advisor-needle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 49%;
+  background: linear-gradient(to bottom, #8a7961, #c2b19c);
+  clip-path: polygon(50% 20%, 100% 0, 50% 100%, 0 0);
+}
+
+.advisor-needle-center {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--burbuja) * 0.41);
+  width: calc(var(--burbuja) * 0.07);
+  height: calc(var(--burbuja) * 0.07);
+  border-radius: var(--radius-round);
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(122, 95, 52, 0.55);
+  background: rgba(240, 210, 133, 0.95);
+  z-index: 5;
+}
+
+/* Brillo diagonal que barre el cristal. */
+.advisor-shine {
+  position: absolute;
+  width: calc(var(--burbuja) * 0.26);
+  height: 180%;
+  top: -35%;
+  left: -60%;
+  transform: rotate(22deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: advisor-shine-barrer 6s ease-in-out infinite;
+  z-index: 6;
+  pointer-events: none;
+}
+
+/* ---------- Texto ----------
+   Zona segura para que la frase nunca se cruce con la aguja, con sombra para
+   sostener la lectura tanto sobre fondo claro como sobre fotografía. */
+
+.advisor-text-zone {
+  position: absolute;
+  /* Menos margen lateral que el original (0.12 → 0.08): con la frase a tamaño
+     fijo, ganar ancho es lo que evita que las frases largas caigan en tres
+     líneas dentro de una zona pensada para dos. */
+  left: calc(var(--burbuja) * 0.08);
+  right: calc(var(--burbuja) * 0.08);
+  bottom: calc(var(--burbuja) * 0.14);
+  min-height: calc(var(--burbuja) * 0.27);
+  display: grid;
+  place-items: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Tamaño fijo, no proporcional a --burbuja: el diseño original venía
+   calibrado sobre una burbuja de 200px y aquí mide una tercera parte, así
+   que la misma proporción (--burbuja * 0.05) dejaba la frase en ~4px,
+   ilegible. 0.5rem es el cuerpo que ya llevaba el rótulo "Te asesoramos"
+   antes de este efecto — conocido y legible a este tamaño de botón. */
+.advisor-phrase {
+  margin: 0;
+  max-width: 100%;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: var(--track-label);
+  line-height: 1.15;
+  text-transform: uppercase;
+  text-align: center;
+  text-wrap: balance;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55), 0 1px 4px rgba(28, 20, 14, 0.35);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.advisor-phrase.is-changing {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
 @keyframes advisor-flotar {
-  0% {
-    transform: translateY(0) scale(1) rotate(0deg);
+  0%, 100% {
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(calc(var(--burbuja) * -0.15)) scale(1.01, 0.99) rotate(0.5deg);
+    transform: translateY(calc(var(--burbuja) * -0.1));
   }
-  100% {
-    transform: translateY(calc(var(--burbuja) * 0.075)) scale(0.99, 1.01) rotate(-0.5deg);
+}
+
+@keyframes advisor-shine-barrer {
+  0%, 55% {
+    left: -60%;
+  }
+  78%, 100% {
+    left: 125%;
   }
 }
 
@@ -181,7 +262,10 @@
   display: flex;
   flex-direction: column;
   min-width: 12rem;
-  background: var(--bg-2);
+  /* El crema de la página, no la banda arena (--bg-2): flotando sobre
+     cualquier sección, el menú debe leerse como parte del fondo, no como una
+     superficie distinta. */
+  background: var(--bg-1);
   border: 1px solid var(--line);
 }
 
@@ -205,10 +289,29 @@
 @media (max-width: 1023px) {
   .advisor-toggle {
     --burbuja: 4rem;
-    font-size: 0.4375rem;
   }
 
   .advisor-toggle:hover {
     --burbuja: 4rem;
+  }
+
+  .advisor-phrase {
+    font-size: 0.4375rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .advisor-toggle {
+    animation: none;
+  }
+
+  .advisor-shine {
+    animation: none;
+    opacity: 0;
+  }
+
+  .advisor-needle-system,
+  .advisor-phrase {
+    transition: none;
   }
 }
