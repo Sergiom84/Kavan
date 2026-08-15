@@ -103,25 +103,32 @@
 }
 
 .mmap-hit:focus-visible {
-  outline: none;
+  outline: 2px solid var(--accent-2);
+  outline-offset: 0.125rem;
 }
 
-/* ---------- Ficha ---------- */
+/* ---------- Miniatura ----------
+   El radio es una excepción local solicitada para esta fotografía; el mapa y
+   el resto del sistema conservan la geometría plana. */
 
 .mmap-card {
+  --mmap-thumb-radius: 0.75rem;
+
   position: absolute;
   z-index: var(--z-base);
-  width: 17rem;
-  padding: var(--space-3);
-  /* El crema del sitio, no la arena de las bandas alternas: la tarjeta flota
-     sobre el mapa y debe leerse como una porción de la propia página. */
-  background: var(--bg-1);
-  border: 1px solid var(--line-strong);
-  line-height: var(--leading-body);
+  width: 12rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--on-photo-line);
+  border-radius: var(--mmap-thumb-radius);
   /* Se apoya encima de la chincheta, separada por el alto del anillo. */
   transform: translate(-50%, calc(-100% - 2.5rem));
   pointer-events: none;
   animation: mmap-card-in var(--dur-md) var(--easing) both;
+}
+
+.mmap-card img {
+  display: block;
 }
 
 @keyframes mmap-card-in {
@@ -129,54 +136,9 @@
   to   { opacity: 1; transform: translate(-50%, calc(-100% - 2.5rem)); }
 }
 
-.mmap-card-photo {
-  aspect-ratio: 4 / 3;
-  margin-bottom: var(--space-3);
-}
-
-.mmap-card h3 {
-  margin-bottom: var(--space-2);
-}
-
-.mmap-card p {
-  font-size: var(--text-body);
-}
-
-.mmap-card-cta {
-  margin-top: var(--space-3);
-  color: var(--ink);
-  border-bottom: 1px solid var(--line-strong);
-  padding-bottom: 0.25rem;
-  display: inline-block;
-}
-
-/* ---------- Listado ---------- */
-
-.mmap-list {
-  list-style: none;
-  margin: var(--space-5) 0 0;
-  padding: var(--space-4) 0 0;
-  border-top: 1px solid var(--line);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3) var(--space-5);
-}
-
-.mmap-list a .label {
-  color: var(--ink);
-  border-bottom: 1px solid transparent;
-  padding-bottom: 0.25rem;
-  transition: border-color var(--dur-md) var(--easing);
-}
-
-.mmap-list a:hover .label,
-.mmap-list a:focus-visible .label {
-  border-bottom-color: var(--ink);
-}
-
 /* ---------- Móvil ----------
-   A este ancho las seis ciudades caen unas encima de otras y la ficha no
-   cabe: se dejan las zonas activas fuera y manda el listado. */
+   El carrusel de destinos aporta los enlaces accesibles en pantalla pequeña;
+   aquí queda la ilustración estática, sin zonas solapadas. */
 
 @media (max-width: 1023px) {
   .mmap-hit,

@@ -66,7 +66,14 @@ export function MoroccoMap() {
 
   return (
     <section className="mmap">
-      <div className="mmap-canvas" ref={lienzoRef} onMouseLeave={() => setActiva(null)}>
+      <div
+        className="mmap-canvas"
+        ref={lienzoRef}
+        onMouseLeave={() => setActiva(null)}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) setActiva(null)
+        }}
+      >
         <img
           className="mmap-image"
           src="/images/mapa-kavan-alpha.webp"
@@ -97,43 +104,20 @@ export function MoroccoMap() {
           )
         })}
 
-        {/* Ficha de la ciudad señalada. Se apoya encima de la chincheta y se
-            desplaza hacia dentro cuando la ciudad cae cerca de un borde. */}
+        {/* Miniatura decorativa de la ciudad señalada. El enlace y su nombre
+            accesible siguen viviendo en la chincheta. */}
         {ciudad && punto && (
           <div
             className="mmap-card"
+            aria-hidden="true"
             style={{
               left: `${Math.min(Math.max(punto.x, 14), 86)}%`,
               top: `${punto.y}%`,
             }}
           >
-            <div className="frame mmap-card-photo">
-              <Pic src={ciudad.heroImageUrl} alt="" />
-            </div>
-            <h3>{ciudad.name}</h3>
-            <p>{ciudad.shortDescription}</p>
-            <span className="label mmap-card-cta">Ver la ciudad</span>
+            <Pic src={ciudad.heroImageUrl} alt="" />
           </div>
         )}
-      </div>
-
-      {/* Listado: el camino que funciona con teclado, con lector de pantalla
-          y en móvil, donde las chinchetas quedan demasiado juntas. */}
-      <div className="container">
-        <ul className="mmap-list">
-          {conPunto.map((c) => (
-            <li key={c.slug}>
-              <Link
-                to={`/destinos/${c.slug}`}
-                onClick={lockNav}
-                onMouseEnter={() => setActiva(c.slug)}
-                onFocus={() => setActiva(c.slug)}
-              >
-                <span className="label">{c.name}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   )

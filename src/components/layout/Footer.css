@@ -1,130 +1,35 @@
-/* Pie compacto: la cinta de palabras ocupa lo justo y los datos caben en
-   una sola línea. */
-
 .site-footer {
   background: var(--bg-4);
   color: var(--on-photo);
-  overflow: hidden;
-  padding-bottom: var(--space-3);
 }
 
-/* ---------- Cinta de palabras ---------- */
-
-.footer-marquee {
-  overflow: hidden;
-  padding: var(--space-4) 0 var(--space-3);
-  mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
-}
-
-.footer-marquee-track {
+.footer-inner {
   display: flex;
-  width: max-content;
-  gap: var(--space-5);
-  animation: footer-marquee 42s linear infinite;
-}
-
-.footer-marquee-track span {
-  display: inline-flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-5);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-4);
+}
+
+.footer-statement {
+  margin: 0;
   font-family: var(--font-display);
   font-size: var(--text-1);
   font-weight: var(--weight-title);
-  letter-spacing: var(--track-1);
-  line-height: 1;
-  white-space: nowrap;
-  /* Tipografía en contorno: presencia sin peso */
-  color: transparent;
-  -webkit-text-stroke: 1px color-mix(in srgb, var(--on-photo) 42%, transparent);
-}
-
-.footer-marquee-dot {
-  width: 0.375rem;
-  height: 0.375rem;
-  border-radius: var(--radius-round);
-  background: color-mix(in srgb, var(--on-photo) 55%, transparent);
-  flex-shrink: 0;
-}
-
-@keyframes footer-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-33.3333%); }
-}
-
-/* ---------- Datos: todo en una línea ---------- */
-
-.footer-top {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-4) var(--space-6);
-  padding: var(--space-4) 0;
-  border-top: 1px solid color-mix(in srgb, var(--on-photo) 26%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--on-photo) 26%, transparent);
-}
-
-.footer-brand {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-3);
-}
-
-.footer-title {
-  font-family: var(--font-display);
-  font-size: var(--text-2);
-  font-weight: var(--weight-title);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-.footer-brand p {
-  color: var(--on-photo-soft);
-  font-size: var(--text-body);
-}
-
-/* Rótulo y enlaces en la misma línea */
-.footer-contact,
-.footer-social {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-}
-
-/* Deja libre la esquina donde vive el botón circular de contacto. */
-.footer-social {
-  margin-right: 5.5rem;
-}
-
-.footer-contact a,
-.footer-social a {
-  font-size: var(--text-body);
-  color: var(--on-photo-soft);
-  border-bottom: 1px solid transparent;
-  transition: color var(--dur-md) var(--easing),
-              border-color var(--dur-md) var(--easing);
-}
-
-.footer-contact a:hover,
-.footer-social a:hover {
+  line-height: var(--leading-title);
+  text-align: center;
   color: var(--on-photo);
-  border-bottom-color: var(--on-photo-line);
 }
-
-.site-footer .label {
-  color: color-mix(in srgb, var(--on-photo) 55%, transparent);
-}
-
-/* ---------- Legales, centrados ---------- */
 
 .footer-legal {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-2) var(--space-4);
   padding-top: var(--space-3);
+  border-top: 1px solid var(--on-photo-line);
   font-family: var(--font-mono);
   font-size: var(--text-label);
   text-transform: uppercase;
@@ -132,28 +37,36 @@
 }
 
 .footer-legal a {
-  color: color-mix(in srgb, var(--on-photo) 52%, transparent);
-  transition: color var(--dur-md) var(--easing);
+  color: var(--on-photo-soft);
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur-md) var(--easing),
+              border-color var(--dur-md) var(--easing);
 }
 
 .footer-legal a:hover {
   color: var(--on-photo);
+  border-bottom-color: var(--on-photo-line);
 }
 
-@media (max-width: 1023px) {
-  .footer-top {
-    flex-direction: column;
-    align-items: flex-start;
+.footer-legal a:focus-visible {
+  outline: 2px solid var(--on-photo);
+  outline-offset: 0.25rem;
+  color: var(--on-photo);
+}
+
+@media (max-width: 620px) {
+  .footer-inner {
+    gap: var(--space-4);
+    padding-top: var(--space-5);
   }
 
-  .footer-brand {
-    flex-direction: column;
-    gap: var(--space-2);
+  .footer-statement {
+    font-size: var(--text-2);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-marquee-track {
-    animation: none;
+  .footer-legal a {
+    transition: none;
   }
 }
