@@ -68,4 +68,10 @@
   .hz-hero-lede br {
     display: none;
   }
+
+  .hz-hero-lede {
+    max-width: 24rem;
+    padding-right: 4.5rem;
+    font-size: var(--text-2);
+  }
 }

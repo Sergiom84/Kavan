@@ -209,6 +209,10 @@
   opacity: 0.86;
 }
 
+.pack-card--home .pack-card-media {
+  border-radius: 0;
+}
+
 .pack-card--home:hover .pack-card-bg,
 .pack-card--home:focus-visible .pack-card-bg {
   opacity: 1;

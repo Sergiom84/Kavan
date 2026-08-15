@@ -27,7 +27,7 @@ export function HomePage() {
 
         <div className="hz-hero-foot container">
           <p className="hz-hero-lede">
-            Rutas privadas por el sur de Marruecos: dunas del Erg&nbsp;Chebbi, kasbahs de adobe,
+            Rutas privadas por el sur de Marruecos: dunas del Erg&nbsp;Chebbi, kasbahs de adobe,{' '}
             <br />
             gargantas del Todra y noches bajo un cielo sin ciudades cerca.
           </p>
