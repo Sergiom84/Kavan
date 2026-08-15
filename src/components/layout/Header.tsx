@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router'
+import { useEffect, useLayoutEffect, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router'
 import { lockNav } from '../../lib/demoLock'
 import './Header.css'
 
@@ -32,15 +32,40 @@ const extra: NavLinkDef[] = [
  * hero, que es lo que se ve bien sobre fondo claro.
  */
 export function Header() {
+  const { pathname } = useLocation()
+  const esHome = pathname === '/'
   const [open, setOpen] = useState(false)
   const [solid, setSolid] = useState(false)
-  const [sobrePortada, setSobrePortada] = useState(false)
+  const [sobrePortada, setSobrePortada] = useState(esHome)
   const [oculta, setOculta] = useState(false)
 
-  useEffect(() => {
-    /* La portada se busca en cada scroll y no una sola vez: al navegar entre
-       páginas el mismo Header sobrevive y el elemento cambia. */
+  useLayoutEffect(() => {
+    let frame = 0
+
+    /* En Home hay tres estados deliberados: visible sobre la portada al
+       cargar, fuera de escena durante el relato inicial y fijo/crema cuando
+       termina `.home-introduction`. El umbral usa la altura real de la
+       cabecera para que el cambio suceda cuando la sección ya no queda tapada
+       detrás de ella. */
     const onScroll = () => {
+      if (esHome) {
+        const portada = document.querySelector<HTMLElement>('.hero-zoom')
+        const introduccion = document.querySelector<HTMLElement>('.home-introduction')
+        const altoCabecera = document.querySelector<HTMLElement>('.site-header')?.offsetHeight ?? 0
+        const finIntroduccion = introduccion?.getBoundingClientRect().bottom
+          ?? portada?.getBoundingClientRect().bottom
+          ?? Number.POSITIVE_INFINITY
+        const alInicio = window.scrollY <= 4
+        const introduccionTerminada = finIntroduccion <= altoCabecera
+
+        setSobrePortada(alInicio)
+        setOculta(!alInicio && !introduccionTerminada)
+        setSolid(introduccionTerminada)
+        return
+      }
+
+      /* Fuera de Home se conserva la conducta anterior. La portada se busca
+         en cada lectura porque el mismo Header sobrevive al cambio de ruta. */
       const portada = document.querySelector('.hero-zoom')
       setSobrePortada(portada !== null)
 
@@ -62,14 +87,23 @@ export function Header() {
       setSolid(window.scrollY > 80)
     }
 
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+    const schedule = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(() => {
+        frame = 0
+        onScroll()
+      })
     }
-  }, [])
+
+    onScroll()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [esHome, pathname])
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -78,11 +112,15 @@ export function Header() {
     }
   }, [open])
 
+  const cabeceraOculta = oculta && !open
+
   return (
     <header
+      aria-hidden={cabeceraOculta || undefined}
+      inert={cabeceraOculta || undefined}
       className={
         `site-header ${solid ? 'is-solid' : ''} ${open ? 'is-open' : ''} ` +
-        `${sobrePortada ? 'is-over-hero' : ''} ${oculta && !open ? 'is-hidden' : ''}`
+        `${sobrePortada ? 'is-over-hero' : ''} ${cabeceraOculta ? 'is-hidden' : ''}`
       }
     >
       <div className="site-header-inner">

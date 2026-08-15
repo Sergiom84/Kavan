@@ -1,0 +1,99 @@
+.discover-morocco {
+  padding: var(--space-6) 0;
+  background: var(--bg-2);
+  overflow: hidden;
+}
+
+.discover-morocco-heading {
+  margin-bottom: var(--space-5);
+}
+
+.discover-morocco-heading h2 {
+  font-size: var(--text-1);
+}
+
+.discover-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.discover-card:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 0.375rem;
+}
+
+.discover-card-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--bg-3);
+}
+
+.discover-card-reveal {
+  position: absolute;
+  inset: auto var(--space-3) var(--space-3);
+  width: fit-content;
+  max-width: calc(100% - var(--space-5));
+  padding: var(--space-2) var(--space-3);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--text-2);
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(var(--space-2));
+  transition: opacity var(--dur-md) var(--easing),
+              transform var(--dur-md) var(--easing);
+  transition-delay: 0s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .discover-card:hover .discover-card-reveal,
+  .discover-card:focus-visible .discover-card-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.35s;
+  }
+}
+
+.discover-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+  padding-top: var(--space-3);
+}
+
+.discover-card-body h3 {
+  font-size: var(--text-2);
+}
+
+.discover-card-body p {
+  max-width: 44ch;
+  font-size: var(--text-body);
+  color: var(--ink-soft);
+}
+
+.discover-morocco .carousel-arrow:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 0.25rem;
+}
+
+@media (max-width: 1023px) {
+  .discover-morocco {
+    padding: var(--space-5) 0;
+  }
+}
+
+@media (hover: none) {
+  .discover-card-reveal {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .discover-card-reveal {
+    transition: none;
+  }
+}

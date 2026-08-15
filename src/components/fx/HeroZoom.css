@@ -6,6 +6,14 @@
 
 .hero-zoom {
   position: relative;
+  height: var(--hero-scroll-height, 300svh);
+}
+
+/* Variante de portada fija: misma composición, una única pantalla y ningún
+   recorrido artificial. La clase explícita evita inferir conducta a partir de
+   si hay o no frases intermedias. */
+.hero-zoom--static {
+  height: 100svh;
 }
 
 .hero-zoom__stage {
@@ -26,6 +34,10 @@
   inset: 0;
   transform-origin: 50% 55%;
   will-change: transform;
+}
+
+.hero-zoom--static .hero-zoom__media {
+  will-change: auto;
 }
 
 .hero-zoom__media img {
@@ -63,10 +75,15 @@
   pointer-events: none;
 }
 
-/* Sin efecto: la sección se queda en una pantalla y la portada se ve entera. */
+/* Sin efecto: la sección se queda en una pantalla y la portada se ve entera.
+   También se retira `will-change`, porque ya no habrá transformación. */
 @media (prefers-reduced-motion: reduce) {
   .hero-zoom {
-    height: 100svh !important;
+    height: 100svh;
+  }
+
+  .hero-zoom__media {
+    will-change: auto;
   }
 
   .hero-zoom__beat {

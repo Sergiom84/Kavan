@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, type ReactNode } from 'react'
+import { useLayoutEffect, useRef, type CSSProperties, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './HeroZoom.css'
@@ -28,6 +28,11 @@ type Props = {
   pantallas?: number
   /** Escala inicial: cuanto más alta, más cerca arranca la fotografía. */
   zoomDesde?: number
+  /**
+   * `static` conserva la composición del hero, pero la deja en una sola
+   * pantalla y no crea timeline, zoom ni textos intermedios.
+   */
+  mode?: 'scroll' | 'static'
   className?: string
   /** Contenido de la primera pantalla: logotipo, entradilla, botones. */
   children: ReactNode
@@ -38,6 +43,7 @@ export function HeroZoom({
   beats = [],
   pantallas = 3,
   zoomDesde = 1.45,
+  mode = 'scroll',
   className = '',
   children,
 }: Props) {
@@ -45,7 +51,7 @@ export function HeroZoom({
 
   useLayoutEffect(() => {
     const root = rootRef.current
-    if (!root) return
+    if (!root || mode === 'static') return
 
     /* Sin efecto si se ha pedido menos movimiento: la sección se queda en una
        pantalla y la portada se ve entera y quieta. */
@@ -92,13 +98,17 @@ export function HeroZoom({
     }, root)
 
     return () => ctx.revert()
-  }, [beats.length, zoomDesde])
+  }, [beats.length, mode, zoomDesde])
+
+  const style = {
+    '--hero-scroll-height': `${pantallas * 100}svh`,
+  } as CSSProperties
 
   return (
     <section
       ref={rootRef}
-      className={`hero-zoom ${className}`}
-      style={{ height: `${pantallas * 100}svh` }}
+      className={`hero-zoom hero-zoom--${mode} ${className}`}
+      style={style}
     >
       <div className="hero-zoom__stage">
         <div className="hero-zoom__media">{media}</div>
@@ -106,7 +116,7 @@ export function HeroZoom({
 
         <div className="hero-zoom__intro">{children}</div>
 
-        {beats.map((texto, i) => (
+        {mode === 'scroll' && beats.map((texto, i) => (
           <p key={i} className="hero-zoom__beat" data-beat={i}>
             {texto}
           </p>

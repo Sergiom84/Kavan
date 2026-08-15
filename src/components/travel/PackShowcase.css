@@ -1,79 +1,37 @@
-/* Bloque de packs: rótulo a la izquierda, carril a la derecha.
-
-   Estructura de la referencia (Grand Hotel Lviv, bloque de eventos), pero con
-   la columna estrechada al 18%: allí el rótulo es un titular gigante y aquí es
-   una etiqueta mono de una línea, así que 25,5% dejaba la columna casi vacía y
-   estrujaba el carril hasta sacar la tercera tarjeta de la pantalla. */
-
 .pack-showcase {
   background: var(--bg-1);
   padding-top: var(--space-6);
   padding-bottom: var(--space-6);
-  overflow: hidden;
 }
 
 .pack-showcase-inner {
   display: flex;
-  align-items: stretch;
-}
-
-/* El rótulo arriba y el enlace abajo, a la altura del pie de las tarjetas.
-   Es `space-between` lo que sostiene la columna: no hay medidas fijas. */
-.pack-showcase-sidebar {
-  flex: 0 0 18%;
-  display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 0 var(--space-4) 0 var(--padding);
+  gap: var(--space-5);
 }
 
-/* Hereda de `.label` (mono, versalitas): se le quita el peso de encabezado que
-   trae el `h2`, se le da medida para que parta en dos líneas como la banda de
-   partículas, y sube cuatro puntos sobre el rótulo corriente —a 12px
-   encabezaba un bloque de pantalla entera y se leía como un pie; a 14px
-   Sergio lo pidió aún más grande—.
-
-   La tinta va plena, no al 40% de `.label`: al lado del botón, que sí es
-   tinta plena, el rótulo desvaído se leía como si el botón fuese negrita. Los
-   dos son peso 400; lo que los separaba era la opacidad. */
 .pack-showcase-title {
   font-size: calc(var(--text-label) + 0.25rem);
   font-weight: var(--weight-label);
   line-height: 1.5;
-  max-width: 14ch;
   color: var(--ink);
 }
 
-/* Alineado con la base de la fotografía, no con la del bloque: el título de
-   la tarjeta cuelga por debajo y el enlace no debe seguirlo. */
-/* Mismo cuerpo que el rótulo: son las dos únicas piezas de la columna y a
-   tamaños distintos una parecía subordinada de la otra. */
+.pack-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5) var(--space-4);
+}
+
 .pack-showcase-link {
+  align-self: center;
   font-size: calc(var(--text-label) + 0.125rem);
-  align-self: flex-start;
-  /* Se alinea con la base de la fotografía, no con la del bloque: el título de
-     la tarjeta cuelga por debajo y el enlace no debe seguirlo. El margen es
-     justo ese pie —el aire más la línea del título. */
-  margin-bottom: calc(var(--space-3) + var(--text-label) * 1.4);
 }
 
-.pack-showcase-rail {
-  flex: 1 1 auto;
-  min-width: 0;
-  /* La calle de la derecha: sin ella la tercera tarjeta muere contra el borde
-     de la pantalla. */
-  padding-right: var(--padding);
+.pack-showcase-link:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 0.25rem;
 }
-
-/* Las tres tarjetas destacadas caben enteras, descontando los dos huecos. No
-   hay una cuarta que anunciar: cortar la tercera sería prometer de más. */
-.pack-showcase .carousel-item {
-  flex: 0 0 calc((100% - var(--space-4) * 2) / 3);
-}
-
-/* ---------- Móvil ----------
-   En columna: rótulo, carril y enlace debajo. El carril mantiene la sangría
-   por la derecha. */
 
 @media (max-width: 1023px) {
   .pack-showcase {
@@ -81,29 +39,13 @@
     padding-bottom: var(--space-5);
   }
 
-  .pack-showcase-inner {
-    flex-direction: column;
-    gap: var(--space-5);
+  .pack-showcase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
 
-  .pack-showcase-sidebar {
-    flex: initial;
-    padding: 0 var(--padding);
-    gap: var(--space-4);
-  }
-
-  .pack-showcase-link {
-    margin-bottom: 0;
-  }
-
-  /* Aquí sí sangra por la derecha: es lo que anuncia que el carril sigue
-     cuando sólo cabe una tarjeta. */
-  .pack-showcase-rail {
-    padding-left: var(--padding);
-    padding-right: 0;
-  }
-
-  .pack-showcase .carousel-item {
-    flex: 0 0 76%;
+@media (max-width: 620px) {
+  .pack-showcase-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

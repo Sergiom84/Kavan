@@ -42,6 +42,11 @@
   opacity: 1;
 }
 
+.pack-card:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 0.375rem;
+}
+
 .pack-card-bg img {
   width: 100%;
   height: 100%;
@@ -194,6 +199,88 @@
 .pack-card-subtitle {
   font-size: var(--text-body);
   max-width: 38ch;
+}
+
+/* ---------- Variante de portada ----------
+   No comparte el panel de la tarjeta editorial: sólo aclara la fotografía y
+   mantiene toda la información de decisión visible bajo ella. */
+
+.pack-card--home .pack-card-bg {
+  opacity: 0.86;
+}
+
+.pack-card--home:hover .pack-card-bg,
+.pack-card--home:focus-visible .pack-card-bg {
+  opacity: 1;
+}
+
+.pack-card-home-tag {
+  position: absolute;
+  z-index: 1;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: var(--space-3);
+  width: fit-content;
+  max-width: calc(100% - var(--space-5));
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--card);
+  color: var(--ink);
+  font-size: var(--text-2);
+  line-height: 1.05;
+  text-transform: none;
+}
+
+.pack-card--home .pack-card-body {
+  gap: var(--space-3);
+}
+
+.pack-card-home-description {
+  max-width: 42ch;
+  font-size: var(--text-body);
+  color: var(--ink-soft);
+}
+
+.pack-card-home-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: auto 0 0;
+  padding: var(--space-3) 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.pack-card-home-meta li {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-right: var(--space-3);
+}
+
+.pack-card-home-meta li + li {
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--line);
+}
+
+.pack-card-home-meta .pack-card-home-zones {
+  grid-column: 1 / -1;
+  margin-top: var(--space-3);
+  padding: var(--space-3) 0 0;
+  border-top: 1px solid var(--line);
+  border-left: 0;
+}
+
+.pack-card-home-meta .label {
+  color: var(--ink-faint);
+}
+
+.pack-card-home-meta strong {
+  min-width: 0;
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
+  line-height: var(--leading-text);
+  color: var(--ink);
 }
 
 .pack-card-cities {
