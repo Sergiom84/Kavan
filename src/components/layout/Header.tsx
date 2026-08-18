@@ -43,24 +43,19 @@ export function Header() {
     let frame = 0
 
     /* En Home hay tres estados deliberados: visible sobre la portada al
-       cargar, fuera de escena durante el relato inicial y fijo/crema cuando
-       termina `.home-introduction`. El umbral usa la altura real de la
-       cabecera para que el cambio suceda cuando la sección ya no queda tapada
-       detrás de ella. */
+       cargar, fuera de escena durante la ráfaga y fijo/crema desde que el
+       bloque de tarjetas entra en pantalla. Medir el bloque real evita que
+       la cabecera dependa de la duración de la ráfaga. */
     const onScroll = () => {
       if (esHome) {
-        const portada = document.querySelector<HTMLElement>('.hero-zoom')
-        const introduccion = document.querySelector<HTMLElement>('.home-introduction')
-        const altoCabecera = document.querySelector<HTMLElement>('.site-header')?.offsetHeight ?? 0
-        const finIntroduccion = introduccion?.getBoundingClientRect().bottom
-          ?? portada?.getBoundingClientRect().bottom
-          ?? Number.POSITIVE_INFINITY
+        const tarjetas = document.querySelector<HTMLElement>('.home-quick-links')
         const alInicio = window.scrollY <= 4
-        const introduccionTerminada = finIntroduccion <= altoCabecera
+        const tarjetasEntran = (tarjetas?.getBoundingClientRect().top ?? Number.POSITIVE_INFINITY)
+          <= window.innerHeight
 
         setSobrePortada(alInicio)
-        setOculta(!alInicio && !introduccionTerminada)
-        setSolid(introduccionTerminada)
+        setOculta(!alInicio && !tarjetasEntran)
+        setSolid(tarjetasEntran)
         return
       }
 

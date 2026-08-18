@@ -1,9 +1,27 @@
 .site-footer {
+  position: relative;
+  isolation: isolate;
   background: var(--bg-4);
   color: var(--on-photo);
+  overflow: hidden;
+}
+
+.site-footer::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--ink) 64%, transparent),
+    color-mix(in srgb, var(--ink) 28%, transparent)
+  );
 }
 
 .footer-inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;

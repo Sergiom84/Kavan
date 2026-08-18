@@ -20,6 +20,24 @@
   src: url("/fonts/JetBrainsMono-Variable.woff2") format("woff2-variations"), url("/fonts/JetBrainsMono-Variable.woff2") format("woff2");
 }
 
+/* Fuentes solicitadas para la introducción de Marruecos. Se autoalojan como
+   el resto de la tipografía para no añadir una petición a terceros. */
+@font-face {
+  font-family: "Marcellus";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Marcellus-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Poppins-Regular.woff2") format("woff2");
+}
+
 /* Las utilidades comunes viven en una capa: así los estilos de cada componente
    y de cada página siempre las sobrescriben, sin depender del orden en que el
    empaquetador inyecte las hojas ni de trucos de especificidad. */

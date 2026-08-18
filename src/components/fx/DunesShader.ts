@@ -342,6 +342,7 @@ type Opciones = {
 
 export class DunesShader {
   private gl: WebGL2RenderingContext | null = null
+  private contenedor: HTMLElement
   private lienzo: HTMLCanvasElement
   private programa: WebGLProgram | null = null
   private uResolucion: WebGLUniformLocation | null = null
@@ -350,11 +351,13 @@ export class DunesShader {
   private vivo = false
   private escala: number
   private t0 = 0
+  private observadorTamano: ResizeObserver | null = null
 
   /** false si el navegador no trae WebGL2 o el shader no compila. */
   readonly listo: boolean
 
   constructor({ container, escala = 0.62 }: Opciones) {
+    this.contenedor = container
     this.escala = escala
     this.lienzo = document.createElement('canvas')
     this.lienzo.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block'
@@ -399,6 +402,8 @@ export class DunesShader {
     this.medir = this.medir.bind(this)
     this.dibujar = this.dibujar.bind(this)
     window.addEventListener('resize', this.medir)
+    this.observadorTamano = new ResizeObserver(this.medir)
+    this.observadorTamano.observe(container)
     this.medir()
 
     this.listo = true
@@ -411,8 +416,10 @@ export class DunesShader {
        traza por píxel y a pantalla completa no llega a 60 fps en un portátil
        sin gráfica dedicada. La escena es blanda y el reescalado no se nota. */
     const factor = Math.min(window.devicePixelRatio || 1, 1.5) * this.escala
-    this.lienzo.width = Math.max(1, Math.round(window.innerWidth * factor))
-    this.lienzo.height = Math.max(1, Math.round(window.innerHeight * factor))
+    const ancho = this.contenedor.clientWidth || window.innerWidth
+    const alto = this.contenedor.clientHeight || window.innerHeight
+    this.lienzo.width = Math.max(1, Math.round(ancho * factor))
+    this.lienzo.height = Math.max(1, Math.round(alto * factor))
     gl.viewport(0, 0, this.lienzo.width, this.lienzo.height)
   }
 
@@ -434,10 +441,16 @@ export class DunesShader {
     this.cuadro = requestAnimationFrame(this.dibujar)
   }
 
-  destroy() {
+  detener() {
+    if (!this.vivo) return
     this.vivo = false
     cancelAnimationFrame(this.cuadro)
+  }
+
+  destroy() {
+    this.detener()
     window.removeEventListener('resize', this.medir)
+    this.observadorTamano?.disconnect()
     if (this.gl && this.programa) this.gl.deleteProgram(this.programa)
     /* Sin esto el contexto queda vivo aunque se quite el lienzo, y los
        navegadores sólo permiten un puñado de contextos WebGL a la vez. */

@@ -20,7 +20,7 @@ export function PackShowcase({
   packs,
   title = 'Viajes más deseados',
   to = '/packs',
-  linkLabel = 'Ver todos',
+  linkLabel = 'Ver todos los viajes',
 }: Props) {
   if (!packs.length) return null
 
@@ -37,11 +37,21 @@ export function PackShowcase({
           ))}
         </div>
 
-        {to && (
-          <Link to={to} onClick={lockNav} className="btn btn-outline pack-showcase-link">
-            {linkLabel}
-          </Link>
-        )}
+        <div className="pack-showcase-closing">
+          {to && (
+            <Link to={to} onClick={lockNav} className="btn btn-outline pack-showcase-link">
+              {linkLabel}
+            </Link>
+          )}
+
+          <div className="pack-showcase-discover">
+            <h3>Descubre Marruecos.</h3>
+            <p>
+              De las medinas que despiertan al amanecer a las dunas que cambian con la luz,
+              cada ruta abre una forma distinta de viajar Marruecos.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   )

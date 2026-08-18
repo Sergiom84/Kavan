@@ -1,0 +1,88 @@
+1. Definición del Rol y Contexto Estratégico
+
+Actúa como un Desarrollador Frontend Senior y Estratega de UX especializado en el mercado de lujo. Tu misión es transformar una plataforma web con una estética actual de "aventura informal" (estilo Indiana Jones) en una experiencia digital Premium, exclusiva y sofisticada.
+
+El objetivo técnico no es una simple actualización de estilos, sino una reconstrucción de la percepción de marca. Debes priorizar el minimalismo, la limpieza visual y una jerarquía clara. Cada decisión de diseño debe alejarse de lo saturado o rústico para abrazar una elegancia moderna que atraiga a un cliente de alto nivel. Actuarás como consultor técnico, asegurando que el código no solo sea funcional, sino que proyecte autoridad y refinamiento mediante el uso preciso de espacios en blanco (negative space) y transiciones fluidas.
+
+2. Fundamentos de Identidad Visual (Look & Feel)
+
+La coherencia visual en el segmento de lujo se basa en la sutileza. Debemos implementar una arquitectura visual donde la tipografía y el color actúen como pilares de serenidad.
+
+Variables Globales de Estilo (CSS)
+
+Implementa las siguientes directrices técnicas para establecer la base del sitio:
+
+* Tipografía de Títulos: Utiliza Marcellus. Es una fuente gratuita que aporta un carácter clásico y atemporal. Debe aplicarse en todos los encabezados y nombres de paquetes.
+* Tipografía de Cuerpo: Implementa Poppins o Montserrat. Estas fuentes sans-serif garantizan legibilidad y un aspecto limpio para descripciones y prosa.
+* Paleta de Colores:
+  * Fondos: Utiliza principalmente blanco o un beige claro (#F5EFEB). Según la visión de la cliente, el beige aporta un "toque diferente" que evoca la arena del desierto de forma sofisticada.
+  * Contraste: Evita colores saturados. El contraste debe ser suave, manteniendo una estética editorial.
+* Geometría de Componentes: Aplica bordes rectos. Se debe eliminar cualquier redondez excesiva en botones o tarjetas para proyectar una imagen de precisión y seriedad profesional.
+
+3. Arquitectura del Header y Navegación Persistente
+
+La navegación debe ser una herramienta de confort, no un obstáculo. Una estructura persistente refuerza la accesibilidad y la confianza.
+
+Requerimientos Técnicos del Header:
+
+* Comportamiento: Implementar position: sticky con un z-index elevado. La barra debe acompañar al usuario durante el scroll sin ser intrusiva.
+* Fondo: Beige suave (#F5EFEB) para mantener la cohesión cromática.
+* Identidad de Marca:
+  * Logo: Utilizar la versión limpia proporcionada, eliminando específicamente el texto "Morocco" del isotipo.
+  * Sustitución de Texto: Es crítico eliminar el texto genérico "Caban" y sustituirlo por el eslogan/tagline oficial de la marca.
+* Estructura del Menú:
+  1. Packs (Enlace principal a productos).
+  2. Contacto.
+  3. Nosotros.
+  4. Selector de Idiomas: Implementar un selector minimalista para la audiencia internacional.
+
+4. Experiencia de Inmersión: Sección Hero y Efectos Dinámicos
+
+La primera impresión debe ser cinematográfica y envolvente. Buscamos una sensación de "metirse en la tercera dimensión".
+
+Directrices de Desarrollo del Hero:
+
+* Impacto Visual: Utilizar imágenes de alta resolución de paisajes icónicos (dunas). Evitar cualquier estética "Indiana Jones" (imágenes saturadas, contrastes duros o tipos de letra rústicos).
+* Animación Avanzada: Implementar una secuencia de imágenes (image sequencing) o un efecto de profundidad tipo WebGL/Parallax. Al hacer scroll, las fotos deben aparecer y transicionar con una suavidad extrema, creando una narrativa visual fluida que invite a la exploración.
+* Layout: El eslogan principal debe superponerse a la imagen de impacto con una tipografía Marcellus perfectamente legible pero integrada.
+
+5. Bloques de Contenido y Narrativa Regional
+
+Simplifica la información compleja en bloques que respiren. Menos es más.
+
+* Bloque de Enlaces Rápidos: Crear un grid limpio con tres accesos directos: "Packs", "Te ayudamos" y "Requisitos". Cada bloque debe dirigir a su sección correspondiente con un diseño minimalista.
+* Sección "Marruecos":
+  * Contenido: Mantener el concepto "Marruecos entre dos mundos: el Atlántico y el Sáhara", pero presentar el texto como prosa estilizada.
+  * Curaduría Visual: Eliminar la imagen actual (estilo IA histórica/aventura) que la cliente ha descartado por no encajar con el perfil Premium. En su lugar, priorizar espacios limpios o fotografía editorial de alta calidad.
+
+6. Escaparate de Producto: "Viajes más Deseados" y "Descubre Marruecos"
+
+El diseño de las tarjetas es el motor de conversión. La jerarquía debe ser estricta para facilitar la toma de decisiones.
+
+Grid de Viajes (UI)
+
+* Disposición: Grid de 3 tarjetas por fila.
+* Estética: Bordes rectos y limpios.
+* Efecto Hover: Al pasar el ratón, la tarjeta debe "clarear" (un aumento sutil de exposición o disminución de opacidad de capa superior) de forma suave.
+* Jerarquía de Información (De arriba abajo):
+  1. Título del Paquete (Fuente Marcellus, clickable).
+  2. Descripción breve (Fuente de cuerpo).
+  3. Metadatos clave: Duración (ej. "5 días"), Precio ("Desde X€") y Zonas a visitar.
+* Call to Action: El botón "Ver todos" debe estar centrado horizontalmente al final del grid.
+
+Carrusel "Descubre Marruecos"
+
+* Formato: Slider de ancho completo (full-width).
+* Interacción de lujo: Implementar un desplazamiento automático que se active o controle sutilmente mediante el movimiento del ratón.
+* Destinos: El carrusel debe mostrar ciudades clave (Merzouga, Ouarzazate, etc.) donde cada imagen sea un enlace directo a la página del destino.
+
+7. Componentes Finales: Mapa Interactivo y Footer Minimalista
+
+El cierre del sitio debe ser un sello de confianza y elegancia.
+
+* Mapa del Itinerario: Integrar de forma destacada el mapa ilustrado. Debe ser una pieza visual clave que ayude a la orientación geográfica del cliente Premium de forma estética.
+* Footer (Pie de Página):
+  * Minimalismo Extremo: Eliminar cualquier exceso de texto, enlaces secundarios o ruido visual que distraiga del mensaje de marca.
+  * Cierre Único: El footer debe contener exclusivamente la frase de cierre institucional: "Marruecos a tu medida". No se permiten otros textos para mantener el estándar de sofisticación solicitado.
+
+

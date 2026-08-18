@@ -18,7 +18,9 @@ export function DiscoverMorocco({ title = 'Marruecos te ofrece' }: Props) {
   return (
     <section className="discover-morocco" aria-labelledby="discover-morocco-title">
       <div className="container discover-morocco-heading">
-        <h2 id="discover-morocco-title">{title}</h2>
+        <h2 id="discover-morocco-title" className="label discover-morocco-title">
+          {title}
+        </h2>
       </div>
 
       <div className="container discover-morocco-carousel">

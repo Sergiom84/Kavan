@@ -6,52 +6,69 @@
 .home-quick-links__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-block: 1px solid var(--line-strong);
+  gap: var(--space-3);
 }
 
 .home-quick-links__card {
-  min-height: 11rem;
+  isolation: isolate;
+  position: relative;
+  min-height: 12rem;
   padding: var(--space-4);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-4);
-  border-right: 1px solid var(--line-strong);
-  background: transparent;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-3);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--c-pure-white) 72%, transparent);
+  background: color-mix(in srgb, var(--c-pure-white) 23%, transparent);
+  backdrop-filter: blur(0.75rem) saturate(1.12);
+  -webkit-backdrop-filter: blur(0.75rem) saturate(1.12);
   color: var(--ink);
+  text-align: center;
   cursor: pointer;
   transition: background-color var(--dur-md) var(--easing),
-              color var(--dur-md) var(--easing);
+              border-color var(--dur-md) var(--easing);
 }
 
-.home-quick-links__card:last-child {
-  border-right: 0;
-}
-
-.home-quick-links__card .label {
-  color: inherit;
-  opacity: 0.52;
+.home-quick-links__card::before {
+  content: '';
+  position: absolute;
+  inset: 0.25rem;
+  z-index: -1;
+  border: 1px solid color-mix(in srgb, var(--c-pure-white) 42%, transparent);
+  pointer-events: none;
 }
 
 .home-quick-links__title {
-  font-family: var(--font-display);
+  font-family: "Marcellus", var(--font-display);
   font-size: var(--text-2);
-  font-weight: var(--weight-heading);
+  font-weight: 400;
   line-height: var(--leading-title);
   text-transform: uppercase;
+  color: var(--ink);
 }
 
-.home-quick-links__card:hover,
-.home-quick-links__card:focus-visible {
-  background: var(--ink);
-  color: var(--on-photo);
+.home-quick-links__description {
+  max-width: 24ch;
+  margin: 0;
+  font-family: "Poppins", var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.home-quick-links__card:hover {
+  background: color-mix(in srgb, var(--c-pure-white) 36%, transparent);
+  border-color: color-mix(in srgb, var(--c-pure-white) 88%, transparent);
 }
 
 .home-quick-links__card:focus-visible {
   position: relative;
   z-index: var(--z-base);
   outline: 2px solid var(--accent-sun);
-  outline-offset: -4px;
+  outline-offset: 0.25rem;
 }
 
 @media (max-width: 767px) {
@@ -60,13 +77,7 @@
   }
 
   .home-quick-links__card {
-    min-height: 7.5rem;
-    border-right: 0;
-    border-bottom: 1px solid var(--line-strong);
-  }
-
-  .home-quick-links__card:last-child {
-    border-bottom: 0;
+    min-height: 9rem;
   }
 }
 

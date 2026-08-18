@@ -1,6 +1,6 @@
 .pack-showcase {
   background: var(--bg-1);
-  padding-top: var(--space-6);
+  padding-top: var(--space-4);
   padding-bottom: var(--space-6);
 }
 
@@ -20,12 +20,85 @@
 .pack-showcase-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-5) var(--space-4);
+  gap: var(--space-4);
+}
+
+/* Excepción de la portada: el escaparate toma la proporción compacta del
+   catálogo solicitado, con superficie continua y esquinas suaves. */
+.pack-showcase .pack-card--home {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--card);
+}
+
+.pack-showcase .pack-card--home .pack-card-media {
+  aspect-ratio: 4 / 5;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.pack-showcase .pack-card--home .pack-card-body {
+  gap: var(--space-2);
+  padding: var(--space-3);
+}
+
+.pack-showcase .pack-card--home .pack-card-home-description {
+  font-family: "Marcellus", var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.pack-showcase .pack-card--home .pack-card-home-tag,
+.pack-showcase .pack-card--home .pack-card-home-meta .label {
+  font-family: "Marcellus", var(--font-display);
+  font-weight: 400;
+}
+
+.pack-showcase .pack-card--home .pack-card-home-meta strong {
+  font-family: "Poppins", var(--font-mono);
+  font-weight: 400;
+}
+
+/* La segunda propuesta se distingue con arena, sin alterar el resto del
+   catálogo ni ocultar los datos de decisión. */
+.pack-showcase .pack-card--home:nth-child(2) {
+  background: var(--c-base-50);
+}
+
+.pack-showcase .pack-card--home:nth-child(2) .pack-card-home-description {
+  color: var(--ink-soft);
+}
+
+.pack-showcase .pack-card--home:nth-child(2) .pack-card-home-meta strong {
+  color: var(--ink);
+}
+
+.pack-showcase .pack-card--home:nth-child(2) .pack-card-home-meta,
+.pack-showcase .pack-card--home:nth-child(2) .pack-card-home-meta .pack-card-home-zones {
+  border-color: var(--line);
+}
+
+.pack-showcase .pack-card--home:nth-child(2) .pack-card-home-meta li + li {
+  border-left-color: var(--line);
+}
+
+.pack-showcase .pack-card--home:nth-child(2) .pack-card-home-meta .label {
+  color: var(--ink-faint);
 }
 
 .pack-showcase-link {
   align-self: center;
+  border-color: var(--accent-2);
+  border-radius: 999px;
+  color: var(--accent-2);
   font-size: calc(var(--text-label) + 0.125rem);
+  padding: 0.625rem 1.5rem;
+}
+
+.pack-showcase-link:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: var(--accent-ink);
 }
 
 .pack-showcase-link:focus-visible {
@@ -33,9 +106,42 @@
   outline-offset: 0.25rem;
 }
 
+.pack-showcase-closing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.pack-showcase-discover {
+  width: 100%;
+  max-width: 54rem;
+  text-align: center;
+}
+
+.pack-showcase-discover h3 {
+  margin: 0 0 var(--space-5);
+  font-family: "Marcellus", var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 400;
+  line-height: var(--leading-title);
+  text-transform: none;
+  color: var(--ink);
+}
+
+.pack-showcase-discover p {
+  max-width: 54ch;
+  margin: 0 auto;
+  font-family: "Poppins", var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
 @media (max-width: 1023px) {
   .pack-showcase {
-    padding-top: var(--space-5);
+    padding-top: var(--space-4);
     padding-bottom: var(--space-5);
   }
 
@@ -47,5 +153,9 @@
 @media (max-width: 620px) {
   .pack-showcase-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pack-showcase .pack-card--home {
+    width: 100%;
   }
 }

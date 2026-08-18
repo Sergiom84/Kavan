@@ -1,0 +1,14 @@
+.footer-dunes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.78;
+}
+
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .footer-dunes {
+    display: none;
+  }
+}

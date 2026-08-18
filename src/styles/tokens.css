@@ -43,12 +43,11 @@
   --c-pure-black: #000;
   --c-error: #9d3c23;       /* danger */
 
-  /* Fondos. bg-1 es el crema base; bg-2 ya no es "superficie elevada más
-     clara" sino la banda alterna un paso por debajo (`.band-sand`), porque el
-     crema pasó a ser el fondo de todo. bg-3 es arena (superficie secundaria);
-     bg-4 es la banda oscura reservada (terracota profunda), sin uso actual. */
+  /* Fondos. El crema claro del mapa gobierna todas las secciones de página;
+     bg-2 se conserva como alias para no introducir excepciones por ruta. El
+     arena queda reservado para superficies como tarjetas y controles. */
   --bg-1: var(--c-bg);
-  --bg-2: var(--c-base-50);
+  --bg-2: var(--c-bg);
   --bg-3: #d9bfa0;
   /* Terracota de duna: muestreado de la fotografía del hero (la duna base da
      227,134,68) y bajado hasta que el texto del pie pasa AA —el tono directo

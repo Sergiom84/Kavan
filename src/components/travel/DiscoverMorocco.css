@@ -8,8 +8,11 @@
   margin-bottom: var(--space-5);
 }
 
-.discover-morocco-heading h2 {
-  font-size: var(--text-1);
+.discover-morocco-title {
+  font-size: calc(var(--text-label) + 0.25rem);
+  font-weight: var(--weight-label);
+  line-height: 1.5;
+  color: var(--ink);
 }
 
 .discover-card {
@@ -27,6 +30,7 @@
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
+  border-radius: 0.75rem;
   background: var(--bg-3);
 }
 
@@ -66,13 +70,58 @@
 }
 
 .discover-card-body h3 {
+  font-family: "Marcellus", var(--font-display);
   font-size: var(--text-2);
+  font-weight: 400;
 }
 
 .discover-card-body p {
   max-width: 44ch;
+  font-family: "Poppins", var(--font-mono);
   font-size: var(--text-body);
+  font-weight: 400;
   color: var(--ink-soft);
+}
+
+.discover-morocco-carousel .carousel {
+  position: relative;
+}
+
+.discover-morocco-carousel .carousel-nav {
+  position: absolute;
+  z-index: 1;
+  top: calc(37.5% - 1.4375rem);
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+  padding: 0 var(--space-2);
+  pointer-events: none;
+  background: none;
+  border-radius: 0;
+}
+
+.discover-morocco .carousel-arrow {
+  width: 3rem;
+  height: 3rem;
+  pointer-events: auto;
+  border-color: color-mix(in srgb, var(--ink) 28%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+  backdrop-filter: blur(0.5rem);
+  -webkit-backdrop-filter: blur(0.5rem);
+  transition: background-color var(--dur-md) var(--easing),
+              border-color var(--dur-md) var(--easing),
+              color var(--dur-md) var(--easing),
+              transform var(--dur-md) var(--easing);
+}
+
+.discover-morocco .carousel-arrow:hover {
+  color: var(--accent-2);
+  border-color: var(--accent-2);
+  background: var(--card);
+  transform: scale(1.06);
 }
 
 .discover-morocco .carousel-arrow:focus-visible {
@@ -93,7 +142,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .discover-card-reveal {
+  .discover-card-reveal,
+  .discover-morocco .carousel-arrow {
     transition: none;
   }
 }

@@ -88,7 +88,7 @@ Ahora, para nuestro trabajo:
 
 1- Excepto en la página 9  - reserva tu viaje y las nuevas creadas ahora  ( 11, 12 y 13 ): Todas deben seguir el mismo orden visual, en que sentido: Cabecera, Hero, XXX los bloques que correspondan en cada página, y Footer.
 
-2 - Tan sólo 3 letras. Para título, subtítulos y el texto. Misma tipología. Mismos tamaños. 
+2 - Tan sólo 3 tamaños. Para título, subtítulos y el texto. 1 o 2 tipologías pero no las habituales.
 
 3 - Nada, 0 de emojis.
 
