@@ -55,18 +55,41 @@
   flex: none;
   width: 2.5rem;
   height: 2.5rem;
+  object-fit: contain;
 }
 
-/* La tipografía que llevaba el logotipo gigante de la portada, ahora aquí: la
-   misma familia y peso, versales y sin tracking. Lo que no viaja es el
-   contorno hueco — a este cuerpo la línea de 1px se empasta y no se lee. */
-.brand-name {
-  font-family: var(--font-display);
-  font-size: calc(var(--text-2) * 1.15);
-  font-weight: var(--weight-title);
-  letter-spacing: 0;
-  line-height: 0.78;
-  text-transform: uppercase;
+.brand-wordmark {
+  width: auto;
+  height: 1.25rem;
+  max-width: 8.5rem;
+  object-fit: contain;
+}
+
+/* El logotipo limpio se reutiliza sobre crema con tinta negra; así la marca
+   conserva el mismo encuadre en ambos estados, sin el texto residual. */
+.brand-wordmark--dark {
+  filter: brightness(0);
+}
+
+.brand-mark--dark,
+.brand-wordmark--dark {
+  display: none;
+}
+
+/* Fuera del Hero el fondo es crema: se intercambian los recursos para
+   mantener el contraste sin aplicar filtros CSS sobre la marca. */
+.site-header.is-solid .brand-mark--light,
+.site-header.is-solid .brand-wordmark--light,
+.site-header.is-open .brand-mark--light,
+.site-header.is-open .brand-wordmark--light {
+  display: none;
+}
+
+.site-header.is-solid .brand-mark--dark,
+.site-header.is-solid .brand-wordmark--dark,
+.site-header.is-open .brand-mark--dark,
+.site-header.is-open .brand-wordmark--dark {
+  display: block;
 }
 
 /* ---------- Navegación ---------- */
@@ -84,6 +107,7 @@
 }
 
 .site-nav a .label {
+  font-family: var(--marcellus);
   color: inherit;
   transition: opacity var(--dur-md) var(--easing);
 }
@@ -201,8 +225,8 @@
 }
 
 .site-menu a {
-  font-family: var(--font-display);
-  font-size: var(--text-display);
+  font-family: var(--marcellus);
+  font-size: calc(var(--text-2) * 1.25);
   font-weight: var(--weight-title);
   line-height: var(--leading-title);
   letter-spacing: var(--track-1);
@@ -228,6 +252,11 @@
   .brand-mark {
     width: 2.125rem;
     height: 2.125rem;
+  }
+
+  .brand-wordmark {
+    height: 1rem;
+    max-width: 7rem;
   }
 
   /* En móvil la navegación vive sólo en el panel */

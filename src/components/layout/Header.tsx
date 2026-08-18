@@ -120,10 +120,13 @@ export function Header() {
     >
       <div className="site-header-inner">
         <Link to="/" className="brand" onClick={() => setOpen(false)}>
-          {/* El sello va como símbolo, sin texto alternativo: el nombre ya está
-              escrito al lado y repetirlo lo haría sonar dos veces al lector. */}
-          <img className="brand-mark" src="/images/logo-kavan.png" alt="" width="512" height="512" />
-          <span className="brand-name">Kavan</span>
+          {/* Las variantes se intercambian sólo con el estado visual de la
+              cabecera: blanco sobre el Hero y dorado/negro sobre el crema. */}
+          <span className="sr-only">Kavan</span>
+          <img className="brand-mark brand-mark--light" src="/images/Isotipo.png" alt="" />
+          <img className="brand-mark brand-mark--dark" src="/images/logo-kavan.png" alt="" />
+          <img className="brand-wordmark brand-wordmark--light" src="/images/Logotipo sin Morocco.png" alt="" />
+          <img className="brand-wordmark brand-wordmark--dark" src="/images/Logotipo sin Morocco.png" alt="" />
         </Link>
 
         <div className="site-header-right">

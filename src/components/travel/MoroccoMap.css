@@ -3,7 +3,9 @@
 
 .mmap {
   background: var(--bg-1);
-  padding-bottom: var(--space-6);
+  /* La Home termina en el mapa: no debe quedar una banda de crema antes del
+     cierre visual de dunas del footer. */
+  padding-bottom: 0;
 }
 
 .mmap-canvas {

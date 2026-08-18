@@ -101,6 +101,8 @@
      restricción de licencia comercial, a diferencia de las anteriores. */
   --cormorant: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --jetbrains-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --marcellus: "Marcellus", Georgia, "Times New Roman", serif;
+  --poppins: "Poppins", sans-serif;
 
   --font-display: var(--cormorant);
   --font-mono: var(--jetbrains-mono);

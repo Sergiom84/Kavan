@@ -1,12 +1,10 @@
 import { useFeaturedPacks } from '../queries/hooks'
-import { Pic } from '../components/ui/Pic'
 import { PackShowcase } from '../components/travel/PackShowcase'
 import { HomeQuickLinks } from '../components/travel/HomeQuickLinks'
 import { MoroccoIntroduction } from '../components/travel/MoroccoIntroduction'
 import { DiscoverMorocco } from '../components/travel/DiscoverMorocco'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
 import { BurstGallery } from '../components/fx/BurstGallery'
-import { SplitTitle } from '../components/fx/SplitTitle'
 import { GALERIA } from '../data/galeria'
 import './HomePage.css'
 
@@ -19,10 +17,12 @@ export function HomePage() {
         className="hz-hero"
         fotos={GALERIA}
         media={
-          <Pic src="art:dunes:home-hero" alt="Dunas del Erg Chebbi al atardecer" priority position="center 58%" />
+          <img src="/images/hero.png" alt="Campamento entre las dunas de Marruecos al atardecer" fetchPriority="high" />
         }
       >
-        <SplitTitle as="h1" text="KAVAN" size="wordmark" className="hz-wordmark" />
+        <h1 className="hz-wordmark">
+          <img src="/images/logo-kavan.png" alt="Kavan" />
+        </h1>
 
         <div className="hz-hero-foot container">
           <p className="hz-hero-lede">
