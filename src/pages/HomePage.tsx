@@ -1,12 +1,11 @@
 import { useFeaturedPacks } from '../queries/hooks'
 import { Pic } from '../components/ui/Pic'
-import { FullGallery } from '../components/ui/FullGallery'
 import { PackShowcase } from '../components/travel/PackShowcase'
 import { HomeQuickLinks } from '../components/travel/HomeQuickLinks'
 import { MoroccoIntroduction } from '../components/travel/MoroccoIntroduction'
 import { DiscoverMorocco } from '../components/travel/DiscoverMorocco'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
-import { HeroZoom } from '../components/fx/HeroZoom'
+import { BurstGallery } from '../components/fx/BurstGallery'
 import { SplitTitle } from '../components/fx/SplitTitle'
 import { GALERIA } from '../data/galeria'
 import './HomePage.css'
@@ -16,9 +15,9 @@ export function HomePage() {
 
   return (
     <>
-      <HeroZoom
-        mode="static"
+      <BurstGallery
         className="hz-hero"
+        fotos={GALERIA}
         media={
           <Pic src="art:dunes:home-hero" alt="Dunas del Erg Chebbi al atardecer" priority position="center 58%" />
         }
@@ -32,9 +31,7 @@ export function HomePage() {
             gargantas del Todra y noches bajo un cielo sin ciudades cerca.
           </p>
         </div>
-      </HeroZoom>
-
-      <FullGallery fotos={GALERIA} auto={3000} />
+      </BurstGallery>
       <HomeQuickLinks />
       <MoroccoIntroduction />
       <PackShowcase packs={featured ?? []} />
