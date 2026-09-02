@@ -54,8 +54,7 @@ export function PackShowcase({
       viewport.classList.add('is-pinned')
 
       const sizeItems = () => {
-        const host = viewport.parentElement ?? viewport
-        const width = host.clientWidth / VISIBLES
+        const width = viewport.clientWidth / VISIBLES
         items.forEach((item) => {
           item.style.flex = `0 0 ${width}px`
           item.style.width = `${width}px`
@@ -115,13 +114,15 @@ export function PackShowcase({
               <h2 className="pack-showcase-title">{title}</h2>
             </Reveal>
 
-            <div ref={viewportRef} className="pack-showcase-viewport">
-              <div ref={trackRef} className="pack-showcase-track">
-                {packs.map((p) => (
-                  <div className="pack-showcase-item" key={p.id}>
-                    <PackCard pack={p} variant="home" />
-                  </div>
-                ))}
+            <div className="pack-showcase-rail">
+              <div ref={viewportRef} className="pack-showcase-viewport">
+                <div ref={trackRef} className="pack-showcase-track">
+                  {packs.map((p) => (
+                    <div className="pack-showcase-item" key={p.id}>
+                      <PackCard pack={p} variant="home" />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -131,7 +132,7 @@ export function PackShowcase({
       <div className="pack-showcase-inner container">
         <div className="pack-showcase-closing">
           {to && (
-            <Link to={to} onClick={lockNav} className="btn btn-outline pack-showcase-link">
+            <Link to={to} onClick={lockNav} className="pack-showcase-link">
               {linkLabel}
             </Link>
           )}

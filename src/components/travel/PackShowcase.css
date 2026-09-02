@@ -28,6 +28,10 @@
   color: var(--ink);
 }
 
+.pack-showcase-rail {
+  padding-inline: clamp(1.25rem, 6vw, 4rem);
+}
+
 .pack-showcase-viewport {
   width: 100%;
   min-width: 0;
@@ -64,6 +68,12 @@
 
 .pack-showcase-viewport.is-pinned .pack-showcase-track {
   will-change: transform;
+}
+
+@media (min-width: 1024px) {
+  .pack-showcase-rail {
+    padding-inline: clamp(4rem, 12vw, 10rem);
+  }
 }
 
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
@@ -136,29 +146,32 @@
 }
 
 .pack-showcase-link {
-  align-self: flex-start;
-  border-color: var(--accent-2);
-  border-radius: 999px;
-  color: var(--accent-2);
-  font-size: calc(var(--text-label) + 0.125rem);
-  padding: 0.625rem 1.5rem;
+  align-self: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: "Marcellus", var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 400;
+  line-height: var(--leading-title);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
 }
 
 .pack-showcase-link:hover {
-  background: var(--accent-2);
-  border-color: var(--accent-2);
-  color: var(--accent-ink);
+  color: var(--ink);
 }
 
 .pack-showcase-link:focus-visible {
-  outline: 2px solid var(--accent-2);
+  outline: 2px solid var(--ink);
   outline-offset: 0.25rem;
 }
 
 .pack-showcase-closing {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: var(--space-6);
 }
 
