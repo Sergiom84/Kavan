@@ -22,7 +22,7 @@
 .site-header.is-open {
   background: var(--bg-1);
   color: var(--ink);
-  border-bottom-color: var(--line);
+  border-bottom-color: transparent;
 }
 
 /* Sobre la portada que se aleja no hay estado crema: el fondo son las propias
@@ -46,7 +46,7 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0;
 }
 
 /* El sello es la única forma circular del sistema, igual que en los tokens:
@@ -58,37 +58,19 @@
   object-fit: contain;
 }
 
-.brand-wordmark {
-  width: auto;
-  height: 1.25rem;
-  max-width: 8.5rem;
-  object-fit: contain;
-}
-
-/* El logotipo limpio se reutiliza sobre crema con tinta negra; así la marca
-   conserva el mismo encuadre en ambos estados, sin el texto residual. */
-.brand-wordmark--dark {
-  filter: brightness(0);
-}
-
-.brand-mark--dark,
-.brand-wordmark--dark {
+.brand-mark--dark {
   display: none;
 }
 
 /* Fuera del Hero el fondo es crema: se intercambian los recursos para
    mantener el contraste sin aplicar filtros CSS sobre la marca. */
 .site-header.is-solid .brand-mark--light,
-.site-header.is-solid .brand-wordmark--light,
-.site-header.is-open .brand-mark--light,
-.site-header.is-open .brand-wordmark--light {
+.site-header.is-open .brand-mark--light {
   display: none;
 }
 
 .site-header.is-solid .brand-mark--dark,
-.site-header.is-solid .brand-wordmark--dark,
-.site-header.is-open .brand-mark--dark,
-.site-header.is-open .brand-wordmark--dark {
+.site-header.is-open .brand-mark--dark {
   display: block;
 }
 
@@ -252,11 +234,6 @@
   .brand-mark {
     width: 2.125rem;
     height: 2.125rem;
-  }
-
-  .brand-wordmark {
-    height: 1rem;
-    max-width: 7rem;
   }
 
   /* En móvil la navegación vive sólo en el panel */

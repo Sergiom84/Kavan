@@ -28,3 +28,10 @@ export const GALERIA: FotoGaleria[] = [
   { src: '/images/dades-kasbah.webp', pie: 'Valle del Dadés', alt: 'Kasbah de adobe en el valle del Dadés' },
   { src: '/images/jemaa-el-fna.webp', pie: 'Jemaa el-Fna', alt: 'Plaza de Jemaa el-Fna al anochecer' },
 ]
+
+/** Tres fotogramas de la ráfaga de portada: kasbah, medina, dunas. */
+export const HERO_RAFAGA: FotoGaleria[] = [
+  GALERIA[0],
+  GALERIA[2],
+  GALERIA[1],
+]

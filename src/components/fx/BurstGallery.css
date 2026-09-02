@@ -44,6 +44,7 @@
 }
 
 .burst-gallery__photos {
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -53,6 +54,97 @@
   transform-origin: 50% 50%;
   clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
   background: var(--ink);
+}
+
+.burst-gallery__closing-copy,
+.burst-gallery__split-copy {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding);
+  text-align: center;
+  background: color-mix(in srgb, var(--ink) 28%, transparent);
+  color: var(--on-photo);
+  pointer-events: none;
+}
+
+.burst-gallery__closing-copy {
+  right: 0;
+  left: 0;
+}
+
+.burst-gallery__continuation,
+.burst-gallery__split {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.burst-gallery__continuation {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  background: var(--bg-1);
+  color: var(--ink);
+}
+
+.burst-gallery__continuation > * {
+  width: 100%;
+}
+
+.burst-gallery__split {
+  z-index: 3;
+  pointer-events: none;
+}
+
+.burst-gallery__split-pane {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.burst-gallery__split-pane--left {
+  left: 0;
+}
+
+.burst-gallery__split-pane--right {
+  right: 0;
+}
+
+.burst-gallery__split-pane img {
+  position: absolute;
+  top: 0;
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+
+.burst-gallery__split-pane--left img {
+  left: 0;
+}
+
+.burst-gallery__split-pane--right img {
+  right: 0;
+}
+
+.burst-gallery__split-copy {
+  width: 200%;
+  max-width: none;
+}
+
+.burst-gallery__split-copy--left {
+  left: 0;
+}
+
+.burst-gallery__split-copy--right {
+  right: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -94,6 +186,20 @@
     transform: none;
     will-change: auto;
   }
+
+  .burst-gallery__continuation {
+    position: relative;
+    inset: auto;
+    visibility: visible !important;
+    min-height: 62svh;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .burst-gallery__split {
+    display: none;
+  }
+
 }
 
 @media (max-width: 1023px) and (prefers-reduced-motion: reduce) {

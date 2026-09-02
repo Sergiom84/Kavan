@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useLayoutEffect, useRef, type CSSProperties, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { FotoGaleria } from '../../data/galeria'
@@ -10,38 +10,27 @@ type Props = {
   media: ReactNode
   fotos: FotoGaleria[]
   children: ReactNode
+  continuation?: ReactNode
+  closingCopy?: ReactNode
   className?: string
 }
 
 /**
  * Portada y ráfaga de fotografías gobernadas por el scroll.
  *
- * El escenario se mantiene pegado con CSS y la única timeline se construye a
- * partir de `fotos`: añadir o retirar una imagen no exige crear disparadores
- * nuevos. Cada capa abre su recorte desde el centro mientras crece y empieza
- * antes de que la anterior haya terminado.
+ * El escenario permanece fijo mientras el desplazamiento abre las fotografías.
+ * La última se divide desde el centro y deja visible el fondo de la página para
+ * enlazar con el siguiente bloque.
  */
-export function BurstGallery({ media, fotos, children, className = '' }: Props) {
+export function BurstGallery({
+  media,
+  fotos,
+  children,
+  continuation,
+  closingCopy,
+  className = '',
+}: Props) {
   const rootRef = useRef<HTMLElement>(null)
-  const [cantidadCargada, setCantidadCargada] = useState(() => {
-    if (typeof window === 'undefined') return Math.min(2, fotos.length)
-
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ? fotos.length
-      : Math.min(2, fotos.length)
-  })
-
-  useEffect(() => {
-    const consulta = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const actualizarPreferencia = () => {
-      if (consulta.matches) setCantidadCargada(fotos.length)
-    }
-
-    actualizarPreferencia()
-    consulta.addEventListener('change', actualizarPreferencia)
-
-    return () => consulta.removeEventListener('change', actualizarPreferencia)
-  }, [fotos.length])
 
   useLayoutEffect(() => {
     const root = rootRef.current
@@ -53,10 +42,21 @@ export function BurstGallery({ media, fotos, children, className = '' }: Props) 
       const ctx = gsap.context(() => {
         const capas = gsap.utils.toArray<HTMLElement>('.burst-gallery__photo')
         if (capas.length === 0) return
+        const continuationEl = root.querySelector<HTMLElement>('.burst-gallery__continuation')
+        const splitEl = root.querySelector<HTMLElement>('.burst-gallery__split')
+        const mitadesFinales = gsap.utils.toArray<HTMLElement>('.burst-gallery__split-pane')
+        let mostrandoContinuacion = false
 
-        const inicioRafaga = 0.11
-        const finRafaga = 0.92
-        const duracionFoto = 0.23
+        const actualizarCabecera = (mostrar: boolean) => {
+          if (mostrandoContinuacion === mostrar) return
+          mostrandoContinuacion = mostrar
+          root.classList.toggle('burst-gallery--paper', mostrar)
+          window.dispatchEvent(new Event('scroll'))
+        }
+
+        const inicioRafaga = 0.14
+        const finRafaga = 0.82
+        const duracionFoto = 0.3
         const separacion =
           capas.length > 1
             ? (finRafaga - inicioRafaga - duracionFoto) / (capas.length - 1)
@@ -70,28 +70,19 @@ export function BurstGallery({ media, fotos, children, className = '' }: Props) 
             end: 'bottom bottom',
             scrub: 0.4,
             invalidateOnRefresh: true,
-            onUpdate: ({ progress }) => {
-              if (progress < Math.max(0, inicioRafaga - separacion)) return
-
-              const indiceActual =
-                separacion > 0
-                  ? Math.max(0, Math.floor((progress - inicioRafaga) / separacion))
-                  : 0
-              const hasta = Math.min(capas.length, indiceActual + 3)
-              setCantidadCargada((cantidadActual) => Math.max(cantidadActual, hasta))
-            },
+            onUpdate: ({ progress }) => actualizarCabecera(progress >= 0.82),
           },
         })
 
         timeline.set('.burst-gallery__hero-media', { willChange: 'transform' }, 0)
         timeline.set('.burst-gallery__intro', { willChange: 'transform, opacity' }, 0)
-        timeline.to('.burst-gallery__hero-media', { scale: 1.08, duration: 0.28 }, 0)
+        timeline.to('.burst-gallery__hero-media', { scale: 1.06, duration: 0.28 }, 0)
         timeline.to(
           '.burst-gallery__intro',
-          { autoAlpha: 0, yPercent: -4, duration: 0.09 },
-          0.035,
+          { autoAlpha: 0, yPercent: -4, duration: 0.1 },
+          0.04,
         )
-        timeline.set('.burst-gallery__intro', { willChange: 'auto' }, 0.125)
+        timeline.set('.burst-gallery__intro', { willChange: 'auto' }, 0.14)
         timeline.set('.burst-gallery__hero-media', { willChange: 'auto' }, 0.28)
 
         capas.forEach((capa, indice) => {
@@ -113,18 +104,37 @@ export function BurstGallery({ media, fotos, children, className = '' }: Props) 
           )
           timeline.set(capa, { willChange: 'auto' }, inicio + duracionFoto)
         })
+
+        if (continuationEl && splitEl && mitadesFinales.length === 2) {
+          timeline.to([continuationEl, splitEl], { autoAlpha: 1, duration: 0.001 }, 0.839)
+          timeline.set(mitadesFinales, { willChange: 'transform' }, 0.84)
+          timeline.to(
+            mitadesFinales[0],
+            { xPercent: -100, duration: 0.18 },
+            0.84,
+          )
+          timeline.to(
+            mitadesFinales[1],
+            { xPercent: 100, duration: 0.18 },
+            0.84,
+          )
+          timeline.set(mitadesFinales, { willChange: 'auto' }, 1.02)
+          timeline.to(splitEl, { autoAlpha: 0, duration: 0.001 }, 1.019)
+        }
       }, root)
 
-      return () => ctx.revert()
+      return () => {
+        root.classList.remove('burst-gallery--paper')
+        window.dispatchEvent(new Event('scroll'))
+        ctx.revert()
+      }
     })
 
     return () => mediaQuery.revert()
   }, [fotos.length])
 
-  /* Ocho fotos comparten un recorrido acotado: crece suavemente si cambia el
-     repertorio, sin convertir cada nueva imagen en otra pantalla completa. */
   const style = {
-    '--burst-scroll-height': `${Math.max(330, 230 + fotos.length * 25)}svh`,
+    '--burst-scroll-height': `${Math.max(365, 260 + fotos.length * 35)}svh`,
   } as CSSProperties
 
   return (
@@ -148,17 +158,38 @@ export function BurstGallery({ media, fotos, children, className = '' }: Props) 
               key={foto.src}
               style={{ zIndex: indice + 1 }}
             >
-              <img
-                src={indice < cantidadCargada ? foto.src : undefined}
-                data-src={indice < cantidadCargada ? undefined : foto.src}
-                alt={foto.alt}
-                aria-hidden={indice < cantidadCargada ? undefined : true}
-                loading="eager"
-                decoding="async"
-              />
+              <img src={foto.src} alt={foto.alt} decoding="async" />
+              {closingCopy && indice === fotos.length - 1 ? (
+                <div className="burst-gallery__closing-copy">{closingCopy}</div>
+              ) : null}
             </div>
           ))}
         </div>
+
+        {continuation ? (
+          <div className="burst-gallery__continuation">{continuation}</div>
+        ) : null}
+
+        {continuation && fotos.length > 0 ? (
+          <div className="burst-gallery__split" aria-hidden="true">
+            <div className="burst-gallery__split-pane burst-gallery__split-pane--left">
+              <img src={fotos[fotos.length - 1].src} alt="" decoding="async" />
+              {closingCopy ? (
+                <div className="burst-gallery__split-copy burst-gallery__split-copy--left">
+                  {closingCopy}
+                </div>
+              ) : null}
+            </div>
+            <div className="burst-gallery__split-pane burst-gallery__split-pane--right">
+              <img src={fotos[fotos.length - 1].src} alt="" decoding="async" />
+              {closingCopy ? (
+                <div className="burst-gallery__split-copy burst-gallery__split-copy--right">
+                  {closingCopy}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   )

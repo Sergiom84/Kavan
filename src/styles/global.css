@@ -71,7 +71,7 @@ body {
   font-weight: var(--weight-text);
   line-height: var(--leading-body);
   color: var(--ink);
-  background: var(--bg-1);
+  background-color: var(--bg-1);
 }
 
 /* Títulos: serif de peso ligero, versales, interlineado 1.0 y tracking

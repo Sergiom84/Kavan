@@ -29,23 +29,21 @@
      Paleta Sáhara (design-system/MASTER.md): papel cálido, arena,
      terracota, sol del desierto. Ya no monocroma — reemplaza la
      paleta crema/verde petróleo importada de Horizonte. */
-  /* Un único crema gobierna todo el sitio (decisión de Sergio, 2026-07-29). El
-     valor anterior del fondo de página (#dfd8cf) venía medido de Horizonte y
-     era grisáceo —20% de saturación frente al 43% del crema—, así que la web
-     se leía gris alrededor de los bloques que ya usaban el crema. Horizonte no
-     manda en color (ver CLAUDE.md); el crema Sáhara sí. */
-  --c-bg: #ebe1cd;          /* crema — el papel de todo el sitio */
-  --c-base-0: #ebe1cd;      /* mismo crema, para superficies claras sobre oscuro */
-  --c-base-50: #e3d5ba;     /* arena — un paso bajo el crema, para bandas alternas */
+  /* Papel de Lucy Lara (`#f7f6f4`, rama codex/lucy-lara-hero-redesign).
+     Sustituye el crema #ebe1cd y el blanco roto #f6f3ee, que se leían cálidos
+     de más frente al blanco plano de Lucy. */
+  --c-bg: #f7f6f4;          /* papel Lucy — el fondo de todo el sitio */
+  --c-base-0: #f7f6f4;
+  --c-base-50: #efece8;     /* un paso bajo el papel, bandas alternas */
   --c-base-1000: #2a2119;   /* ink, marrón casi negro — texto */
   --c-brand-500: #8a4b2b;   /* terracota profunda — marca, hover */
   --c-pure-white: #fff;
   --c-pure-black: #000;
   --c-error: #9d3c23;       /* danger */
 
-  /* Fondos. El crema claro del mapa gobierna todas las secciones de página;
+  /* Fondos. El blanco roto gobierna todas las secciones de página;
      bg-2 se conserva como alias para no introducir excepciones por ruta. El
-     arena queda reservado para superficies como tarjetas y controles. */
+     arena suave queda reservado para bandas y superficies. */
   --bg-1: var(--c-bg);
   --bg-2: var(--c-bg);
   --bg-3: #d9bfa0;
@@ -72,7 +70,7 @@
 
   /* Blanco roto: fondo del bloque de la frase en partículas. Un paso por
      encima del papel cálido, para separar el bloque sin línea ni caja. */
-  --blanco-roto: #f7f4ee;
+  --blanco-roto: #f7f6f4;
 
   /* Colores de las partículas. Van en hexadecimal literal a propósito: el
      shader los lee con getPropertyValue, que devuelve el texto del token tal

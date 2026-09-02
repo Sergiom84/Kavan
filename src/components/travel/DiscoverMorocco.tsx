@@ -34,14 +34,10 @@ export function DiscoverMorocco({ title = 'Marruecos te ofrece' }: Props) {
               >
                 <div className="discover-card-media">
                   <Pic src={city.heroImageUrl} alt={city.name} />
-                  <div className="discover-card-overlay" aria-hidden="true">
+                  <div className="discover-card-overlay">
                     <h3>{city.name}</h3>
                     <p>{city.shortDescription}</p>
                   </div>
-                </div>
-                <div className="discover-card-body">
-                  <h3>{city.name}</h3>
-                  <p>{city.shortDescription}</p>
                 </div>
               </Link>
             </div>

@@ -42,20 +42,19 @@ export function Header() {
   useLayoutEffect(() => {
     let frame = 0
 
-    /* En Home hay tres estados deliberados: visible sobre la portada al
-       cargar, fuera de escena durante la ráfaga y fijo/crema desde que el
-       bloque de tarjetas entra en pantalla. Medir el bloque real evita que
-       la cabecera dependa de la duración de la ráfaga. */
+    /* En Home la ráfaga ya no se recorre: la portada mide una pantalla.
+       La cabecera se queda sobre la fotografía hasta que esa pantalla
+       empieza a subir; entonces pasa a papel opaco. */
     const onScroll = () => {
       if (esHome) {
-        const tarjetas = document.querySelector<HTMLElement>('.home-quick-links')
-        const alInicio = window.scrollY <= 4
-        const tarjetasEntran = (tarjetas?.getBoundingClientRect().top ?? Number.POSITIVE_INFINITY)
-          <= window.innerHeight
+        const portada = document.querySelector<HTMLElement>('.burst-gallery')
+        const caja = portada?.getBoundingClientRect()
+        const portadaLlena = !caja || caja.bottom >= window.innerHeight - 1
+        const papel = portada?.classList.contains('burst-gallery--paper') ?? false
 
-        setSobrePortada(alInicio)
-        setOculta(!alInicio && !tarjetasEntran)
-        setSolid(tarjetasEntran)
+        setSobrePortada(portadaLlena && !papel)
+        setOculta(false)
+        setSolid(!portadaLlena || papel)
         return
       }
 
@@ -125,8 +124,6 @@ export function Header() {
           <span className="sr-only">Kavan</span>
           <img className="brand-mark brand-mark--light" src="/images/Isotipo.png" alt="" />
           <img className="brand-mark brand-mark--dark" src="/images/logo-kavan.png" alt="" />
-          <img className="brand-wordmark brand-wordmark--light" src="/images/Logotipo sin Morocco.png" alt="" />
-          <img className="brand-wordmark brand-wordmark--dark" src="/images/Logotipo sin Morocco.png" alt="" />
         </Link>
 
         <div className="site-header-right">

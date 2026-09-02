@@ -2,27 +2,30 @@
   padding: var(--space-5) var(--padding) var(--space-4);
   display: flex;
   align-items: flex-start;
-  justify-content: center;
-  background: var(--bg-1);
-  border-bottom: 1px solid var(--line);
+  justify-content: flex-start;
+  background: transparent;
+  border: 0;
 }
 
 .home-introduction__content {
-  max-width: 54rem;
-  text-align: center;
+  width: 100%;
+  max-width: none;
+  text-align: left;
 }
 
 .home-introduction h2 {
   margin-bottom: var(--space-5);
   font-family: "Marcellus", var(--font-display);
   font-size: var(--text-display);
+  font-weight: 400;
   line-height: var(--leading-title);
   text-transform: none;
+  color: var(--ink);
 }
 
 .home-introduction p {
-  max-width: 54ch;
-  margin-inline: auto;
+  max-width: none;
+  margin: 0;
   font-family: "Poppins", var(--font-mono);
   font-size: var(--text-body);
   font-weight: 400;

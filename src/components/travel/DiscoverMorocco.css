@@ -82,40 +82,12 @@
   color: var(--on-photo-soft);
 }
 
-.discover-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  flex: 1;
-  padding-top: var(--space-3);
-  transition: opacity var(--dur-md) var(--easing);
-}
-
 @media (hover: hover) and (pointer: fine) {
   .discover-card:hover .discover-card-overlay,
   .discover-card:focus-visible .discover-card-overlay {
     opacity: 1;
     transform: translateY(0);
   }
-
-  .discover-card:hover .discover-card-body,
-  .discover-card:focus-visible .discover-card-body {
-    opacity: 0;
-  }
-}
-
-.discover-card-body h3 {
-  font-family: "Marcellus", var(--font-display);
-  font-size: var(--text-2);
-  font-weight: 400;
-}
-
-.discover-card-body p {
-  max-width: 44ch;
-  font-family: "Poppins", var(--font-mono);
-  font-size: var(--text-body);
-  font-weight: 400;
-  color: var(--ink-soft);
 }
 
 .discover-morocco-carousel .carousel {
@@ -124,43 +96,49 @@
 
 .discover-morocco-carousel .carousel-nav {
   position: absolute;
-  z-index: 1;
-  top: calc(37.5% - 1.4375rem);
+  z-index: 2;
+  top: 50%;
   right: 0;
   left: 0;
   display: flex;
   justify-content: space-between;
   gap: 0;
-  padding: 0 var(--space-2);
+  padding: 0 var(--space-3);
   pointer-events: none;
   background: none;
   border-radius: 0;
+  transform: translateY(-50%);
 }
 
 .discover-morocco .carousel-arrow {
-  width: 3rem;
-  height: 3rem;
+  width: auto;
+  height: auto;
+  padding: 0.35rem;
   pointer-events: auto;
-  border-color: color-mix(in srgb, var(--ink) 28%, transparent);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--card) 88%, transparent);
-  backdrop-filter: blur(0.5rem);
-  -webkit-backdrop-filter: blur(0.5rem);
-  transition: background-color var(--dur-md) var(--easing),
-              border-color var(--dur-md) var(--easing),
-              color var(--dur-md) var(--easing),
+  color: var(--on-photo);
+  border: 0;
+  border-radius: 0;
+  background: none;
+  filter: drop-shadow(0 1px 2px color-mix(in srgb, var(--ink) 45%, transparent));
+  transition: color var(--dur-md) var(--easing),
               transform var(--dur-md) var(--easing);
 }
 
+.discover-morocco .carousel-arrow svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  stroke-width: 1.8;
+}
+
 .discover-morocco .carousel-arrow:hover {
-  color: var(--accent-2);
-  border-color: var(--accent-2);
-  background: var(--card);
-  transform: scale(1.06);
+  color: var(--on-photo);
+  background: none;
+  border: 0;
+  transform: scale(1.08);
 }
 
 .discover-morocco .carousel-arrow:focus-visible {
-  outline: 2px solid var(--accent-2);
+  outline: 2px solid var(--on-photo);
   outline-offset: 0.25rem;
 }
 
@@ -172,13 +150,13 @@
 
 @media (hover: none) {
   .discover-card-overlay {
-    display: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .discover-card-overlay,
-  .discover-card-body,
   .discover-morocco .carousel-arrow {
     transition: none;
   }

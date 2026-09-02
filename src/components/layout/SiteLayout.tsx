@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { registerLenis } from '../../lib/lenisControl'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { AdvisorButton } from './AdvisorButton'
@@ -26,9 +27,10 @@ export function SiteLayout() {
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-smoothWheel: true,
+      smoothWheel: true,
     })
 
+    registerLenis(lenis)
     lenis.on('scroll', ScrollTrigger.update)
 
     const onRaf = (time: number) => lenis.raf(time * 1000)
@@ -37,6 +39,7 @@ smoothWheel: true,
 
     return () => {
       gsap.ticker.remove(onRaf)
+      registerLenis(null)
       lenis.destroy()
     }
   }, [])

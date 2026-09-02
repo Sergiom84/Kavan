@@ -1,5 +1,5 @@
 .home-quick-links {
-  background: var(--bg-1);
+  background: transparent;
   padding: var(--space-5) var(--padding);
 }
 
@@ -10,7 +10,6 @@
 }
 
 .home-quick-links__card {
-  isolation: isolate;
   position: relative;
   min-height: 12rem;
   padding: var(--space-4);
@@ -19,25 +18,13 @@
   align-items: center;
   justify-content: flex-start;
   gap: var(--space-3);
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--c-pure-white) 72%, transparent);
-  background: color-mix(in srgb, var(--c-pure-white) 23%, transparent);
-  backdrop-filter: blur(0.75rem) saturate(1.12);
-  -webkit-backdrop-filter: blur(0.75rem) saturate(1.12);
+  background: transparent;
+  border: 0;
   color: var(--ink);
   text-align: center;
   cursor: pointer;
-  transition: background-color var(--dur-md) var(--easing),
-              border-color var(--dur-md) var(--easing);
-}
-
-.home-quick-links__card::before {
-  content: '';
-  position: absolute;
-  inset: 0.25rem;
-  z-index: -1;
-  border: 1px solid color-mix(in srgb, var(--c-pure-white) 42%, transparent);
-  pointer-events: none;
+  transition: opacity var(--dur-md) var(--easing),
+              color var(--dur-md) var(--easing);
 }
 
 .home-quick-links__title {
@@ -46,7 +33,8 @@
   font-weight: 400;
   line-height: var(--leading-title);
   text-transform: uppercase;
-  color: var(--ink);
+  color: inherit;
+  transition: color var(--dur-md) var(--easing);
 }
 
 .home-quick-links__description {
@@ -60,8 +48,7 @@
 }
 
 .home-quick-links__card:hover {
-  background: color-mix(in srgb, var(--c-pure-white) 36%, transparent);
-  border-color: color-mix(in srgb, var(--c-pure-white) 88%, transparent);
+  opacity: 0.72;
 }
 
 .home-quick-links__card:focus-visible {
