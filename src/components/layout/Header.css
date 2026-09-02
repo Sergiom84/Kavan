@@ -49,29 +49,16 @@
   gap: 0;
 }
 
-/* El sello es la única forma circular del sistema, igual que en los tokens:
-   todo lo demás va a ángulo recto. */
-.brand-mark {
+/* El wordmark conserva los trazados originales de KAVAN y toma el color de
+   la cabecera: blanco sobre fotografía y tinta sobre papel. */
+.brand-wordmark {
   flex: none;
-  width: 2.5rem;
-  height: 2.5rem;
-  object-fit: contain;
-}
-
-.brand-mark--dark {
-  display: none;
-}
-
-/* Fuera del Hero el fondo es crema: se intercambian los recursos para
-   mantener el contraste sin aplicar filtros CSS sobre la marca. */
-.site-header.is-solid .brand-mark--light,
-.site-header.is-open .brand-mark--light {
-  display: none;
-}
-
-.site-header.is-solid .brand-mark--dark,
-.site-header.is-open .brand-mark--dark {
   display: block;
+  width: 6.5rem;
+  aspect-ratio: 4440 / 853;
+  background: currentColor;
+  -webkit-mask: url('/images/Logotipo sin Morocco.png') center / contain no-repeat;
+  mask: url('/images/Logotipo sin Morocco.png') center / contain no-repeat;
 }
 
 /* ---------- Navegación ---------- */
@@ -231,9 +218,8 @@
     height: 4rem;
   }
 
-  .brand-mark {
-    width: 2.125rem;
-    height: 2.125rem;
+  .brand-wordmark {
+    width: 5.5rem;
   }
 
   /* En móvil la navegación vive sólo en el panel */

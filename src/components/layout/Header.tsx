@@ -119,11 +119,8 @@ export function Header() {
     >
       <div className="site-header-inner">
         <Link to="/" className="brand" onClick={() => setOpen(false)}>
-          {/* Las variantes se intercambian sólo con el estado visual de la
-              cabecera: blanco sobre el Hero y dorado/negro sobre el crema. */}
           <span className="sr-only">Kavan</span>
-          <img className="brand-mark brand-mark--light" src="/images/Isotipo.png" alt="" />
-          <img className="brand-mark brand-mark--dark" src="/images/logo-kavan.png" alt="" />
+          <span className="brand-wordmark" aria-hidden="true" />
         </Link>
 
         <div className="site-header-right">
