@@ -132,7 +132,7 @@ export function PackShowcase({
       <div className="pack-showcase-inner container">
         <div className="pack-showcase-closing">
           {to && (
-            <Link to={to} onClick={lockNav} className="pack-showcase-link">
+            <Link to={to} onClick={lockNav} className="btn btn-outline pack-showcase-link">
               {linkLabel}
             </Link>
           )}

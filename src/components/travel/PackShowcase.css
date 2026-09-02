@@ -29,7 +29,7 @@
 }
 
 .pack-showcase-rail {
-  padding-inline: clamp(1.25rem, 6vw, 4rem);
+  padding-inline: 0.75rem;
 }
 
 .pack-showcase-viewport {
@@ -72,7 +72,7 @@
 
 @media (min-width: 1024px) {
   .pack-showcase-rail {
-    padding-inline: clamp(4rem, 12vw, 10rem);
+    padding-inline: 1.5rem;
   }
 }
 
@@ -147,24 +147,26 @@
 
 .pack-showcase-link {
   align-self: center;
-  padding: 0;
-  border: 0;
-  background: none;
+  border-color: var(--accent-2);
+  border-radius: 999px;
+  color: var(--accent-2);
   font-family: "Marcellus", var(--font-display);
-  font-size: var(--text-display);
+  font-size: calc(var(--text-label) + 0.125rem);
   font-weight: 400;
-  line-height: var(--leading-title);
   letter-spacing: 0;
+  line-height: 1;
   text-transform: none;
-  color: var(--ink);
+  padding: 0.625rem 1.5rem;
 }
 
 .pack-showcase-link:hover {
-  color: var(--ink);
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: var(--accent-ink);
 }
 
 .pack-showcase-link:focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--accent-2);
   outline-offset: 0.25rem;
 }
 
