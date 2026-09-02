@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, type CSSProperties, type ReactNode } from 'rea
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { FotoGaleria } from '../../data/galeria'
+import { publishAdvisorVisibility } from '../../lib/advisorVisibility'
 import './BurstGallery.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -46,12 +47,19 @@ export function BurstGallery({
         const splitEl = root.querySelector<HTMLElement>('.burst-gallery__split')
         const mitadesFinales = gsap.utils.toArray<HTMLElement>('.burst-gallery__split-pane')
         let mostrandoContinuacion = false
+        let mostrandoAsesor = false
 
         const actualizarCabecera = (mostrar: boolean) => {
           if (mostrandoContinuacion === mostrar) return
           mostrandoContinuacion = mostrar
           root.classList.toggle('burst-gallery--paper', mostrar)
           window.dispatchEvent(new Event('scroll'))
+        }
+
+        const actualizarAsesor = (mostrar: boolean) => {
+          if (mostrandoAsesor === mostrar) return
+          mostrandoAsesor = mostrar
+          publishAdvisorVisibility(mostrar)
         }
 
         const inicioRafaga = 0.14
@@ -70,7 +78,10 @@ export function BurstGallery({
             end: 'bottom bottom',
             scrub: 0.4,
             invalidateOnRefresh: true,
-            onUpdate: ({ progress }) => actualizarCabecera(progress >= 0.82),
+            onUpdate: ({ progress }) => {
+              actualizarCabecera(progress >= 0.82)
+              actualizarAsesor(progress >= 0.839)
+            },
           },
         })
 
@@ -125,8 +136,26 @@ export function BurstGallery({
 
       return () => {
         root.classList.remove('burst-gallery--paper')
+        publishAdvisorVisibility(false)
         window.dispatchEvent(new Event('scroll'))
         ctx.revert()
+      }
+    })
+
+    mediaQuery.add('(prefers-reduced-motion: reduce)', () => {
+      const continuationEl = root.querySelector<HTMLElement>('.burst-gallery__continuation')
+      if (!continuationEl) return
+
+      const observer = new IntersectionObserver(
+        ([entry]) => publishAdvisorVisibility(entry.isIntersecting),
+        { threshold: 0.15 },
+      )
+
+      observer.observe(continuationEl)
+
+      return () => {
+        observer.disconnect()
+        publishAdvisorVisibility(false)
       }
     })
 
