@@ -18,7 +18,7 @@ export function DiscoverMorocco({ title = 'Marruecos te ofrece' }: Props) {
   return (
     <section className="discover-morocco" aria-labelledby="discover-morocco-title">
       <div className="container discover-morocco-heading">
-        <h2 id="discover-morocco-title" className="label discover-morocco-title">
+        <h2 id="discover-morocco-title" className="discover-morocco-title">
           {title}
         </h2>
       </div>
@@ -34,9 +34,10 @@ export function DiscoverMorocco({ title = 'Marruecos te ofrece' }: Props) {
               >
                 <div className="discover-card-media">
                   <Pic src={city.heroImageUrl} alt={city.name} />
-                  <span className="discover-card-reveal" aria-hidden="true">
-                    {city.name}
-                  </span>
+                  <div className="discover-card-overlay" aria-hidden="true">
+                    <h3>{city.name}</h3>
+                    <p>{city.shortDescription}</p>
+                  </div>
                 </div>
                 <div className="discover-card-body">
                   <h3>{city.name}</h3>
