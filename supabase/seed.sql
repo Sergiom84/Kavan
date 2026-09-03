@@ -119,7 +119,7 @@ insert into public.packs (client_id, slug, title, subtitle, description, days, n
    'De Marrakech al desierto cruzando el Alto Atlas y el valle del Draa: Zagora, palmerales infinitos y noche en jaima a pie de duna, con amanecer en dromedario y regreso por la ruta de las mil kasbahs.',
    5, 4, 6, 495, 495, 330, 11, false, null, 'art:dunes:pack-dunas-hero',
    'Marrakech, Zagora, dunas', 'published'),
-  ('pk-zagora-merzouga', 'marrakech-zagora-merzouga-ouarzazate', 'Marrakech, Zagora, Merzouga, Ouarzazate', 'Siete días de valles, dunas y kasbahs, con dos noches de desierto',
+  ('pk-zagora-merzouga', 'marrakech-zagora-merzouga-ouarzazate', 'Marrakech, Zagora, Merzouga, Ouarzazate', 'Siete días de valles, dunas y kasbahs',
    'El circuito completo del sur por el valle del Draa: Zagora, el Tafilalet y dos noches en el gran mar de dunas del Erg Chebbi, con regreso por las gargantas del Todra, el valle del Dades y Ouarzazate.',
    7, 6, 6, 715, 715, 475, 11, false, null, 'art:kasbah:pack-kasbahs-hero',
    'Marrakech, Zagora, Merzouga, Ouarzazate', 'published'),

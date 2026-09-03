@@ -356,7 +356,7 @@ export const packs: Pack[] = [
     id: 'pk-zagora-merzouga',
     slug: 'marrakech-zagora-merzouga-ouarzazate',
     title: 'Marrakech, Zagora, Merzouga, Ouarzazate',
-    subtitle: 'Siete días de valles, dunas y kasbahs, con dos noches de desierto',
+    subtitle: 'Siete días de valles, dunas y kasbahs',
     description:
       'El circuito completo del sur por el valle del Draa: Zagora, el Tafilalet y dos noches en el gran mar de dunas del Erg Chebbi, con regreso por las gargantas del Todra, el valle del Dades y Ouarzazate.',
     days: 7,

@@ -19,7 +19,14 @@
   width: 100%;
 }
 
+/* El título vive junto al carril, no en el gap del flex: así el colapso por
+   scroll (PackShowcase.tsx) puede cerrar exactamente el hueco que abre. */
+.pack-showcase-sticky .pack-showcase-inner {
+  gap: 0;
+}
+
 .pack-showcase-title {
+  margin: 0 0 var(--space-5);
   font-family: "Marcellus", var(--font-display);
   font-size: var(--text-display);
   font-weight: 400;
@@ -29,7 +36,7 @@
 }
 
 .pack-showcase-rail {
-  padding-inline: 0.75rem;
+  padding-inline: 1.5rem;
 }
 
 .pack-showcase-viewport {
@@ -72,13 +79,13 @@
 
 @media (min-width: 1024px) {
   .pack-showcase-rail {
-    padding-inline: 1.5rem;
+    padding-inline: 4rem;
   }
 }
 
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
   .pack-showcase-scene.is-pinned {
-    height: calc(100svh + var(--pasos, 0) * 70svh);
+    height: calc(100svh + var(--pasos, 0) * 140svh);
   }
 
   .pack-showcase-scene.is-pinned .pack-showcase-sticky {
@@ -103,7 +110,7 @@
 }
 
 .pack-showcase .pack-card--home .pack-card-media {
-  aspect-ratio: 8 / 5;
+  aspect-ratio: 4 / 5;
   border-radius: 0;
 }
 

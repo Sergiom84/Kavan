@@ -34,6 +34,7 @@ export function PackShowcase({
   const sceneRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
 
   useLayoutEffect(() => {
     const scene = sceneRef.current
@@ -52,6 +53,31 @@ export function PackShowcase({
       scene.style.setProperty('--pasos', String(pasos))
       scene.classList.add('is-pinned')
       viewport.classList.add('is-pinned')
+
+      /* El título vive pegado al carril, pero en cuanto el pin arranca cede
+         su alto a las tarjetas: se colapsa en los primeros px de scroll para
+         que la foto y el texto de abajo no se corten en pantallas bajas. El
+         arrastre horizontal (más abajo) espera a que termine este colapso:
+         si arrancan a la vez, la primera tarjeta ya se está yendo mientras
+         el título todavía se ve, y da la sensación de que "no da tiempo". */
+      const TITLE_COLLAPSE_PX = 160
+      const titleEl = titleRef.current
+      let titleTween: gsap.core.Tween | null = null
+      if (titleEl) {
+        gsap.set(titleEl, { height: titleEl.offsetHeight, overflow: 'hidden' })
+        titleTween = gsap.to(titleEl, {
+          height: 0,
+          marginBottom: 0,
+          opacity: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: scene,
+            start: 'top top',
+            end: `top+=${TITLE_COLLAPSE_PX} top`,
+            scrub: true,
+          },
+        })
+      }
 
       const sizeItems = () => {
         const width = viewport.clientWidth / VISIBLES
@@ -74,17 +100,15 @@ export function PackShowcase({
         ease: 'none',
         scrollTrigger: {
           trigger: scene,
-          start: 'top top',
+          start: `top+=${TITLE_COLLAPSE_PX} top`,
           end: 'bottom bottom',
           scrub: true,
           invalidateOnRefresh: true,
           onRefreshInit: sizeItems,
-          snap: {
-            snapTo: 1 / pasos,
-            duration: { min: 0.12, max: 0.28 },
-            delay: 0.05,
-            ease: 'power1.inOut',
-          },
+          /* Sin snap a propósito: con snap, un solo golpe de rueda hacía
+             saltar el scroll entero hasta el siguiente tercio (confirmado
+             viendo scrollY teletransportarse ~900px en un frame). Sin snap
+             el carril avanza proporcional a lo que se scrollea de verdad. */
         },
       })
 
@@ -97,6 +121,9 @@ export function PackShowcase({
           item.style.removeProperty('flex')
           item.style.removeProperty('width')
         })
+        titleTween?.scrollTrigger?.kill()
+        titleTween?.kill()
+        if (titleEl) gsap.set(titleEl, { clearProps: 'height,overflow,marginBottom,opacity' })
       }
     })
 
@@ -110,9 +137,11 @@ export function PackShowcase({
       <div ref={sceneRef} className="pack-showcase-scene">
         <div className="pack-showcase-sticky">
           <div className="pack-showcase-inner container">
-            <Reveal>
-              <h2 className="pack-showcase-title">{title}</h2>
-            </Reveal>
+            {title && (
+              <Reveal>
+                <h2 ref={titleRef} className="pack-showcase-title">{title}</h2>
+              </Reveal>
+            )}
 
             <div className="pack-showcase-rail">
               <div ref={viewportRef} className="pack-showcase-viewport">
