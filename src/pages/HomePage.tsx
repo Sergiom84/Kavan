@@ -8,8 +8,12 @@ import { BurstGallery } from '../components/fx/BurstGallery'
 import { HERO_RAFAGA } from '../data/galeria'
 import './HomePage.css'
 
+/** Portada del carrusel destacado: los 6 recorridos de referencia, sin variantes de noches. */
+const EXCLUDED_FROM_HOME_SLUG = 'marrakech-ouarzazate-dades-merzouga-1-noche'
+
 export function HomePage() {
   const { data: packs } = usePacks()
+  const homePacks = packs?.filter((p) => p.slug !== EXCLUDED_FROM_HOME_SLUG)
 
   return (
     <>
@@ -33,7 +37,7 @@ export function HomePage() {
         </h1>
       </BurstGallery>
       <MoroccoIntroduction />
-      <PackShowcase packs={packs ?? []} />
+      <PackShowcase packs={homePacks ?? []} />
       <DiscoverMorocco />
       <MoroccoMap />
     </>

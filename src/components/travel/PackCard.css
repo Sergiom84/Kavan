@@ -248,7 +248,7 @@
   color: var(--on-photo);
   font-size: var(--text-2);
   line-height: 1.05;
-  text-transform: none;
+  text-transform: uppercase;
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.52);
 }
 
@@ -287,13 +287,8 @@
 .pack-card-home-meta .pack-card-home-zones {
   grid-column: 1 / -1;
   margin-top: var(--space-3);
-  padding: var(--space-3) 0 0;
-  border-top: 1px solid var(--line);
-  border-left: 0;
-}
-
-.pack-card-home-meta .label {
-  color: var(--ink-faint);
+  padding: 0;
+  border: 0;
 }
 
 .pack-card-home-meta strong {
@@ -302,6 +297,22 @@
   font-weight: var(--weight-label);
   line-height: var(--leading-text);
   color: var(--ink);
+}
+
+.pack-card-home-duration strong {
+  text-transform: uppercase;
+}
+
+.pack-card-home-price strong {
+  font-size: calc(var(--text-label) + 0.25rem);
+}
+
+.pack-card-home-zones strong {
+  display: inline-block;
+  align-self: flex-start;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--line);
+  text-transform: uppercase;
 }
 
 .pack-card-cities {

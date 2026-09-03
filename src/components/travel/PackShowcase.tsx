@@ -138,10 +138,60 @@ export function PackShowcase({
           )}
 
           <div className="pack-showcase-discover">
-            <h3>Descubre Marruecos.</h3>
+            <h3>Descubre Marruecos</h3>
             <p>
-              De las medinas que despiertan al amanecer a las dunas que cambian con la luz,
-              cada ruta abre una forma distinta de viajar Marruecos.
+              Hacer <strong>turismo en Marruecos</strong> es adentrarse en un destino
+              lleno de contrastes. Un país único donde las antiguas medinas, mezquitas
+              y zocos tradicionales conviven en armonía con impresionantes paisajes
+              naturales.
+            </p>
+            <p>
+              Desde los mágicos desiertos y los fértiles oasis del Gran Sur, hasta las
+              playas del Atlántico y las cumbres nevadas del Atlas, Marruecos ofrece
+              una diversidad inolvidable.
+            </p>
+            <p className="pack-showcase-discover-subhead">
+              <strong>Los imprescindibles de nuestras rutas por Marruecos:</strong>
+            </p>
+            <ul>
+              <li>
+                <strong>Marrakech, la Ciudad Imperial:</strong> Explora su fascinante
+                medina, recorre los colores de sus zocos y vive el ambiente único de la
+                plaza Jemaa el-Fna junto a la majestuosa Mezquita Koutoubia.
+              </li>
+              <li>
+                <strong>Essaouira y la Costa Atlántica:</strong> Descubre la joya
+                bohemia del Atlántico. Pasea por su medina blanca amurallada, contempla
+                su puerto pesquero y disfruta del ambiente marino.
+              </li>
+              <li>
+                <strong>Ruta de las Kasbahs y el Gran Sur:</strong> Recorre antiguas
+                fortalezas bereberes de arcilla y piedra, explora palmerales infinitos
+                y vive la magia inolvidable de las dunas del Sáhara.
+              </li>
+            </ul>
+            <p>
+              Marruecos es, sin duda, <strong>el más cercano de los grandes viajes</strong>.
+            </p>
+            <p>
+              Marruecos es una fascinante combinación de modernidad y tradición. Un
+              país de contrastes donde explorar medinas históricas, vibrantes zocos y
+              grandiosas fortalezas. Su variada geografía abarca desde los mágicos
+              desiertos del Sáhara y los oasis del Gran Sur, hasta la brisa marina del
+              Atlántico y majestuosas cordilleras montañosas.
+            </p>
+            <p>
+              Durante tu <strong>viaje a Marruecos</strong>, podrás sumergirte en el
+              encanto imperial de <strong>Marrakech</strong> y admirar su patrimonio
+              histórico. En la costa, te espera la encantadora{' '}
+              <strong>Essaouira</strong>, con sus murallas costeras y su ambiente
+              relajado. Adentrándote hacia el interior, recorrerás la mítica{' '}
+              <strong>Ruta de las Kasbahs</strong>, repleta de fortalezas bereberes
+              tradicionales y palmerales que se recortan sobre las dunas del desierto.
+            </p>
+            <p>
+              Déjate sorprender por la hospitalidad local y convierte tu próxima
+              escapada a Marruecos en un viaje memorable.
             </p>
           </div>
         </div>

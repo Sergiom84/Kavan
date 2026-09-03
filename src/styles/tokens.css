@@ -67,6 +67,7 @@
   --accent-2: var(--c-brand-500); /* terracota profunda — hover */
   --accent-ink: #f8f3ea;    /* texto sobre acento */
   --accent-sun: #e2a13a;    /* sol del desierto — acento puntual */
+  --logo-gold: #a57430;     /* dorado tierra del logo (public/images/logo-kavan.png) */
 
   /* Blanco roto: fondo del bloque de la frase en partículas. Un paso por
      encima del papel cálido, para separar el bloque sin línea ni caja. */

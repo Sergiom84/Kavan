@@ -47,6 +47,15 @@
   color: var(--ink-soft);
 }
 
+.home-quick-links__cta {
+  font-family: var(--jetbrains-mono);
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--logo-gold);
+}
+
 .home-quick-links__card:hover {
   opacity: 0.72;
 }

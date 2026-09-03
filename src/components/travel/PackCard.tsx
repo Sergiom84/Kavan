@@ -23,6 +23,9 @@ export function PackCard({ pack, showCities = true, overlay = false, variant = '
     .map((s) => cities.find((c) => c.slug === s)?.name)
     .filter(Boolean)
     .join(' · ')
+  /** El recorrido comercial manda; las ciudades del sistema son el respaldo. */
+  const routeText = pack.routeLabel ?? cityNames
+  const originCity = cities.find((c) => c.slug === pack.citySlugs[0])?.name ?? ''
 
   return (
     <Link
@@ -37,8 +40,10 @@ export function PackCard({ pack, showCities = true, overlay = false, variant = '
           <Pic src={pack.heroImageUrl} alt={pack.title} />
         </div>
 
+        {/* Sobre la foto va la ciudad de salida, no el recorrido entero: con
+            rutas de cuatro y cinco paradas el nombre ocupaba dos líneas. */}
         {isHome ? (
-          <h3 className="pack-card-home-tag">{pack.title}</h3>
+          <h3 className="pack-card-home-tag">{originCity}</h3>
         ) : (
           /* Precio en reposo. Con panel, queda cubierto al subir éste, que lo
              recoge arriba: el precio nunca desaparece. */
@@ -63,7 +68,7 @@ export function PackCard({ pack, showCities = true, overlay = false, variant = '
             {showCities && (
               <p className="pack-card-panel-cities">
                 <span className="label">Visitando</span>
-                <strong>{cityNames}</strong>
+                <strong>{routeText}</strong>
               </p>
             )}
           </div>
@@ -81,18 +86,18 @@ export function PackCard({ pack, showCities = true, overlay = false, variant = '
           <>
             <p className="pack-card-home-description">{pack.subtitle}</p>
             <ul className="pack-card-home-meta" aria-label={`Datos de ${pack.title}`}>
-              <li>
-                <span className="label">Duración</span>
+              <li className="pack-card-home-duration">
+                <span className="sr-only">Duración</span>
                 <strong>{pack.days} días · {pack.nights} noches</strong>
               </li>
-              <li>
-                <span className="label">Precio demo</span>
+              <li className="pack-card-home-price">
+                <span className="sr-only">Precio demo</span>
                 <strong>Desde {formatPrice(pack.priceFrom)}</strong>
               </li>
               {showCities && (
                 <li className="pack-card-home-zones">
-                  <span className="label">Zonas</span>
-                  <strong>{cityNames}</strong>
+                  <span className="sr-only">Recorrido</span>
+                  <strong>{routeText}</strong>
                 </li>
               )}
             </ul>
@@ -106,7 +111,7 @@ export function PackCard({ pack, showCities = true, overlay = false, variant = '
             {showCities && (
               <p className="pack-card-cities">
                 <span className="label">Visitando</span>
-                <strong>{cityNames}</strong>
+                <strong>{routeText}</strong>
               </p>
             )}
           </>

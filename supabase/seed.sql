@@ -102,22 +102,35 @@ on conflict (city_id, name) do nothing;
 -- -----------------------------------------------------------------------------
 -- Packs
 -- -----------------------------------------------------------------------------
-insert into public.packs (client_id, slug, title, subtitle, description, days, nights, max_pax, price_from, price_adult, price_child, child_age_max, featured, featured_rank, hero_image_url, status) values
-  ('pk-dunas', 'dunas-de-merzouga', 'Dunas de Merzouga', 'El corazón del Sahara en cinco días',
-   'De Marrakech al gran mar de dunas del Erg Chebbi cruzando el Atlas, el valle del Draa y las kasbahs del sur. Noche en jaima a pie de duna, amanecer en dromedario y regreso por la ruta de las mil kasbahs.',
-   5, 4, 6, 495, 495, 330, 11, true, 1, 'art:dunes:pack-dunas-hero', 'published'),
-  ('pk-kasbahs', 'ruta-de-las-kasbahs', 'Ruta de las Kasbahs', 'Siete días entre fortalezas de adobe',
-   'Un recorrido completo por el sur marroquí: Marrakech, el Atlas, Ait Ben Haddou, las gargantas del Todra y el desierto de Merzouga. La ruta clásica de las mil kasbahs con tiempo para vivirla sin prisa.',
-   7, 6, 6, 745, 745, 495, 11, true, 2, 'art:kasbah:pack-kasbahs-hero', 'published'),
-  ('pk-agafay', 'marrakech-y-agafay', 'Marrakech y Agafay', 'Ciudad roja y desierto de piedra',
-   'La escapada perfecta: dos días para vivir Marrakech a fondo y una noche en el desierto de Agafay, con cena bajo las estrellas y el Atlas nevado en el horizonte. Ideal como primer contacto con Marruecos.',
-   4, 3, 6, 385, 385, 260, 11, true, 3, 'art:stone:pack-agafay-hero', 'published'),
-  ('pk-gran-tour', 'gran-tour-del-sur', 'Gran Tour del Sur', 'Ocho días, todo el sur marroquí',
-   'El viaje completo: Marrakech, Essaouira y el Atlántico, el Atlas, las kasbahs, las gargantas y dos noches en el desierto de Merzouga. Para quien quiere verlo todo en un solo viaje, con tiempo para disfrutarlo.',
-   8, 7, 6, 890, 890, 595, 11, false, null, 'art:arch:pack-gran-hero', 'published'),
-  ('pk-essaouira', 'essaouira-y-la-costa', 'Essaouira y la Costa', 'Cuatro días de brisa atlántica',
-   'Marrakech y la costa atlántica en una escapada tranquila: la medina blanca y azul de Essaouira, el puerto pesquero, playas infinitas y los argánales del camino. Un viaje para bajar el ritmo.',
-   4, 3, 6, 355, 355, 240, 11, false, null, 'art:coast:pack-essa-hero', 'published')
+insert into public.packs (client_id, slug, title, subtitle, description, days, nights, max_pax, price_from, price_adult, price_child, child_age_max, featured, featured_rank, hero_image_url, route_label, status) values
+  ('pk-marrakech', 'marrakech', 'Marrakech', 'La ciudad roja, cuatro días',
+   'Marrakech a fondo: la medina y sus zocos, los palacios saadíes y de la Bahía, los jardines de Majorelle y el atardecer en Jemaa el-Fna. Un viaje corto para entender de dónde viene todo lo demás.',
+   4, 3, 6, 355, 355, 240, 11, true, 1, 'art:medina:marrakech-hero',
+   'Marrakech', 'published'),
+  ('pk-ourika-agafay', 'marrakech-ourika-agafay', 'Marrakech, Ourika, Agafay, Marrakech', 'Valle del Ourika y desierto de piedra, con opción Essaouira',
+   'Marrakech como base, el valle del Ourika a los pies del Atlas y una noche en el desierto de piedra del Agafay, con cena bajo las estrellas. Se puede sustituir el Agafay por un día completo en Essaouira.',
+   5, 4, 6, 445, 445, 300, 11, true, 2, 'art:stone:pack-agafay-hero',
+   'Marrakech, Ourika, Agafay, Marrakech - (Essaouira)', 'published'),
+  ('pk-essaouira', 'marrakech-essaouira', 'Marrakech, Essaouira', 'La ciudad roja y la brisa atlántica',
+   'Marrakech y la costa atlántica en un solo viaje: la medina blanca y azul de Essaouira, el puerto pesquero, las murallas portuguesas y los argánales del camino. Un recorrido para bajar el ritmo.',
+   5, 4, 6, 425, 425, 285, 11, true, 3, 'art:coast:pack-essa-hero',
+   'Marrakech, Essaouira', 'published'),
+  ('pk-dunas', 'marrakech-zagora-dunas', 'Marrakech, Zagora, dunas', 'El valle del Draa hasta el mar de arena',
+   'De Marrakech al desierto cruzando el Alto Atlas y el valle del Draa: Zagora, palmerales infinitos y noche en jaima a pie de duna, con amanecer en dromedario y regreso por la ruta de las mil kasbahs.',
+   5, 4, 6, 495, 495, 330, 11, false, null, 'art:dunes:pack-dunas-hero',
+   'Marrakech, Zagora, dunas', 'published'),
+  ('pk-zagora-merzouga', 'marrakech-zagora-merzouga-ouarzazate', 'Marrakech, Zagora, Merzouga, Ouarzazate', 'Siete días de valles, dunas y kasbahs, con dos noches de desierto',
+   'El circuito completo del sur por el valle del Draa: Zagora, el Tafilalet y dos noches en el gran mar de dunas del Erg Chebbi, con regreso por las gargantas del Todra, el valle del Dades y Ouarzazate.',
+   7, 6, 6, 715, 715, 475, 11, false, null, 'art:kasbah:pack-kasbahs-hero',
+   'Marrakech, Zagora, Merzouga, Ouarzazate', 'published'),
+  ('pk-dades-merzouga', 'marrakech-ouarzazate-dades-merzouga', 'Marrakech, Ouarzazate, valle del Dades, Merzouga, Ouarzazate (2 noches de desierto)', 'Siete días por la ruta de las mil kasbahs',
+   'La ruta clásica del sur con tiempo para vivirla: el Atlas y Ait Ben Haddou, el valle del Dades y las gargantas del Todra, dos noches en el desierto de Merzouga y regreso por Skoura y Ouarzazate.',
+   7, 6, 6, 745, 745, 495, 11, false, null, 'art:kasbah:pack-gran-3',
+   'Marrakech, Ouarzazate - Valle del Dades, Merzouga, Ouarzazate', 'published'),
+  ('pk-dades-merzouga-1n', 'marrakech-ouarzazate-dades-merzouga-1-noche', 'Marrakech, Ouarzazate, valle del Dades, Merzouga, Ouarzazate (1 noche de desierto)', 'Seis días por la ruta de las mil kasbahs',
+   'La ruta clásica del sur en formato corto: el Atlas y Ait Ben Haddou, el valle del Dades y las gargantas del Todra, una noche en el desierto de Merzouga y regreso por Skoura y Ouarzazate.',
+   6, 5, 6, 665, 665, 445, 11, false, null, 'art:dunes:pack-gran-2',
+   'Marrakech, Ouarzazate - valle del Dades, Merzouga, Ouarzazate (1 noche desierto)', 'published')
 on conflict (slug) do nothing;
 
 -- Galerias de packs
@@ -125,11 +138,13 @@ insert into public.pack_images (pack_id, image_url, sort_order)
 select p.id, v.image_url, v.sort_order
 from public.packs p
 join (values
-  ('dunas-de-merzouga',    'art:dunes:pack-dunas-1', 0), ('dunas-de-merzouga',    'art:camel:pack-dunas-2', 1), ('dunas-de-merzouga',    'art:jaima:pack-dunas-3', 2), ('dunas-de-merzouga',    'art:kasbah:pack-dunas-4', 3),
-  ('ruta-de-las-kasbahs',  'art:kasbah:pack-kasbahs-1', 0), ('ruta-de-las-kasbahs',  'art:arch:pack-kasbahs-2', 1), ('ruta-de-las-kasbahs',  'art:dunes:pack-kasbahs-3', 2), ('ruta-de-las-kasbahs',  'art:medina:pack-kasbahs-4', 3),
-  ('marrakech-y-agafay',   'art:medina:pack-agafay-1', 0), ('marrakech-y-agafay',   'art:stone:pack-agafay-2', 1), ('marrakech-y-agafay',   'art:jaima:pack-agafay-3', 2), ('marrakech-y-agafay',   'art:stars:pack-agafay-4', 3),
-  ('gran-tour-del-sur',    'art:coast:pack-gran-1', 0), ('gran-tour-del-sur',    'art:dunes:pack-gran-2', 1), ('gran-tour-del-sur',    'art:kasbah:pack-gran-3', 2), ('gran-tour-del-sur',    'art:medina:pack-gran-4', 3),
-  ('essaouira-y-la-costa', 'art:coast:pack-essa-1', 0), ('essaouira-y-la-costa', 'art:medina:pack-essa-2', 1), ('essaouira-y-la-costa', 'art:coast:pack-essa-3', 2), ('essaouira-y-la-costa', 'art:arch:pack-essa-4', 3)
+  ('marrakech',                            'art:arch:marrakech-2', 0), ('marrakech',                            'art:oasis:marrakech-3', 1), ('marrakech',                            'art:medina:marrakech-4', 2), ('marrakech',                            'art:arch:marrakech-5', 3),
+  ('marrakech-ourika-agafay',              'art:medina:pack-agafay-1', 0), ('marrakech-ourika-agafay',              'art:stone:pack-agafay-2', 1), ('marrakech-ourika-agafay',              'art:jaima:pack-agafay-3', 2), ('marrakech-ourika-agafay',              'art:stars:pack-agafay-4', 3),
+  ('marrakech-essaouira',                  'art:coast:pack-essa-1', 0), ('marrakech-essaouira',                  'art:medina:pack-essa-2', 1), ('marrakech-essaouira',                  'art:coast:pack-essa-3', 2), ('marrakech-essaouira',                  'art:arch:pack-essa-4', 3),
+  ('marrakech-zagora-dunas',               'art:dunes:pack-dunas-1', 0), ('marrakech-zagora-dunas',               'art:camel:pack-dunas-2', 1), ('marrakech-zagora-dunas',               'art:jaima:pack-dunas-3', 2), ('marrakech-zagora-dunas',               'art:kasbah:pack-dunas-4', 3),
+  ('marrakech-zagora-merzouga-ouarzazate', 'art:kasbah:pack-kasbahs-1', 0), ('marrakech-zagora-merzouga-ouarzazate', 'art:arch:pack-kasbahs-2', 1), ('marrakech-zagora-merzouga-ouarzazate', 'art:dunes:pack-kasbahs-3', 2), ('marrakech-zagora-merzouga-ouarzazate', 'art:medina:pack-kasbahs-4', 3),
+  ('marrakech-ouarzazate-dades-merzouga',  'art:coast:pack-gran-1', 0), ('marrakech-ouarzazate-dades-merzouga',  'art:dunes:pack-gran-2', 1), ('marrakech-ouarzazate-dades-merzouga',  'art:kasbah:pack-gran-3', 2), ('marrakech-ouarzazate-dades-merzouga',  'art:medina:pack-gran-4', 3),
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 'art:coast:pack-gran-1', 0), ('marrakech-ouarzazate-dades-merzouga-1-noche', 'art:dunes:pack-gran-2', 1), ('marrakech-ouarzazate-dades-merzouga-1-noche', 'art:kasbah:pack-gran-3', 2), ('marrakech-ouarzazate-dades-merzouga-1-noche', 'art:medina:pack-gran-4', 3)
 ) as v(pack_slug, image_url, sort_order) on v.pack_slug = p.slug
 on conflict (pack_id, sort_order) do nothing;
 
@@ -138,11 +153,13 @@ insert into public.pack_cities (pack_id, city_id, sort_order)
 select p.id, c.id, v.sort_order
 from public.packs p
 join (values
-  ('dunas-de-merzouga',    'marrakech', 0), ('dunas-de-merzouga',    'ouarzazate', 1), ('dunas-de-merzouga',    'merzouga', 2), ('dunas-de-merzouga',    'erfoud', 3),
-  ('ruta-de-las-kasbahs',  'marrakech', 0), ('ruta-de-las-kasbahs',  'ouarzazate', 1), ('ruta-de-las-kasbahs',  'erfoud', 2), ('ruta-de-las-kasbahs',  'merzouga', 3),
-  ('marrakech-y-agafay',   'marrakech', 0), ('marrakech-y-agafay',   'agafay', 1),
-  ('gran-tour-del-sur',    'marrakech', 0), ('gran-tour-del-sur',    'essaouira', 1), ('gran-tour-del-sur',    'ouarzazate', 2), ('gran-tour-del-sur',    'erfoud', 3), ('gran-tour-del-sur',    'merzouga', 4),
-  ('essaouira-y-la-costa', 'marrakech', 0), ('essaouira-y-la-costa', 'essaouira', 1)
+  ('marrakech',                            'marrakech', 0),
+  ('marrakech-ourika-agafay',              'marrakech', 0), ('marrakech-ourika-agafay',              'agafay', 1),
+  ('marrakech-essaouira',                  'marrakech', 0), ('marrakech-essaouira',                  'essaouira', 1),
+  ('marrakech-zagora-dunas',               'marrakech', 0), ('marrakech-zagora-dunas',               'ouarzazate', 1), ('marrakech-zagora-dunas',               'merzouga', 2), ('marrakech-zagora-dunas',               'erfoud', 3),
+  ('marrakech-zagora-merzouga-ouarzazate', 'marrakech', 0), ('marrakech-zagora-merzouga-ouarzazate', 'ouarzazate', 1), ('marrakech-zagora-merzouga-ouarzazate', 'merzouga', 2), ('marrakech-zagora-merzouga-ouarzazate', 'erfoud', 3),
+  ('marrakech-ouarzazate-dades-merzouga',  'marrakech', 0), ('marrakech-ouarzazate-dades-merzouga',  'ouarzazate', 1), ('marrakech-ouarzazate-dades-merzouga',  'merzouga', 2), ('marrakech-ouarzazate-dades-merzouga',  'erfoud', 3),
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 'marrakech', 0), ('marrakech-ouarzazate-dades-merzouga-1-noche', 'ouarzazate', 1), ('marrakech-ouarzazate-dades-merzouga-1-noche', 'merzouga', 2), ('marrakech-ouarzazate-dades-merzouga-1-noche', 'erfoud', 3)
 ) as v(pack_slug, city_slug, sort_order) on v.pack_slug = p.slug
 join public.cities c on c.slug = v.city_slug
 on conflict (pack_id, city_id) do nothing;
@@ -152,44 +169,57 @@ insert into public.pack_itinerary_days (pack_id, day_number, title, description,
 select p.id, v.day_number, v.title, v.description, v.image_url, c.id
 from public.packs p
 join (values
-  -- Dunas de Merzouga
-  ('dunas-de-merzouga', 1, 'Marrakech — Alto Atlas — Ait Ben Haddou', 'Salida por el puerto de Tizi n''Tichka, visita del ksar de Ait Ben Haddou y noche en Ouarzazate.', 'art:kasbah:d1-dunas', 'ouarzazate'),
-  ('dunas-de-merzouga', 2, 'Valle del Draa — Zagora — Erfoud', 'Palmerales infinitos del Draa, parada en Agdz y llegada al oasis del Tafilalet.', 'art:oasis:d2-dunas', 'erfoud'),
-  ('dunas-de-merzouga', 3, 'Erfoud — Merzouga — Noche en jaima', 'Entrada al Erg Chebbi en 4x4, paseo en dromedario al atardecer y cena bajo las estrellas.', 'art:dunes:d3-dunas', 'merzouga'),
-  ('dunas-de-merzouga', 4, 'Amanecer en las dunas — Gargantas del Todra', 'Amanecer sobre la arena, ruta hacia las gargantas del Todra y noche en el valle del Dades.', 'art:arch:d4-dunas', 'ouarzazate'),
-  ('dunas-de-merzouga', 5, 'Ruta de las mil kasbahs — Marrakech', 'Regreso por Skoura y el valle de las rosas. Llegada a Marrakech al atardecer.', 'art:medina:d5-dunas', 'marrakech'),
-  -- Ruta de las Kasbahs
-  ('ruta-de-las-kasbahs', 1, 'Llegada a Marrakech', 'Recepción en el aeropuerto, traslado al riad y primer paseo por la medina.', 'art:medina:d1-kasbahs', 'marrakech'),
-  ('ruta-de-las-kasbahs', 2, 'Marrakech monumental', 'Palacio de la Bahía, tumbas saadíes, jardín Majorelle y zocos con guía local.', 'art:arch:d2-kasbahs', 'marrakech'),
-  ('ruta-de-las-kasbahs', 3, 'Atlas — Ait Ben Haddou — Ouarzazate', 'Cruzamos el Tizi n''Tichka y dormimos frente a la kasbah más famosa del sur.', 'art:kasbah:d3-kasbahs', 'ouarzazate'),
-  ('ruta-de-las-kasbahs', 4, 'Skoura — Valle de las Rosas — Dades', 'El palmeral de Skoura y las gargantas del Dades, noche en el valle.', 'art:oasis:d4-kasbahs', 'ouarzazate'),
-  ('ruta-de-las-kasbahs', 5, 'Todra — Erfoud — Merzouga', 'Paseo por las gargantas del Todra y llegada al desierto. Noche en jaima.', 'art:dunes:d5-kasbahs', 'merzouga'),
-  ('ruta-de-las-kasbahs', 6, 'Merzouga — Erfoud', 'Amanecer en las dunas, visita de Khamlia y de los talleres de fósiles.', 'art:camel:d6-kasbahs', 'erfoud'),
-  ('ruta-de-las-kasbahs', 7, 'Regreso a Marrakech', 'Última etapa por el valle del Draa con llegada a Marrakech por la tarde.', 'art:medina:d7-kasbahs', 'marrakech'),
-  -- Marrakech y Agafay
-  ('marrakech-y-agafay', 1, 'Llegada a Marrakech', 'Traslado al riad y atardecer en Jemaa el-Fna.', 'art:medina:d1-agafay', 'marrakech'),
-  ('marrakech-y-agafay', 2, 'Marrakech con guía local', 'Palacios, zocos y jardines. Tarde libre y cena en la medina.', 'art:arch:d2-agafay', 'marrakech'),
-  ('marrakech-y-agafay', 3, 'Desierto de Agafay', 'Salida hacia el desierto de piedra, tarde de calma y cena bajo las estrellas en el campamento.', 'art:stone:d3-agafay', 'agafay'),
-  ('marrakech-y-agafay', 4, 'Amanecer en Agafay — Regreso', 'Desayuno con vistas al Atlas y traslado al aeropuerto.', 'art:stars:d4-agafay', 'marrakech'),
-  -- Gran Tour del Sur
-  ('gran-tour-del-sur', 1, 'Llegada a Marrakech', 'Recepción, traslado al riad y paseo de orientación.', 'art:medina:d1-gran', 'marrakech'),
-  ('gran-tour-del-sur', 2, 'Essaouira y el Atlántico', 'Día completo en la perla del Atlántico: murallas, puerto y medina.', 'art:coast:d2-gran', 'essaouira'),
-  ('gran-tour-del-sur', 3, 'Marrakech — Atlas — Ouarzazate', 'El puerto del Tizi n''Tichka y el ksar de Ait Ben Haddou.', 'art:kasbah:d3-gran', 'ouarzazate'),
-  ('gran-tour-del-sur', 4, 'Ouarzazate — Dades', 'Skoura, el valle de las rosas y las gargantas del Dades.', 'art:oasis:d4-gran', 'ouarzazate'),
-  ('gran-tour-del-sur', 5, 'Todra — Erfoud — Merzouga', 'Gargantas del Todra, oasis del Tafilalet y primera noche en el desierto.', 'art:dunes:d5-gran', 'merzouga'),
-  ('gran-tour-del-sur', 6, 'Día completo en Merzouga', 'Amanecer en las dunas, Khamlia, lago Dayet Srji y segunda noche en jaima.', 'art:camel:d6-gran', 'merzouga'),
-  ('gran-tour-del-sur', 7, 'Merzouga — Valle del Draa — Marrakech', 'Regreso por Zagora y los palmerales del Draa.', 'art:oasis:d7-gran', 'marrakech'),
-  ('gran-tour-del-sur', 8, 'Marrakech — Salida', 'Mañana libre en la medina y traslado al aeropuerto.', 'art:medina:d8-gran', 'marrakech'),
-  -- Essaouira y la Costa
-  ('essaouira-y-la-costa', 1, 'Llegada a Marrakech', 'Traslado al riad y tarde libre en la medina.', 'art:medina:d1-essa', 'marrakech'),
-  ('essaouira-y-la-costa', 2, 'Marrakech — Essaouira', 'Ruta entre argánales con parada en una cooperativa de aceite de argán.', 'art:coast:d2-essa', 'essaouira'),
-  ('essaouira-y-la-costa', 3, 'Essaouira a fondo', 'Skala, puerto, medina y tarde de playa o windsurf.', 'art:coast:d3-essa', 'essaouira'),
-  ('essaouira-y-la-costa', 4, 'Regreso y salida', 'Mañana libre frente al mar y traslado al aeropuerto de Marrakech.', 'art:medina:d4-essa', 'marrakech')
+  -- Marrakech
+  ('marrakech', 1, 'Llegada a Marrakech', 'Recepción en el aeropuerto, traslado al riad y primer atardecer en Jemaa el-Fna.', 'art:medina:d1-mar', 'marrakech'),
+  ('marrakech', 2, 'Marrakech monumental', 'Palacio de la Bahía, tumbas saadíes, Koutoubia y zocos con guía local.', 'art:arch:d2-mar', 'marrakech'),
+  ('marrakech', 3, 'Jardines y medina', 'Jardín Majorelle, Menara y tarde libre entre talleres de artesanía.', 'art:oasis:d3-mar', 'marrakech'),
+  ('marrakech', 4, 'Marrakech — Salida', 'Mañana libre en la medina y traslado al aeropuerto.', 'art:medina:d4-mar', 'marrakech'),
+  -- Marrakech, Ourika, Agafay, Marrakech
+  ('marrakech-ourika-agafay', 1, 'Llegada a Marrakech', 'Traslado al riad y atardecer en Jemaa el-Fna.', 'art:medina:d1-agafay', 'marrakech'),
+  ('marrakech-ourika-agafay', 2, 'Marrakech con guía local', 'Palacios, zocos y jardines. Tarde libre y cena en la medina.', 'art:arch:d2-agafay', 'marrakech'),
+  ('marrakech-ourika-agafay', 3, 'Valle del Ourika', 'Día en el Atlas: aldeas bereberes, cascadas de Setti Fatma y comida junto al río. Regreso a Marrakech.', 'art:oasis:d3-ourika', 'marrakech'),
+  ('marrakech-ourika-agafay', 4, 'Desierto de Agafay', 'Salida hacia el desierto de piedra, tarde de calma y cena bajo las estrellas en el campamento. Opción: día completo en Essaouira.', 'art:stone:d3-agafay', 'agafay'),
+  ('marrakech-ourika-agafay', 5, 'Amanecer en Agafay — Marrakech', 'Desayuno con vistas al Atlas, regreso a Marrakech y traslado al aeropuerto.', 'art:stars:d4-agafay', 'marrakech'),
+  -- Marrakech, Essaouira
+  ('marrakech-essaouira', 1, 'Llegada a Marrakech', 'Traslado al riad y tarde libre en la medina.', 'art:medina:d1-essa', 'marrakech'),
+  ('marrakech-essaouira', 2, 'Marrakech con guía local', 'Palacio de la Bahía, tumbas saadíes, Majorelle y zocos.', 'art:arch:d2-essa-mar', 'marrakech'),
+  ('marrakech-essaouira', 3, 'Marrakech — Essaouira', 'Ruta entre argánales con parada en una cooperativa de aceite de argán.', 'art:coast:d2-essa', 'essaouira'),
+  ('marrakech-essaouira', 4, 'Essaouira a fondo', 'Skala, puerto, medina y tarde de playa o windsurf.', 'art:coast:d3-essa', 'essaouira'),
+  ('marrakech-essaouira', 5, 'Regreso y salida', 'Mañana libre frente al mar y traslado al aeropuerto de Marrakech.', 'art:medina:d4-essa', 'marrakech'),
+  -- Marrakech, Zagora, dunas
+  ('marrakech-zagora-dunas', 1, 'Marrakech — Alto Atlas — Ait Ben Haddou', 'Salida por el puerto de Tizi n''Tichka, visita del ksar de Ait Ben Haddou y noche en Ouarzazate.', 'art:kasbah:d1-dunas', 'ouarzazate'),
+  ('marrakech-zagora-dunas', 2, 'Valle del Draa — Zagora', 'Palmerales infinitos del Draa, parada en Agdz y llegada a Zagora, puerta del Sahara.', 'art:oasis:d2-dunas', 'ouarzazate'),
+  ('marrakech-zagora-dunas', 3, 'Zagora — Erfoud — Dunas', 'Ruta hacia el oasis del Tafilalet, entrada a las dunas en 4x4 y noche en jaima.', 'art:dunes:d3-dunas', 'merzouga'),
+  ('marrakech-zagora-dunas', 4, 'Amanecer en las dunas — Gargantas del Todra', 'Amanecer sobre la arena, paseo en dromedario y ruta hacia las gargantas del Todra.', 'art:arch:d4-dunas', 'erfoud'),
+  ('marrakech-zagora-dunas', 5, 'Ruta de las mil kasbahs — Marrakech', 'Regreso por Skoura y el valle de las rosas. Llegada a Marrakech al atardecer.', 'art:medina:d5-dunas', 'marrakech'),
+  -- Marrakech, Zagora, Merzouga, Ouarzazate
+  ('marrakech-zagora-merzouga-ouarzazate', 1, 'Llegada a Marrakech', 'Recepción en el aeropuerto, traslado al riad y primer paseo por la medina.', 'art:medina:d1-kasbahs', 'marrakech'),
+  ('marrakech-zagora-merzouga-ouarzazate', 2, 'Marrakech — Alto Atlas — Zagora', 'Tizi n''Tichka, Ait Ben Haddou y descenso por el valle del Draa hasta Zagora.', 'art:kasbah:d3-kasbahs', 'ouarzazate'),
+  ('marrakech-zagora-merzouga-ouarzazate', 3, 'Zagora — Erfoud — Merzouga', 'Palmerales del Draa, talleres de fósiles del Tafilalet y llegada al desierto. Noche en jaima.', 'art:dunes:d5-kasbahs', 'merzouga'),
+  ('marrakech-zagora-merzouga-ouarzazate', 4, 'Día completo en Merzouga', 'Amanecer en las dunas, Khamlia, lago Dayet Srji y segunda noche en jaima.', 'art:camel:d6-kasbahs', 'merzouga'),
+  ('marrakech-zagora-merzouga-ouarzazate', 5, 'Merzouga — Todra — Dades', 'Gargantas del Todra y llegada al valle del Dades.', 'art:arch:d5b-kasbahs', 'erfoud'),
+  ('marrakech-zagora-merzouga-ouarzazate', 6, 'Dades — Skoura — Ouarzazate', 'Valle de las rosas, palmeral de Skoura y kasbah Taourirt.', 'art:oasis:d4-kasbahs', 'ouarzazate'),
+  ('marrakech-zagora-merzouga-ouarzazate', 7, 'Ouarzazate — Marrakech', 'Regreso por el Atlas y traslado al aeropuerto.', 'art:medina:d7-kasbahs', 'marrakech'),
+  -- Marrakech, Ouarzazate, valle del Dades, Merzouga, Ouarzazate
+  ('marrakech-ouarzazate-dades-merzouga', 1, 'Llegada a Marrakech', 'Recepción, traslado al riad y paseo de orientación por la medina.', 'art:medina:d1-gran', 'marrakech'),
+  ('marrakech-ouarzazate-dades-merzouga', 2, 'Marrakech — Atlas — Ouarzazate', 'El puerto del Tizi n''Tichka y el ksar de Ait Ben Haddou.', 'art:kasbah:d3-gran', 'ouarzazate'),
+  ('marrakech-ouarzazate-dades-merzouga', 3, 'Ouarzazate — Skoura — Valle del Dades', 'Palmeral de Skoura, valle de las rosas y gargantas del Dades.', 'art:oasis:d4-gran', 'ouarzazate'),
+  ('marrakech-ouarzazate-dades-merzouga', 4, 'Todra — Erfoud — Merzouga', 'Gargantas del Todra, oasis del Tafilalet y primera noche en el desierto.', 'art:dunes:d5-gran', 'merzouga'),
+  ('marrakech-ouarzazate-dades-merzouga', 5, 'Día completo en Merzouga', 'Amanecer en las dunas, Khamlia, lago Dayet Srji y segunda noche en jaima.', 'art:camel:d6-gran', 'merzouga'),
+  ('marrakech-ouarzazate-dades-merzouga', 6, 'Merzouga — Ouarzazate', 'Regreso por el Tafilalet y la ruta de las mil kasbahs hasta Ouarzazate.', 'art:oasis:d7-gran', 'ouarzazate'),
+  ('marrakech-ouarzazate-dades-merzouga', 7, 'Ouarzazate — Marrakech — Salida', 'Cruce del Atlas y traslado al aeropuerto de Marrakech.', 'art:medina:d8-gran', 'marrakech'),
+  -- Marrakech, Ouarzazate, valle del Dades, Merzouga, Ouarzazate (1 noche de desierto)
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 1, 'Llegada a Marrakech', 'Recepción, traslado al riad y paseo de orientación por la medina.', 'art:medina:d1-gran1n', 'marrakech'),
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 2, 'Marrakech — Atlas — Ouarzazate', 'El puerto del Tizi n''Tichka y el ksar de Ait Ben Haddou.', 'art:kasbah:d2-gran1n', 'ouarzazate'),
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 3, 'Ouarzazate — Skoura — Valle del Dades', 'Palmeral de Skoura, valle de las rosas y gargantas del Dades.', 'art:oasis:d3-gran1n', 'ouarzazate'),
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 4, 'Todra — Erfoud — Merzouga', 'Gargantas del Todra, oasis del Tafilalet y noche en jaima a pie de duna.', 'art:dunes:d4-gran1n', 'merzouga'),
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 5, 'Amanecer en Merzouga — Ouarzazate', 'Amanecer sobre las dunas y regreso por la ruta de las mil kasbahs.', 'art:camel:d5-gran1n', 'ouarzazate'),
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 6, 'Ouarzazate — Marrakech — Salida', 'Cruce del Atlas y traslado al aeropuerto de Marrakech.', 'art:medina:d6-gran1n', 'marrakech')
 ) as v(pack_slug, day_number, title, description, image_url, city_slug) on v.pack_slug = p.slug
 left join public.cities c on c.slug = v.city_slug
 on conflict (pack_id, day_number) do nothing;
 
--- Detalles comunes (los 5 packs comparten el bloque base)
+-- Detalles comunes (los 6 packs comparten el bloque base)
 insert into public.pack_details (pack_id, type, content, sort_order)
 select p.id, v.type::public.detail_type, v.content, v.sort_order
 from public.packs p
@@ -207,7 +237,7 @@ cross join (values
   ('nota_importante', 'Consultar condiciones especiales en festivos y puentes.', 10),
   ('nota_importante', 'Sujeto a disponibilidad en el momento de la reserva.', 11)
 ) as v(type, content, sort_order)
-where p.slug in ('dunas-de-merzouga', 'ruta-de-las-kasbahs', 'marrakech-y-agafay', 'gran-tour-del-sur', 'essaouira-y-la-costa')
+where p.slug in ('marrakech', 'marrakech-ourika-agafay', 'marrakech-essaouira', 'marrakech-zagora-dunas', 'marrakech-zagora-merzouga-ouarzazate', 'marrakech-ouarzazate-dades-merzouga', 'marrakech-ouarzazate-dades-merzouga-1-noche')
 on conflict (pack_id, sort_order) do nothing;
 
 -- Notas extra especificas
@@ -215,8 +245,9 @@ insert into public.pack_details (pack_id, type, content, sort_order)
 select p.id, 'nota_importante'::public.detail_type, v.content, 12
 from public.packs p
 join (values
-  ('ruta-de-las-kasbahs', 'Ruta con etapas largas de carretera: recomendable para quienes disfrutan del viaje por etapas.'),
-  ('gran-tour-del-sur',   'Dos noches consecutivas en el desierto: se recomienda equipaje de mano flexible.')
+  ('marrakech-ourika-agafay',              'La opción Essaouira sustituye la noche en el Agafay por una excursión de día completo a la costa.'),
+  ('marrakech-zagora-merzouga-ouarzazate', 'Ruta con etapas largas de carretera: recomendable para quienes disfrutan del viaje por etapas.'),
+  ('marrakech-ouarzazate-dades-merzouga',  'Dos noches consecutivas en el desierto: se recomienda equipaje de mano flexible.')
 ) as v(pack_slug, content) on v.pack_slug = p.slug
 on conflict (pack_id, sort_order) do nothing;
 
@@ -225,18 +256,20 @@ insert into public.pack_highlights (pack_id, title, description, sort_order)
 select p.id, 'Circuito exclusivo en vehículo 4x4 con chófer',
        'Hablamos su idioma y viajamos con usted. Hasta 6 pasajeros. Viaje cómodo, seguro y personalizado.', 0
 from public.packs p
-where p.slug in ('dunas-de-merzouga', 'ruta-de-las-kasbahs', 'marrakech-y-agafay', 'gran-tour-del-sur', 'essaouira-y-la-costa')
+where p.slug in ('marrakech', 'marrakech-ourika-agafay', 'marrakech-essaouira', 'marrakech-zagora-dunas', 'marrakech-zagora-merzouga-ouarzazate', 'marrakech-ouarzazate-dades-merzouga', 'marrakech-ouarzazate-dades-merzouga-1-noche')
 on conflict (pack_id, sort_order) do nothing;
 
 insert into public.pack_highlights (pack_id, title, description, sort_order)
 select p.id, v.title, v.description, 1
 from public.packs p
 join (values
-  ('dunas-de-merzouga',    'En Merzouga, duerma en jaima con baño privado', 'Opcional en hotel o en jaima con baño privado, a pie de las dunas.'),
-  ('ruta-de-las-kasbahs',  'En Merzouga, duerma en jaima con baño privado', 'Opcional en hotel o en jaima con baño privado, a pie de las dunas.'),
-  ('gran-tour-del-sur',    'En Merzouga, duerma en jaima con baño privado', 'Opcional en hotel o en jaima con baño privado, a pie de las dunas.'),
-  ('marrakech-y-agafay',   'Noche en campamento del Agafay', 'Jaima con baño privado, cena a la luz de las velas y el cielo más estrellado a 40 minutos de Marrakech.'),
-  ('essaouira-y-la-costa', 'Essaouira, Patrimonio de la Humanidad', 'Alojamiento dentro de la medina, a pasos de la Skala y del puerto pesquero.')
+  ('marrakech-zagora-dunas',               'En Merzouga, duerma en jaima con baño privado', 'Opcional en hotel o en jaima con baño privado, a pie de las dunas.'),
+  ('marrakech-zagora-merzouga-ouarzazate', 'En Merzouga, duerma en jaima con baño privado', 'Opcional en hotel o en jaima con baño privado, a pie de las dunas.'),
+  ('marrakech-ouarzazate-dades-merzouga',  'En Merzouga, duerma en jaima con baño privado', 'Opcional en hotel o en jaima con baño privado, a pie de las dunas.'),
+  ('marrakech',                            'Alojamiento en riad dentro de la medina', 'A pasos de Jemaa el-Fna, con patio, azotea y desayuno casero.'),
+  ('marrakech-ourika-agafay',              'Noche en campamento del Agafay', 'Jaima con baño privado, cena a la luz de las velas y el cielo más estrellado a 40 minutos de Marrakech.'),
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 'En Merzouga, duerma en jaima con baño privado', 'Opcional en hotel o en jaima con baño privado, a pie de las dunas.'),
+  ('marrakech-essaouira',                  'Essaouira, Patrimonio de la Humanidad', 'Alojamiento dentro de la medina, a pasos de la Skala y del puerto pesquero.')
 ) as v(pack_slug, title, description) on v.pack_slug = p.slug
 on conflict (pack_id, sort_order) do nothing;
 
@@ -247,19 +280,23 @@ insert into public.pack_stays (client_id, pack_id, city_id, nights, sort_order)
 select v.client_id, p.id, c.id, v.nights, v.sort_order
 from public.packs p
 join (values
-  ('st-dunas-ouarzazate',   'dunas-de-merzouga',    'ouarzazate', 2, 0),
-  ('st-dunas-erfoud',       'dunas-de-merzouga',    'erfoud',     1, 1),
-  ('st-dunas-merzouga',     'dunas-de-merzouga',    'merzouga',   1, 2),
-  ('st-kasbahs-marrakech',  'ruta-de-las-kasbahs',  'marrakech',  3, 0),
-  ('st-kasbahs-ouarzazate', 'ruta-de-las-kasbahs',  'ouarzazate', 2, 1),
-  ('st-kasbahs-merzouga',   'ruta-de-las-kasbahs',  'merzouga',   1, 2),
-  ('st-agafay-marrakech',   'marrakech-y-agafay',   'marrakech',  2, 0),
-  ('st-agafay-camp',        'marrakech-y-agafay',   'agafay',     1, 1),
-  ('st-gran-marrakech',     'gran-tour-del-sur',    'marrakech',  3, 0),
-  ('st-gran-ouarzazate',    'gran-tour-del-sur',    'ouarzazate', 2, 1),
-  ('st-gran-merzouga',      'gran-tour-del-sur',    'merzouga',   2, 2),
-  ('st-essa-marrakech',     'essaouira-y-la-costa', 'marrakech',  1, 0),
-  ('st-essa-essaouira',     'essaouira-y-la-costa', 'essaouira',  2, 1)
+  ('st-mar-marrakech',      'marrakech',                            'marrakech',  3, 0),
+  ('st-agafay-marrakech',   'marrakech-ourika-agafay',              'marrakech',  3, 0),
+  ('st-agafay-camp',        'marrakech-ourika-agafay',              'agafay',     1, 1),
+  ('st-essa-marrakech',     'marrakech-essaouira',                  'marrakech',  2, 0),
+  ('st-essa-essaouira',     'marrakech-essaouira',                  'essaouira',  2, 1),
+  ('st-dunas-ouarzazate',   'marrakech-zagora-dunas',               'ouarzazate', 2, 0),
+  ('st-dunas-erfoud',       'marrakech-zagora-dunas',               'erfoud',     1, 1),
+  ('st-dunas-merzouga',     'marrakech-zagora-dunas',               'merzouga',   1, 2),
+  ('st-kasbahs-marrakech',  'marrakech-zagora-merzouga-ouarzazate', 'marrakech',  2, 0),
+  ('st-kasbahs-ouarzazate', 'marrakech-zagora-merzouga-ouarzazate', 'ouarzazate', 2, 1),
+  ('st-kasbahs-merzouga',   'marrakech-zagora-merzouga-ouarzazate', 'merzouga',   1, 2),
+  ('st-gran-marrakech',     'marrakech-ouarzazate-dades-merzouga',  'marrakech',  2, 0),
+  ('st-gran-ouarzazate',    'marrakech-ouarzazate-dades-merzouga',  'ouarzazate', 2, 1),
+  ('st-gran-merzouga',      'marrakech-ouarzazate-dades-merzouga',  'merzouga',   2, 2),
+  ('st-gran1n-marrakech',   'marrakech-ouarzazate-dades-merzouga-1-noche',  'marrakech',  2, 0),
+  ('st-gran1n-ouarzazate',  'marrakech-ouarzazate-dades-merzouga-1-noche',  'ouarzazate', 2, 1),
+  ('st-gran1n-merzouga',    'marrakech-ouarzazate-dades-merzouga-1-noche',  'merzouga',   1, 2)
 ) as v(client_id, pack_slug, city_slug, nights, sort_order) on v.pack_slug = p.slug
 join public.cities c on c.slug = v.city_slug
 on conflict (client_id) do nothing;
@@ -269,14 +306,18 @@ insert into public.pack_stay_hotels (client_id, stay_id, hotel_id, category, sup
 select v.client_id, s.id, h.id, v.category::public.hotel_category, v.supplement, v.is_default, v.sort_order
 from public.pack_stays s
 join (values
-  -- Dunas de Merzouga
+  -- Marrakech
+  ('op-mar-mar-std',     'st-mar-marrakech',      'Riad Dar Zellige',         'estandar',   0,  true,  0),
+  ('op-mar-mar-supa',    'st-mar-marrakech',      'Palais Rouge',             'superior_a', 28, false, 1),
+  ('op-mar-mar-supb',    'st-mar-marrakech',      'La Mamounia Garden Suite', 'superior_b', 65, false, 2),
+  -- Marrakech, Zagora, dunas
   ('op-dunas-ouar-std',  'st-dunas-ouarzazate',   'Riad Dar Kasbah',          'estandar',   0,  true,  0),
   ('op-dunas-ouar-supa', 'st-dunas-ouarzazate',   'Kasbah Palace Ouarzazate', 'superior_a', 22, false, 1),
   ('op-dunas-erf-std',   'st-dunas-erfoud',       'Hotel Palmeral Tafilalet', 'estandar',   0,  true,  0),
   ('op-dunas-erf-supa',  'st-dunas-erfoud',       'Dar Fósil Lodge',          'superior_a', 18, false, 1),
   ('op-dunas-mer-std',   'st-dunas-merzouga',     'Jaima Erg Chebbi',         'estandar',   0,  true,  0),
   ('op-dunas-mer-supa',  'st-dunas-merzouga',     'Jaima Luxury Dunes',       'superior_a', 35, false, 1),
-  -- Ruta de las Kasbahs
+  -- Marrakech, Zagora, Merzouga, Ouarzazate
   ('op-kas-mar-std',     'st-kasbahs-marrakech',  'Riad Dar Zellige',         'estandar',   0,  true,  0),
   ('op-kas-mar-supa',    'st-kasbahs-marrakech',  'Palais Rouge',             'superior_a', 28, false, 1),
   ('op-kas-mar-supb',    'st-kasbahs-marrakech',  'La Mamounia Garden Suite', 'superior_b', 65, false, 2),
@@ -284,12 +325,12 @@ join (values
   ('op-kas-ouar-supa',   'st-kasbahs-ouarzazate', 'Kasbah Palace Ouarzazate', 'superior_a', 22, false, 1),
   ('op-kas-mer-std',     'st-kasbahs-merzouga',   'Jaima Erg Chebbi',         'estandar',   0,  true,  0),
   ('op-kas-mer-supa',    'st-kasbahs-merzouga',   'Jaima Luxury Dunes',       'superior_a', 35, false, 1),
-  -- Marrakech y Agafay
+  -- Marrakech, Ourika, Agafay, Marrakech
   ('op-aga-mar-std',     'st-agafay-marrakech',   'Riad Dar Zellige',         'estandar',   0,  true,  0),
   ('op-aga-mar-supa',    'st-agafay-marrakech',   'Palais Rouge',             'superior_a', 28, false, 1),
   ('op-aga-camp-std',    'st-agafay-camp',        'Agafay Camp',              'estandar',   0,  true,  0),
   ('op-aga-camp-supa',   'st-agafay-camp',        'Agafay Luxury Lodge',      'superior_a', 40, false, 1),
-  -- Gran Tour del Sur
+  -- Marrakech, Ouarzazate, valle del Dades, Merzouga, Ouarzazate
   ('op-gran-mar-std',    'st-gran-marrakech',     'Riad Dar Zellige',         'estandar',   0,  true,  0),
   ('op-gran-mar-supa',   'st-gran-marrakech',     'Palais Rouge',             'superior_a', 28, false, 1),
   ('op-gran-mar-supb',   'st-gran-marrakech',     'La Mamounia Garden Suite', 'superior_b', 65, false, 2),
@@ -297,11 +338,19 @@ join (values
   ('op-gran-ouar-supa',  'st-gran-ouarzazate',    'Kasbah Palace Ouarzazate', 'superior_a', 22, false, 1),
   ('op-gran-mer-std',    'st-gran-merzouga',      'Jaima Erg Chebbi',         'estandar',   0,  true,  0),
   ('op-gran-mer-supa',   'st-gran-merzouga',      'Jaima Luxury Dunes',       'superior_a', 35, false, 1),
-  -- Essaouira y la Costa
+  -- Marrakech, Essaouira
   ('op-essa-mar-std',    'st-essa-marrakech',     'Riad Dar Zellige',         'estandar',   0,  true,  0),
   ('op-essa-mar-supa',   'st-essa-marrakech',     'Palais Rouge',             'superior_a', 28, false, 1),
   ('op-essa-ess-std',    'st-essa-essaouira',     'Riad Mar y Medina',        'estandar',   0,  true,  0),
-  ('op-essa-ess-supa',   'st-essa-essaouira',     'Heure Bleue Palais',       'superior_a', 30, false, 1)
+  ('op-essa-ess-supa',   'st-essa-essaouira',     'Heure Bleue Palais',       'superior_a', 30, false, 1),
+  -- Marrakech, Ouarzazate, valle del Dades, Merzouga, Ouarzazate (1 noche de desierto)
+  ('op-gran1n-mar-std',  'st-gran1n-marrakech',   'Riad Dar Zellige',         'estandar',   0,  true,  0),
+  ('op-gran1n-mar-supa', 'st-gran1n-marrakech',   'Palais Rouge',             'superior_a', 28, false, 1),
+  ('op-gran1n-mar-supb', 'st-gran1n-marrakech',   'La Mamounia Garden Suite', 'superior_b', 65, false, 2),
+  ('op-gran1n-ouar-std', 'st-gran1n-ouarzazate',  'Riad Dar Kasbah',          'estandar',   0,  true,  0),
+  ('op-gran1n-ouar-supa','st-gran1n-ouarzazate',  'Kasbah Palace Ouarzazate', 'superior_a', 22, false, 1),
+  ('op-gran1n-mer-std',  'st-gran1n-merzouga',    'Jaima Erg Chebbi',         'estandar',   0,  true,  0),
+  ('op-gran1n-mer-supa', 'st-gran1n-merzouga',    'Jaima Luxury Dunes',       'superior_a', 35, false, 1)
 ) as v(client_id, stay_client_id, hotel_name, category, supplement, is_default, sort_order) on v.stay_client_id = s.client_id
 join public.hotels h on h.city_id = s.city_id and h.name = v.hotel_name
 on conflict (stay_id, hotel_id) do nothing;
@@ -348,10 +397,12 @@ insert into public.pack_prices (pack_id, season_id, price_adult, price_child)
 select p.id, null, v.price_adult, v.price_child
 from public.packs p
 join (values
-  ('dunas-de-merzouga',    495, 330),
-  ('ruta-de-las-kasbahs',  745, 495),
-  ('marrakech-y-agafay',   385, 260),
-  ('gran-tour-del-sur',    890, 595),
-  ('essaouira-y-la-costa', 355, 240)
+  ('marrakech',                            355, 240),
+  ('marrakech-ourika-agafay',              445, 300),
+  ('marrakech-essaouira',                  425, 285),
+  ('marrakech-zagora-dunas',               495, 330),
+  ('marrakech-zagora-merzouga-ouarzazate', 715, 475),
+  ('marrakech-ouarzazate-dades-merzouga',  745, 495),
+  ('marrakech-ouarzazate-dades-merzouga-1-noche', 665, 445)
 ) as v(pack_slug, price_adult, price_child) on v.pack_slug = p.slug
 on conflict (pack_id) where season_id is null do nothing;

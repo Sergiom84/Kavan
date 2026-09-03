@@ -92,7 +92,7 @@
     align-items: stretch;
     overflow: hidden;
     padding-top: 5.5rem;
-    padding-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
   }
 }
 
@@ -147,12 +147,12 @@
 
 .pack-showcase-link {
   align-self: center;
-  border-color: var(--accent-2);
+  border-color: var(--logo-gold);
   border-radius: 999px;
-  color: var(--accent-2);
+  color: var(--logo-gold);
   font-family: "Marcellus", var(--font-display);
   font-size: calc(var(--text-label) + 0.125rem);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
   text-transform: none;
@@ -160,13 +160,13 @@
 }
 
 .pack-showcase-link:hover {
-  background: var(--accent-2);
-  border-color: var(--accent-2);
+  background: var(--logo-gold);
+  border-color: var(--logo-gold);
   color: var(--accent-ink);
 }
 
 .pack-showcase-link:focus-visible {
-  outline: 2px solid var(--accent-2);
+  outline: 2px solid var(--logo-gold);
   outline-offset: 0.25rem;
 }
 
@@ -179,6 +179,7 @@
 
 .pack-showcase-discover {
   width: 100%;
+  max-width: none;
   text-align: left;
 }
 
@@ -192,14 +193,42 @@
   color: var(--ink);
 }
 
-.pack-showcase-discover p {
+.pack-showcase-discover p,
+.pack-showcase-discover ul {
   max-width: none;
-  margin: 0;
+  margin: 0 0 var(--space-4);
   font-family: "Poppins", var(--font-mono);
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.5;
   color: var(--ink-soft);
+}
+
+.pack-showcase-discover p:last-child,
+.pack-showcase-discover ul:last-child {
+  margin-bottom: 0;
+}
+
+.pack-showcase-discover-subhead {
+  margin-bottom: var(--space-3);
+}
+
+.pack-showcase-discover-subhead strong {
+  color: var(--ink);
+}
+
+.pack-showcase-discover ul {
+  padding-left: 1.25em;
+  list-style: disc;
+}
+
+.pack-showcase-discover li + li {
+  margin-top: var(--space-2);
+}
+
+.pack-showcase-discover strong {
+  font-weight: 700;
+  color: var(--ink);
 }
 
 @media (max-width: 1023px) {

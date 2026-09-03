@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { packs } from '../data/seed'
 import { calculatePrice, PricingError } from './pricing'
 
-const dunas = packs.find((p) => p.slug === 'dunas-de-merzouga')!
+const dunas = packs.find((p) => p.slug === 'marrakech-zagora-dunas')!
 
 const base = {
   packSlug: dunas.slug,

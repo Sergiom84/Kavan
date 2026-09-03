@@ -80,6 +80,10 @@ export interface Pack {
   heroImageUrl: string
   gallery: string[]
   citySlugs: string[]
+  /** Recorrido tal y como lo nombra la agencia. Manda sobre citySlugs en las
+   *  tarjetas: incluye paradas sin ficha de ciudad (Ourika, Zagora, Dades) y
+   *  matices comerciales ("opción Essaouira", noches de desierto). */
+  routeLabel?: string
   itinerary: ItineraryDay[]
   details: PackDetailItem[]
   highlights: PackHighlight[]
