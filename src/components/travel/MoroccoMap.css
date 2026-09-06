@@ -3,6 +3,11 @@
 
 .mmap {
   background: var(--bg-1);
+  position: relative;
+  overflow: hidden;
+  /* Conserva la franja 12–76 % del original: Tánger hasta Zagora.
+     El lienzo mantiene sus proporciones y las coordenadas de los enlaces. */
+  height: 48vw;
   /* La Home termina en el mapa: no debe quedar una banda de crema antes del
      cierre visual de dunas del footer. */
   padding-bottom: 0;
@@ -11,6 +16,7 @@
 .mmap-canvas {
   position: relative;
   width: 100%;
+  top: -9vw;
   line-height: 0;
 }
 
@@ -56,6 +62,17 @@
   inset: 0;
   display: grid;
   place-items: center;
+  pointer-events: none;
+}
+
+.mmap-zagora-marker {
+  position: absolute;
+  left: 76.6%;
+  top: 66.3%;
+  width: 3.5rem;
+  height: 3.5rem;
+  transform: translate(-50%, -50%);
+  color: var(--ink);
   pointer-events: none;
 }
 
@@ -158,6 +175,30 @@
    aquí queda la ilustración estática, sin zonas solapadas. */
 
 @media (max-width: 1023px) {
+  .mmap {
+    height: 72vw;
+  }
+
+  .mmap-canvas {
+    width: 150%;
+    margin-left: -43%;
+    top: -13.5vw;
+  }
+
+  .mmap-added-pin-label {
+    font-size: var(--text-3);
+    top: calc(50% + 0.9rem);
+  }
+
+  .mmap-added-pin::after {
+    height: 0.75rem;
+  }
+
+  .mmap-added-pin-dot {
+    width: 0.65rem;
+    height: 0.65rem;
+  }
+
   .mmap-hit,
   .mmap-card {
     display: none;

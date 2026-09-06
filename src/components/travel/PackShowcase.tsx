@@ -53,6 +53,9 @@ export function PackShowcase({
       scene.style.setProperty('--pasos', String(pasos))
       scene.classList.add('is-pinned')
       viewport.classList.add('is-pinned')
+      // El desplazamiento táctil del modo móvil no se suma al transform
+      // cuando se vuelve a escritorio al redimensionar la ventana.
+      viewport.scrollLeft = 0
 
       /* El título vive pegado al carril, pero en cuanto el pin arranca cede
          su alto a las tarjetas: se colapsa en los primeros px de scroll para
@@ -61,6 +64,9 @@ export function PackShowcase({
          si arrancan a la vez, la primera tarjeta ya se está yendo mientras
          el título todavía se ve, y da la sensación de que "no da tiempo". */
       const TITLE_COLLAPSE_PX = 160
+      // Después del colapso, deja el primer grupo completo durante un tramo
+      // de scroll. Es distancia, no un temporizador ni un avance automático.
+      const entryHold = () => window.innerHeight * 0.6
       const titleEl = titleRef.current
       let titleTween: gsap.core.Tween | null = null
       if (titleEl) {
@@ -80,7 +86,9 @@ export function PackShowcase({
       }
 
       const sizeItems = () => {
-        const width = viewport.clientWidth / VISIBLES
+        scene.style.setProperty('--pack-entry-hold', `${entryHold()}px`)
+        const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 0
+        const width = (viewport.clientWidth - gap * (VISIBLES - 1)) / VISIBLES
         items.forEach((item) => {
           item.style.flex = `0 0 ${width}px`
           item.style.width = `${width}px`
@@ -95,12 +103,12 @@ export function PackShowcase({
       }
       sizeItems()
 
-      gsap.to(track, {
+      gsap.fromTo(track, { x: 0 }, {
         x: () => -distance(),
         ease: 'none',
         scrollTrigger: {
           trigger: scene,
-          start: `top+=${TITLE_COLLAPSE_PX} top`,
+          start: () => `top+=${TITLE_COLLAPSE_PX + entryHold()} top`,
           end: 'bottom bottom',
           scrub: true,
           invalidateOnRefresh: true,
@@ -116,6 +124,7 @@ export function PackShowcase({
         scene.classList.remove('is-pinned')
         viewport.classList.remove('is-pinned')
         scene.style.removeProperty('--pasos')
+        scene.style.removeProperty('--pack-entry-hold')
         gsap.set(track, { clearProps: 'transform' })
         items.forEach((item) => {
           item.style.removeProperty('flex')

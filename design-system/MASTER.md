@@ -61,10 +61,9 @@
 Paleta fijada a partir de `visual/editorial-sahara` (valores exactos, ya diseñados
 y probados en una rama real de este proyecto):
 
-- Background (papel, el fondo de todo el sitio): `#f7f6f4` — **decisión de
-  Sergio, 2026-09-01**: el blanco de Lucy Lara (`codex/lucy-lara-hero-redesign`,
-  `.site-surface` / `bg-[#f7f6f4]`). Sustituye el crema `#ebe1cd` y el intento
-  `#f6f3ee`, que se leían cálidos de más.
+- Background (papel, el fondo de todo el sitio): `#ffffff` — **decisión de
+  Sergio, 2026-09-06**: blanco puro. Sustituye el blanco roto `#f7f6f4`
+  que se había adoptado de Lucy Lara el 2026-09-01.
 - Banda alterna de sección (un paso bajo el papel): `#efece8`.
 - Surface secundaria (arena): `#d9bfa0`
 - Surface terciaria (terracota clara): `#c9926a`

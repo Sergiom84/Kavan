@@ -82,12 +82,19 @@ export function MoroccoMap() {
         <img
           className="mmap-image"
           src="/images/mapa-kavan-alpha.webp"
-          alt="Mapa de Marruecos con Essaouira, Marrakech, Agafay, Ouarzazate, Zagora, Erfoud y Merzouga"
+          alt="Mapa de Marruecos con Tánger, Rabat, Casablanca, Fez, Agadir, Essaouira, Marrakech, Agafay, Ouarzazate, Zagora, Erfoud y Merzouga"
           width={1448}
           height={1086}
           loading="lazy"
           decoding="async"
         />
+
+        <span className="mmap-zagora-marker" aria-hidden="true">
+          <span className="mmap-added-pin">
+            <span className="mmap-added-pin-dot" />
+            <span className="mmap-added-pin-label">Zagora</span>
+          </span>
+        </span>
 
         {conPunto.map((c) => {
           const p = PUNTOS[c.slug]
@@ -101,12 +108,6 @@ export function MoroccoMap() {
 
           const contenido = (
             <>
-              {c.slug === 'zagora' && (
-                <span className="mmap-added-pin" aria-hidden="true">
-                  <span className="mmap-added-pin-dot" />
-                  <span className="mmap-added-pin-label">Zagora</span>
-                </span>
-              )}
               <span className="mmap-ring" aria-hidden="true" />
             </>
           )

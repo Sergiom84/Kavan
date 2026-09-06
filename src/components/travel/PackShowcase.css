@@ -40,6 +40,8 @@
 }
 
 .pack-showcase-viewport {
+  /* Contiene también las etiquetas accesibles de posición absoluta. */
+  position: relative;
   width: 100%;
   min-width: 0;
   container-type: inline-size;
@@ -55,14 +57,15 @@
 .pack-showcase-track {
   display: flex;
   width: max-content;
-  gap: 0;
+  gap: var(--space-pack-gap);
 }
 
 .pack-showcase-item {
   display: flex;
   box-sizing: border-box;
-  flex: 0 0 calc(100cqi / 3);
-  width: calc(100cqi / 3);
+  flex: 0 0 calc((100cqi - 2 * var(--space-pack-gap)) / 3);
+  width: calc((100cqi - 2 * var(--space-pack-gap)) / 3);
+  min-width: 0;
 }
 
 .pack-showcase-item .pack-card {
@@ -85,7 +88,7 @@
 
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
   .pack-showcase-scene.is-pinned {
-    height: calc(100svh + var(--pasos, 0) * 140svh);
+    height: calc(100svh + var(--pack-entry-hold, 0px) + var(--pasos, 0) * 140svh);
   }
 
   .pack-showcase-scene.is-pinned .pack-showcase-sticky {
@@ -245,7 +248,7 @@
   }
 
   .pack-showcase-item {
-    flex-basis: calc(100cqi / 2);
+    flex-basis: calc((100cqi - var(--space-pack-gap)) / 2);
   }
 }
 
