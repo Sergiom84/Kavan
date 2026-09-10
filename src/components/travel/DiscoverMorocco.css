@@ -112,6 +112,41 @@
   flex: 0 0 calc(100% / 3);
 }
 
+/* En escritorio el bloque mide una pantalla exacta y la fotografía se queda
+   con todo lo que sobra tras el titular: al llegar aquí sólo se ven las tres
+   imágenes, sin el mapa asomando por abajo. Se reparte con flex en lugar de
+   descontar medidas a mano para que siga cuadrando si cambia el titular o el
+   aire del bloque. */
+@media (min-width: 1024px) {
+  .discover-morocco {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+  }
+
+  .discover-morocco-carousel,
+  .discover-morocco-carousel .carousel {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .discover-morocco-carousel .carousel {
+    flex-direction: column;
+  }
+
+  .discover-morocco-carousel .carousel-track {
+    flex: 1;
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .discover-morocco-carousel .discover-card-media {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+}
+
 .discover-morocco-carousel .carousel-nav {
   position: absolute;
   z-index: 2;
