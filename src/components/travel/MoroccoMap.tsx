@@ -96,6 +96,12 @@ export function MoroccoMap() {
           </span>
         </span>
 
+        {/* Agafay venía dibujada en el mapa con rótulo secundario, en gris y a
+            la mitad de cuerpo que el resto. El rótulo original se retiró del
+            propio archivo y se repone aquí con el tratamiento de las demás
+            ciudades; la chincheta dibujada se conserva. */}
+        <span className="mmap-agafay-label" aria-hidden="true">Agafay</span>
+
         {conPunto.map((c) => {
           const p = PUNTOS[c.slug]
           const props = {

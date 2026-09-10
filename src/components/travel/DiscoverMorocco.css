@@ -4,13 +4,16 @@
   overflow: hidden;
 }
 
+/* El rótulo comparte calle con Marruecos y con los viajes; el carril de
+   fotografías, en cambio, va a sangre. */
 .discover-morocco-heading {
   margin-bottom: var(--space-5);
+  padding-inline: 10rem;
 }
 
 .discover-morocco-title {
   font-family: "Marcellus", var(--font-display);
-  font-size: var(--text-display);
+  font-size: 3.125rem;
   font-weight: 400;
   line-height: var(--leading-title);
   text-transform: none;
@@ -32,7 +35,9 @@
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 0.75rem;
+  /* Pegadas y sin radio: el carril se lee como una franja continua de
+     fotografía de un borde a otro de la pantalla. */
+  border-radius: 0;
   background: var(--bg-3);
 }
 
@@ -90,8 +95,21 @@
   }
 }
 
+/* Carril a sangre: sin calle lateral y sin hueco entre fotografías. */
+.discover-morocco-carousel {
+  padding-inline: 0;
+}
+
 .discover-morocco-carousel .carousel {
   position: relative;
+}
+
+.discover-morocco-carousel .carousel-track {
+  gap: 0;
+}
+
+.discover-morocco-carousel .carousel-item {
+  flex: 0 0 calc(100% / 3);
 }
 
 .discover-morocco-carousel .carousel-nav {
@@ -145,6 +163,28 @@
 @media (max-width: 1023px) {
   .discover-morocco {
     padding: var(--space-5) 0;
+  }
+
+  .discover-morocco-heading {
+    padding-inline: 5rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .discover-morocco-carousel .carousel-item {
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .discover-morocco-heading {
+    padding-inline: var(--padding);
+  }
+}
+
+@media (max-width: 620px) {
+  .discover-morocco-carousel .carousel-item {
+    flex: 0 0 86%;
   }
 }
 

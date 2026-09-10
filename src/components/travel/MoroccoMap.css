@@ -2,6 +2,21 @@
    invisibles: la chincheta ya está dibujada, aquí sólo se le da vida. */
 
 .mmap {
+  /* Geometría medida sobre el propio dibujo (chincheta de Marrakech en
+     mapa-kavan-alpha.webp: 22 px de círculo, 2 px de trazo, 7 px de punto y
+     18 px de vástago sobre 1448 px de ancho de imagen). Se expresa contra el
+     ancho de la imagen, no en rem, para que las chinchetas y los rótulos que
+     se añaden por CSS escalen con la cartografía y no con la tipografía. */
+  --mmap-img: 100vw;
+  --mmap-pin: calc(var(--mmap-img) * 22 / 1448);
+  --mmap-pin-trazo: max(1px, calc(var(--mmap-img) * 2 / 1448));
+  --mmap-pin-punto: calc(var(--mmap-img) * 7 / 1448);
+  --mmap-pin-vastago: calc(var(--mmap-img) * 29 / 1448);
+  --mmap-rotulo: calc(var(--mmap-img) * 27 / 1448);
+  /* Tinta del dibujo: casi negra con un punto de verde, muestreada de los
+     rótulos existentes. La tinta de marca es más cálida y se notaba. */
+  --mmap-tinta: #101a18;
+
   background: var(--bg-1);
   position: relative;
   overflow: hidden;
@@ -72,7 +87,7 @@
   width: 3.5rem;
   height: 3.5rem;
   transform: translate(-50%, -50%);
-  color: var(--ink);
+  color: var(--mmap-tinta);
   pointer-events: none;
 }
 
@@ -80,41 +95,60 @@
   content: '';
   position: absolute;
   top: 50%;
-  width: 1px;
-  height: 1.75rem;
+  width: var(--mmap-pin-trazo);
+  height: var(--mmap-pin-vastago);
   background: currentColor;
 }
 
 .mmap-added-pin-dot {
+  position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
-  width: 1.15rem;
-  height: 1.15rem;
-  border: 1px solid currentColor;
+  width: var(--mmap-pin);
+  height: var(--mmap-pin);
+  border: var(--mmap-pin-trazo) solid currentColor;
   border-radius: var(--radius-round);
   background: var(--bg-1);
 }
 
 .mmap-added-pin-dot::after {
   content: '';
-  width: 0.25rem;
-  height: 0.25rem;
+  width: var(--mmap-pin-punto);
+  height: var(--mmap-pin-punto);
   border-radius: var(--radius-round);
   background: currentColor;
 }
 
-.mmap-added-pin-label {
-  position: absolute;
-  top: calc(50% + 1.9rem);
-  left: 50%;
-  transform: translateX(-50%);
+.mmap-added-pin-label,
+.mmap-agafay-label {
   font-family: var(--font-display);
-  font-size: var(--text-2);
+  font-size: var(--mmap-rotulo);
   font-weight: var(--weight-heading);
   line-height: 1;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   white-space: nowrap;
+  color: var(--mmap-tinta);
+}
+
+.mmap-added-pin-label {
+  position: absolute;
+  top: calc(50% + var(--mmap-pin-vastago) + var(--mmap-img) * 8 / 1448);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Agafay lleva el rótulo al costado de su chincheta, como Marrakech o Erfoud:
+   `left`/`top` apuntan al centro del círculo dibujado y el hueco reproduce el
+   del resto de rótulos (17 px sobre 1448 px de imagen). */
+.mmap-agafay-label {
+  position: absolute;
+  left: 61.3%;
+  top: 53.1%;
+  padding-left: calc(var(--mmap-img) * 28 / 1448);
+  transform: translateY(calc(-50% + var(--mmap-img) * 7 / 1448));
+  pointer-events: none;
 }
 
 /* Anillo que late al señalar, el mismo gesto que el botón de asesoría. */
@@ -176,6 +210,9 @@
 
 @media (max-width: 1023px) {
   .mmap {
+    /* El lienzo se amplía al 150 % en móvil: la imagen mide vez y media el
+       ancho de la ventana y las chinchetas de CSS crecen con ella. */
+    --mmap-img: 150vw;
     height: 72vw;
   }
 
@@ -183,20 +220,6 @@
     width: 150%;
     margin-left: -43%;
     top: -13.5vw;
-  }
-
-  .mmap-added-pin-label {
-    font-size: var(--text-3);
-    top: calc(50% + 0.9rem);
-  }
-
-  .mmap-added-pin::after {
-    height: 0.75rem;
-  }
-
-  .mmap-added-pin-dot {
-    width: 0.65rem;
-    height: 0.65rem;
   }
 
   .mmap-hit,

@@ -14,8 +14,10 @@
 .advisor-toggle {
   --burbuja: 5rem;
   position: relative;
-  width: var(--burbuja);
-  height: var(--burbuja);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
   padding: 0;
   border: 0;
   background: transparent;
@@ -28,9 +30,20 @@
 
 .advisor-logo {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: var(--burbuja);
+  height: var(--burbuja);
   object-fit: contain;
+}
+
+/* El sello ya no explica nada por sí solo: el rótulo va debajo, en el dorado
+   tierra del logo y del título de Marruecos. */
+.advisor-claim {
+  font-family: "Marcellus", var(--font-display);
+  font-size: calc(var(--text-body) - 0.25rem);
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--logo-gold);
 }
 
 .advisor-menu {

@@ -16,12 +16,15 @@
               transform var(--dur-lg) var(--easing);
 }
 
-/* Al salir de un hero normal: crema opaco y tinta oscura. Sin desenfoque:
-   en este sistema no hay backdrop-filter en ninguna parte. */
+/* Al salir de un hero normal: cristal tierra y rótulos claros. El velo es
+   traslúcido y desenfoca lo que pasa por debajo, así que la página se sigue
+   viendo a través de la barra. */
 .site-header.is-solid,
 .site-header.is-open {
-  background: var(--bg-1);
-  color: var(--ink);
+  background: var(--glass-tierra);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  color: var(--on-photo);
   border-bottom-color: transparent;
 }
 
@@ -54,7 +57,10 @@
 .brand-wordmark {
   flex: none;
   display: block;
-  width: 6.5rem;
+  /* Dos píxeles por encima de la línea óptica del flex: el wordmark tiene el
+     peso visual bajo y de otro modo se lee hundido. */
+  transform: translateY(-2px);
+  width: 7.0417rem;
   aspect-ratio: 4440 / 853;
   background: currentColor;
   -webkit-mask: url('/images/Logotipo sin Morocco.png') center / contain no-repeat;
@@ -73,10 +79,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-5);
+  /* Sube dos píxeles sobre el centro del flex, igual que el wordmark. */
+  transform: translateY(-2px);
 }
 
 .site-nav a .label {
   font-family: var(--marcellus);
+  font-size: 0.8125rem;
   color: inherit;
   transition: opacity var(--dur-md) var(--easing);
 }
@@ -126,7 +135,8 @@
 }
 
 .site-nav a.nav-boxed:hover .label {
-  color: var(--bg-1);
+  /* La caja se llena con el color del rótulo, así que dentro va tinta. */
+  color: var(--ink);
   opacity: 1;
 }
 
@@ -136,7 +146,7 @@
 }
 
 .site-nav a.nav-boxed.is-active .label {
-  color: var(--bg-1);
+  color: var(--ink);
 }
 
 /* ---------- Botón de menú ---------- */
@@ -181,8 +191,12 @@
   justify-content: center;
   gap: var(--space-4);
   padding: 0 var(--padding);
-  background: var(--bg-1);
-  color: var(--ink);
+  /* Misma superficie que la barra: el panel es la cabecera desplegada, no una
+     capa distinta. */
+  background: var(--glass-tierra);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  color: var(--on-photo);
   transform: translateY(-101%);
   visibility: hidden;
   transition: transform var(--dur-xl) var(--easing), visibility var(--dur-xl);
@@ -200,7 +214,7 @@
   line-height: var(--leading-title);
   letter-spacing: var(--track-1);
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--on-photo);
   opacity: 0.45;
   transition: opacity var(--dur-md) var(--easing);
   width: fit-content;
@@ -219,7 +233,7 @@
   }
 
   .brand-wordmark {
-    width: 5.5rem;
+    width: 5.9583rem;
   }
 
   /* En móvil la navegación vive sólo en el panel */

@@ -11,7 +11,9 @@
   box-sizing: border-box;
   flex-direction: column;
   gap: var(--space-5);
-  padding-inline: var(--padding);
+  /* Misma calle que el bloque de Marruecos: los tres bloques editoriales de
+     la portada arrancan en la misma vertical, fotografías incluidas. */
+  padding-inline: 10rem;
 }
 
 .pack-showcase-scene,
@@ -28,7 +30,7 @@
 .pack-showcase-title {
   margin: 0 0 var(--space-5);
   font-family: "Marcellus", var(--font-display);
-  font-size: var(--text-display);
+  font-size: 3.125rem;
   font-weight: 400;
   line-height: var(--leading-title);
   text-transform: none;
@@ -36,7 +38,9 @@
 }
 
 .pack-showcase-rail {
-  padding-inline: 1.5rem;
+  /* Sin calle propia: la marca el contenedor, para que la primera fotografía
+     empiece donde empieza el título. */
+  padding-inline: 0;
 }
 
 .pack-showcase-viewport {
@@ -78,12 +82,6 @@
 
 .pack-showcase-viewport.is-pinned .pack-showcase-track {
   will-change: transform;
-}
-
-@media (min-width: 1024px) {
-  .pack-showcase-rail {
-    padding-inline: 4rem;
-  }
 }
 
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
@@ -161,7 +159,7 @@
   border-radius: 999px;
   color: var(--logo-gold);
   font-family: "Marcellus", var(--font-display);
-  font-size: calc(var(--text-label) + 0.125rem);
+  font-size: calc(var(--text-label) + 0.125rem + 2px);
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
@@ -181,6 +179,9 @@
 }
 
 .pack-showcase-closing {
+  /* Aire entre el carril de fotografías y la acción, que antes quedaba pegada
+     al pie de las tarjetas. */
+  padding-top: var(--space-6);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -196,7 +197,7 @@
 .pack-showcase-discover h3 {
   margin: 0 0 var(--space-5);
   font-family: "Marcellus", var(--font-display);
-  font-size: var(--text-display);
+  font-size: 3.125rem;
   font-weight: 400;
   line-height: var(--leading-title);
   text-transform: none;
@@ -208,7 +209,7 @@
   max-width: none;
   margin: 0 0 var(--space-4);
   font-family: "Poppins", var(--font-mono);
-  font-size: var(--text-body);
+  font-size: calc(var(--text-body) - 0.125rem);
   font-weight: 400;
   line-height: 1.5;
   color: var(--ink-soft);
@@ -247,8 +248,18 @@
     padding-bottom: var(--space-5);
   }
 
+  .pack-showcase-inner {
+    padding-inline: 5rem;
+  }
+
   .pack-showcase-item {
     flex-basis: calc((100cqi - var(--space-pack-gap)) / 2);
+  }
+}
+
+@media (max-width: 767px) {
+  .pack-showcase-inner {
+    padding-inline: var(--padding);
   }
 }
 

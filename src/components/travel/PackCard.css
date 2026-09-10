@@ -303,8 +303,22 @@
   text-transform: uppercase;
 }
 
+/* El precio cierra la fila contra el filo de la fotografía: el símbolo del
+   euro queda a plomo con el borde derecho de la imagen. */
+.pack-card--home .pack-card-home-price {
+  align-items: flex-end;
+  padding-right: 0;
+  text-align: right;
+}
+
 .pack-card-home-price strong {
   font-size: calc(var(--text-label) + 0.25rem);
+}
+
+/* Los dos datos de la fila suben dos píxeles sobre la línea del filete. */
+.pack-card--home .pack-card-home-duration strong,
+.pack-card--home .pack-card-home-price strong {
+  transform: translateY(-2px);
 }
 
 .pack-card-home-zones strong {

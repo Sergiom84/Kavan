@@ -1,7 +1,11 @@
 .site-footer {
   position: relative;
   isolation: isolate;
-  background: var(--bg-4);
+  /* Mismo cristal tierra que la cabecera: velo traslúcido de terracota sobre
+     lo que queda por debajo, no una banda opaca. */
+  background: var(--glass-tierra);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
   color: var(--on-photo);
   overflow: hidden;
 }

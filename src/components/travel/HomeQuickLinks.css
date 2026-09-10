@@ -48,11 +48,12 @@
 }
 
 .home-quick-links__cta {
-  font-family: var(--jetbrains-mono);
-  font-size: var(--text-label);
-  font-weight: var(--weight-label);
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
+  font-family: "Poppins", var(--font-mono);
+  font-size: calc(var(--text-body) + 0.0625rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-transform: none;
   color: var(--logo-gold);
 }
 

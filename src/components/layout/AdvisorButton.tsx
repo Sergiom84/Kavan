@@ -67,6 +67,7 @@ export function AdvisorButton() {
           src="/images/logo-kavan.png"
           alt=""
         />
+        <span className="advisor-claim">Te asesoramos</span>
       </button>
     </div>
   )
