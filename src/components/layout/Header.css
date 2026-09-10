@@ -16,15 +16,15 @@
               transform var(--dur-lg) var(--easing);
 }
 
-/* Al salir de un hero normal: cristal tierra y rótulos claros. El velo es
-   traslúcido y desenfoca lo que pasa por debajo, así que la página se sigue
-   viendo a través de la barra. */
+/* Al salir de un hero normal: cristal dorado y tinta. El velo es traslúcido y
+   desenfoca lo que pasa por debajo, así que la página se sigue viendo a través
+   de la barra; sobre un dorado tan claro el rótulo tiene que ir oscuro. */
 .site-header.is-solid,
 .site-header.is-open {
-  background: var(--glass-tierra);
+  background: var(--glass-oro);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  color: var(--on-photo);
+  color: var(--ink);
   border-bottom-color: transparent;
 }
 
@@ -135,8 +135,8 @@
 }
 
 .site-nav a.nav-boxed:hover .label {
-  /* La caja se llena con el color del rótulo, así que dentro va tinta. */
-  color: var(--ink);
+  /* La caja se llena con el color del rótulo, así que dentro va el papel. */
+  color: var(--bg-1);
   opacity: 1;
 }
 
@@ -146,7 +146,7 @@
 }
 
 .site-nav a.nav-boxed.is-active .label {
-  color: var(--ink);
+  color: var(--bg-1);
 }
 
 /* ---------- Botón de menú ---------- */
@@ -193,10 +193,10 @@
   padding: 0 var(--padding);
   /* Misma superficie que la barra: el panel es la cabecera desplegada, no una
      capa distinta. */
-  background: var(--glass-tierra);
+  background: var(--glass-oro);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  color: var(--on-photo);
+  color: var(--ink);
   transform: translateY(-101%);
   visibility: hidden;
   transition: transform var(--dur-xl) var(--easing), visibility var(--dur-xl);
@@ -214,7 +214,7 @@
   line-height: var(--leading-title);
   letter-spacing: var(--track-1);
   text-transform: uppercase;
-  color: var(--on-photo);
+  color: var(--ink);
   opacity: 0.45;
   transition: opacity var(--dur-md) var(--easing);
   width: fit-content;

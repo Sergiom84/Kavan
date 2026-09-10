@@ -1,9 +1,9 @@
 .site-footer {
   position: relative;
   isolation: isolate;
-  /* Mismo cristal tierra que la cabecera: velo traslúcido de terracota sobre
-     lo que queda por debajo, no una banda opaca. */
-  background: var(--glass-tierra);
+  /* Mismo cristal dorado que la cabecera: velo traslúcido sobre lo que queda
+     por debajo, no una banda opaca. */
+  background: var(--glass-oro);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   color: var(--on-photo);
@@ -16,10 +16,13 @@
   inset: 0;
   content: "";
   pointer-events: none;
+  /* El pie conserva rótulo crema sobre las dunas, y el dorado velado es
+     demasiado claro para sostenerlo: este velo de tinta sube del 64-28 % al
+     78-52 % para mantener el texto legal en 4,6:1. */
   background: linear-gradient(
     100deg,
-    color-mix(in srgb, var(--ink) 64%, transparent),
-    color-mix(in srgb, var(--ink) 28%, transparent)
+    color-mix(in srgb, var(--ink) 78%, transparent),
+    color-mix(in srgb, var(--ink) 52%, transparent)
   );
 }
 
