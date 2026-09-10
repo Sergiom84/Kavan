@@ -16,16 +16,31 @@
               transform var(--dur-lg) var(--easing);
 }
 
-/* Al salir de un hero normal: cristal dorado y tinta. El velo es traslúcido y
-   desenfoca lo que pasa por debajo, así que la página se sigue viendo a través
-   de la barra; sobre un dorado tan claro el rótulo tiene que ir oscuro. */
+/* Al salir de un hero normal: cristal terracota esmerilado (tipo iOS) y tinta.
+   El velo es semitransparente, desenfoca y satura lo de debajo; el grano
+   (::before) da la rugosidad del frost. El rótulo va oscuro. */
 .site-header.is-solid,
 .site-header.is-open {
-  background: var(--glass-oro);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+  isolation: isolate;
+  background: var(--glass-terracota);
+  -webkit-backdrop-filter: var(--glass-frost);
+  backdrop-filter: var(--glass-frost);
   color: var(--ink);
-  border-bottom-color: transparent;
+  border-bottom-color: color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--c-pure-white) 38%, transparent);
+}
+
+.site-header.is-solid::before,
+.site-header.is-open::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
 }
 
 /* Sobre la portada que se aleja no hay estado crema: el fondo son las propias
@@ -36,6 +51,8 @@
 }
 
 .site-header-inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -193,9 +210,11 @@
   padding: 0 var(--padding);
   /* Misma superficie que la barra: el panel es la cabecera desplegada, no una
      capa distinta. */
-  background: var(--glass-oro);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--glass-terracota);
+  -webkit-backdrop-filter: var(--glass-frost);
+  backdrop-filter: var(--glass-frost);
   color: var(--ink);
   transform: translateY(-101%);
   visibility: hidden;
@@ -207,7 +226,21 @@
   visibility: visible;
 }
 
+.site-menu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
 .site-menu a {
+  position: relative;
+  z-index: 1;
   font-family: var(--marcellus);
   font-size: calc(var(--text-2) * 1.25);
   font-weight: var(--weight-title);
