@@ -185,7 +185,9 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: var(--space-6);
+  /* Entre la acción y el texto de "Descubre Marruecos" cabe más aire que
+     entre bloques normales: son dos piezas distintas del cierre. */
+  gap: calc(var(--space-6) + var(--space-5));
 }
 
 .pack-showcase-discover {

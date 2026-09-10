@@ -71,11 +71,12 @@
      terracota de duna. Es la única excepción al "sin backdrop-filter" del
      sistema, pedida por Sergio para las dos barras fijas.
 
-     El 82 % no es estético: por debajo, el rótulo crema sobre el papel blanco
-     de la página baja de 4,5:1 y la navegación deja de pasar AA (medido sobre
-     #764623 al 62 %: 2,6:1). Con el desenfoque el fondo se sigue viendo. */
-  --glass-tierra: color-mix(in srgb, var(--bg-4) 82%, transparent);
-  --glass-blur: blur(16px) saturate(1.08);
+     El velo va al 58 %, bien traslúcido, y la legibilidad la sostiene el
+     `brightness` del filtro: oscurece lo que pasa por debajo en lugar de
+     taparlo. Sobre papel blanco el rótulo crema queda en 5,3:1 (con el velo
+     opaco al 62 % y sin oscurecer daba 2,6:1, por debajo de AA). */
+  --glass-tierra: color-mix(in srgb, var(--bg-4) 58%, transparent);
+  --glass-blur: blur(18px) saturate(1.05) brightness(0.55);
 
   /* Blanco roto: fondo del bloque de la frase en partículas. Un paso por
      encima del papel cálido, para separar el bloque sin línea ni caja. */
