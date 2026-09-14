@@ -44,6 +44,29 @@
   color: inherit;
 }
 
+.footer-socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.footer-socials a {
+  display: inline-flex;
+  color: var(--ink-soft);
+  transition: color var(--dur-md) var(--easing);
+}
+
+.footer-socials a:hover {
+  color: var(--ink);
+}
+
+.footer-socials a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 0.25rem;
+  color: var(--ink);
+}
+
 .footer-legal {
   width: 100%;
   display: flex;
@@ -85,7 +108,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-legal a {
+  .footer-legal a,
+  .footer-socials a {
     transition: none;
   }
 }
