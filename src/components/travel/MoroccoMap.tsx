@@ -8,24 +8,32 @@ import './MoroccoMap.css'
 /* ---------------------------------------------------------------------------
    Mapa de Marruecos con las ciudades del catálogo.
 
-   El mapa es una imagen: relieve, costa y rótulos de referencia (Tánger,
-   Rabat, Casablanca, Fez, Agadir) vienen ya dibujados. Las chinchetas son
-   HTML y se superponen a la imagen para conservar su interacción.
+   El mapa es una imagen: relieve, costa, las chinchetas y los rótulos de
+   referencia (Tánger, Rabat, Casablanca, Fez, Agadir) vienen ya dibujados.
 
-   Las posiciones de las chinchetas están medidas sobre la propia imagen (el
-   vástago de cada una, por análisis de píxeles) y van en porcentaje, así que
-   aguantan cualquier tamaño de pantalla. Si se cambia la imagen del mapa hay
-   que volver a medirlas.
+   Los nombres de las ciudades del catálogo NO. Estaban quemados en el archivo
+   y eso los dejaba fuera de alcance: cuerpo fijo, sin escalar en móvil, blandos
+   en pantallas retina y con Zagora y Agafay —que nunca estuvieron dibujadas—
+   imitándolos desde CSS. Se borraron del WebP (`scripts/mapa/borrar-rotulos.py`)
+   y se reponen aquí, los siete con el mismo tratamiento.
+
+   Las posiciones están medidas sobre la propia imagen (la base del vástago de
+   cada chincheta, por análisis de píxeles) y van en porcentaje, así que
+   aguantan cualquier tamaño de pantalla. `lado` reproduce la colocación
+   original del rótulo respecto a su chincheta. Si se cambia la imagen del mapa
+   hay que volver a medirlo todo.
 --------------------------------------------------------------------------- */
 
-const PUNTOS: Record<string, { x: number; y: number }> = {
-  essaouira: { x: 44.3, y: 52.1 },
-  marrakech: { x: 59.8, y: 50.8 },
-  agafay: { x: 61.3, y: 55.6 },
-  ouarzazate: { x: 69.8, y: 59.7 },
-  zagora: { x: 76.6, y: 66.3 },
-  erfoud: { x: 82.3, y: 54.3 },
-  merzouga: { x: 86.0, y: 60.1 },
+type Lado = 'izquierda' | 'derecha' | 'abajo'
+
+const PUNTOS: Record<string, { x: number; y: number; lado: Lado }> = {
+  essaouira: { x: 44.3, y: 52.1, lado: 'izquierda' },
+  marrakech: { x: 59.8, y: 50.8, lado: 'derecha' },
+  agafay: { x: 61.3, y: 55.6, lado: 'derecha' },
+  ouarzazate: { x: 69.8, y: 59.7, lado: 'abajo' },
+  zagora: { x: 76.6, y: 66.3, lado: 'abajo' },
+  erfoud: { x: 82.3, y: 54.3, lado: 'derecha' },
+  merzouga: { x: 86.0, y: 60.1, lado: 'abajo' },
 }
 
 const ZAGORA = {
@@ -82,25 +90,37 @@ export function MoroccoMap() {
         <img
           className="mmap-image"
           src="/images/mapa-kavan-alpha.webp"
-          alt="Mapa de Marruecos con Tánger, Rabat, Casablanca, Fez, Agadir, Essaouira, Marrakech, Agafay, Ouarzazate, Zagora, Erfoud y Merzouga"
+          alt="Mapa de Marruecos: la costa atlántica, el relieve del Atlas y las ciudades de referencia Tánger, Rabat, Casablanca, Fez y Agadir"
           width={1448}
           height={1086}
           loading="lazy"
           decoding="async"
         />
 
+        {/* Zagora no está dibujada en el mapa: su chincheta se compone aquí. */}
         <span className="mmap-zagora-marker" aria-hidden="true">
           <span className="mmap-added-pin">
             <span className="mmap-added-pin-dot" />
-            <span className="mmap-added-pin-label">Zagora</span>
           </span>
         </span>
 
-        {/* Agafay venía dibujada en el mapa con rótulo secundario, en gris y a
-            la mitad de cuerpo que el resto. El rótulo original se retiró del
-            propio archivo y se repone aquí con el tratamiento de las demás
-            ciudades; la chincheta dibujada se conserva. */}
-        <span className="mmap-agafay-label" aria-hidden="true">Agafay</span>
+        {/* Los rótulos son decorativos: el nombre accesible de cada ciudad vive
+            en el `aria-label` de su chincheta, y en móvil, donde las chinchetas
+            se retiran, lo aporta el carrusel de destinos. Se pintan siempre,
+            también en móvil, porque forman parte de la cartografía. */}
+        {conPunto.map((c) => {
+          const p = PUNTOS[c.slug]
+          return (
+            <span
+              key={c.slug}
+              className={`mmap-rotulo is-${p.lado}`}
+              style={{ left: `${p.x}%`, top: `${p.y}%` }}
+              aria-hidden="true"
+            >
+              {c.name}
+            </span>
+          )
+        })}
 
         {conPunto.map((c) => {
           const p = PUNTOS[c.slug]

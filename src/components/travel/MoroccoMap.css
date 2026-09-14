@@ -120,8 +120,15 @@
   background: currentColor;
 }
 
-.mmap-added-pin-label,
-.mmap-agafay-label {
+/* ---------- Rótulos ----------
+   Única fuente de verdad tipográfica del mapa: los siete nombres del catálogo
+   salen de aquí, ya no del archivo de imagen. `left`/`top` apuntan a la base
+   del vástago de cada chincheta, y las tres colocaciones reproducen las
+   distancias del dibujo original (28 px al costado, 8 px por debajo, sobre
+   1448 px de ancho de imagen). */
+
+.mmap-rotulo {
+  position: absolute;
   font-family: var(--font-display);
   font-size: var(--mmap-rotulo);
   font-weight: var(--weight-heading);
@@ -130,25 +137,34 @@
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--mmap-tinta);
-}
-
-.mmap-added-pin-label {
-  position: absolute;
-  top: calc(50% + var(--mmap-pin-vastago) + var(--mmap-img) * 8 / 1448);
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* Agafay lleva el rótulo al costado de su chincheta, como Marrakech o Erfoud:
-   `left`/`top` apuntan al centro del círculo dibujado y el hueco reproduce el
-   del resto de rótulos (17 px sobre 1448 px de imagen). */
-.mmap-agafay-label {
-  position: absolute;
-  left: 61.3%;
-  top: 53.1%;
-  padding-left: calc(var(--mmap-img) * 28 / 1448);
-  transform: translateY(calc(-50% + var(--mmap-img) * 7 / 1448));
   pointer-events: none;
+}
+
+/* Al costado: el rótulo se centra en el círculo, que queda un vástago por
+   encima del punto de anclaje, con los 7 px de compensación óptica del dibujo
+   (las versales pesan por debajo de su centro geométrico). */
+.mmap-rotulo.is-derecha,
+.mmap-rotulo.is-izquierda {
+  transform: translateY(
+    calc(-50% - var(--mmap-pin-vastago) + var(--mmap-img) * 7 / 1448)
+  );
+}
+
+.mmap-rotulo.is-derecha {
+  padding-left: calc(var(--mmap-img) * 28 / 1448);
+}
+
+.mmap-rotulo.is-izquierda {
+  padding-right: calc(var(--mmap-img) * 28 / 1448);
+  transform: translate(
+    -100%,
+    calc(-50% - var(--mmap-pin-vastago) + var(--mmap-img) * 7 / 1448)
+  );
+}
+
+.mmap-rotulo.is-abajo {
+  padding-top: calc(var(--mmap-img) * 8 / 1448);
+  transform: translateX(-50%);
 }
 
 /* Anillo que late al señalar, el mismo gesto que el botón de asesoría. */
