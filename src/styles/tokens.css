@@ -68,16 +68,10 @@
   --logo-gold: #a57430;     /* dorado tierra del logo (public/images/logo-kavan.png) */
 
   /* Cristal: excepción al "sin backdrop-filter", pedida por Sergio para las
-     barras fijas. Cabecera y pie usan terracota esmerilada; el pie tira un
-     punto más a naranja (mezcla con el sol del desierto). Mismo 10 % de velo
-     para que el rótulo en tinta siga por encima de AA. */
+     barras fijas. Cabecera y pie comparten la misma terracota esmerilada, al
+     10 % de velo para que el rótulo en tinta siga por encima de AA. */
   --glass-oro: color-mix(in srgb, var(--logo-gold) 45%, transparent);
   --glass-terracota: color-mix(in srgb, var(--accent) 10%, transparent);
-  --glass-terracota-naranja: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--accent) 55%, var(--accent-sun)) 10%,
-    transparent
-  );
   --glass-blur: blur(18px) saturate(1.04) brightness(1.06);
   --glass-frost: blur(28px) saturate(1.55) brightness(1.08);
 

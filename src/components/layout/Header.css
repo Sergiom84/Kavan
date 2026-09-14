@@ -77,7 +77,7 @@
   /* Dos píxeles por encima de la línea óptica del flex: el wordmark tiene el
      peso visual bajo y de otro modo se lee hundido. */
   transform: translateY(-2px);
-  width: 7.0417rem;
+  width: 7.475rem;
   aspect-ratio: 4440 / 853;
   background: currentColor;
   -webkit-mask: url('/images/Logotipo sin Morocco.png') center / contain no-repeat;
@@ -102,7 +102,7 @@
 
 .site-nav a .label {
   font-family: var(--marcellus);
-  font-size: 0.8125rem;
+  font-size: 1.0625rem;
   color: inherit;
   transition: opacity var(--dur-md) var(--easing);
 }

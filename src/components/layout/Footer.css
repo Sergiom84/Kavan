@@ -1,8 +1,8 @@
 .site-footer {
   position: relative;
   isolation: isolate;
-  /* Mismo cristal esmerilado que la cabecera, un punto más naranja. */
-  background: var(--glass-terracota-naranja);
+  /* Mismo cristal esmerilado y mismo velo que la cabecera. */
+  background: var(--glass-terracota);
   -webkit-backdrop-filter: var(--glass-frost);
   backdrop-filter: var(--glass-frost);
   color: var(--ink);
