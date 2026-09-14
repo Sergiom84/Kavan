@@ -80,13 +80,17 @@
   pointer-events: none;
 }
 
+/* El punto de anclaje de las chinchetas dibujadas es la base de su vástago, y
+   el rótulo de abajo cuenta con eso. Esta se compone centrada en su caja, así
+   que sube un vástago para que su base caiga donde la de las demás; si no, el
+   rótulo de Zagora se le cruza por el medio. */
 .mmap-zagora-marker {
   position: absolute;
   left: 76.6%;
   top: 66.3%;
   width: 3.5rem;
   height: 3.5rem;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% - var(--mmap-pin-vastago)));
   color: var(--mmap-tinta);
   pointer-events: none;
 }
