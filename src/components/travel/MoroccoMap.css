@@ -24,7 +24,7 @@
      El lienzo mantiene sus proporciones y las coordenadas de los enlaces. */
   height: 48vw;
   /* La Home termina en el mapa: no debe quedar una banda de crema antes del
-     cierre visual de dunas del footer. */
+     cristal del pie. */
   padding-bottom: 0;
 }
 

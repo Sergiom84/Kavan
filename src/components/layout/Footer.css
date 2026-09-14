@@ -1,12 +1,13 @@
 .site-footer {
   position: relative;
   isolation: isolate;
-  /* Mismo cristal esmerilado y mismo velo que la cabecera. */
+  /* Mismo cristal que la cabecera: igual velo, igual desenfoque, igual grano y
+     el mismo filo blanco. El pie llevaba encima una duna animada por WebGL; se
+     retiró para que las dos barras se lean como la misma superficie. */
   background: var(--glass-terracota);
   -webkit-backdrop-filter: var(--glass-frost);
   backdrop-filter: var(--glass-frost);
   color: var(--ink);
-  overflow: hidden;
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--c-pure-white) 38%, transparent);
 }
 
