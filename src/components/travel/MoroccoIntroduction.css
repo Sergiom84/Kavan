@@ -1,26 +1,98 @@
+/* El fondo lo pone el `body`: arena cálida y las ondas de duna. La sección no
+   pinta nada propio para no cortar la onda a mitad de bloque. */
 .home-introduction {
-  padding: var(--space-6) 10rem;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  padding: 0 0 var(--space-6);
   background: transparent;
   border: 0;
+}
+
+/* Banda de fotografía a sangre con el rótulo encima. El título deja de flotar
+   sobre el papel y entra por la imagen, como la portada. */
+.home-introduction__band {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--media-tall);
+  margin-bottom: var(--space-6);
+  overflow: hidden;
+}
+
+.home-introduction__band img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 62%;
+}
+
+/* Velo de lectura. El cielo de la fotografía es claro y el oro solo se
+   sostiene sobre él con algo de sombra debajo. */
+.home-introduction__band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    60% 70% at 50% 46%,
+    rgba(28, 20, 14, 0.52),
+    rgba(28, 20, 14, 0.12) 70%,
+    rgba(28, 20, 14, 0.04)
+  );
 }
 
 .home-introduction__content {
   width: 100%;
   max-width: none;
+  padding-inline: 10rem;
   text-align: left;
 }
 
 .home-introduction h2 {
-  margin-bottom: var(--space-5);
+  margin: 0;
   font-family: var(--font-display);
   font-size: 3.125rem;
   font-weight: 400;
   line-height: var(--leading-title);
   text-transform: none;
-  color: var(--title);
+  color: var(--accent-sun);
+  text-shadow: 0 2px 10px rgba(12, 8, 4, 0.72);
+}
+
+/* Cada punto pasa a fotografía redonda más texto: la miniatura hace de viñeta,
+   así que el disco sobra. */
+.home-introduction ul.home-introduction__pilares {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.home-introduction__pilares li {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  align-items: start;
+  gap: var(--space-4);
+}
+
+.home-introduction__pilares li + li {
+  margin-top: var(--space-4);
+}
+
+.home-introduction__pilares img {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--radius-round);
+  object-fit: cover;
+  /* Las fotos traen mucho cielo: en un recorte redondo hay que bajar al motivo. */
+  object-position: 50% 58%;
+  box-shadow: var(--shadow-card);
+}
+
+.home-introduction__pilares p {
+  margin: 0;
 }
 
 .home-introduction p,
@@ -41,13 +113,7 @@
 
 .home-introduction ul {
   margin-inline: 0;
-  padding-inline-start: 1.25em;
   padding-inline-end: 0;
-  list-style: disc;
-}
-
-.home-introduction li + li {
-  margin-top: var(--space-2);
 }
 
 .home-introduction strong {
@@ -56,14 +122,37 @@
 }
 
 @media (max-width: 1023px) {
-  .home-introduction {
-    min-height: 0;
+  .home-introduction__content {
     padding-inline: 5rem;
+  }
+
+  .home-introduction__band {
+    height: 22rem;
+    margin-bottom: var(--space-5);
   }
 }
 
 @media (max-width: 767px) {
   .home-introduction {
-    padding: var(--space-5) var(--padding);
+    padding-bottom: var(--space-5);
+  }
+
+  .home-introduction__content {
+    padding-inline: var(--padding);
+  }
+
+  .home-introduction__band {
+    height: 16rem;
+  }
+
+  /* En una columna estrecha la miniatura roba demasiado ancho al texto. */
+  .home-introduction__pilares li {
+    grid-template-columns: 3rem 1fr;
+    gap: var(--space-3);
+  }
+
+  .home-introduction__pilares img {
+    width: 3rem;
+    height: 3rem;
   }
 }
