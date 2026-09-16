@@ -23,6 +23,18 @@ type Props = {
  * La última se divide desde el centro y deja visible el fondo de la página para
  * enlazar con el siguiente bloque.
  */
+/** Dónde acaba la apertura de la última fotografía en la línea de tiempo. */
+const FIN_APERTURA = 1.02
+
+/** Pantallas de scroll que el escenario aguanta quieto una vez abierto el
+    bloque de continuación. Sin esta espera, la última fotografía termina de
+    abrirse y la página sigue bajando en el mismo gesto: las tarjetas se ven
+    de pasada. */
+const ESPERA_FINAL_SVH = 130
+
+/** Alto de scroll de la ráfaga, sin contar la espera final. */
+const alturaRafaga = (numeroDeFotos: number) => Math.max(365, 260 + numeroDeFotos * 35)
+
 export function BurstGallery({
   media,
   fotos,
@@ -70,6 +82,15 @@ export function BurstGallery({
             ? (finRafaga - inicioRafaga - duracionFoto) / (capas.length - 1)
             : 0
 
+        /* La espera final alarga la línea de tiempo sin tocar el ritmo de la
+           ráfaga: los mismos svh por fotografía, y detrás un tramo en el que
+           no ocurre nada y el escenario —pegajoso— se queda quieto con las
+           tarjetas delante. Como el progreso ahora llega más lejos, los
+           umbrales de cabecera y asesor se reescalan contra el total. */
+        const espera = (FIN_APERTURA * ESPERA_FINAL_SVH) / alturaRafaga(capas.length)
+        const total = FIN_APERTURA + espera
+        const umbral = (posicion: number) => posicion / total
+
         const timeline = gsap.timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
@@ -79,8 +100,8 @@ export function BurstGallery({
             scrub: 0.4,
             invalidateOnRefresh: true,
             onUpdate: ({ progress }) => {
-              actualizarCabecera(progress >= 0.82)
-              actualizarAsesor(progress >= 0.839)
+              actualizarCabecera(progress >= umbral(0.82))
+              actualizarAsesor(progress >= umbral(0.839))
             },
           },
         })
@@ -129,9 +150,13 @@ export function BurstGallery({
             { xPercent: 100, duration: 0.18 },
             0.84,
           )
-          timeline.set(mitadesFinales, { willChange: 'auto' }, 1.02)
-          timeline.to(splitEl, { autoAlpha: 0, duration: 0.001 }, 1.019)
+          timeline.set(mitadesFinales, { willChange: 'auto' }, FIN_APERTURA)
+          timeline.to(splitEl, { autoAlpha: 0, duration: 0.001 }, FIN_APERTURA - 0.001)
         }
+
+        /* Tramo muerto: sólo existe para que el scroll siga contando mientras
+           el escenario permanece fijo con las tarjetas. */
+        timeline.to({}, { duration: espera }, FIN_APERTURA)
       }, root)
 
       return () => {
@@ -163,7 +188,7 @@ export function BurstGallery({
   }, [fotos.length])
 
   const style = {
-    '--burst-scroll-height': `${Math.max(365, 260 + fotos.length * 35)}svh`,
+    '--burst-scroll-height': `${alturaRafaga(fotos.length) + ESPERA_FINAL_SVH}svh`,
   } as CSSProperties
 
   return (
