@@ -1,7 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <path fill="#E8D9C8" fill-opacity="0.42" d="M0 210C180 150 320 270 500 210C680 150 820 90 980 170C1140 250 1280 150 1440 190V330C1260 280 1120 360 960 300C800 240 640 330 460 280C280 230 140 310 0 270Z"/>
-  <path fill="#E2D0BB" fill-opacity="0.38" d="M0 430C220 360 400 500 620 430C840 360 1020 300 1200 390C1320 450 1380 410 1440 430V560C1280 510 1140 590 960 530C780 470 600 560 400 510C220 460 80 530 0 500Z"/>
-  <path fill="#D9C4A8" fill-opacity="0.32" d="M0 640C260 580 460 720 720 640C980 560 1180 700 1440 640V780C1200 830 980 740 720 800C460 860 220 780 0 820Z"/>
-  <path fill="none" stroke="#C9B394" stroke-opacity="0.28" stroke-width="1.4" d="M0 250C240 190 480 310 720 240C960 170 1200 280 1440 220"/>
-  <path fill="none" stroke="#C9B394" stroke-opacity="0.2" stroke-width="1.2" d="M0 470C200 410 480 530 760 460C1040 390 1240 500 1440 450"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1200" preserveAspectRatio="none" aria-hidden="true">
+  <!--
+    Fondo de página: dunas y trazos de oro, repetido en vertical.
+
+    Las formas se quedan lejos del filo superior e inferior del mosaico y los
+    trazos se apagan en sus extremos, así la costura entre repeticiones no se
+    ve sin necesidad de que el dibujo empalme al píxel.
+
+    Paleta Sáhara (design-system/MASTER.md): arena, terracota y el dorado del
+    logotipo. Las opacidades son bajas a propósito: esto va por debajo de toda
+    la prosa del sitio y no puede competir con ella.
+  -->
+  <defs>
+    <linearGradient id="duna-alta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E9DCCB" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#E9DCCB" stop-opacity="0.16"/>
+    </linearGradient>
+    <linearGradient id="duna-media" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E0CDB4" stop-opacity="0.54"/>
+      <stop offset="1" stop-color="#E0CDB4" stop-opacity="0.12"/>
+    </linearGradient>
+    <linearGradient id="duna-terracota" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C4622D" stop-opacity="0.13"/>
+      <stop offset="1" stop-color="#C4622D" stop-opacity="0.02"/>
+    </linearGradient>
+    <!-- Los trazos nacen y mueren en transparente: no hay extremo que corte. -->
+    <linearGradient id="hilo-oro" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#A57430" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#A57430" stop-opacity="0.34"/>
+      <stop offset="0.82" stop-color="#A57430" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#A57430" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="hilo-oro-tenue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#A57430" stop-opacity="0"/>
+      <stop offset="0.24" stop-color="#A57430" stop-opacity="0.2"/>
+      <stop offset="0.76" stop-color="#A57430" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#A57430" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Cresta larga y tendida, la que marca el ritmo del mosaico. -->
+  <path fill="url(#duna-alta)"
+        d="M0 268C210 176 392 214 560 268C742 326 884 214 1064 200C1236 186 1348 246 1440 232V520C1236 560 1052 470 856 494C660 518 470 566 268 528C150 506 62 520 0 534Z"/>
+
+  <!-- Segunda duna, desplazada, para que el dibujo no se lea como una onda sola. -->
+  <path fill="url(#duna-media)"
+        d="M0 612C186 548 330 644 520 662C716 680 852 590 1040 578C1214 566 1330 626 1440 606V842C1300 884 1140 806 962 818C784 830 606 894 416 856C266 826 122 842 0 862Z"/>
+
+  <!-- Terracota muy apagada: da temperatura sin ensuciar el papel. -->
+  <path fill="url(#duna-terracota)"
+        d="M0 928C220 866 438 952 654 968C880 984 1092 906 1300 926C1360 932 1404 942 1440 936V1060C1230 1096 1010 1022 792 1038C574 1054 344 1110 132 1076C86 1068 40 1064 0 1068Z"/>
+
+  <!-- Hilos de oro: la línea fina que cruza el fondo del ejemplo. -->
+  <path fill="none" stroke="url(#hilo-oro)" stroke-width="1.6"
+        d="M-40 352C210 262 452 402 700 356C948 310 1160 196 1480 288"/>
+  <path fill="none" stroke="url(#hilo-oro-tenue)" stroke-width="1.2"
+        d="M-40 726C246 662 470 786 742 730C1014 674 1216 596 1480 668"/>
+  <path fill="none" stroke="url(#hilo-oro-tenue)" stroke-width="1.2"
+        d="M-40 1006C230 950 436 1044 690 1016C944 988 1204 906 1480 962"/>
 </svg>

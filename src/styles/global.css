@@ -65,8 +65,10 @@ body {
   background-color: var(--bg-1);
   background-image: url("/images/dune-wash.svg");
   background-repeat: repeat-y;
-  background-size: 100% 70rem;
-  background-position: 0 8rem;
+  /* Mosaico más alto que antes (70 rem): el dibujo lleva ahora tres crestas y
+     tres hilos de oro, y comprimido se leía como rayas. */
+  background-size: 100% 90rem;
+  background-position: 0 6rem;
 }
 
 h1, h2, h3, h4 {
