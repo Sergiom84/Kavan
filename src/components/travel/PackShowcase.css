@@ -76,8 +76,14 @@
   width: 100%;
 }
 
+/* Fijado, el carril recorta por los cuatro lados para que las tarjetas no se
+   salgan por los flancos. Arriba hay que dejarle sitio a la elevación del
+   hover —la tarjeta sube 0,45 rem— o el recorte le corta la cresta del arco.
+   El margen negativo devuelve el hueco: la posición en pantalla no cambia. */
 .pack-showcase-viewport.is-pinned {
   overflow: hidden;
+  padding-top: 0.75rem;
+  margin-top: -0.75rem;
 }
 
 .pack-showcase-viewport.is-pinned .pack-showcase-track {
