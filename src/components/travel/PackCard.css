@@ -43,6 +43,13 @@
   inset: 0;
   overflow: hidden;
   border-radius: var(--portico);
+  /* El `overflow` por sí solo no basta: la fotografía lleva `transform`, y una
+     capa compositada contra un borde redondeado se recorta de forma poco
+     fiable —asomaba una franja de color sobre el arco al hacer zoom—. La
+     máscara sí obliga a recortar por la silueta real de la herradura, porque
+     se aplica al rasterizar el subárbol entero. */
+  -webkit-mask-image: radial-gradient(#000, #000);
+  mask-image: radial-gradient(#000, #000);
   pointer-events: none;
   opacity: 0.9;
   transition: opacity var(--dur-lg) var(--easing);
@@ -63,6 +70,10 @@
   object-fit: cover;
   /* Las fotos de paisaje traen mucho cielo: bajamos el encuadre al terreno */
   object-position: 50% 62%;
+  /* La herradura va también en la propia fotografía, no sólo en su caja: si el
+     navegador falla al recortar la capa compositada, lo que asoma sigue siendo
+     un arco y no una esquina cuadrada. */
+  border-radius: var(--portico);
   transform: scale(1.02);
   /* El zoom crece hacia abajo, no desde el centro. Con el origen en el centro
      la fotografía sobresale por arriba del recorte en herradura, y ese sobrante
