@@ -228,9 +228,23 @@
               filter var(--dur-lg) var(--easing);
 }
 
+/* Sin fondo propio detrás del arco. El "pico" de las esquinas no lo hacía el
+   recorte: era el crema de la tarjeta asomando por fuera de la herradura. Con
+   la tarjeta y su caja de imagen en transparente, el arco se apoya
+   directamente sobre el papel de la página. */
+.pack-card--home,
+.pack-card--home .pack-card-media {
+  background: transparent;
+  box-shadow: none;
+}
+
+.pack-card--home:hover,
+.pack-card--home:focus-visible {
+  box-shadow: none;
+}
+
 .pack-card--home .pack-card-media {
   border-radius: 0;
-  background: var(--card);
 }
 
 /* El título forma parte de la fotografía: el velo inferior le da contraste
@@ -269,8 +283,26 @@
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.52);
 }
 
+/* El texto deja la caja blanca y pasa a cristal, como los accesos del hero.
+   Aquí el cristal es claro y no oscuro: debajo hay papel arena, no una
+   fotografía nocturna, y la tinta del texto es oscura. */
 .pack-card--home .pack-card-body {
   gap: var(--space-3);
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--c-pure-white) 34%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(1.05);
+  backdrop-filter: blur(10px) saturate(1.05);
+  border: 1px solid color-mix(in srgb, var(--c-pure-white) 58%, transparent);
+  border-radius: var(--radius-glass);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+/* Sin desenfoque el velo claro se queda corto y la tinta pierde apoyo. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pack-card--home .pack-card-body {
+    background: color-mix(in srgb, var(--c-pure-white) 72%, transparent);
+  }
 }
 
 .pack-card-home-description {

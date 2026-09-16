@@ -104,11 +104,9 @@
   }
 }
 
-.pack-showcase .pack-card--home {
-  background: var(--card);
-  box-shadow: var(--shadow-card);
-}
-
+/* El fondo y la elevación de la tarjeta viven en PackCard.css: aquí sólo se
+   ajusta el encuadre y el aire del carril. Si se repone un `background` en
+   esta regla vuelve el pico crema en las esquinas del arco. */
 .pack-showcase .pack-card--home .pack-card-media {
   aspect-ratio: 4 / 5;
   border-radius: 0;
@@ -116,7 +114,6 @@
 
 .pack-showcase .pack-card--home .pack-card-body {
   gap: var(--space-2);
-  padding: var(--space-3);
 }
 
 .pack-showcase .pack-card--home .pack-card-home-description {
