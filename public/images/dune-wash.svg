@@ -1,60 +1,103 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1200" preserveAspectRatio="none" aria-hidden="true">
   <!--
-    Fondo de página: dunas y trazos de oro, repetido en vertical.
+    Fondo de página: dunas apiladas, hilos de oro y toques de oliva y granate.
+
+    Las dunas se dibujan como en la referencia de la clienta —lomos que se
+    solapan, con el filo claro arriba y el pie desvanecido—, no como ondas
+    planas. Cada lomo lleva una cresta de luz encima: es lo que las hace leer
+    como duna y no como mancha.
 
     Las formas se quedan lejos del filo superior e inferior del mosaico y los
-    trazos se apagan en sus extremos, así la costura entre repeticiones no se
-    ve sin necesidad de que el dibujo empalme al píxel.
+    trazos nacen y mueren en transparente, así la costura entre repeticiones no
+    se ve sin tener que empalmar el dibujo al píxel.
 
-    Paleta Sáhara (design-system/MASTER.md): arena, terracota y el dorado del
-    logotipo. Las opacidades son bajas a propósito: esto va por debajo de toda
-    la prosa del sitio y no puede competir con ella.
+    Verde oliva y granate entran a petición expresa de la clienta; no están en
+    design-system/MASTER.md y habría que registrarlos allí si se quedan.
   -->
   <defs>
-    <linearGradient id="duna-alta" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#E9DCCB" stop-opacity="0.62"/>
-      <stop offset="1" stop-color="#E9DCCB" stop-opacity="0.16"/>
+    <linearGradient id="lomo-claro" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E7D3B6" stop-opacity="0.7"/>
+      <stop offset="0.55" stop-color="#E7D3B6" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#E7D3B6" stop-opacity="0.1"/>
     </linearGradient>
-    <linearGradient id="duna-media" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#E0CDB4" stop-opacity="0.54"/>
-      <stop offset="1" stop-color="#E0CDB4" stop-opacity="0.12"/>
+    <linearGradient id="lomo-medio" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DCBE98" stop-opacity="0.68"/>
+      <stop offset="0.6" stop-color="#DCBE98" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#DCBE98" stop-opacity="0.08"/>
     </linearGradient>
-    <linearGradient id="duna-terracota" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#C4622D" stop-opacity="0.13"/>
-      <stop offset="1" stop-color="#C4622D" stop-opacity="0.02"/>
+    <linearGradient id="lomo-oscuro" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C9A67C" stop-opacity="0.55"/>
+      <stop offset="0.62" stop-color="#C9A67C" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#C9A67C" stop-opacity="0.06"/>
     </linearGradient>
-    <!-- Los trazos nacen y mueren en transparente: no hay extremo que corte. -->
+    <linearGradient id="lomo-oliva" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7C8663" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#7C8663" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="lomo-granate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9D3C23" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#9D3C23" stop-opacity="0.03"/>
+    </linearGradient>
     <linearGradient id="hilo-oro" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#A57430" stop-opacity="0"/>
-      <stop offset="0.18" stop-color="#A57430" stop-opacity="0.34"/>
-      <stop offset="0.82" stop-color="#A57430" stop-opacity="0.34"/>
+      <stop offset="0.2" stop-color="#A57430" stop-opacity="0.5"/>
+      <stop offset="0.8" stop-color="#A57430" stop-opacity="0.5"/>
       <stop offset="1" stop-color="#A57430" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="hilo-oro-tenue" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#A57430" stop-opacity="0"/>
-      <stop offset="0.24" stop-color="#A57430" stop-opacity="0.2"/>
-      <stop offset="0.76" stop-color="#A57430" stop-opacity="0.2"/>
-      <stop offset="1" stop-color="#A57430" stop-opacity="0"/>
+    <linearGradient id="hilo-oliva" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6F7A5A" stop-opacity="0"/>
+      <stop offset="0.24" stop-color="#6F7A5A" stop-opacity="0.42"/>
+      <stop offset="0.76" stop-color="#6F7A5A" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#6F7A5A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="hilo-granate" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9D3C23" stop-opacity="0"/>
+      <stop offset="0.26" stop-color="#9D3C23" stop-opacity="0.4"/>
+      <stop offset="0.74" stop-color="#9D3C23" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#9D3C23" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="cresta" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FBF5EC" stop-opacity="0"/>
+      <stop offset="0.3" stop-color="#FBF5EC" stop-opacity="0.85"/>
+      <stop offset="0.7" stop-color="#FBF5EC" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#FBF5EC" stop-opacity="0"/>
     </linearGradient>
   </defs>
 
-  <!-- Cresta larga y tendida, la que marca el ritmo del mosaico. -->
-  <path fill="url(#duna-alta)"
-        d="M0 268C210 176 392 214 560 268C742 326 884 214 1064 200C1236 186 1348 246 1440 232V520C1236 560 1052 470 856 494C660 518 470 566 268 528C150 506 62 520 0 534Z"/>
+  <!-- Primer grupo de dunas: lomo hondo detrás, lomo claro delante. -->
+  <path fill="url(#lomo-oscuro)"
+        d="M-20 340C120 252 300 232 470 288C640 344 764 288 930 254C1096 220 1300 268 1460 236V560H-20Z"/>
+  <path fill="none" stroke="url(#cresta)" stroke-width="2"
+        d="M-20 340C120 252 300 232 470 288C640 344 764 288 930 254C1096 220 1300 268 1460 236"/>
 
-  <!-- Segunda duna, desplazada, para que el dibujo no se lea como una onda sola. -->
-  <path fill="url(#duna-media)"
-        d="M0 612C186 548 330 644 520 662C716 680 852 590 1040 578C1214 566 1330 626 1440 606V842C1300 884 1140 806 962 818C784 830 606 894 416 856C266 826 122 842 0 862Z"/>
+  <path fill="url(#lomo-claro)"
+        d="M-20 430C160 352 336 420 520 404C712 388 852 318 1030 336C1204 354 1330 420 1460 392V620H-20Z"/>
+  <path fill="none" stroke="url(#cresta)" stroke-width="2"
+        d="M-20 430C160 352 336 420 520 404C712 388 852 318 1030 336C1204 354 1330 420 1460 392"/>
 
-  <!-- Terracota muy apagada: da temperatura sin ensuciar el papel. -->
-  <path fill="url(#duna-terracota)"
-        d="M0 928C220 866 438 952 654 968C880 984 1092 906 1300 926C1360 932 1404 942 1440 936V1060C1230 1096 1010 1022 792 1038C574 1054 344 1110 132 1076C86 1068 40 1064 0 1068Z"/>
+  <!-- Toque de oliva: un lomo bajo, detrás del segundo grupo. -->
+  <path fill="url(#lomo-oliva)"
+        d="M-20 690C180 626 352 690 540 672C742 652 900 600 1090 620C1254 638 1352 684 1460 664V860H-20Z"/>
 
-  <!-- Hilos de oro: la línea fina que cruza el fondo del ejemplo. -->
+  <!-- Segundo grupo: el que marca el centro del mosaico. -->
+  <path fill="url(#lomo-medio)"
+        d="M-20 770C170 700 330 764 520 780C726 798 880 720 1070 706C1244 694 1352 744 1460 722V960H-20Z"/>
+  <path fill="none" stroke="url(#cresta)" stroke-width="2"
+        d="M-20 770C170 700 330 764 520 780C726 798 880 720 1070 706C1244 694 1352 744 1460 722"/>
+
+  <!-- Granate al pie: la nota cálida que cierra el mosaico. -->
+  <path fill="url(#lomo-granate)"
+        d="M-20 1010C200 944 420 1024 640 1042C880 1062 1100 986 1320 1004C1380 1010 1420 1018 1460 1012V1170H-20Z"/>
+  <path fill="url(#lomo-oscuro)"
+        d="M-20 1076C220 1014 452 1088 682 1102C918 1116 1140 1048 1360 1066C1400 1070 1430 1076 1460 1072V1200H-20Z"/>
+  <path fill="none" stroke="url(#cresta)" stroke-width="1.8"
+        d="M-20 1076C220 1014 452 1088 682 1102C918 1116 1140 1048 1360 1066C1400 1070 1430 1076 1460 1072"/>
+
+  <!-- Hilos: oro, oliva y granate cruzando el papel. -->
   <path fill="none" stroke="url(#hilo-oro)" stroke-width="1.6"
-        d="M-40 352C210 262 452 402 700 356C948 310 1160 196 1480 288"/>
-  <path fill="none" stroke="url(#hilo-oro-tenue)" stroke-width="1.2"
-        d="M-40 726C246 662 470 786 742 730C1014 674 1216 596 1480 668"/>
-  <path fill="none" stroke="url(#hilo-oro-tenue)" stroke-width="1.2"
-        d="M-40 1006C230 950 436 1044 690 1016C944 988 1204 906 1480 962"/>
+        d="M-40 190C210 104 452 232 700 186C948 140 1160 52 1480 128"/>
+  <path fill="none" stroke="url(#hilo-oliva)" stroke-width="1.3"
+        d="M-40 612C246 548 470 664 742 612C1014 560 1216 486 1480 552"/>
+  <path fill="none" stroke="url(#hilo-granate)" stroke-width="1.3"
+        d="M-40 930C230 876 436 962 690 936C944 910 1204 834 1480 884"/>
 </svg>
