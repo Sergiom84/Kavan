@@ -80,7 +80,7 @@
   color: var(--accent-sun);
   /* Con el velo al 44 % el cielo del atardecer asoma por detrás del rótulo:
      la sombra es lo que mantiene el oro legible sobre las zonas claras. */
-  text-shadow: 0 1px 6px rgba(20, 12, 6, 0.72);
+  text-shadow: 0 1px 3px rgba(12, 8, 4, 0.9), 0 2px 12px rgba(12, 8, 4, 0.7);
 }
 
 .home-quick-links__description {
@@ -91,7 +91,7 @@
   font-weight: 400;
   line-height: 1.45;
   color: var(--on-photo);
-  text-shadow: 0 1px 6px rgba(20, 12, 6, 0.72);
+  text-shadow: 0 1px 3px rgba(12, 8, 4, 0.9), 0 2px 12px rgba(12, 8, 4, 0.7);
 }
 
 .home-quick-links__cta {
@@ -100,7 +100,7 @@
   padding-bottom: 2px;
   font-family: var(--font-body);
   font-size: var(--text-body);
-  text-shadow: 0 1px 6px rgba(20, 12, 6, 0.72);
+  text-shadow: 0 1px 3px rgba(12, 8, 4, 0.9), 0 2px 12px rgba(12, 8, 4, 0.7);
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: normal;
