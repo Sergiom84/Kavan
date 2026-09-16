@@ -196,17 +196,20 @@
   text-align: left;
 }
 
-/* Franja de fotografía con el rótulo dentro. Ocupa la columna de texto, no va
-   a sangre: el titular tiene que quedar a plomo con el párrafo de debajo. */
+/* Franja de fotografía con el rótulo dentro. Va a sangre —sale de la calle de
+   10 rem del contenedor con márgenes negativos, no con `100vw`, que contaría
+   también la barra de desplazamiento— y el rótulo recupera esa calle por
+   dentro para quedar a plomo con el párrafo de debajo. */
 .pack-showcase-discover-band {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 18rem;
-  margin-bottom: var(--space-5);
-  padding-inline: var(--space-5);
+  height: 12rem;
+  margin-block-end: var(--space-5);
+  margin-inline: -10rem;
+  padding-inline: 10rem;
   overflow: hidden;
 }
 
@@ -293,8 +296,9 @@
   }
 
   .pack-showcase-discover-band {
-    height: 14rem;
-    padding-inline: var(--space-4);
+    height: 10rem;
+    margin-inline: -5rem;
+    padding-inline: 5rem;
   }
 
   .pack-showcase-inner {
@@ -312,8 +316,9 @@
   }
 
   .pack-showcase-discover-band {
-    height: 11rem;
-    padding-inline: var(--space-3);
+    height: 8rem;
+    margin-inline: calc(-1 * var(--padding));
+    padding-inline: var(--padding);
   }
 }
 
