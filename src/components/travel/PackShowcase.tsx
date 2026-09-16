@@ -176,7 +176,17 @@ export function PackShowcase({
           )}
 
           <div className="pack-showcase-discover">
-            <h3>Descubre Marruecos</h3>
+            {/* El rótulo entra por la fotografía, apoyado en el filo izquierdo:
+                la misma calle a la que mira el texto que viene debajo. */}
+            <div className="pack-showcase-discover-band">
+              <img
+                src="/images/marruecos.webp"
+                alt="Calle empedrada de casas azules con buganvillas y el sol poniéndose tras las montañas"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3>Descubre Marruecos</h3>
+            </div>
             <p>
               Hacer <strong>turismo en Marruecos</strong> es adentrarse en un destino
               lleno de contrastes. Un país único donde las antiguas medinas, mezquitas

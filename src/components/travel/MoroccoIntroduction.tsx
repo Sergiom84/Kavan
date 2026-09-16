@@ -13,17 +13,8 @@ const MINIATURAS = {
 export function MoroccoIntroduction() {
   return (
     <section className="home-introduction" aria-labelledby="morocco-introduction-title">
-      <div className="home-introduction__band">
-        <img
-          src="/images/marruecos.webp"
-          alt="Calle empedrada de casas azules con buganvillas y el sol poniéndose tras las montañas"
-          loading="lazy"
-          decoding="async"
-        />
-        <h2 id="morocco-introduction-title">Marruecos</h2>
-      </div>
-
       <div className="home-introduction__content">
+        <h2 id="morocco-introduction-title">Marruecos</h2>
         <p>
           Marruecos, la puerta de entrada a África, es uno de los destinos más
           fascinantes entre el océano Atlántico y el mar Mediterráneo. Un país donde
