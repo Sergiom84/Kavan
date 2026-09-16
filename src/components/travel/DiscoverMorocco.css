@@ -11,6 +11,16 @@
   padding-inline: 10rem;
 }
 
+/* `.container` trae `margin: 0 auto`, y por encima de 1024 px la sección es un
+   flex en columna: ahí los márgenes automáticos ganan al estirado, la caja se
+   encoge al ancho del texto y el rótulo acaba centrado. Con el margen a cero
+   vuelve a arrancar en la calle de 10 rem, como el resto de bloques. */
+.discover-morocco-heading,
+.discover-morocco-carousel {
+  align-self: stretch;
+  margin-inline: 0;
+}
+
 .discover-morocco-title {
   font-family: var(--font-display);
   font-size: 3.125rem;
