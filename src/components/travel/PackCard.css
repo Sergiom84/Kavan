@@ -64,6 +64,11 @@
   /* Las fotos de paisaje traen mucho cielo: bajamos el encuadre al terreno */
   object-position: 50% 62%;
   transform: scale(1.02);
+  /* El zoom crece hacia abajo, no desde el centro. Con el origen en el centro
+     la fotografía sobresale por arriba del recorte en herradura, y ese sobrante
+     el navegador no siempre lo recorta —una capa compositada contra un borde
+     redondeado—: asomaba como una franja de color sobre el arco. */
+  transform-origin: 50% 0;
   transition: transform var(--dur-lg) var(--easing);
 }
 
