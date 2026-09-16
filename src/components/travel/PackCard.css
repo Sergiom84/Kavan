@@ -9,9 +9,18 @@
 
   display: flex;
   flex-direction: column;
-  background: transparent;
+  background: var(--card);
   border: 0;
   height: 100%;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-md) var(--easing),
+              box-shadow var(--dur-md) var(--easing);
+}
+
+.pack-card:hover,
+.pack-card:focus-visible {
+  transform: translateY(-0.45rem);
+  box-shadow: var(--shadow-card-hover);
 }
 
 /* ---------- La tarjeta ---------- */
@@ -23,9 +32,8 @@
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  border-radius: 0.625rem;
-  background: #2f2f2f;
-  box-shadow: var(--shadow-card);
+  border-radius: 0;
+  background: var(--card);
 }
 
 /* ---------- El fondo ---------- */
@@ -33,6 +41,8 @@
 .pack-card-bg {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+  border-radius: var(--portico);
   pointer-events: none;
   opacity: 0.9;
   transition: opacity var(--dur-lg) var(--easing);
@@ -53,19 +63,20 @@
   object-fit: cover;
   /* Las fotos de paisaje traen mucho cielo: bajamos el encuadre al terreno */
   object-position: 50% 62%;
+  transform: scale(1.02);
+  transition: transform var(--dur-lg) var(--easing);
+}
+
+.pack-card:hover .pack-card-bg img,
+.pack-card:focus-visible .pack-card-bg img {
+  transform: scale(1.1);
 }
 
 /* ---------- Línea interior ----------
    Por encima del panel: enmarca la tarjeta entera, esté el panel arriba o no. */
 
 .pack-card-inline {
-  position: absolute;
-  inset: 0.5rem;
-  z-index: 4;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 0.3125rem;
-  pointer-events: none;
-  transition: border-color 2s var(--regreso);
+  display: none;
 }
 
 .pack-card:hover .pack-card-inline {
@@ -171,7 +182,7 @@
 /* ---------- Texto, fuera de la tarjeta ---------- */
 
 .pack-card-body {
-  padding: var(--space-4) 0 0;
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -185,8 +196,11 @@
 }
 
 .pack-card-title {
+  font-family: var(--font-display);
   font-size: var(--text-2);
   line-height: 1.12;
+  color: var(--title);
+  text-transform: none;
 }
 
 .pack-card--overlay .pack-card-title {
@@ -197,8 +211,10 @@
 }
 
 .pack-card-subtitle {
+  font-family: var(--font-body);
   font-size: var(--text-body);
   max-width: 38ch;
+  color: var(--ink-soft);
 }
 
 /* ---------- Variante de portada ----------
@@ -214,6 +230,7 @@
 
 .pack-card--home .pack-card-media {
   border-radius: 0;
+  background: var(--card);
 }
 
 /* El título forma parte de la fotografía: el velo inferior le da contraste
@@ -258,6 +275,7 @@
 
 .pack-card-home-description {
   max-width: 42ch;
+  font-family: var(--font-body);
   font-size: var(--text-body);
   color: var(--ink-soft);
 }
@@ -360,8 +378,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .pack-card,
   .pack-card-bg,
+  .pack-card-bg img,
   .pack-card-panel {
     transition: none;
+  }
+
+  .pack-card:hover,
+  .pack-card:focus-visible {
+    transform: none;
+  }
+
+  .pack-card-bg img,
+  .pack-card:hover .pack-card-bg img {
+    transform: none;
   }
 }

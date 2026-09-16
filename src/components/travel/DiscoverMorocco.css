@@ -12,18 +12,28 @@
 }
 
 .discover-morocco-title {
-  font-family: "Marcellus", var(--font-display);
+  font-family: var(--font-display);
   font-size: 3.125rem;
   font-weight: 400;
   line-height: var(--leading-title);
   text-transform: none;
-  color: var(--ink);
+  color: var(--title);
 }
 
 .discover-card {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-md) var(--easing),
+              box-shadow var(--dur-md) var(--easing);
+}
+
+.discover-card:hover,
+.discover-card:focus-visible {
+  transform: translateY(-0.4rem);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .discover-card:focus-visible {
@@ -35,10 +45,22 @@
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  /* Pegadas y sin radio: el carril se lee como una franja continua de
-     fotografía de un borde a otro de la pantalla. */
   border-radius: 0;
-  background: var(--bg-3);
+  background: var(--card);
+}
+
+.discover-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--portico);
+  transform: scale(1.02);
+  transition: transform var(--dur-lg) var(--easing);
+}
+
+.discover-card:hover .discover-card-media img,
+.discover-card:focus-visible .discover-card-media img {
+  transform: scale(1.1);
 }
 
 .discover-card-overlay {
@@ -69,18 +91,18 @@
 
 .discover-card-overlay h3 {
   margin: 0;
-  font-family: "Marcellus", var(--font-display);
+  font-family: var(--font-display);
   font-size: var(--text-2);
   font-weight: 400;
   line-height: 1.15;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--on-photo);
 }
 
 .discover-card-overlay p {
   margin: 0;
   max-width: 44ch;
-  font-family: "Poppins", var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.35;
@@ -95,9 +117,8 @@
   }
 }
 
-/* Carril a sangre: sin calle lateral y sin hueco entre fotografías. */
 .discover-morocco-carousel {
-  padding-inline: 0;
+  padding-inline: 10rem;
 }
 
 .discover-morocco-carousel .carousel {
@@ -105,7 +126,7 @@
 }
 
 .discover-morocco-carousel .carousel-track {
-  gap: 0;
+  gap: var(--space-3);
 }
 
 .discover-morocco-carousel .carousel-item {
@@ -200,7 +221,8 @@
     padding: var(--space-5) 0;
   }
 
-  .discover-morocco-heading {
+  .discover-morocco-heading,
+  .discover-morocco-carousel {
     padding-inline: 5rem;
   }
 }
@@ -212,7 +234,8 @@
 }
 
 @media (max-width: 767px) {
-  .discover-morocco-heading {
+  .discover-morocco-heading,
+  .discover-morocco-carousel {
     padding-inline: var(--padding);
   }
 }
@@ -231,8 +254,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .discover-card,
   .discover-card-overlay,
+  .discover-card-media img,
   .discover-morocco .carousel-arrow {
     transition: none;
+  }
+
+  .discover-card:hover,
+  .discover-card-media img,
+  .discover-card:hover .discover-card-media img {
+    transform: none;
   }
 }

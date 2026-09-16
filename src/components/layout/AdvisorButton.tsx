@@ -62,11 +62,9 @@ export function AdvisorButton() {
         aria-label="Te asesoramos"
         onClick={() => setOpen((v) => !v)}
       >
-        <img
-          className="advisor-logo"
-          src="/images/logo-kavan.png"
-          alt=""
-        />
+        <span className="advisor-medallion" aria-hidden="true">
+          <span className="advisor-logo" />
+        </span>
         <span className="advisor-claim">Te asesoramos</span>
       </button>
     </div>

@@ -15,7 +15,7 @@
   --mmap-rotulo: calc(var(--mmap-img) * 27 / 1448);
   /* Tinta del dibujo: casi negra con un punto de verde, muestreada de los
      rótulos existentes. La tinta de marca es más cálida y se notaba. */
-  --mmap-tinta: #101a18;
+  --mmap-tinta: var(--title);
 
   background: var(--bg-1);
   position: relative;
@@ -85,14 +85,7 @@
    que sube un vástago para que su base caiga donde la de las demás; si no, el
    rótulo de Zagora se le cruza por el medio. */
 .mmap-zagora-marker {
-  position: absolute;
-  left: 76.6%;
-  top: 66.3%;
-  width: 3.5rem;
-  height: 3.5rem;
-  transform: translate(-50%, calc(-50% - var(--mmap-pin-vastago)));
-  color: var(--mmap-tinta);
-  pointer-events: none;
+  display: none;
 }
 
 .mmap-added-pin::after {
@@ -131,6 +124,47 @@
    distancias del dibujo original (28 px al costado, 8 px por debajo, sobre
    1448 px de ancho de imagen). */
 
+.mmap-live-pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: calc(var(--mmap-pin) * 1.35);
+  height: calc(var(--mmap-pin) * 1.9);
+  transform: translate(-50%, calc(-100% + var(--mmap-pin-trazo)));
+  pointer-events: none;
+}
+
+.mmap-live-pin-head {
+  display: block;
+  width: calc(var(--mmap-pin) * 1.2);
+  height: calc(var(--mmap-pin) * 1.2);
+  margin: 0 auto;
+  border: var(--mmap-pin-trazo) solid var(--accent-ink);
+  border-radius: 50% 50% 50% 0;
+  background: var(--logo-gold);
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--ink) 28%, transparent);
+  transform: rotate(-45deg);
+  transform-origin: 50% 50%;
+  transition: background-color var(--dur-md) var(--easing),
+              transform var(--dur-md) var(--easing);
+}
+
+.mmap-live-pin-head::after {
+  content: "";
+  position: absolute;
+  inset: 28%;
+  border-radius: var(--radius-round);
+  background: var(--accent);
+}
+
+.mmap-hit:hover .mmap-live-pin-head,
+.mmap-hit:focus-visible .mmap-live-pin-head,
+.mmap-hit.is-active .mmap-live-pin-head {
+  background: var(--title-2);
+  transform: rotate(-45deg) scale(1.12);
+}
+
 .mmap-rotulo {
   position: absolute;
   font-family: var(--font-display);
@@ -138,9 +172,10 @@
   font-weight: var(--weight-heading);
   line-height: 1;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
+  text-transform: none;
   white-space: nowrap;
   color: var(--mmap-tinta);
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--c-pure-white) 55%, transparent);
   pointer-events: none;
 }
 
@@ -173,9 +208,11 @@
 
 /* Anillo que late al señalar, el mismo gesto que el botón de asesoría. */
 .mmap-ring {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--logo-gold);
   border-radius: var(--radius-round);
   opacity: 0;
   transform: scale(0.45);
@@ -200,16 +237,15 @@
    el resto del sistema conservan la geometría plana. */
 
 .mmap-card {
-  --mmap-thumb-radius: 0.75rem;
-
   position: absolute;
   z-index: var(--z-base);
   width: 12rem;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border: 1px solid var(--on-photo-line);
-  border-radius: var(--mmap-thumb-radius);
-  /* Se apoya encima de la chincheta, separada por el alto del anillo. */
+  border-radius: 0;
+  background: var(--card);
+  box-shadow: var(--shadow-card);
   transform: translate(-50%, calc(-100% - 2.5rem));
   pointer-events: none;
   animation: mmap-card-in var(--dur-md) var(--easing) both;
@@ -217,6 +253,8 @@
 
 .mmap-card img {
   display: block;
+  height: 100%;
+  border-radius: var(--portico);
 }
 
 @keyframes mmap-card-in {

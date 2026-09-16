@@ -1,18 +1,12 @@
 /* ============================================================
-   Estructura de Horizonte Village + color y tipografía Sáhara.
-   Fuente de verdad: design-system/MASTER.md.
+   Exploración visual/gemini-marroqui.
 
-   Horizonte Village es referencia SOLO de layout, ritmo y motion
-   (ver ESTRUCTURA.md) — nunca de color ni tipografía, ambos
-   sustituidos por decisión de cliente/Sergio.
-
-   Tres decisiones gobiernan todo lo demás:
-   1. El root escala con el ancho de pantalla, así que la página
-      entera crece y encoge en proporción. Todo se mide en rem
-      contra una maqueta de 1440px.
-   2. Paleta Sáhara: papel cálido, arena, terracota, sol del desierto.
-   3. Material plano: cero sombras, cero redondeos. La profundidad
-      la da el gradiente oscuro sobre la fotografía.
+   Conserva la estructura de bloques (cabecera → hero → 2 bloques
+   info → carrusel packs → footer) y la escala fluida de 1440px.
+   Eleva el material: beige desierto, Marcellus + Montserrat,
+   arcos sólo en la fotografía, sombra suave y dunas de fondo.
+   Ver GEMINI-MARROQUI.md para la lista de desviaciones del wire
+   rectangular. No sustituye a design-system/MASTER.md en main.
    ============================================================ */
 
 :root {
@@ -29,11 +23,12 @@
      Paleta Sáhara (design-system/MASTER.md): papel cálido, arena,
      terracota, sol del desierto. Ya no monocroma — reemplaza la
      paleta crema/verde petróleo importada de Horizonte. */
-  /* Blanco puro solicitado por Sergio para el fondo de la página. */
-  --c-bg: #ffffff;
-  --c-base-0: #ffffff;
-  --c-base-50: #efece8;     /* un paso bajo el papel, bandas alternas */
-  --c-base-1000: #2a2119;   /* ink, marrón casi negro — texto */
+  /* Beige desierto de la exploración Gemini. El blanco puro queda
+     en main; aquí el papel es arena clara. */
+  --c-bg: #f5efeb;
+  --c-base-0: #f5efeb;
+  --c-base-50: #ede4d8;     /* un paso bajo el papel, bandas alternas */
+  --c-base-1000: #2c353c;   /* dark slate — descripciones y tinta */
   --c-brand-500: #8a4b2b;   /* terracota profunda — marca, hover */
   --c-pure-white: #fff;
   --c-pure-black: #000;
@@ -53,10 +48,12 @@
 
   /* Tinta y sus grados */
   --ink: var(--c-base-1000);
-  --ink-soft: color-mix(in srgb, var(--ink) 64%, transparent);
-  --ink-faint: color-mix(in srgb, var(--ink) 40%, transparent);
+  --ink-soft: color-mix(in srgb, var(--ink) 72%, transparent);
+  --ink-faint: color-mix(in srgb, var(--ink) 46%, transparent);
   --line: color-mix(in srgb, var(--ink) 16%, transparent);
   --line-strong: color-mix(in srgb, var(--ink) 32%, transparent);
+  --title: #a57430;          /* dorado tierra — títulos clave */
+  --title-2: #c4622d;        /* terracota — títulos secundarios */
 
   /* Acción. A diferencia de Horizonte (monocromo), aquí el acento es
      un color real: terracota intensa. El sol del desierto es un
@@ -86,7 +83,7 @@
   --particle-2: #c4622d;
   --accent-sun-ink: var(--c-base-1000);
 
-  --card: #faf6ee;          /* superficies elevadas */
+  --card: #faf4ec;          /* superficies elevadas, crema */
   --ok: #4a6741;
   --danger: var(--c-error);
 
@@ -107,10 +104,12 @@
   --cormorant: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --jetbrains-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --marcellus: "Marcellus", Georgia, "Times New Roman", serif;
-  --poppins: "Poppins", sans-serif;
+  --montserrat: "Montserrat", "Segoe UI", sans-serif;
+  --poppins: var(--montserrat);
 
-  --font-display: var(--cormorant);
-  --font-mono: var(--jetbrains-mono);
+  --font-display: var(--marcellus);
+  --font-body: var(--montserrat);
+  --font-mono: var(--montserrat);
 
   /* Alias heredado: los componentes que ya escribían var(--font)
      siguen funcionando y reciben la serif. */
@@ -175,15 +174,17 @@
   --header-gap: 5rem;
 
   /* --- Forma ----------------------------------------------
-     Ángulos rectos en todo. El único radio es el del círculo. */
+     La celda/tarjeta externa sigue rectangular (radio 0).
+     El arco marroquí vive sólo en la fotografía interior. */
   --radius-s: 0;
   --radius-m: 0;
   --radius-l: 0;
   --radius-round: 50%;
+  --portico: 50% 50% 0 0 / 36% 36% 0 0;
 
-  /* Sin sombras. La variable se conserva porque varios componentes
-     la referencian, pero vale `none` a propósito. */
-  --shadow-card: none;
+  /* Elevación ligera: halo difuso, no sombra dura. */
+  --shadow-card: 0 18px 42px color-mix(in srgb, var(--ink) 12%, transparent);
+  --shadow-card-hover: 0 26px 56px color-mix(in srgb, var(--ink) 18%, transparent);
 
   /* --- Medida ---------------------------------------------- */
   --container: 100%;              /* casi a sangre, como Horizonte */

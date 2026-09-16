@@ -87,7 +87,7 @@ export function BurstGallery({
 
         timeline.set('.burst-gallery__hero-media', { willChange: 'transform' }, 0)
         timeline.set('.burst-gallery__intro', { willChange: 'transform, opacity' }, 0)
-        timeline.to('.burst-gallery__hero-media', { scale: 1.06, duration: 0.28 }, 0)
+        timeline.to('.burst-gallery__hero-media', { scale: 1.14, duration: 0.32 }, 0)
         timeline.to(
           '.burst-gallery__intro',
           { autoAlpha: 0, yPercent: -4, duration: 0.1 },

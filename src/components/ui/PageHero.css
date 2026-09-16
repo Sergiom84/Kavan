@@ -38,6 +38,7 @@
 
 .page-hero-content h1 {
   max-width: 16ch;
+  color: var(--on-photo);
 }
 
 .page-hero-subtitle {

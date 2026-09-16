@@ -1,5 +1,9 @@
 # Project Design System Master — Kavan (web de viajes a Marruecos)
 
+> **Rama `visual/gemini-marroqui`:** exploración deliberada. Tipografía Marcellus +
+> Montserrat, beige desierto, arcos en fotografía, sombras y franjas a sangre.
+> Esta no es la dirección canónica de `main`. Ver `GEMINI-MARROQUI.md`.
+>
 > Este archivo documenta la dirección visual y el estado actual del proyecto. La rama
 > `cowork/kavan-village` mantiene la estructura, el ritmo y el lenguaje de motion de
 > Horizonte Village, pero la implementación actual ya usa la paleta Sáhara y las

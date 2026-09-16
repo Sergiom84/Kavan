@@ -1,14 +1,9 @@
 .site-footer {
   position: relative;
   isolation: isolate;
-  /* Mismo cristal que la cabecera: igual velo, igual desenfoque, igual grano y
-     el mismo filo blanco. El pie llevaba encima una duna animada por WebGL; se
-     retiró para que las dos barras se lean como la misma superficie. */
-  background: var(--glass-terracota);
-  -webkit-backdrop-filter: var(--glass-frost);
-  backdrop-filter: var(--glass-frost);
+  background: var(--bg-1);
   color: var(--ink);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--c-pure-white) 38%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--logo-gold) 28%, transparent);
 }
 
 .site-footer::after {
@@ -17,10 +12,11 @@
   inset: 0;
   content: "";
   pointer-events: none;
-  opacity: 0.22;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
+  opacity: 0.55;
+  background-image: url("/images/dune-wash.svg");
+  background-size: 100% auto;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
 .footer-inner {
@@ -41,7 +37,8 @@
   font-weight: var(--weight-title);
   line-height: var(--leading-title);
   text-align: center;
-  color: inherit;
+  color: var(--title);
+  text-transform: none;
 }
 
 .footer-socials {
@@ -75,7 +72,7 @@
   gap: var(--space-2) var(--space-3);
   padding-top: var(--space-2);
   border-top: 1px solid var(--line);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   text-transform: uppercase;
   letter-spacing: var(--track-label);

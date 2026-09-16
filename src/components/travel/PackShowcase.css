@@ -29,12 +29,12 @@
 
 .pack-showcase-title {
   margin: 0 0 var(--space-5);
-  font-family: "Marcellus", var(--font-display);
+  font-family: var(--font-display);
   font-size: 3.125rem;
   font-weight: 400;
   line-height: var(--leading-title);
   text-transform: none;
-  color: var(--ink);
+  color: var(--title);
 }
 
 .pack-showcase-rail {
@@ -104,10 +104,9 @@
   }
 }
 
-/* Excepción de la portada: fotografía y texto sueltos sobre el papel,
-   sin recuadro ni radio de tarjeta. */
 .pack-showcase .pack-card--home {
-  background: transparent;
+  background: var(--card);
+  box-shadow: var(--shadow-card);
 }
 
 .pack-showcase .pack-card--home .pack-card-media {
@@ -117,14 +116,15 @@
 
 .pack-showcase .pack-card--home .pack-card-body {
   gap: var(--space-2);
-  padding: var(--space-3) 0 0;
+  padding: var(--space-3);
 }
 
 .pack-showcase .pack-card--home .pack-card-home-description {
-  font-family: "Marcellus", var(--font-display);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.35;
+  color: var(--ink-soft);
 }
 
 .pack-showcase .pack-card--home .pack-card-home-tag,
@@ -134,7 +134,7 @@
 }
 
 .pack-showcase .pack-card--home .pack-card-home-meta strong {
-  font-family: "Poppins", var(--font-mono);
+  font-family: var(--font-body);
   font-weight: 400;
 }
 
@@ -156,11 +156,11 @@
 .pack-showcase-link {
   align-self: center;
   border-color: var(--logo-gold);
-  border-radius: 999px;
+  border-radius: 0;
   color: var(--logo-gold);
-  font-family: "Marcellus", var(--font-display);
+  font-family: var(--font-display);
   font-size: calc(var(--text-label) + 0.125rem + 2px);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0;
   line-height: 1;
   text-transform: none;
@@ -198,19 +198,19 @@
 
 .pack-showcase-discover h3 {
   margin: 0 0 var(--space-5);
-  font-family: "Marcellus", var(--font-display);
+  font-family: var(--font-display);
   font-size: 3.125rem;
   font-weight: 400;
   line-height: var(--leading-title);
   text-transform: none;
-  color: var(--ink);
+  color: var(--title);
 }
 
 .pack-showcase-discover p,
 .pack-showcase-discover ul {
   max-width: none;
   margin: 0 0 var(--space-4);
-  font-family: "Poppins", var(--font-mono);
+  font-family: var(--font-body);
   font-size: calc(var(--text-body) - 0.125rem);
   font-weight: 400;
   line-height: 1.5;

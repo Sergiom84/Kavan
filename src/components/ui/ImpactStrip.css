@@ -1,0 +1,124 @@
+.impact-strip {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: min(72vh, 42rem);
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.impact-strip-slide {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: var(--on-photo);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-xl) var(--easing);
+}
+
+.impact-strip-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.impact-strip-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 55%;
+  transform: scale(1.04);
+  transition: transform 8s linear;
+}
+
+.impact-strip-slide.is-active img {
+  transform: scale(1.12);
+}
+
+.impact-strip-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 34%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.55), transparent 46%);
+}
+
+.impact-strip-name {
+  position: absolute;
+  left: var(--padding);
+  bottom: calc(var(--space-5) + 1.25rem);
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: var(--text-1);
+  font-weight: var(--weight-title);
+  line-height: var(--leading-title);
+  letter-spacing: var(--track-1);
+  color: var(--on-photo);
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.45);
+}
+
+.impact-strip-dots {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: var(--space-4);
+  display: flex;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.impact-strip-dots button {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border-radius: var(--radius-round);
+  border: 1px solid color-mix(in srgb, var(--on-photo) 70%, transparent);
+  background: transparent;
+  opacity: 0.7;
+  transition: background-color var(--dur-md) var(--easing),
+              opacity var(--dur-md) var(--easing),
+              transform var(--dur-md) var(--easing);
+}
+
+.impact-strip-dots button.is-active {
+  background: var(--on-photo);
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.impact-strip-dots button:hover,
+.impact-strip-dots button:focus-visible {
+  opacity: 1;
+}
+
+.impact-strip-dots button:focus-visible {
+  outline: 2px solid var(--on-photo);
+  outline-offset: 0.25rem;
+}
+
+@media (max-width: 1023px) {
+  .impact-strip {
+    height: min(58vh, 28rem);
+  }
+
+  .impact-strip-name {
+    font-size: var(--text-2);
+    bottom: calc(var(--space-4) + 1.1rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .impact-strip-slide,
+  .impact-strip-slide img,
+  .impact-strip-dots button {
+    transition: none;
+  }
+
+  .impact-strip-slide img,
+  .impact-strip-slide.is-active img {
+    transform: none;
+  }
+}

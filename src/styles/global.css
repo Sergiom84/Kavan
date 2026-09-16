@@ -1,27 +1,8 @@
 @import "./tokens.css";
 
-/* Sustitutas libres de Canela/ApercuMono, fijadas en design-system/MASTER.md:
-   Cormorant Garamond (display/heading) + JetBrains Mono (texto/etiquetas,
-   fuente variable: un solo archivo cubre 300-800). SIL Open Font License,
-   auto-alojadas igual que las comerciales que sustituyen. */
-@font-face {
-  font-family: "Cormorant Garamond";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/CormorantGaramond-Regular.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 300 800;
-  font-display: swap;
-  src: url("/fonts/JetBrainsMono-Variable.woff2") format("woff2-variations"), url("/fonts/JetBrainsMono-Variable.woff2") format("woff2");
-}
-
-/* Fuentes solicitadas para la introducción de Marruecos. Se autoalojan como
-   el resto de la tipografía para no añadir una petición a terceros. */
+/* Exploración Gemini: Marcellus (títulos) + Montserrat (cuerpo).
+   SIL Open Font License, autoalojadas. Cormorant y JetBrains quedan
+   en disco por si se vuelve a main; esta rama no las carga. */
 @font-face {
   font-family: "Marcellus";
   font-style: normal;
@@ -31,11 +12,19 @@
 }
 
 @font-face {
-  font-family: "Poppins";
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/Poppins-Regular.woff2") format("woff2");
+  src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
 }
 
 /* Las utilidades comunes viven en una capa: así los estilos de cada componente
@@ -56,32 +45,36 @@
 html {
   font-size: calc(16 / var(--viewport) * 100vw);
   scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
   background-color: var(--bg-1);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* La prosa va en serif y caja baja. La mono se reserva para rótulos,
-   navegación, botones y microcopia: nunca para leer. */
+/* La prosa va en Montserrat y caja baja. Marcellus se reserva para
+   titular. El lavado de dunas es decorativo: no captura clics ni
+   tapa el contenido. */
 body {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: var(--weight-text);
   line-height: var(--leading-body);
   color: var(--ink);
   background-color: var(--bg-1);
+  background-image: url("/images/dune-wash.svg");
+  background-repeat: repeat-y;
+  background-size: 100% 70rem;
+  background-position: 0 8rem;
 }
 
-/* Títulos: serif de peso ligero, versales, interlineado 1.0 y tracking
-   negativo. Los cuatro rasgos juntos son la firma de Horizonte; quitar
-   cualquiera de ellos y deja de parecerse. */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   line-height: var(--leading-title);
   margin: 0;
-  text-transform: uppercase;
+  color: var(--title);
+  text-transform: none;
   text-wrap: balance;
 }
 
@@ -112,6 +105,7 @@ h2, h3, h4 {
 p {
   margin: 0;
   color: var(--ink-soft);
+  font-family: var(--font-body);
   text-wrap: pretty;
 }
 
@@ -381,7 +375,7 @@ button {
 }
 
 /* ---------- Superficies ----------
-   Sin sombra y sin redondeo: una tarjeta es un filete y un fondo. */
+   La celda sigue rectangular. La elevación la da la sombra difusa. */
 
 .card {
   background: var(--card);
@@ -389,6 +383,19 @@ button {
   border-radius: var(--radius-s);
   box-shadow: var(--shadow-card);
   overflow: hidden;
+  transition: transform var(--dur-md) var(--easing),
+              box-shadow var(--dur-md) var(--easing);
+}
+
+.card:hover {
+  transform: translateY(-0.4rem);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Arco marroquí: recorte superior de la FOTO, no de la tarjeta. */
+.kavan-portico {
+  overflow: hidden;
+  border-radius: var(--portico);
 }
 
 /* Marco de fotografía: filete fino, sin redondeo */

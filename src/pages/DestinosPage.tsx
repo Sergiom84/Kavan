@@ -4,6 +4,7 @@ import { PageHero } from '../components/ui/PageHero'
 import { Carousel } from '../components/ui/Carousel'
 import { CityCard } from '../components/travel/CityCard'
 import { Reveal } from '../components/fx/RevealText'
+import { ImpactStrip, IMPACT_ATLAS } from '../components/ui/ImpactStrip'
 
 /** Página 2: Descubre Marruecos. */
 export function DestinosPage() {
@@ -18,6 +19,8 @@ export function DestinosPage() {
         subtitle="Ciudades imperiales, desierto y océano: un país que se recorre con todos los sentidos."
         size="m"
       />
+
+      <ImpactStrip slides={IMPACT_ATLAS} label="Paisajes de Marruecos" />
 
       <section className="section container">
         <Reveal>

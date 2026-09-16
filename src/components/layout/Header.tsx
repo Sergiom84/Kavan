@@ -37,7 +37,6 @@ export function Header() {
   const [open, setOpen] = useState(false)
   const [solid, setSolid] = useState(false)
   const [sobrePortada, setSobrePortada] = useState(esHome)
-  const [oculta, setOculta] = useState(false)
 
   useLayoutEffect(() => {
     let frame = 0
@@ -53,31 +52,22 @@ export function Header() {
         const papel = portada?.classList.contains('burst-gallery--paper') ?? false
 
         setSobrePortada(portadaLlena && !papel)
-        setOculta(false)
         setSolid(!portadaLlena || papel)
         return
       }
 
-      /* Fuera de Home se conserva la conducta anterior. La portada se busca
-         en cada lectura porque el mismo Header sobrevive al cambio de ruta. */
+      /* Fuera de Home la barra se queda a la vista: transparente sobre el
+         hero y beige en cuanto el hero deja de cubrirla. */
       const portada = document.querySelector('.hero-zoom')
-      setSobrePortada(portada !== null)
-
       if (portada) {
-        /* El escenario está pegado mientras el final de la sección quede por
-           debajo del borde inferior. Cuando lo alcanza, se despega y la
-           portada empieza a subir: es el momento de retirar la cabecera.
-
-           La comprobación de altura evita que la cabecera arranque escondida:
-           en el primer fotograma la portada puede medir todavía cero y la
-           comparación saldría cierta sin haber movido nada. */
         const caja = portada.getBoundingClientRect()
-        setOculta(caja.height > 0 && caja.bottom <= window.innerHeight)
-        setSolid(false)
+        const sobre = caja.bottom > 72
+        setSobrePortada(sobre)
+        setSolid(!sobre)
         return
       }
 
-      setOculta(false)
+      setSobrePortada(false)
       setSolid(window.scrollY > 80)
     }
 
@@ -106,15 +96,11 @@ export function Header() {
     }
   }, [open])
 
-  const cabeceraOculta = oculta && !open
-
   return (
     <header
-      aria-hidden={cabeceraOculta || undefined}
-      inert={cabeceraOculta || undefined}
       className={
         `site-header ${solid ? 'is-solid' : ''} ${open ? 'is-open' : ''} ` +
-        `${sobrePortada ? 'is-over-hero' : ''} ${cabeceraOculta ? 'is-hidden' : ''}`
+        `${sobrePortada ? 'is-over-hero' : ''}`
       }
     >
       <div className="site-header-inner">

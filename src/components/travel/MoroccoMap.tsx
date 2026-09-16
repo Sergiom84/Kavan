@@ -134,6 +134,9 @@ export function MoroccoMap() {
 
           const contenido = (
             <>
+              <span className="mmap-live-pin" aria-hidden="true">
+                <span className="mmap-live-pin-head" />
+              </span>
               <span className="mmap-ring" aria-hidden="true" />
             </>
           )

@@ -18,29 +18,32 @@
   align-items: center;
   justify-content: flex-start;
   gap: var(--space-3);
-  background: transparent;
+  background: var(--card);
   border: 0;
+  box-shadow: var(--shadow-card);
   color: var(--ink);
   text-align: center;
   cursor: pointer;
   transition: opacity var(--dur-md) var(--easing),
-              color var(--dur-md) var(--easing);
+              color var(--dur-md) var(--easing),
+              transform var(--dur-md) var(--easing),
+              box-shadow var(--dur-md) var(--easing);
 }
 
 .home-quick-links__title {
-  font-family: "Marcellus", var(--font-display);
+  font-family: var(--font-display);
   font-size: var(--text-2);
   font-weight: 400;
   line-height: var(--leading-title);
-  text-transform: uppercase;
-  color: inherit;
+  text-transform: none;
+  color: var(--title);
   transition: color var(--dur-md) var(--easing);
 }
 
 .home-quick-links__description {
   max-width: 24ch;
   margin: 0;
-  font-family: "Poppins", var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.5;
@@ -48,17 +51,18 @@
 }
 
 .home-quick-links__cta {
-  font-family: "Poppins", var(--font-mono);
+  font-family: var(--font-body);
   font-size: calc(var(--text-body) + 0.0625rem);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.5;
   letter-spacing: normal;
   text-transform: none;
-  color: var(--logo-gold);
+  color: var(--title-2);
 }
 
 .home-quick-links__card:hover {
-  opacity: 0.72;
+  transform: translateY(-0.35rem);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .home-quick-links__card:focus-visible {
@@ -81,5 +85,9 @@
 @media (prefers-reduced-motion: reduce) {
   .home-quick-links__card {
     transition: none;
+  }
+
+  .home-quick-links__card:hover {
+    transform: none;
   }
 }
