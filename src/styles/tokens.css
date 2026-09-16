@@ -72,6 +72,26 @@
   --glass-blur: blur(18px) saturate(1.04) brightness(1.06);
   --glass-frost: blur(28px) saturate(1.55) brightness(1.08);
 
+  /* Cristal sobre fotografía: los accesos de portada dejan de flotar sobre
+     papel y pasan a apoyarse en la vista de Marrakech. El velo va en la
+     sección y el cristal en la tarjeta; juntos dejan la tinta clara por
+     encima de AA y el oro por encima de AA large. */
+  --foto-tarjetas: url("/images/tarjetas-hero.webp");
+  --scrim-tarjetas: linear-gradient(
+    180deg,
+    rgba(28, 20, 14, 0.34),
+    rgba(28, 20, 14, 0.5)
+  );
+  /* Tinta cálida sólo para este velo: la tinta del sistema (#2c353c) tira a
+     azul y sobre el atardecer de Marrakech deja las tarjetas grises. */
+  --ink-warm: #26180f;
+  --glass-card: color-mix(in srgb, var(--ink-warm) 70%, transparent);
+  --glass-card-hover: color-mix(in srgb, var(--ink-warm) 78%, transparent);
+  --glass-card-line: color-mix(in srgb, var(--on-photo) 26%, transparent);
+  --glass-card-blur: blur(14px) saturate(1.1);
+  --shadow-glass: 0 10px 30px rgba(0, 0, 0, 0.28);
+  --shadow-glass-hover: 0 18px 44px rgba(0, 0, 0, 0.34);
+
   /* Blanco roto: fondo del bloque de la frase en partículas. Un paso por
      encima del papel cálido, para separar el bloque sin línea ni caja. */
   --blanco-roto: #f7f6f4;

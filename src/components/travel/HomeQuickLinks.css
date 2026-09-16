@@ -1,12 +1,40 @@
+/* Accesos de portada. Dejan de flotar sobre papel: el bloque entero se apoya
+   en la vista de Marrakech y las tres tarjetas pasan a cristal esmerilado.
+   La retícula de tres columnas y la posición de los bloques no cambian. */
+
 .home-quick-links {
-  background: transparent;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  /* Único hijo de `.burst-gallery__continuation`, que centra en vertical: sin
+     `stretch` la fotografía sólo cubriría el alto del texto. */
+  align-self: stretch;
+  width: 100%;
   padding: var(--space-5) var(--padding);
+  background-color: var(--bg-4);
+  background-image: var(--foto-tarjetas);
+  background-size: cover;
+  background-position: 50% 58%;
+  background-repeat: no-repeat;
+}
+
+/* El velo es lo que sostiene el contraste: sin él, el cielo del atardecer
+   deja la tinta clara de las tarjetas por debajo de AA. */
+.home-quick-links::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--scrim-tarjetas);
+  pointer-events: none;
 }
 
 .home-quick-links__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-3);
+  width: 100%;
 }
 
 .home-quick-links__card {
@@ -18,16 +46,40 @@
   align-items: center;
   justify-content: flex-start;
   gap: var(--space-3);
-  background: var(--card);
-  border: 0;
-  box-shadow: var(--shadow-card);
-  color: var(--ink);
+  background: var(--glass-card);
+  -webkit-backdrop-filter: var(--glass-card-blur);
+  backdrop-filter: var(--glass-card-blur);
+  border: 1px solid var(--glass-card-line);
+  box-shadow: var(--shadow-glass);
+  color: var(--on-photo);
   text-align: center;
   cursor: pointer;
-  transition: opacity var(--dur-md) var(--easing),
-              color var(--dur-md) var(--easing),
+  transition: background var(--dur-md) var(--easing),
               transform var(--dur-md) var(--easing),
               box-shadow var(--dur-md) var(--easing);
+}
+
+/* Sin backdrop-filter el cristal se vuelve un velo opaco: mismo contraste,
+   sin el desenfoque. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .home-quick-links__card {
+    background: color-mix(in srgb, var(--ink-warm) 88%, transparent);
+  }
+}
+
+.home-quick-links__icon {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  color: var(--accent-sun);
+}
+
+.home-quick-links__icon svg {
+  width: 100%;
+  height: 100%;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
 
 .home-quick-links__title {
@@ -36,8 +88,7 @@
   font-weight: 400;
   line-height: var(--leading-title);
   text-transform: none;
-  color: var(--title);
-  transition: color var(--dur-md) var(--easing);
+  color: var(--accent-sun);
 }
 
 .home-quick-links__description {
@@ -47,22 +98,31 @@
   font-size: var(--text-body);
   font-weight: 400;
   line-height: 1.5;
-  color: var(--ink-soft);
+  color: var(--on-photo-soft);
 }
 
 .home-quick-links__cta {
+  margin-top: auto;
+  padding-bottom: 2px;
   font-family: var(--font-body);
   font-size: calc(var(--text-body) + 0.0625rem);
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: normal;
   text-transform: none;
-  color: var(--title-2);
+  color: var(--accent-sun);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-sun) 55%, transparent);
+  transition: border-color var(--dur-md) var(--easing);
 }
 
 .home-quick-links__card:hover {
-  transform: translateY(-0.35rem);
-  box-shadow: var(--shadow-card-hover);
+  background: var(--glass-card-hover);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-glass-hover);
+}
+
+.home-quick-links__card:hover .home-quick-links__cta {
+  border-bottom-color: var(--accent-sun);
 }
 
 .home-quick-links__card:focus-visible {
@@ -73,12 +133,21 @@
 }
 
 @media (max-width: 767px) {
+  .home-quick-links {
+    /* En una columna las tres tarjetas piden más alto que el hueco del hero:
+       sin `auto` el bloque queda recortado por arriba. */
+    align-self: auto;
+    padding: var(--space-5) var(--padding) var(--space-6);
+    background-position: 62% 50%;
+    background-attachment: scroll;
+  }
+
   .home-quick-links__grid {
     grid-template-columns: 1fr;
   }
 
   .home-quick-links__card {
-    min-height: 9rem;
+    min-height: 0;
   }
 }
 
