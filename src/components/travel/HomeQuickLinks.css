@@ -19,6 +19,19 @@
   background-repeat: no-repeat;
 }
 
+/* El vídeo cubre la fotografía de fondo, que queda de respaldo: si no llega a
+   reproducirse se ve la misma vista congelada y nada se mueve de sitio. */
+.home-quick-links__video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 58%;
+  pointer-events: none;
+}
+
 /* El velo es lo que sostiene el contraste: sin él, el cielo del atardecer
    deja la tinta clara de las tarjetas por debajo de AA. */
 .home-quick-links::before {
@@ -146,6 +159,14 @@
   }
 }
 
+/* En móvil manda el ahorro de datos: 1,1 MB de vídeo para un fondo no vale la
+   pena en red móvil, y la foto cuenta lo mismo. */
+@media (max-width: 767px) {
+  .home-quick-links__video {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .home-quick-links__card {
     transition: none;
@@ -153,5 +174,10 @@
 
   .home-quick-links__card:hover {
     transform: none;
+  }
+
+  /* Quien pide menos movimiento no quiere un fondo en bucle detrás del texto. */
+  .home-quick-links__video {
+    display: none;
   }
 }
