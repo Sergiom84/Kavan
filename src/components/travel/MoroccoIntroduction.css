@@ -14,8 +14,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--media-tall);
-  margin-bottom: var(--space-6);
+  /* Franja, no portada: la sección entera tiene que caber de un vistazo junto
+     con el texto. A 34 rem —la medida alta del sistema— se comía la pantalla. */
+  height: 18rem;
+  margin-bottom: var(--space-5);
   overflow: hidden;
 }
 
@@ -26,7 +28,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 62%;
+  /* La franja es baja: encuadra a la altura del sol y las montañas, que es
+     donde está la fotografía. Más abajo sólo se ven macetas. */
+  object-position: 50% 32%;
 }
 
 /* Velo de lectura. El cielo de la fotografía es claro y el oro solo se
@@ -127,7 +131,7 @@
   }
 
   .home-introduction__band {
-    height: 22rem;
+    height: 14rem;
     margin-bottom: var(--space-5);
   }
 }
@@ -142,7 +146,7 @@
   }
 
   .home-introduction__band {
-    height: 16rem;
+    height: 11rem;
   }
 
   /* En una columna estrecha la miniatura roba demasiado ancho al texto. */

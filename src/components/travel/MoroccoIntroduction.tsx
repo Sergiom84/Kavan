@@ -15,8 +15,8 @@ export function MoroccoIntroduction() {
     <section className="home-introduction" aria-labelledby="morocco-introduction-title">
       <div className="home-introduction__band">
         <img
-          src="/images/ouarzazate-atlas.webp"
-          alt="Ouarzazate de adobe con las cumbres nevadas del Alto Atlas al fondo"
+          src="/images/marruecos.webp"
+          alt="Calle empedrada de casas azules con buganvillas y el sol poniéndose tras las montañas"
           loading="lazy"
           decoding="async"
         />
