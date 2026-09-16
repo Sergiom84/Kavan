@@ -84,14 +84,16 @@
   );
   /* Tinta cálida sólo para este velo: la tinta del sistema (#2c353c) tira a
      azul y sobre el atardecer de Marrakech deja las tarjetas grises. */
-  --ink-warm: #26180f;
-  /* Velo bajo, a petición: la terraza se ve a través de la tarjeta. Lo que
-     sostiene la lectura ya no es la opacidad sino el desenfoque —más alto
-     para compensar— y la sombra de texto de los rótulos. */
-  --glass-card: color-mix(in srgb, var(--ink-warm) 44%, transparent);
-  --glass-card-hover: color-mix(in srgb, var(--ink-warm) 56%, transparent);
-  --glass-card-line: color-mix(in srgb, var(--on-photo) 30%, transparent);
-  --glass-card-blur: blur(22px) saturate(1.16);
+  /* Tinta casi neutra. La cálida (#26180f) teñía de marrón: sobre una foto ya
+     anaranjada, saturar y encima velar en tierra pinta la tarjeta. */
+  --ink-warm: #151311;
+  /* Velo mínimo: el peso lo lleva el desenfoque, y el oscurecido va en
+     `brightness` —que atenúa la foto sin añadir color— en lugar de en una
+     capa de pintura. `saturate` por debajo de 1 le quita el naranja. */
+  --glass-card: color-mix(in srgb, var(--ink-warm) 18%, transparent);
+  --glass-card-hover: color-mix(in srgb, var(--ink-warm) 30%, transparent);
+  --glass-card-line: color-mix(in srgb, var(--on-photo) 34%, transparent);
+  --glass-card-blur: blur(26px) saturate(0.82) brightness(0.66);
   /* Única excepción al radio 0 del sistema: el cristal de portada. */
   --radius-glass: 0.875rem;
   --shadow-glass: 0 10px 30px rgba(0, 0, 0, 0.28);
