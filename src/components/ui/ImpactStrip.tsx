@@ -57,6 +57,9 @@ type Props = {
   slides?: ImpactSlide[]
   interval?: number
   label?: string
+  /** Franja baja, a la altura del rótulo de "Descubre Marruecos". En la portada
+      la fotografía separa bloques; en Destinos hace de portada y va alta. */
+  compacta?: boolean
 }
 
 /** Franja full-width de fotografía con puntos de navegación discretos. */
@@ -64,6 +67,7 @@ export function ImpactStrip({
   slides = IMPACT_ATLAS,
   interval = 5600,
   label = 'Paisajes de Marruecos',
+  compacta = false,
 }: Props) {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
@@ -84,7 +88,7 @@ export function ImpactStrip({
 
   return (
     <section
-      className="impact-strip"
+      className={`impact-strip${compacta ? ' impact-strip--compacta' : ''}`}
       aria-label={label}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

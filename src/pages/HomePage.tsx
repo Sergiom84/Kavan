@@ -5,7 +5,7 @@ import { MoroccoIntroduction } from '../components/travel/MoroccoIntroduction'
 import { DiscoverMorocco } from '../components/travel/DiscoverMorocco'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
 import { BurstGallery } from '../components/fx/BurstGallery'
-import { ImpactStrip, IMPACT_ATLAS, IMPACT_SUR } from '../components/ui/ImpactStrip'
+import { ImpactStrip, IMPACT_ATLAS } from '../components/ui/ImpactStrip'
 import { HERO_RAFAGA } from '../data/galeria'
 import './HomePage.css'
 
@@ -38,10 +38,9 @@ export function HomePage() {
         </h1>
       </BurstGallery>
       <MoroccoIntroduction />
-      <ImpactStrip slides={IMPACT_ATLAS} label="Paisajes del Atlas y las kasbahs" />
+      <ImpactStrip slides={IMPACT_ATLAS} label="Paisajes del Atlas y las kasbahs" compacta />
       <PackShowcase packs={homePacks ?? []} />
       <DiscoverMorocco />
-      <ImpactStrip slides={IMPACT_SUR} label="Paisajes del Atlántico y el desierto" />
       <MoroccoMap />
     </>
   )

@@ -7,6 +7,25 @@
   background: var(--ink);
 }
 
+/* Misma altura que la franja de "Descubre Marruecos": en la portada la
+   fotografía es un respiro entre bloques, no una portada. */
+.impact-strip--compacta {
+  height: 12rem;
+}
+
+.impact-strip--compacta .impact-strip-name {
+  bottom: var(--space-4);
+  font-size: var(--text-2);
+}
+
+/* Con la franja baja, el rótulo y los puntos se pisan si comparten el centro. */
+.impact-strip--compacta .impact-strip-dots {
+  right: var(--padding);
+  left: auto;
+  bottom: var(--space-3);
+  justify-content: flex-end;
+}
+
 .impact-strip-slide {
   position: absolute;
   inset: 0;
@@ -104,9 +123,23 @@
     height: min(58vh, 28rem);
   }
 
+  .impact-strip--compacta {
+    height: 10rem;
+  }
+
   .impact-strip-name {
     font-size: var(--text-2);
     bottom: calc(var(--space-4) + 1.1rem);
+  }
+
+  .impact-strip--compacta .impact-strip-name {
+    bottom: var(--space-3);
+  }
+}
+
+@media (max-width: 767px) {
+  .impact-strip--compacta {
+    height: 8rem;
   }
 }
 
