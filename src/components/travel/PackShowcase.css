@@ -21,6 +21,33 @@
   width: 100%;
 }
 
+/* Misma capa de dunas que en el bloque Marruecos, aquí con la versión del hilo
+   dibujado. Va en el escenario pegajoso, no en la sección: así acompaña a las
+   tarjetas mientras el carril está fijado, en lugar de quedarse en el fondo del
+   bloque, muy por debajo. `multiply` funde el blanco del archivo con el papel,
+   la máscara la desvanece hacia arriba y la opacidad la deja bajo la prosa. */
+.pack-showcase-sticky {
+  position: relative;
+  isolation: isolate;
+}
+
+.pack-showcase-sticky::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  height: 26rem;
+  background-image: url("/images/dunas-fondo-linea.webp");
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  background-size: 100% auto;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+  -webkit-mask-image: linear-gradient(to top, #000 34%, transparent 92%);
+  mask-image: linear-gradient(to top, #000 34%, transparent 92%);
+  pointer-events: none;
+}
+
 /* El título vive junto al carril, no en el gap del flex: así el colapso por
    scroll (PackShowcase.tsx) puede cerrar exactamente el hueco que abre. */
 .pack-showcase-sticky .pack-showcase-inner {
