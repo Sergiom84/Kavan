@@ -1,12 +1,36 @@
 /* El fondo lo pone el `body`: arena cálida y las ondas de duna. La sección no
    pinta nada propio para no cortar la onda a mitad de bloque. */
 .home-introduction {
+  position: relative;
+  isolation: isolate;
   padding: var(--space-6) 10rem;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   background: transparent;
   border: 0;
+}
+
+/* Fotografía de dunas al pie del bloque, apagada hasta quedarse en textura.
+   Tres cosas la sostienen: `multiply` funde el blanco del archivo con el papel
+   —si no, se vería la caja de la foto—, la máscara la desvanece hacia arriba
+   para que nazca del propio fondo, y la opacidad baja la deja por debajo de la
+   prosa. Es decorativa: ni intercepta clics ni cuenta para el lector. */
+.home-introduction::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  height: 26rem;
+  background-image: url("/images/dunas-fondo.webp");
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  background-size: 100% auto;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+  -webkit-mask-image: linear-gradient(to top, #000 34%, transparent 92%);
+  mask-image: linear-gradient(to top, #000 34%, transparent 92%);
+  pointer-events: none;
 }
 
 .home-introduction__content {

@@ -62,13 +62,9 @@ body {
   font-weight: var(--weight-text);
   line-height: var(--leading-body);
   color: var(--ink);
+  /* Papel liso. Las dunas dibujadas y sus hilos de color se retiran: la
+     fotografía de dunas entra bloque a bloque, empezando por Marruecos. */
   background-color: var(--bg-1);
-  background-image: url("/images/dune-wash.svg");
-  background-repeat: repeat-y;
-  /* Mosaico más alto que antes (70 rem): el dibujo lleva ahora tres crestas y
-     tres hilos de oro, y comprimido se leía como rayas. */
-  background-size: 100% 90rem;
-  background-position: 0 6rem;
 }
 
 h1, h2, h3, h4 {
