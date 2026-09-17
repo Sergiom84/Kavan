@@ -1,20 +1,41 @@
-/* Mismo cristal que la cabecera: velo mínimo, desenfoque y grano. El pie no es
-   una barra fija, así que lo que hay detrás es el propio papel de la página;
-   el cristal se nota sobre todo en el filo, donde el desenfoque arrastra lo que
-   queda del bloque anterior. */
+/* El pie monta tres capas sobre el lienzo del cristal facetado (FooterGlass):
+   velo de papel con las dunas, grano y, encima, el contenido.
+
+   El orden importa y es contraintuitivo: el lienzo lleva `z-index: -1`, y un
+   hijo con z negativo se pinta por encima del fondo de su propio elemento. Por
+   eso el velo que sostiene la lectura no puede ir en `background` —quedaría
+   debajo del lienzo— y vive en `::before`. */
 .site-footer {
   position: relative;
   isolation: isolate;
-  background: color-mix(in srgb, var(--bg-1) 24%, transparent);
-  -webkit-backdrop-filter: blur(20px) saturate(1.5);
-  backdrop-filter: blur(20px) saturate(1.5);
+  background: transparent;
   color: var(--ink);
   border-top: 1px solid color-mix(in srgb, var(--logo-gold) 28%, transparent);
 }
 
-/* El grano es lo que convierte el desenfoque en cristal esmerilado. Va por
-   debajo de las dunas del pie, que son el otro material del bloque. */
+/* Velo de papel y dunas. Calibrado a ojo contra el lienzo: más alto tapaba el
+   cristal por completo y más bajo dejaba la tinta del pie sin apoyo. El
+   degradado aclara hacia abajo, donde está el texto legal. */
 .site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    url("/images/dune-wash.svg"),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--bg-1) 42%, transparent),
+      color-mix(in srgb, var(--bg-1) 62%, transparent)
+    );
+  background-size: 100% auto, 100% 100%;
+  background-position: center bottom, center;
+  background-repeat: no-repeat, no-repeat;
+}
+
+/* El grano, encima del velo: es lo que convierte el desenfoque en esmerilado. */
+.site-footer::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -27,29 +48,13 @@
   pointer-events: none;
 }
 
-/* Sin desenfoque el velo al 24 % deja el pie casi en el aire. */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .site-footer {
-    background: var(--bg-1);
-  }
-}
-
-.site-footer::after {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  opacity: 0.55;
-  background-image: url("/images/dune-wash.svg");
-  background-size: 100% auto;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-}
 
 .footer-inner {
   position: relative;
   z-index: 1;
+  /* Con el velo bajo, la tinta se apoya en su propia sombra sobre las zonas
+     claras de la fotografía refractada. */
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--c-bg) 72%, transparent);
   display: flex;
   flex-direction: column;
   align-items: center;

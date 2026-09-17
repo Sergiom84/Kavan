@@ -1,0 +1,14 @@
+/* Lienzo del cristal facetado del pie. Va al fondo del bloque y no participa de
+   la interfaz: ni recibe clics ni lo anuncia el lector de pantalla.
+
+   Si WebGL falla o el lienzo no llega a pintarse, queda transparente y el pie se
+   ve como antes: el efecto es una capa añadida, no el fondo del que depende. */
+.footer-glass {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

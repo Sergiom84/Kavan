@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import { lockNav } from '../../lib/demoLock'
+import { FooterGlass } from '../fx/FooterGlass'
 import './Footer.css'
 
 const legal = [
@@ -36,6 +37,7 @@ const socials = [
 export function Footer() {
   return (
     <footer className="site-footer">
+      <FooterGlass />
       <div className="container footer-inner">
         <p className="footer-statement">Marruecos a tu medida</p>
         <nav className="footer-socials" aria-label="Redes sociales">
