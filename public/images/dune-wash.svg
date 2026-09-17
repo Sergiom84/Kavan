@@ -2,14 +2,14 @@
   <!--
     Ondas de duna para el fondo del carril de viajes.
 
-    Una sola gama: tierra clara, del arena al tostado. Nada de oliva, granate
-    ni oro —se probaron y daban demasiado color al bloque—. El relieve lo hace
-    la cresta de luz sobre cada lomo y el pie desvanecido, no el contraste de
-    tono.
+    Una sola gama: tierra clara, del arena al tostado. El relieve lo hacen la
+    cresta de luz sobre cada lomo y el pie desvanecido, no el contraste de tono.
 
-    Las formas se quedan lejos del filo superior e inferior y los trazos nacen
-    y mueren en transparente: la costura entre repeticiones no se ve sin tener
-    que empalmar el dibujo al píxel.
+    El mosaico repite en horizontal: cada curva sale y entra a la misma altura
+    (0 y 1440 comparten `y`) y los puntos de control del último tramo son el
+    espejo de los del primero, así que la tangente también empalma y el
+    encadenado no deja pico en la costura. Eso es lo que permite desplazar el
+    fondo sin límite cuando el carril avanza.
   -->
   <defs>
     <linearGradient id="lomo-claro" x1="0" y1="0" x2="0" y2="1">
@@ -28,45 +28,44 @@
       <stop offset="1" stop-color="#C9A67C" stop-opacity="0.06"/>
     </linearGradient>
     <linearGradient id="hilo-tierra" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#B08E63" stop-opacity="0"/>
-      <stop offset="0.22" stop-color="#B08E63" stop-opacity="0.34"/>
-      <stop offset="0.78" stop-color="#B08E63" stop-opacity="0.34"/>
-      <stop offset="1" stop-color="#B08E63" stop-opacity="0"/>
+      <stop offset="0" stop-color="#B08E63" stop-opacity="0.3"/>
+      <stop offset="0.5" stop-color="#B08E63" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#B08E63" stop-opacity="0.3"/>
     </linearGradient>
     <linearGradient id="cresta" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#FBF5EC" stop-opacity="0"/>
-      <stop offset="0.3" stop-color="#FBF5EC" stop-opacity="0.8"/>
-      <stop offset="0.7" stop-color="#FBF5EC" stop-opacity="0.8"/>
-      <stop offset="1" stop-color="#FBF5EC" stop-opacity="0"/>
+      <stop offset="0" stop-color="#FBF5EC" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#FBF5EC" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#FBF5EC" stop-opacity="0.55"/>
     </linearGradient>
   </defs>
 
-  <!-- Primer grupo: lomo tostado detrás, lomo claro delante. -->
+  <!-- Lomo tostado, el más alto del mosaico. -->
   <path fill="url(#lomo-tostado)"
-        d="M-20 340C120 252 300 232 470 288C640 344 764 288 930 254C1096 220 1300 268 1460 236V560H-20Z"/>
+        d="M0 340C240 250 480 190 720 250C960 310 1200 430 1440 340L1440 1200L0 1200Z"/>
   <path fill="none" stroke="url(#cresta)" stroke-width="2"
-        d="M-20 340C120 252 300 232 470 288C640 344 764 288 930 254C1096 220 1300 268 1460 236"/>
+        d="M0 340C240 250 480 190 720 250C960 310 1200 430 1440 340"/>
 
+  <!-- Lomo claro, medio paso por delante. -->
   <path fill="url(#lomo-claro)"
-        d="M-20 430C160 352 336 420 520 404C712 388 852 318 1030 336C1204 354 1330 420 1460 392V620H-20Z"/>
+        d="M0 430C240 360 480 310 720 360C960 410 1200 500 1440 430L1440 1200L0 1200Z"/>
   <path fill="none" stroke="url(#cresta)" stroke-width="2"
-        d="M-20 430C160 352 336 420 520 404C712 388 852 318 1030 336C1204 354 1330 420 1460 392"/>
+        d="M0 430C240 360 480 310 720 360C960 410 1200 500 1440 430"/>
 
-  <!-- Segundo grupo: marca el centro del mosaico. -->
+  <!-- Lomo medio: el que marca el centro. -->
   <path fill="url(#lomo-medio)"
-        d="M-20 770C170 700 330 764 520 780C726 798 880 720 1070 706C1244 694 1352 744 1460 722V960H-20Z"/>
+        d="M0 770C240 690 480 635 720 690C960 745 1200 850 1440 770L1440 1200L0 1200Z"/>
   <path fill="none" stroke="url(#cresta)" stroke-width="2"
-        d="M-20 770C170 700 330 764 520 780C726 798 880 720 1070 706C1244 694 1352 744 1460 722"/>
+        d="M0 770C240 690 480 635 720 690C960 745 1200 850 1440 770"/>
 
-  <!-- Lomo del pie, el más tostado, para cerrar el mosaico. -->
+  <!-- Lomo del pie. -->
   <path fill="url(#lomo-tostado)"
-        d="M-20 1076C220 1014 452 1088 682 1102C918 1116 1140 1048 1360 1066C1400 1070 1430 1076 1460 1072V1200H-20Z"/>
+        d="M0 1076C240 1016 480 976 720 1016C960 1056 1200 1136 1440 1076L1440 1200L0 1200Z"/>
   <path fill="none" stroke="url(#cresta)" stroke-width="1.8"
-        d="M-20 1076C220 1014 452 1088 682 1102C918 1116 1140 1048 1360 1066C1400 1070 1430 1076 1460 1072"/>
+        d="M0 1076C240 1016 480 976 720 1016C960 1056 1200 1136 1440 1076"/>
 
-  <!-- Dos hilos del mismo tierra, para que crucen el papel sin cambiar de gama. -->
+  <!-- Dos hilos de la misma gama cruzando el papel. -->
   <path fill="none" stroke="url(#hilo-tierra)" stroke-width="1.5"
-        d="M-40 190C210 104 452 232 700 186C948 140 1160 52 1480 128"/>
+        d="M0 190C240 110 480 70 720 120C960 170 1200 270 1440 190"/>
   <path fill="none" stroke="url(#hilo-tierra)" stroke-width="1.2"
-        d="M-40 930C230 876 436 962 690 936C944 910 1204 834 1480 884"/>
+        d="M0 930C240 860 480 815 720 860C960 905 1200 1000 1440 930"/>
 </svg>

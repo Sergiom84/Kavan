@@ -37,15 +37,15 @@
   inset: 0;
   z-index: -1;
   background-image: url("/images/dune-wash.svg");
-  background-repeat: no-repeat;
-  /* `--dunas-x` lo escribe PackShowcase.tsx desde el transform real del carril:
-     el fondo acompaña al desplazamiento horizontal a un octavo de su velocidad.
+  /* El dibujo empalma consigo mismo en horizontal, así que puede repetirse y
+     desplazarse sin límite: no hay filo que pueda asomar por mucho que corra
+     el carril. */
+  background-repeat: repeat-x;
+  /* `--dunas-x` lo escribe PackShowcase.tsx desde el transform real del carril.
      Sin valor —móvil, movimiento reducido, pocos viajes— vale 0 y el fondo se
      queda quieto. */
   background-position: calc(50% + var(--dunas-x, 0px)) 100%;
-  /* Más ancho que la caja: el margen sobrante a cada lado es lo que permite
-     desplazarlo sin que asome el papel por el filo. */
-  background-size: 132% 118%;
+  background-size: 100% 118%;
   opacity: 0.85;
   -webkit-mask-image: linear-gradient(to top, #000 52%, transparent 96%);
   mask-image: linear-gradient(to top, #000 52%, transparent 96%);

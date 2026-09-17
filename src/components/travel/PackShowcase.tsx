@@ -103,12 +103,13 @@ export function PackShowcase({
       }
       sizeItems()
 
-      /* Las dunas del fondo acompañan al carril a un octavo de su velocidad.
-         Esa diferencia es el efecto: si fueran a la misma, el bloque entero
-         parecería una sola imagen deslizándose. El valor sale del transform
-         real del carril, no de un cálculo aparte, así que no se puede
-         desincronizar. */
-      const FACTOR_DUNAS = 0.12
+      /* Las dunas del fondo acompañan al carril a algo más de un tercio de su
+         velocidad. La diferencia entre ambas es el efecto: si fueran a la
+         misma, el bloque entero parecería una sola imagen deslizándose. El
+         valor sale del transform real del carril, no de un cálculo aparte, así
+         que no se puede desincronizar. Puede subir sin miedo a que se acabe el
+         dibujo: el fondo empalma consigo mismo y se repite. */
+      const FACTOR_DUNAS = 0.38
       const sticky = scene.querySelector<HTMLElement>('.pack-showcase-sticky')
       const moverDunas = () => {
         if (!sticky) return

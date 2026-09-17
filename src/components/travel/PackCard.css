@@ -299,25 +299,26 @@
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.52);
 }
 
-/* El texto deja la caja blanca y pasa a cristal, como los accesos del hero.
-   Aquí el cristal es claro y no oscuro: debajo hay papel arena, no una
-   fotografía nocturna, y la tinta del texto es oscura. */
+/* El texto deja la caja blanca y pasa al mismo cristal que los accesos del
+   hero: los mismos tokens, no una copia con otros valores. Lo que no se hereda
+   es el color del texto —allí va claro sobre fotografía nocturna y aquí oscuro
+   sobre papel—, porque el velo es tan tenue que el fondo manda. */
 .pack-card--home .pack-card-body {
   gap: var(--space-3);
   margin-top: var(--space-3);
   padding: var(--space-4);
-  background: color-mix(in srgb, var(--c-pure-white) 34%, transparent);
-  -webkit-backdrop-filter: blur(10px) saturate(1.05);
-  backdrop-filter: blur(10px) saturate(1.05);
-  border: 1px solid color-mix(in srgb, var(--c-pure-white) 58%, transparent);
+  background: var(--glass-card);
+  -webkit-backdrop-filter: var(--glass-card-blur);
+  backdrop-filter: var(--glass-card-blur);
+  border: 1px solid var(--glass-card-line);
   border-radius: var(--radius-glass);
-  box-shadow: 0 10px 30px color-mix(in srgb, var(--ink) 10%, transparent);
+  box-shadow: var(--shadow-glass);
 }
 
-/* Sin desenfoque el velo claro se queda corto y la tinta pierde apoyo. */
+/* Sin desenfoque, el velo al 12 % no separa la tarjeta del fondo. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .pack-card--home .pack-card-body {
-    background: color-mix(in srgb, var(--c-pure-white) 72%, transparent);
+    background: color-mix(in srgb, var(--c-pure-white) 64%, transparent);
   }
 }
 
