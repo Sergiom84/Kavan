@@ -103,9 +103,23 @@ export function PackShowcase({
       }
       sizeItems()
 
+      /* Las dunas del fondo acompañan al carril a un octavo de su velocidad.
+         Esa diferencia es el efecto: si fueran a la misma, el bloque entero
+         parecería una sola imagen deslizándose. El valor sale del transform
+         real del carril, no de un cálculo aparte, así que no se puede
+         desincronizar. */
+      const FACTOR_DUNAS = 0.12
+      const sticky = scene.querySelector<HTMLElement>('.pack-showcase-sticky')
+      const moverDunas = () => {
+        if (!sticky) return
+        const x = Number(gsap.getProperty(track, 'x')) || 0
+        sticky.style.setProperty('--dunas-x', `${x * FACTOR_DUNAS}px`)
+      }
+
       gsap.fromTo(track, { x: 0 }, {
         x: () => -distance(),
         ease: 'none',
+        onUpdate: moverDunas,
         scrollTrigger: {
           trigger: scene,
           start: () => `top+=${TITLE_COLLAPSE_PX + entryHold()} top`,
@@ -125,6 +139,7 @@ export function PackShowcase({
         viewport.classList.remove('is-pinned')
         scene.style.removeProperty('--pasos')
         scene.style.removeProperty('--pack-entry-hold')
+        sticky?.style.removeProperty('--dunas-x')
         gsap.set(track, { clearProps: 'transform' })
         items.forEach((item) => {
           item.style.removeProperty('flex')
