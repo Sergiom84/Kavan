@@ -4,10 +4,14 @@ import './FooterGlass.css'
 /**
  * Cristal facetado del pie, portado del prototipo `Footer glass` de Lab-FX.
  *
- * Una retícula hexagonal refracta la fotografía del campamento: cada celda
- * desvía la imagen hacia su centro, separa un poco los canales de color
- * —aberración cromática— y recibe un brillo especular. La retícula respira con
- * una onda lenta.
+ * Una retícula hexagonal refracta un degradado de papel: cada celda desvía la
+ * superficie hacia su centro, separa un poco los canales de color —aberración
+ * cromática— y recibe un brillo especular. La retícula respira con una onda
+ * lenta.
+ *
+ * El degradado se compone dentro del shader en lugar de cargar una imagen: no
+ * hay archivo que pedir, no aparece banding al ampliarlo y la refracción tiene
+ * una superficie limpia sobre la que trabajar.
  *
  * Del prototipo se quedan fuera los mandos (celda, amplitud, cromática, forma,
  * onda al hacer clic), el vídeo y el modo alambre: aquí los valores están
@@ -29,7 +33,7 @@ precision mediump float;
 
 uniform vec2 iResolution;
 uniform float iTime;
-uniform sampler2D iChannel0;
+uniform vec3 uPapel, uCrema, uFrio;
 uniform float uCell, uAmp, uChrom, uAnimate;
 
 varying vec2 vUV;
@@ -66,7 +70,33 @@ float sdHexagono(vec2 p, float r){
   return max(dot(p, normalize(vec2(1.0, 1.7320508))) - r, p.x - r);
 }
 
-vec3 muestra(vec2 uv){ return texture2D(iChannel0, uv).rgb; }
+/* Ruido de valor: dos octavas bastan para el grano de un cristal. */
+float hash(vec2 p){
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float ruido(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
+             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+}
+
+/* El fondo ya no es una fotografía sino un degradado: papel cálido que vira a
+   crema por el costado y se enfría por la esquina inferior. Se compone aquí, en
+   el shader, y no en una imagen: así no hay banding al ampliarlo ni un archivo
+   más que cargar, y la refracción tiene una superficie limpia sobre la que
+   trabajar. */
+vec3 muestra(vec2 uv){
+  float diagonal = clamp((uv.x * 0.72 + (1.0 - uv.y) * 0.28), 0.0, 1.0);
+  vec3 col = mix(uPapel, uCrema, smoothstep(0.1, 0.95, diagonal));
+
+  float frio = smoothstep(0.42, 1.0, uv.x) * smoothstep(0.55, 0.0, uv.y);
+  col = mix(col, uFrio, frio * 0.85);
+
+  float grano = (ruido(uv * 520.0) - 0.5) * 0.016 + (ruido(uv * 130.0) - 0.5) * 0.012;
+  return col + grano;
+}
 
 void main(){
   vec2 res = iResolution;
@@ -95,11 +125,22 @@ void main(){
   cristal.b = muestra(uv + refraccion - ca * (0.6 * uChrom)).b;
 
   /* Luz fija arriba a la derecha: sin ratón que la mueva, una dirección
-     constante mantiene el relieve coherente en toda la retícula. */
+     constante mantiene el relieve coherente en toda la retícula. El brillo va
+     mucho más bajo que en el prototipo —0,12 frente a 0,45—: allí competía con
+     una fotografía y aquí, sobre un degradado casi liso, a esa fuerza dibujaba
+     manchas blancas en vez de facetas. */
   vec2 luz = normalize(vec2(0.7, 1.0));
-  float brillo = pow(max(0.0, dot(luz, n)), 14.0) * (1.0 - radio);
+  float brillo = pow(max(0.0, dot(luz, n)), 10.0) * (1.0 - radio);
 
-  vec3 col = mix(base, cristal + vec3(1.0, 0.96, 0.9) * brillo * 0.45, dentro);
+  /* Filo de la faceta: sobre una superficie lisa, la refracción apenas desvía
+     nada y sin esta línea la retícula no se vería. Es lo que dibuja el mosaico. */
+  float filo = smoothstep(2.2, 0.0, abs(d)) * 0.5;
+
+  vec3 col = mix(base, cristal, dentro);
+  col += vec3(1.0, 0.985, 0.96) * brillo * 0.12;
+  col += vec3(1.0) * filo * 0.035;
+  col -= vec3(0.02, 0.018, 0.012) * smoothstep(0.35, 1.0, radio) * dentro;
+
   gl_FragColor = vec4(col, 1.0);
 }
 `
@@ -157,7 +198,9 @@ export function FooterGlass() {
     const u = {
       resolucion: gl.getUniformLocation(programa, 'iResolution'),
       tiempo: gl.getUniformLocation(programa, 'iTime'),
-      textura: gl.getUniformLocation(programa, 'iChannel0'),
+      papel: gl.getUniformLocation(programa, 'uPapel'),
+      crema: gl.getUniformLocation(programa, 'uCrema'),
+      frio: gl.getUniformLocation(programa, 'uFrio'),
       celda: gl.getUniformLocation(programa, 'uCell'),
       amplitud: gl.getUniformLocation(programa, 'uAmp'),
       cromatica: gl.getUniformLocation(programa, 'uChrom'),
@@ -166,28 +209,13 @@ export function FooterGlass() {
 
     const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    /* Textura de un solo nivel y `CLAMP_TO_EDGE`: la refracción muestrea fuera
-       del borde y con repetición saltaría al otro extremo de la fotografía. */
-    const textura = gl.createTexture()
-    gl.bindTexture(gl.TEXTURE_2D, textura)
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, 1, 1, 0, gl.RGB, gl.UNSIGNED_BYTE, new Uint8Array([214, 190, 152]))
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
-    gl.uniform1i(u.textura, 0)
-
-    let listaLaFoto = false
-    const foto = new Image()
-    foto.decoding = 'async'
-    foto.src = '/images/footer-glass.webp'
-    foto.onload = () => {
-      gl.bindTexture(gl.TEXTURE_2D, textura)
-      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1)
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, foto)
-      listaLaFoto = true
-      if (sinMovimiento || !visible) pintar(0)
-    }
+    /* Colores del degradado, tomados de la muestra de la clienta: papel cálido
+       del sistema, crema por el costado y un gris azulado que enfría la esquina
+       inferior. Van como uniformes y no incrustados en el shader para que se
+       vean de un vistazo y se puedan ajustar sin tocar GLSL. */
+    const PAPEL: [number, number, number] = [0.953, 0.945, 0.929]
+    const CREMA: [number, number, number] = [0.945, 0.925, 0.855]
+    const FRIO: [number, number, number] = [0.878, 0.898, 0.917]
 
     const medir = () => {
       /* Tope de 1,5 en densidad: a 2x en una pantalla retina el coste se dobla
@@ -210,6 +238,9 @@ export function FooterGlass() {
       gl.uniform1f(u.amplitud, AMPLITUD)
       gl.uniform1f(u.cromatica, CROMATICA)
       gl.uniform1f(u.anima, sinMovimiento ? 0 : 1)
+      gl.uniform3fv(u.papel, PAPEL)
+      gl.uniform3fv(u.crema, CREMA)
+      gl.uniform3fv(u.frio, FRIO)
       gl.drawArrays(gl.TRIANGLES, 0, 6)
     }
 
@@ -224,6 +255,11 @@ export function FooterGlass() {
 
     /* El pie está al final de la página: sin esto, la retícula seguiría
        calculándose mientras se lee la portada. */
+    /* Un primer fotograma nada más montar: el lienzo nace con el tamaño por
+       defecto de 300x150 y, si el bucle no llega a arrancar —pie fuera de
+       pantalla, movimiento reducido—, se quedaría estirado a lo ancho del pie. */
+    pintar(0)
+
     const observador = new IntersectionObserver(([entrada]) => {
       visible = entrada.isIntersecting
       if (visible && !sinMovimiento) {
@@ -231,22 +267,22 @@ export function FooterGlass() {
       } else {
         cancelAnimationFrame(animacion)
         animacion = 0
-        if (visible && listaLaFoto) pintar(0)
+        if (visible) pintar(0)
       }
     })
     observador.observe(canvas)
 
-    const alRedimensionar = () => {
-      if (!animacion && listaLaFoto) pintar(0)
-    }
-    window.addEventListener('resize', alRedimensionar)
+    /* El pie cambia de alto por su cuenta —tipografías que cargan, menú que se
+       abre—, no sólo al redimensionar la ventana. */
+    const observadorTamano = new ResizeObserver(() => {
+      if (!animacion) pintar(0)
+    })
+    observadorTamano.observe(canvas)
 
     return () => {
       observador.disconnect()
+      observadorTamano.disconnect()
       cancelAnimationFrame(animacion)
-      window.removeEventListener('resize', alRedimensionar)
-      foto.onload = null
-      gl.deleteTexture(textura)
       gl.deleteBuffer(buffer)
       gl.deleteProgram(programa)
       gl.deleteShader(vs)

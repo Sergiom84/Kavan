@@ -1,60 +1,36 @@
-/* El pie monta tres capas sobre el lienzo del cristal facetado (FooterGlass):
-   velo de papel con las dunas, grano y, encima, el contenido.
+/* El pie monta el lienzo del cristal facetado (FooterGlass) y, encima, las
+   dunas y el contenido. El lienzo ya pinta el papel —un degradado con su propio
+   grano—, así que aquí no hace falta ni velo ni textura añadida.
 
-   El orden importa y es contraintuitivo: el lienzo lleva `z-index: -1`, y un
-   hijo con z negativo se pinta por encima del fondo de su propio elemento. Por
-   eso el velo que sostiene la lectura no puede ir en `background` —quedaría
-   debajo del lienzo— y vive en `::before`. */
+   Un apunte de orden de pintado: el lienzo lleva `z-index: -1` y un hijo con z
+   negativo se pinta por encima del fondo de su propio elemento, de modo que
+   cualquier velo que se ponga en `background` quedaría debajo y no se vería. */
 .site-footer {
   position: relative;
   isolation: isolate;
-  background: transparent;
+  background: var(--bg-1);
   color: var(--ink);
   border-top: 1px solid color-mix(in srgb, var(--logo-gold) 28%, transparent);
 }
 
-/* Velo de papel y dunas. Calibrado a ojo contra el lienzo: más alto tapaba el
-   cristal por completo y más bajo dejaba la tinta del pie sin apoyo. El
-   degradado aclara hacia abajo, donde está el texto legal. */
+/* Las dunas del pie, por encima del cristal y muy apagadas: son el enlace con
+   el resto de la página, no el material del bloque. */
 .site-footer::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image:
-    url("/images/dune-wash.svg"),
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--bg-1) 42%, transparent),
-      color-mix(in srgb, var(--bg-1) 62%, transparent)
-    );
-  background-size: 100% auto, 100% 100%;
-  background-position: center bottom, center;
-  background-repeat: no-repeat, no-repeat;
+  opacity: 0.4;
+  background-image: url("/images/dune-wash.svg");
+  background-size: 100% auto;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
-
-/* El grano, encima del velo: es lo que convierte el desenfoque en esmerilado. */
-.site-footer::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: url("/images/grano.svg");
-  background-repeat: repeat;
-  background-size: 180px 180px;
-  mix-blend-mode: overlay;
-  opacity: 0.16;
-  pointer-events: none;
-}
-
 
 .footer-inner {
   position: relative;
   z-index: 1;
-  /* Con el velo bajo, la tinta se apoya en su propia sombra sobre las zonas
-     claras de la fotografía refractada. */
-  text-shadow: 0 1px 2px color-mix(in srgb, var(--c-bg) 72%, transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
