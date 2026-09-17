@@ -137,9 +137,17 @@
   --montserrat: "Montserrat", "Segoe UI", sans-serif;
   --poppins: var(--montserrat);
 
-  --font-display: var(--marcellus);
-  --font-body: var(--montserrat);
-  --font-mono: var(--montserrat);
+  /* Pareja actual: serif de contraste alto para titular, humanista para leer.
+     El respaldo de la serif es Georgia, que también es de contraste alto; el de
+     la sans es Segoe UI, para no caer en `system-ui`. */
+  --playfair: "Playfair Display", Georgia, "Times New Roman", serif;
+  --lato: "Lato", "Segoe UI", sans-serif;
+
+  --font-display: var(--playfair);
+  --font-body: var(--lato);
+  /* Alias heredado: los componentes que escriben var(--font-mono) reciben la
+     misma sans del cuerpo, como hasta ahora. */
+  --font-mono: var(--lato);
 
   /* Alias heredado: los componentes que ya escribían var(--font)
      siguen funcionando y reciben la serif. */

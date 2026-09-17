@@ -54,7 +54,7 @@
 /* El sello ya no explica nada por sí solo: el rótulo va debajo, en el dorado
    tierra del logo y del título de Marruecos. */
 .advisor-claim {
-  font-family: "Marcellus", var(--font-display);
+  font-family: var(--font-display);
   font-size: calc(var(--text-body) - 0.25rem);
   font-weight: 400;
   line-height: 1;

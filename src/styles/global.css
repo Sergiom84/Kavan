@@ -1,30 +1,48 @@
 @import "./tokens.css";
 
-/* Exploración Gemini: Marcellus (títulos) + Montserrat (cuerpo).
-   SIL Open Font License, autoalojadas. Cormorant y JetBrains quedan
-   en disco por si se vuelve a main; esta rama no las carga. */
+/* Playfair Display (títulos) + Lato (cuerpo). SIL Open Font License,
+   autoalojadas en `public/fonts` con el subconjunto latino de Google Fonts:
+   nada se pide a un servidor ajeno en tiempo de carga. Marcellus, Montserrat,
+   Cormorant y JetBrains quedan en disco por si se vuelve atrás; esta rama no
+   las carga. */
 @font-face {
-  font-family: "Marcellus";
+  font-family: "Playfair Display";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/Marcellus-Regular.woff2") format("woff2");
+  src: url("/fonts/PlayfairDisplay-Regular.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Montserrat";
+  font-family: "Playfair Display";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
+  src: url("/fonts/PlayfairDisplay-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/Lato-Light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Lato-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/Lato-Bold.woff2") format("woff2");
 }
 
 /* Las utilidades comunes viven en una capa: así los estilos de cada componente
@@ -52,7 +70,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* La prosa va en Montserrat y caja baja. Marcellus se reserva para
+/* La prosa va en Lato y caja baja. Playfair Display se reserva para
    titular. El lavado de dunas es decorativo: no captura clics ni
    tapa el contenido. */
 body {
