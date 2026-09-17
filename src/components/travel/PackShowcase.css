@@ -215,6 +215,8 @@
 .pack-showcase-closing {
   /* Aire entre el carril de fotografías y la acción, que antes quedaba pegada
      al pie de las tarjetas. */
+  position: relative;
+  isolation: isolate;
   padding-top: var(--space-6);
   display: flex;
   flex-direction: column;
@@ -222,6 +224,26 @@
   /* Entre la acción y el texto de "Descubre Marruecos" cabe más aire que
      entre bloques normales: son dos piezas distintas del cierre. */
   gap: calc(var(--space-6) + var(--space-5));
+}
+
+/* Las dunas siguen por debajo del carril, detrás de la acción, en lugar de
+   cortarse en seco contra el papel. Va a sangre —sale de la calle de 10 rem del
+   contenedor con márgenes negativos— y se apaga hacia abajo, antes de llegar al
+   texto de "Descubre Marruecos". Aquí el fondo no se desplaza: el carril ya ha
+   terminado su recorrido. */
+.pack-showcase-closing::before {
+  content: "";
+  position: absolute;
+  inset: 0 -10rem auto;
+  z-index: -1;
+  height: 26rem;
+  background-image: url("/images/dune-wash.svg");
+  background-repeat: repeat-x;
+  background-position: 50% 0;
+  background-size: 100% 118%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 38%, transparent 94%);
+  mask-image: linear-gradient(to bottom, #000 38%, transparent 94%);
+  pointer-events: none;
 }
 
 .pack-showcase-discover {
@@ -335,6 +357,10 @@
     padding-inline: 5rem;
   }
 
+  .pack-showcase-closing::before {
+    inset: 0 -5rem auto;
+  }
+
   .pack-showcase-inner {
     padding-inline: 5rem;
   }
@@ -353,6 +379,11 @@
     height: 8rem;
     margin-inline: calc(-1 * var(--padding));
     padding-inline: var(--padding);
+  }
+
+  .pack-showcase-closing::before {
+    inset: 0 calc(-1 * var(--padding)) auto;
+    height: 18rem;
   }
 }
 
