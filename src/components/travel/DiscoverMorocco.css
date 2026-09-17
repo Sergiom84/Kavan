@@ -1,7 +1,28 @@
 .discover-morocco {
+  position: relative;
+  isolation: isolate;
   padding: var(--space-6) 0;
   background: transparent;
   overflow: hidden;
+}
+
+/* Rastro de dunas por detrás del rótulo y la banda de fotografías. Va a un
+   tercio de la intensidad del carril: aquí la fotografía es lo que manda y el
+   fondo sólo tiene que evitar que el bloque flote sobre papel liso. Se apaga
+   antes de llegar al filo de las imágenes. */
+.discover-morocco::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("/images/dune-wash.svg");
+  background-repeat: repeat-x;
+  background-position: 50% 100%;
+  background-size: 100% 96%;
+  opacity: 0.28;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 70%, transparent 98%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 70%, transparent 98%);
+  pointer-events: none;
 }
 
 /* El rótulo comparte calle con Marruecos y con los viajes; el carril de

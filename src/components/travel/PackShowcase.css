@@ -254,9 +254,30 @@
 }
 
 .pack-showcase-discover {
+  position: relative;
+  isolation: isolate;
   width: 100%;
   max-width: none;
   text-align: left;
+}
+
+/* Las mismas dunas detrás del texto largo, pero a un tercio de intensidad: aquí
+   son un rastro sobre el papel, no el fondo del bloque. Debajo hay prosa
+   corrida y cualquier cosa más marcada compite con ella. A sangre, como la
+   franja de fotografía que tiene encima. */
+.pack-showcase-discover::before {
+  content: "";
+  position: absolute;
+  inset: 0 -10rem;
+  z-index: -1;
+  background-image: url("/images/dune-wash.svg");
+  background-repeat: repeat-x;
+  background-position: 50% 62%;
+  background-size: 100% 78%;
+  opacity: 0.28;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%);
+  pointer-events: none;
 }
 
 /* Franja de fotografía con el rótulo dentro. Va a sangre —sale de la calle de
