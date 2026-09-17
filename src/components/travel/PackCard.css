@@ -307,10 +307,13 @@
   gap: var(--space-3);
   margin-top: var(--space-3);
   padding: var(--space-4);
-  background: var(--glass-card);
+  /* Mismo cristal que el hero, con el velo aún más fino: allí separa texto
+     claro de una fotografía nocturna y necesita cuerpo; aquí el fondo es papel
+     con dunas y basta con el desenfoque para que la tarjeta se despegue. */
+  background: color-mix(in srgb, var(--ink-warm) 5%, transparent);
   -webkit-backdrop-filter: var(--glass-card-blur);
   backdrop-filter: var(--glass-card-blur);
-  border: 1px solid var(--glass-card-line);
+  border: 1px solid color-mix(in srgb, var(--c-pure-white) 46%, transparent);
   border-radius: var(--radius-glass);
   box-shadow: var(--shadow-glass);
 }

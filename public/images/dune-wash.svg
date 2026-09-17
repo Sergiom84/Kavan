@@ -5,11 +5,11 @@
     Una sola gama: tierra clara, del arena al tostado. El relieve lo hacen la
     cresta de luz sobre cada lomo y el pie desvanecido, no el contraste de tono.
 
-    El mosaico repite en horizontal: cada curva sale y entra a la misma altura
-    (0 y 1440 comparten `y`) y los puntos de control del último tramo son el
-    espejo de los del primero, así que la tangente también empalma y el
-    encadenado no deja pico en la costura. Eso es lo que permite desplazar el
-    fondo sin límite cuando el carril avanza.
+    Cada banda es simétrica respecto al centro del mosaico y entra y sale con la
+    tangente horizontal. Eso es lo que hace invisible la costura al repetir:
+    igualar sólo la altura de los extremos no basta —la pendiente heredada
+    dibujaba un montículo en el empalme—, porque el navegador redondea el ancho
+    del mosaico a píxeles enteros y cualquier inclinación delata el corte.
   -->
   <defs>
     <linearGradient id="lomo-claro" x1="0" y1="0" x2="0" y2="1">
@@ -33,39 +33,39 @@
       <stop offset="1" stop-color="#B08E63" stop-opacity="0.3"/>
     </linearGradient>
     <linearGradient id="cresta" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#FBF5EC" stop-opacity="0.55"/>
+      <stop offset="0" stop-color="#FBF5EC" stop-opacity="0.6"/>
       <stop offset="0.5" stop-color="#FBF5EC" stop-opacity="0.8"/>
-      <stop offset="1" stop-color="#FBF5EC" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FBF5EC" stop-opacity="0.6"/>
     </linearGradient>
   </defs>
 
-  <!-- Lomo tostado, el más alto del mosaico. -->
+  <!-- Lomo tostado: sube hacia el centro. -->
   <path fill="url(#lomo-tostado)"
-        d="M0 340C240 250 480 190 720 250C960 310 1200 430 1440 340L1440 1200L0 1200Z"/>
+        d="M0 336C240 336 480 244 720 244C960 244 1200 336 1440 336L1440 1200L0 1200Z"/>
   <path fill="none" stroke="url(#cresta)" stroke-width="2"
-        d="M0 340C240 250 480 190 720 250C960 310 1200 430 1440 340"/>
+        d="M0 336C240 336 480 244 720 244C960 244 1200 336 1440 336"/>
 
-  <!-- Lomo claro, medio paso por delante. -->
+  <!-- Lomo claro: baja hacia el centro, para cruzarse con el anterior. -->
   <path fill="url(#lomo-claro)"
-        d="M0 430C240 360 480 310 720 360C960 410 1200 500 1440 430L1440 1200L0 1200Z"/>
+        d="M0 402C240 402 480 486 720 486C960 486 1200 402 1440 402L1440 1200L0 1200Z"/>
   <path fill="none" stroke="url(#cresta)" stroke-width="2"
-        d="M0 430C240 360 480 310 720 360C960 410 1200 500 1440 430"/>
+        d="M0 402C240 402 480 486 720 486C960 486 1200 402 1440 402"/>
 
-  <!-- Lomo medio: el que marca el centro. -->
+  <!-- Lomo medio: el que marca el centro del mosaico. -->
   <path fill="url(#lomo-medio)"
-        d="M0 770C240 690 480 635 720 690C960 745 1200 850 1440 770L1440 1200L0 1200Z"/>
+        d="M0 764C240 764 480 682 720 682C960 682 1200 764 1440 764L1440 1200L0 1200Z"/>
   <path fill="none" stroke="url(#cresta)" stroke-width="2"
-        d="M0 770C240 690 480 635 720 690C960 745 1200 850 1440 770"/>
+        d="M0 764C240 764 480 682 720 682C960 682 1200 764 1440 764"/>
 
   <!-- Lomo del pie. -->
   <path fill="url(#lomo-tostado)"
-        d="M0 1076C240 1016 480 976 720 1016C960 1056 1200 1136 1440 1076L1440 1200L0 1200Z"/>
+        d="M0 1064C240 1064 480 1128 720 1128C960 1128 1200 1064 1440 1064L1440 1200L0 1200Z"/>
   <path fill="none" stroke="url(#cresta)" stroke-width="1.8"
-        d="M0 1076C240 1016 480 976 720 1016C960 1056 1200 1136 1440 1076"/>
+        d="M0 1064C240 1064 480 1128 720 1128C960 1128 1200 1064 1440 1064"/>
 
   <!-- Dos hilos de la misma gama cruzando el papel. -->
   <path fill="none" stroke="url(#hilo-tierra)" stroke-width="1.5"
-        d="M0 190C240 110 480 70 720 120C960 170 1200 270 1440 190"/>
+        d="M0 188C240 188 480 122 720 122C960 122 1200 188 1440 188"/>
   <path fill="none" stroke="url(#hilo-tierra)" stroke-width="1.2"
-        d="M0 930C240 860 480 815 720 860C960 905 1200 1000 1440 930"/>
+        d="M0 926C240 926 480 986 720 986C960 986 1200 926 1440 926"/>
 </svg>
