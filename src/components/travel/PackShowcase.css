@@ -47,8 +47,11 @@
   background-position: calc(50% + var(--dunas-x, 0px)) 100%;
   background-size: 100% 118%;
   opacity: 0.85;
-  -webkit-mask-image: linear-gradient(to top, #000 52%, transparent 96%);
-  mask-image: linear-gradient(to top, #000 52%, transparent 96%);
+  /* Se apaga por arriba y también por abajo: al pie del escenario empalma con
+     la capa del cierre, y sin ese desvanecido la unión se ve como una línea
+     recta cruzando la pantalla. */
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 14%, #000 52%, transparent 96%);
+  mask-image: linear-gradient(to top, transparent 0%, #000 14%, #000 52%, transparent 96%);
   pointer-events: none;
 }
 
@@ -193,12 +196,14 @@
   border-radius: 0;
   color: var(--logo-gold);
   font-family: var(--font-display);
-  font-size: calc(var(--text-label) + 0.125rem + 2px);
+  /* La única acción del bloque: se sube a la escala de prosa y engorda la caja.
+     A tamaño de rótulo desaparecía contra un cierre tan ancho. */
+  font-size: calc(var(--text-body) + 0.25rem);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1;
   text-transform: none;
-  padding: 0.625rem 1.5rem;
+  padding: 1.125rem 3rem;
 }
 
 .pack-showcase-link:hover {
@@ -226,23 +231,25 @@
   gap: calc(var(--space-6) + var(--space-5));
 }
 
-/* Las dunas siguen por debajo del carril, detrás de la acción, en lugar de
-   cortarse en seco contra el papel. Va a sangre —sale de la calle de 10 rem del
-   contenedor con márgenes negativos— y se apaga hacia abajo, antes de llegar al
-   texto de "Descubre Marruecos". Aquí el fondo no se desplaza: el carril ya ha
-   terminado su recorrido. */
+/* Las dunas siguen por debajo del carril, detrás de la acción. Arranca por
+   encima del cierre —de ahí el `top` negativo— y nace desvanecida, de modo que
+   se solapa con la capa del escenario y la transición no tiene filo: donde una
+   se apaga, la otra ya ha entrado. Va a sangre, saliendo de la calle de 10 rem
+   del contenedor con márgenes negativos, y se apaga otra vez antes del texto de
+   "Descubre Marruecos". Aquí el fondo no se desplaza: el carril ya ha terminado
+   su recorrido. */
 .pack-showcase-closing::before {
   content: "";
   position: absolute;
-  inset: 0 -10rem auto;
+  inset: -12rem -10rem auto;
   z-index: -1;
-  height: 26rem;
+  height: 38rem;
   background-image: url("/images/dune-wash.svg");
   background-repeat: repeat-x;
   background-position: 50% 0;
   background-size: 100% 118%;
-  -webkit-mask-image: linear-gradient(to bottom, #000 38%, transparent 94%);
-  mask-image: linear-gradient(to bottom, #000 38%, transparent 94%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 62%, transparent 96%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 62%, transparent 96%);
   pointer-events: none;
 }
 
