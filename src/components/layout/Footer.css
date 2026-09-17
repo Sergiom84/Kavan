@@ -1,9 +1,37 @@
+/* Mismo cristal que la cabecera: velo mínimo, desenfoque y grano. El pie no es
+   una barra fija, así que lo que hay detrás es el propio papel de la página;
+   el cristal se nota sobre todo en el filo, donde el desenfoque arrastra lo que
+   queda del bloque anterior. */
 .site-footer {
   position: relative;
   isolation: isolate;
-  background: var(--bg-1);
+  background: color-mix(in srgb, var(--bg-1) 24%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
   color: var(--ink);
   border-top: 1px solid color-mix(in srgb, var(--logo-gold) 28%, transparent);
+}
+
+/* El grano es lo que convierte el desenfoque en cristal esmerilado. Va por
+   debajo de las dunas del pie, que son el otro material del bloque. */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/images/grano.svg");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+/* Sin desenfoque el velo al 24 % deja el pie casi en el aire. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-footer {
+    background: var(--bg-1);
+  }
 }
 
 .site-footer::after {
