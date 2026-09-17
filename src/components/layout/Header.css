@@ -22,12 +22,47 @@
 .site-header.is-solid,
 .site-header.is-open {
   isolation: isolate;
-  background: color-mix(in srgb, var(--bg-1) 92%, transparent);
-  -webkit-backdrop-filter: blur(14px) saturate(1.08);
-  backdrop-filter: blur(14px) saturate(1.08);
+  /* Velo mínimo: lo que separa la cabecera de la página es el desenfoque, no
+     una capa de color. Al 92 % era papel opaco y se leía como una barra blanca.
+     La saturación alta es lo que evita que lo de debajo se vuelva gris al
+     desenfocarlo. */
+  background: color-mix(in srgb, var(--bg-1) 24%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
   color: var(--ink);
   border-bottom-color: color-mix(in srgb, var(--logo-gold) 32%, transparent);
-  box-shadow: 0 10px 28px color-mix(in srgb, var(--ink) 6%, transparent);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+/* El grano es lo que convierte el desenfoque en cristal esmerilado: sin él, el
+   velo se ve liso y plano. `overlay` lo mete en la luz de lo que hay debajo en
+   lugar de pintar una capa gris encima. */
+.site-header.is-solid::before,
+.site-header.is-open::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/images/grano.svg");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+/* Con el velo tan fino, el rótulo necesita apoyo propio sobre las zonas claras
+   de la fotografía que pasa por debajo. */
+.site-header.is-solid .site-header-inner {
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--c-bg) 70%, transparent);
+}
+
+/* Sin desenfoque no hay cristal que valga: se repone el velo opaco. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header.is-solid,
+  .site-header.is-open {
+    background: color-mix(in srgb, var(--bg-1) 92%, transparent);
+  }
 }
 
 /* Sobre la portada que se aleja no hay estado crema: el fondo son las propias
