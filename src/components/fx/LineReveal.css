@@ -1,0 +1,6 @@
+/* `SplitText` con `mask: "lines"` envuelve cada renglón en su propia caja
+   recortada; esto sólo asegura que la línea parte de fuera de ella y que el
+   navegador la componga en su propia capa mientras dura el gesto. */
+.line-reveal__line {
+  will-change: transform;
+}
