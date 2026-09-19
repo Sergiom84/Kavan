@@ -1,0 +1,156 @@
+/* Entrada de la portada: el wordmark se parte y el hueco se vuelve fotografía.
+   Ver la cabecera de HeroLoader.tsx para el porqué del recorte del PNG. */
+
+.hero-loader {
+  /* Ancho del wordmark completo, del que cada mitad enseña su parte. */
+  --marca: 46vw;
+  /* Fracción horizontal del PNG donde acaba «KA» y empieza «VAN». Medida sobre
+     el original de 4440 px: la A cierra en ~1786 px y la V abre en ~1800 px. */
+  --corte: 0.402;
+  /* Proporciones del PNG, separadas porque `aspect-ratio` quiere la razón
+     escrita y `calc()` no acepta una razón como operando. */
+  --marca-ratio: 4440 / 853;
+  --marca-alto: calc(var(--marca) * 853 / 4440);
+
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--c-bg);
+}
+
+/* Mientras corre la entrada la página no se desplaza: el escenario del hero se
+   gobierna por scroll y arrancaría a medias. */
+body.hero-loader-abierto {
+  overflow: hidden;
+}
+
+.hero-loader__word {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  white-space: nowrap;
+  /* `em` es la unidad de la apertura (la caja va de 0em a 1em), así que el
+     tamaño de fuente marca cuánto se separan las mitades. */
+  font-size: var(--marca-alto);
+}
+
+.hero-loader__half {
+  flex: none;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-loader__half--start {
+  width: calc(var(--marca) * var(--corte));
+  justify-content: flex-start;
+}
+
+.hero-loader__half--end {
+  width: calc(var(--marca) * (1 - var(--corte)));
+  justify-content: flex-end;
+}
+
+.hero-loader__mark {
+  flex: none;
+  display: block;
+  width: var(--marca);
+  aspect-ratio: var(--marca-ratio);
+  background: var(--ink);
+  -webkit-mask: url('/images/Logotipo sin Morocco.png') center / contain no-repeat;
+  mask: url('/images/Logotipo sin Morocco.png') center / contain no-repeat;
+  will-change: transform;
+}
+
+.hero-loader__box {
+  flex: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  /* `font-size` vale exactamente el alto del wordmark, así que 1em iguala la
+     altura de las letras: el hueco abre a ras de la K y la N. */
+  height: 1em;
+  position: relative;
+}
+
+.hero-loader__box-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1em;
+  height: 100%;
+  position: relative;
+}
+
+.hero-loader__growing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.hero-loader__growing-wrap {
+  width: 100%;
+  min-width: 1em;
+  height: 100%;
+  position: absolute;
+}
+
+.hero-loader__relay,
+.hero-loader__cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Bajo el relevo espera la definitiva. */
+.hero-loader__cover {
+  z-index: 0;
+}
+
+.hero-loader__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* El wordmark apaisado se queda minúsculo si mantiene el 46% del ancho en una
+   pantalla estrecha; en móvil ocupa casi todo el ancho disponible. */
+@media (max-width: 991px) {
+  .hero-loader {
+    --marca: 68vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-loader {
+    --marca: 84vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-loader {
+    display: none;
+  }
+}
