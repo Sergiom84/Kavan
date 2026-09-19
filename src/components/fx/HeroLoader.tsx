@@ -26,35 +26,23 @@ const RELEVO = [
 /** Fotografía final: la misma que abre el hero. */
 const FINAL = '/images/hero.png'
 
-const CLAVE_SESION = 'kavan:hero-loader'
-
 /** La palabra se queda quieta este tiempo antes de abrirse. Petición expresa:
     que se lea «Kavan» antes de que ocurra nada más. */
 const ESPERA_ANTES_DE_ABRIR = 2
 
+/** La entrada se reproduce en cada carga de la portada —decisión de Sergio el
+    2026-09-19, sabiendo que cansa en visitas repetidas—. Solo la salta quien
+    pide menos movimiento en su sistema. */
 function debeReproducirse() {
   if (typeof window === 'undefined') return false
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
-  try {
-    return sessionStorage.getItem(CLAVE_SESION) !== 'visto'
-  } catch {
-    /* Navegación privada con almacenamiento bloqueado: mejor reproducirlo. */
-    return true
-  }
+  return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
 export function HeroLoader() {
   const [activo, setActivo] = useState(debeReproducirse)
   const rootRef = useRef<HTMLDivElement>(null)
 
-  const cerrar = useCallback(() => {
-    try {
-      sessionStorage.setItem(CLAVE_SESION, 'visto')
-    } catch {
-      /* Sin almacenamiento el velo se cierra igual; solo se repetirá. */
-    }
-    setActivo(false)
-  }, [])
+  const cerrar = useCallback(() => setActivo(false), [])
 
   useLayoutEffect(() => {
     if (!activo) return
