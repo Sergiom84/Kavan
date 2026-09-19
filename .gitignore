@@ -5,3 +5,6 @@ dist/
 .env.*.local
 .gstack/
 .playwright-cli/
+
+# Originales pesados de los que salen las variantes servidas en public/images
+assets-fuente/

@@ -1,5 +1,6 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { HERO_FALLBACK, HERO_MINIATURA, HERO_SIZES, HERO_SRCSET } from '../../data/portada'
 import './HeroLoader.css'
 
 /**
@@ -12,7 +13,7 @@ import './HeroLoader.css'
  * «VAN»— que se separan al crecer la caja. La tipografía es entonces la del
  * logo real, no una aproximación.
  *
- * Termina con `hero.png` a pantalla completa, la misma fotografía con la que
+ * Termina con la fotografía de portada a pantalla completa, la misma con la que
  * arranca `BurstGallery`: al desvanecerse el velo no hay corte visible.
  */
 
@@ -30,12 +31,11 @@ const RELEVO = [
   { src: '/images/loader/dunas-amanecer-mini.webp', alt: '' },
 ]
 
-/** Fotografía final: la misma que abre el hero. Va en dos capas porque tiene
-    que verse bien encogida en el hueco y a pantalla completa después: la
-    reducida manda mientras es pequeña y cede a la grande en mitad de la
-    expansión, cuando las dos se ven igual y el cambio no se nota. */
-const FINAL = '/images/hero.png'
-const FINAL_MINI = '/images/loader/hero-mini.webp'
+/** Fotografía final: la misma que abre el hero —de ahí que salgan las dos del
+    mismo módulo—. Va en dos capas porque tiene que verse bien encogida en el
+    hueco y a pantalla completa después: la reducida manda mientras es pequeña
+    y cede a la grande en mitad de la expansión, cuando las dos se ven igual y
+    el cambio no se nota. */
 
 /** Lo que tarda la palabra en entrar. */
 const ENTRADA_DE_LA_PALABRA = 0.9
@@ -208,13 +208,15 @@ export function HeroLoader() {
                 ))}
                 <img
                   className="hero-loader__cover hero-loader__cover--mini"
-                  src={FINAL_MINI}
+                  src={HERO_MINIATURA}
                   alt=""
                   loading="eager"
                 />
                 <img
                   className="hero-loader__cover"
-                  src={FINAL}
+                  src={HERO_FALLBACK}
+                  srcSet={HERO_SRCSET}
+                  sizes={HERO_SIZES}
                   alt=""
                   loading="eager"
                   fetchPriority="high"

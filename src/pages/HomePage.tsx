@@ -8,6 +8,7 @@ import { BurstGallery } from '../components/fx/BurstGallery'
 import { HeroLoader } from '../components/fx/HeroLoader'
 import { ImpactStrip, IMPACT_ATLAS } from '../components/ui/ImpactStrip'
 import { HERO_RAFAGA } from '../data/galeria'
+import { HERO_FALLBACK, HERO_SIZES, HERO_SRCSET } from '../data/portada'
 import './HomePage.css'
 
 /** Portada del carrusel destacado: los 6 recorridos de referencia, sin variantes de noches. */
@@ -24,7 +25,13 @@ export function HomePage() {
         className="hz-hero"
         fotos={HERO_RAFAGA}
         media={
-          <img src="/images/hero.png" alt="Campamento entre las dunas de Marruecos al atardecer" fetchPriority="high" />
+          <img
+            src={HERO_FALLBACK}
+            srcSet={HERO_SRCSET}
+            sizes={HERO_SIZES}
+            alt="Campamento entre las dunas de Marruecos al atardecer"
+            fetchPriority="high"
+          />
         }
         continuation={<HomeQuickLinks />}
         closingCopy={
