@@ -4,6 +4,9 @@
 .hero-loader {
   /* Ancho del wordmark completo, del que cada mitad enseña su parte. */
   --marca: 46vw;
+  /* Encuadre de la fotografía mientras se releva, en múltiplos del alto de las
+     letras. Lo lee el JS para animar la caja hasta aquí. */
+  --hueco: 2.6em;
   /* Fracción horizontal del PNG donde acaba «KA» y empieza «VAN». Medida sobre
      el original de 4440 px: la A cierra en ~1786 px y la V abre en ~1800 px. */
   --corte: 0.402;
@@ -84,7 +87,10 @@ body.hero-loader-abierto {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 1em;
+  /* Sigue al ancho de la caja: es la caja quien anima, y la ventana se mide
+     contra ella. Con `auto` el interior se quedaba en el mínimo y el hueco
+     crecía sin que creciera el encuadre. */
+  width: 100%;
   height: 100%;
   position: relative;
 }
@@ -99,11 +105,19 @@ body.hero-loader-abierto {
   overflow: hidden;
 }
 
+/* La fotografía se mantiene SIEMPRE al tamaño que tendrá al final y es la
+   ventana la que se abre sobre ella. Escalarla —de 1800 px a los 90 px del
+   hueco y de vuelta— la dejaba sucia mientras era pequeña y delataba el
+   empalme con el hero al terminar: dos escalas distintas de la misma foto se
+   ven como dos calidades distintas. Recortando en vez de escalar, el último
+   fotograma del velo y el primero del hero son el mismo píxel. */
 .hero-loader__growing-wrap {
-  width: 100%;
-  min-width: 1em;
-  height: 100%;
+  width: 100vw;
+  height: 100dvh;
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .hero-loader__relay,
@@ -139,13 +153,15 @@ body.hero-loader-abierto {
    pantalla estrecha; en móvil ocupa casi todo el ancho disponible. */
 @media (max-width: 991px) {
   .hero-loader {
-    --marca: 68vw;
+    --marca: 62vw;
+    --hueco: 2.1em;
   }
 }
 
 @media (max-width: 767px) {
   .hero-loader {
-    --marca: 84vw;
+    --marca: 74vw;
+    --hueco: 1.5em;
   }
 }
 

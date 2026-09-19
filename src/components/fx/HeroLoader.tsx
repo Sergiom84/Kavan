@@ -16,19 +16,34 @@ import './HeroLoader.css'
  * arranca `BurstGallery`: al desvanecerse el velo no hay corte visible.
  */
 
-/** Las tres fotografías que se relevan dentro del hueco antes de la definitiva. */
+/** Las tres fotografías que se relevan dentro del hueco antes de la definitiva.
+    Como el hueco recorta la foto en vez de encogerla, lo único que se ve es el
+    centro del encuadre: `medina.webp` enseñaba un muro y `dunas-erg-chebbi` una
+    ladera lisa, las dos ilegibles en una franja. Estas tres tienen materia en
+    el centro y ordenan el viaje: adobe, roca, arena, campamento. */
 const RELEVO = [
   { src: '/images/ait-ben-haddou.webp', alt: '' },
-  { src: '/images/medina.webp', alt: '' },
-  { src: '/images/dunas-erg-chebbi.webp', alt: '' },
+  { src: '/images/todra-garganta.webp', alt: '' },
+  { src: '/images/dunas-amanecer.webp', alt: '' },
 ]
 
 /** Fotografía final: la misma que abre el hero. */
 const FINAL = '/images/hero.png'
 
-/** La palabra se queda quieta este tiempo antes de abrirse. Petición expresa:
-    que se lea «Kavan» antes de que ocurra nada más. */
-const ESPERA_ANTES_DE_ABRIR = 2
+/** Lo que tarda la palabra en entrar. */
+const ENTRADA_DE_LA_PALABRA = 0.9
+
+/** La palabra se queda quieta este tiempo antes de abrirse. Con la entrada
+    delante, el hueco empieza a abrirse a los dos segundos de arrancar. */
+const ESPERA_ANTES_DE_ABRIR = 1.1
+
+/** Cuánto se separan «KA» y «VAN» mientras se relevan las fotografías. Como la
+    foto no se escala sino que se descubre, el hueco es el encuadre: con 1em
+    —el alto de las letras— solo cabía un recorte central sin asunto. Vive en el
+    CSS porque en pantalla estrecha la palabra ya ocupa casi todo el ancho y un
+    hueco de escritorio echaría la K y la N fuera. */
+const anchoDelHueco = (root: HTMLElement) =>
+  getComputedStyle(root).getPropertyValue('--hueco').trim() || '2.6em'
 
 /** La entrada se reproduce en cada carga de la portada —decisión de Sergio el
     2026-09-19, sabiendo que cansa en visitas repetidas—. Solo la salta quien
@@ -64,29 +79,35 @@ export function HeroLoader() {
         onComplete: cerrar,
       })
 
-      tl.from(mitades, { yPercent: 105, duration: 1.25, stagger: 0.08 }, 0)
+      tl.from(
+        mitades,
+        { yPercent: 105, duration: ENTRADA_DE_LA_PALABRA, stagger: 0.06 },
+        0,
+      )
 
-      /* Apertura: la caja empuja las dos mitades y la fotografía crece con ella. */
-      const apertura = 1.25 + ESPERA_ANTES_DE_ABRIR
-      tl.fromTo(caja, { width: '0em' }, { width: '1em', duration: 1.25 }, apertura)
-      tl.fromTo(creciendo, { width: '0%' }, { width: '100%', duration: 1.25 }, apertura)
-      tl.fromTo(inicio, { x: '0em' }, { x: '-0.05em', duration: 1.25 }, apertura)
-      tl.fromTo(fin, { x: '0em' }, { x: '0.05em', duration: 1.25 }, apertura)
+      /* Apertura: la caja empuja las dos mitades y la ventana se abre sobre la
+         fotografía, que ya está a tamaño completo detrás. */
+      const apertura = ENTRADA_DE_LA_PALABRA + ESPERA_ANTES_DE_ABRIR
+      const hueco = anchoDelHueco(root)
+      tl.fromTo(caja, { width: '0em' }, { width: hueco, duration: 1.1 }, apertura)
+      tl.fromTo(creciendo, { width: '0%' }, { width: '100%', duration: 1.1 }, apertura)
+      tl.fromTo(inicio, { x: '0em' }, { x: '-0.09em', duration: 1.1 }, apertura)
+      tl.fromTo(fin, { x: '0em' }, { x: '0.09em', duration: 1.1 }, apertura)
 
       /* Relevo de fotografías dentro del hueco. Cada una se apaga y deja ver la
          siguiente; bajo la última está ya la definitiva. */
-      const cambios = apertura + 1.2
+      const cambios = apertura + 1.05
       tl.to(
         relevo,
-        { opacity: 0, duration: 0.05, ease: 'none', stagger: 0.55 },
+        { opacity: 0, duration: 0.05, ease: 'none', stagger: 0.5 },
         cambios,
       )
 
       /* La definitiva se come la pantalla. */
-      const expansion = cambios + relevo.length * 0.55 + 0.45
-      tl.to(creciendo, { width: '100vw', height: '100dvh', duration: 1.8 }, expansion)
-      tl.to(caja, { width: '110vw', duration: 1.8 }, expansion)
-      tl.to(root, { autoAlpha: 0, duration: 0.45, ease: 'power2.out' }, expansion + 1.55)
+      const expansion = cambios + relevo.length * 0.5 + 0.35
+      tl.to(creciendo, { width: '100vw', height: '100dvh', duration: 1.6 }, expansion)
+      tl.to(caja, { width: '110vw', duration: 1.6 }, expansion)
+      tl.to(root, { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, expansion + 1.5)
     }, root)
 
     return () => {
