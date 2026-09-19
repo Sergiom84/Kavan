@@ -14,7 +14,7 @@ import './HeroLoader.css'
  * logo real, no una aproximación.
  *
  * Termina con la fotografía de portada a pantalla completa, la misma con la que
- * arranca `BurstGallery`: al desvanecerse el velo no hay corte visible.
+ * arranca `HeroSplit`: al desvanecerse el velo no hay corte visible.
  */
 
 /** Las tres fotografías que se relevan dentro del hueco antes de la definitiva.
@@ -131,7 +131,7 @@ export function HeroLoader() {
       const expansion = cambios + relevo.length * 0.5 + 0.35
       const destino = () =>
         document
-          .querySelector('.burst-gallery__hero-media')
+          .querySelector('.hero-split__hero-media')
           ?.getBoundingClientRect() ??
         new DOMRect(0, 0, document.documentElement.clientWidth, window.innerHeight)
 

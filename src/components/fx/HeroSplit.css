@@ -1,0 +1,177 @@
+.hero-split {
+  position: relative;
+  height: var(--hero-split-scroll-height, 320svh);
+  overflow: clip;
+  background: var(--ink);
+}
+
+.hero-split__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--on-photo);
+  background: var(--ink);
+}
+
+.hero-split__hero {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-split__hero-media {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 55%;
+}
+
+.hero-split__hero-media img,
+.hero-split__pane-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-split__intro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+
+.hero-split__closing-copy {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding);
+  padding-bottom: calc(var(--padding) * 1.6);
+  text-align: center;
+  color: var(--on-photo);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-split__continuation,
+.hero-split__split {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.hero-split__continuation {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  background: var(--bg-1);
+  color: var(--ink);
+}
+
+.hero-split__continuation > * {
+  width: 100%;
+}
+
+.hero-split__split {
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero-split__pane {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.hero-split__pane--left {
+  left: 0;
+}
+
+.hero-split__pane--right {
+  right: 0;
+}
+
+/* Cada mitad enseña la fotografía entera al doble de ancho y pegada a su lado:
+   juntas reconstruyen la imagen de debajo sin costura. */
+.hero-split__pane-media {
+  position: absolute;
+  top: 0;
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  /* El mismo origen que `.hero-split__hero-media`: las dos se escalan a la vez
+     y tienen que acabar en el mismo sitio. */
+  transform-origin: 50% 55%;
+}
+
+.hero-split__pane--left .hero-split__pane-media {
+  left: 0;
+}
+
+.hero-split__pane--right .hero-split__pane-media {
+  right: 0;
+}
+
+.hero-split__closing-copy--pane {
+  width: 200%;
+  max-width: none;
+}
+
+.hero-split__pane--left .hero-split__closing-copy--pane {
+  left: 0;
+  right: auto;
+}
+
+.hero-split__pane--right .hero-split__closing-copy--pane {
+  right: 0;
+  left: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-split {
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero-split__stage {
+    position: relative;
+    top: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero-split__hero {
+    position: relative;
+    height: 100svh;
+  }
+
+  .hero-split__hero-media,
+  .hero-split__intro {
+    will-change: auto;
+  }
+
+  .hero-split__closing-copy {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .hero-split__continuation {
+    position: relative;
+    inset: auto;
+    visibility: visible !important;
+    min-height: 62svh;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-split__split {
+    display: none;
+  }
+}

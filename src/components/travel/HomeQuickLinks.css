@@ -7,7 +7,7 @@
   isolation: isolate;
   display: flex;
   align-items: center;
-  /* Único hijo de `.burst-gallery__continuation`, que centra en vertical: sin
+  /* Único hijo de `.hero-split__continuation`, que centra en vertical: sin
      `stretch` la fotografía sólo cubriría el alto del texto. */
   align-self: stretch;
   width: 100%;

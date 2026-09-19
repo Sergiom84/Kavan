@@ -46,10 +46,10 @@ export function Header() {
        empieza a subir; entonces pasa a papel opaco. */
     const onScroll = () => {
       if (esHome) {
-        const portada = document.querySelector<HTMLElement>('.burst-gallery')
+        const portada = document.querySelector<HTMLElement>('.hero-split')
         const caja = portada?.getBoundingClientRect()
         const portadaLlena = !caja || caja.bottom >= window.innerHeight - 1
-        const papel = portada?.classList.contains('burst-gallery--paper') ?? false
+        const papel = portada?.classList.contains('hero-split--paper') ?? false
 
         setSobrePortada(portadaLlena && !papel)
         setSolid(!portadaLlena || papel)
