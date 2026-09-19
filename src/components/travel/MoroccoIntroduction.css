@@ -1,8 +1,6 @@
 /* Presentación del país en cinco escenas. Ver MoroccoIntroduction.tsx.
 
-   Tres tamaños y no más: el nombre del país, la frase de escena y la prosa.
-   El rótulo en versales comparte tamaño con la prosa y se distingue por caja y
-   espaciado, no por una cuarta medida. */
+   Tres tamaños y no más: el nombre del país, la frase de escena y la prosa. */
 
 .morocco {
   position: relative;
@@ -65,29 +63,23 @@
 
 /* ---------- Entrada y cierre: una frase sola en pantalla ---------- */
 
+/* La frase vive en la parte baja de la pantalla, como en la referencia: entra
+   subiendo desde ahí y deja el aire por encima. */
 .morocco__entrada,
 .morocco__cierre {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: var(--space-5);
   min-height: 100svh;
 }
 
+/* Último panel: sube sobre los pilares y cierra el bloque. */
 .morocco__cierre {
+  position: relative;
+  z-index: 2;
   background: var(--ink);
   color: var(--on-photo);
-}
-
-.morocco__rotulo {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: inherit;
-  opacity: 0.7;
 }
 
 .morocco__frase {
@@ -102,12 +94,21 @@
   color: inherit;
 }
 
-/* ---------- Retrato vertical ---------- */
+/* ---------- Del retrato en adelante: las escenas se apilan ----------
 
-.morocco__retrato {
+   A partir de la fotografía vertical el bloque deja de empujar y empieza a
+   cubrir: cada escena se queda quieta y la siguiente sube por encima con su
+   propio fondo. Eso es lo que hace que lo que viene detrás se lea como un
+   bloque nuevo y no como más párrafos del mismo. */
+
+.morocco section.morocco__retrato {
+  position: sticky;
+  top: 0;
+  z-index: 0;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding-block: var(--space-6);
+  min-height: 100svh;
 }
 
 .morocco__retrato img {
@@ -119,11 +120,19 @@
 
 /* ---------- Pilares: enunciado a un lado, los tres puntos al otro ---------- */
 
-.morocco__pilares {
+.morocco section.morocco__pilares {
+  /* Sube a tapar el retrato y se queda a su vez quieta para que la cierre el
+     panel oscuro. El fondo tiene que ser opaco o se vería la escena de debajo. */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bg-1);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-5);
+  align-content: center;
   align-items: start;
+  min-height: 100svh;
 }
 
 .morocco__pilares-titulo h3 {
@@ -165,7 +174,7 @@
     text-indent: 0;
   }
 
-  .morocco__pilares {
+  .morocco section.morocco__pilares {
     grid-template-columns: 1fr;
   }
 
@@ -180,7 +189,15 @@
 @media (prefers-reduced-motion: reduce) {
   .morocco__portada,
   .morocco__entrada,
-  .morocco__cierre {
+  .morocco__cierre,
+  .morocco section.morocco__retrato,
+  .morocco section.morocco__pilares {
     min-height: 0;
+  }
+
+  /* Sin apilado tampoco: las escenas vuelven a empujarse una a otra. */
+  .morocco section.morocco__retrato,
+  .morocco section.morocco__pilares {
+    position: relative;
   }
 }

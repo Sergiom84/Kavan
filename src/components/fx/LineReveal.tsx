@@ -12,6 +12,16 @@ type Props = {
   delay?: number
   /** Etiqueta del contenedor. `div` rompería la semántica dentro de un `li`. */
   as?: ElementType
+  /**
+   * Ancestro que decide cuándo arranca, buscado con `closest`. Por defecto
+   * manda el propio texto, pero en una escena que ocupa la pantalla eso hace
+   * que el renglón suba pegado al borde inferior, mucho antes de que la escena
+   * esté encuadrada: para cuando el lector la mira, el gesto ya pasó. Pasando
+   * aquí la sección, el texto espera a que su escena esté en cuadro.
+   */
+  triggerSelector?: string
+  /** Punto de arranque de ScrollTrigger. */
+  start?: string
   className?: string
 }
 
@@ -28,7 +38,14 @@ type Props = {
  *
  * Sin movimiento, el texto se queda donde está: legible y quieto.
  */
-export function LineReveal({ children, delay = 0, as: Tag = 'div', className }: Props) {
+export function LineReveal({
+  children,
+  delay = 0,
+  as: Tag = 'div',
+  triggerSelector,
+  start = 'top 80%',
+  className,
+}: Props) {
   const ref = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -59,7 +76,11 @@ export function LineReveal({ children, delay = 0, as: Tag = 'div', className }: 
           stagger: 0.1,
           ease: 'power4.out',
           delay,
-          scrollTrigger: { trigger: el, start: 'top 80%', once: true },
+          scrollTrigger: {
+            trigger: (triggerSelector && el.closest(triggerSelector)) || el,
+            start,
+            once: true,
+          },
         })
       })
 
@@ -72,7 +93,7 @@ export function LineReveal({ children, delay = 0, as: Tag = 'div', className }: 
     })
 
     return () => mediaQuery.revert()
-  }, [delay])
+  }, [delay, triggerSelector, start])
 
   return (
     <Tag ref={ref} className={className}>

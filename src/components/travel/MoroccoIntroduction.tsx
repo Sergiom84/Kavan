@@ -30,16 +30,26 @@ export function MoroccoIntroduction() {
             decoding="async"
           />
         </div>
-        <LineReveal as="h2" className="morocco__titulo">
+        {/* Manda la escena, no el renglón: así el nombre sube cuando la duna ya
+            llena la pantalla, no pegado al borde de abajo. */}
+        <LineReveal
+          as="h2"
+          className="morocco__titulo"
+          triggerSelector=".morocco__portada"
+          start="top 55%"
+          delay={0.3}
+        >
           <span id="morocco-title">Marruecos</span>
         </LineReveal>
       </section>
 
       <section className="morocco__entrada">
-        <LineReveal as="p" className="morocco__rotulo">
-          Entre el Atlántico y el Mediterráneo
-        </LineReveal>
-        <LineReveal as="p" className="morocco__frase">
+        <LineReveal
+          as="p"
+          className="morocco__frase"
+          triggerSelector=".morocco__entrada"
+          start="top 45%"
+        >
           Marruecos, la puerta de entrada a África, es uno de los destinos más
           fascinantes entre el océano Atlántico y el mar Mediterráneo. Un país donde
           los paisajes desérticos del Sáhara y las majestuosas montañas del Alto
@@ -86,10 +96,12 @@ export function MoroccoIntroduction() {
       </section>
 
       <section className="morocco__cierre">
-        <LineReveal as="p" className="morocco__rotulo">
-          Bajo las estrellas
-        </LineReveal>
-        <LineReveal as="p" className="morocco__frase">
+        <LineReveal
+          as="p"
+          className="morocco__frase"
+          triggerSelector=".morocco__cierre"
+          start="top 45%"
+        >
           Completa tu ruta degustando la gastronomía marroquí más auténtica y
           disfrutando de un tradicional té a la menta bajo las estrellas. ¿Listo para
           tu próxima aventura? Explora nuestros circuitos por Marruecos.
