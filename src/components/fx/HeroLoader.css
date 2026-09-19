@@ -26,7 +26,13 @@
 }
 
 /* Mientras corre la entrada la página no se desplaza: el escenario del hero se
-   gobierna por scroll y arrancaría a medias. */
+   gobierna por scroll y arrancaría a medias. El hueco de la barra se reserva
+   igualmente, porque si la barra desaparece al bloquear el scroll y vuelve al
+   soltarlo, el hero se corre esos píxeles justo en el relevo. */
+html.hero-loader-abierto {
+  scrollbar-gutter: stable;
+}
+
 body.hero-loader-abierto {
   overflow: hidden;
 }
@@ -105,19 +111,14 @@ body.hero-loader-abierto {
   overflow: hidden;
 }
 
-/* La fotografía se mantiene SIEMPRE al tamaño que tendrá al final y es la
-   ventana la que se abre sobre ella. Escalarla —de 1800 px a los 90 px del
-   hueco y de vuelta— la dejaba sucia mientras era pequeña y delataba el
-   empalme con el hero al terminar: dos escalas distintas de la misma foto se
-   ven como dos calidades distintas. Recortando en vez de escalar, el último
-   fotograma del velo y el primero del hero son el mismo píxel. */
+/* La fotografía llena la ventana y encoge con ella: dentro del hueco se ve
+   entera, no un recorte. Que se vea nítida a ese tamaño es cosa de servirla ya
+   reducida —ver RELEVO en HeroLoader.tsx—, no de dejar de encogerla. */
 .hero-loader__growing-wrap {
-  width: 100vw;
-  height: 100dvh;
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
 }
 
 .hero-loader__relay,
@@ -132,9 +133,13 @@ body.hero-loader-abierto {
   -webkit-user-select: none;
 }
 
-/* Bajo el relevo espera la definitiva. */
+/* Bajo el relevo espera la definitiva, y sobre ella su versión reducida. */
 .hero-loader__cover {
   z-index: 0;
+}
+
+.hero-loader__cover--mini {
+  z-index: 1;
 }
 
 .hero-loader__sr {
