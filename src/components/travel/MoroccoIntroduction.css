@@ -1,203 +1,225 @@
-/* Presentación del país en cinco escenas. Ver MoroccoIntroduction.tsx.
-
-   Tres tamaños y no más: el nombre del país, la frase de escena y la prosa. */
+/* Layout calcado de Greyloom (globals.css + text-17-650.mp4). */
 
 .morocco {
   position: relative;
   background: var(--bg-1);
 }
 
-.morocco section {
+.morocco__hero,
+.morocco__about,
+.morocco__philosophy {
   position: relative;
-  padding: var(--space-6) var(--padding);
-}
-
-/* ---------- Portada: la duna esculpida ---------- */
-
-.morocco__portada {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
   min-height: 100svh;
-  overflow: hidden;
+  padding: 2em;
 }
 
-.morocco__portada-media {
+/* ---------- Hero: duna a sangre, título al centro ---------- */
+
+.morocco__hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 2em;
+}
+
+.morocco__hero-img {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
-.morocco__portada-media img {
+.morocco__hero-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* La duna nace del papel y vuelve a él: sin esto se ve el canto de la
-   fotografía cortando el bloque por arriba y por abajo. */
-.morocco__portada-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    var(--bg-1) 0%,
-    transparent 22%,
-    transparent 72%,
-    var(--bg-1) 100%
-  );
-}
-
-.morocco__titulo {
+.morocco__hero-header {
   position: relative;
   z-index: 1;
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--text-display);
-  font-weight: 400;
-  line-height: var(--leading-title);
-  text-transform: none;
-  color: var(--title);
+  width: 50%;
+  text-align: center;
 }
 
-/* ---------- Entrada y cierre: una frase sola en pantalla ---------- */
+h2.morocco__titulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 500;
+  letter-spacing: -0.05rem;
+  line-height: 1;
+  text-transform: none;
+  color: #909090;
+}
 
-/* La frase vive en la parte baja de la pantalla, como en la referencia: entra
-   subiendo desde ahí y deja el aire por encima. */
-.morocco__entrada,
-.morocco__cierre {
+/* ---------- About: frase grande abajo, aire arriba (corte de página) ---------- */
+
+.morocco__about,
+.morocco__philosophy {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-5);
-  min-height: 100svh;
+  justify-content: space-between;
 }
 
-/* Último panel: sube sobre los pilares y cierra el bloque. */
-.morocco__cierre {
-  position: relative;
-  z-index: 2;
-  background: var(--ink);
-  color: var(--on-photo);
-}
-
-.morocco__frase {
-  /* La sangría deja entrar la frase por el centro, como en la referencia: el
-     primer renglón arranca lejos del margen y el bloque se cierra al final. */
-  margin: 0;
-  text-indent: 22%;
-  font-family: var(--font-display);
-  font-size: var(--text-lead);
-  font-weight: 400;
-  line-height: var(--leading-body);
-  color: inherit;
-}
-
-/* ---------- Del retrato en adelante: las escenas se apilan ----------
-
-   A partir de la fotografía vertical el bloque deja de empujar y empieza a
-   cubrir: cada escena se queda quieta y la siguiente sube por encima con su
-   propio fondo. Eso es lo que hace que lo que viene detrás se lea como un
-   bloque nuevo y no como más párrafos del mismo. */
-
-.morocco section.morocco__retrato {
-  position: sticky;
-  top: 0;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100svh;
-}
-
-.morocco__retrato img {
-  width: 22%;
-  min-width: 15rem;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-}
-
-/* ---------- Pilares: enunciado a un lado, los tres puntos al otro ---------- */
-
-.morocco section.morocco__pilares {
-  /* Sube a tapar el retrato y se queda a su vez quieta para que la cierre el
-     panel oscuro. El fondo tiene que ser opaco o se vería la escena de debajo. */
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: var(--bg-1);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-5);
-  align-content: center;
-  align-items: start;
-  min-height: 100svh;
-}
-
-.morocco__pilares-titulo h3 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--text-lead);
-  font-weight: 400;
-  line-height: var(--leading-body);
-  text-transform: none;
-  color: var(--title);
-}
-
-/* Sin disco: el nombre en negrita del pilar ya hace de entrada, y un bullet
-   sobre prosa de este tamaño ensucia el margen. */
-.morocco__pilares-lista {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--space-5);
-}
-
-.morocco__pilares-lista p {
-  margin: 0;
+.morocco__kicker {
+  display: block;
+  text-transform: uppercase;
   font-family: var(--font-body);
-  font-size: var(--text-body);
-  line-height: var(--leading-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   color: var(--ink);
 }
 
-.morocco__pilares-lista strong {
+.morocco__philosophy .morocco__kicker {
+  color: #fff;
+}
+
+.morocco__about-header {
+  width: 100%;
+}
+
+.morocco__lead {
+  margin: 0;
+  text-indent: 25%;
+  text-wrap: unset;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 500;
+  letter-spacing: -0.05rem;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.morocco__philosophy {
+  background: #202020;
+}
+
+.morocco__philosophy .morocco__lead,
+.morocco__philosophy .morocco__cta,
+.morocco__philosophy .morocco__cta a {
+  color: #fff;
+}
+
+.morocco__cta {
+  margin: 1em 0 0;
+  text-indent: 25%;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 500;
+  letter-spacing: -0.05rem;
+  line-height: 1;
+}
+
+.morocco__cta a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+.morocco__cta a:hover,
+.morocco__cta a:focus-visible {
+  color: var(--accent-sun);
+}
+
+/* ---------- Retrato vertical ---------- */
+
+.morocco__about-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: max-content;
+  padding: 8em 2em;
+}
+
+.morocco__about-img img {
+  width: 20%;
+  min-width: 12rem;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* ---------- Historia a dos columnas ---------- */
+
+.morocco__story {
+  display: flex;
+  gap: 1em;
+  height: max-content;
+  margin-bottom: 8em;
+  padding: 2em;
+}
+
+.morocco__story-col {
+  flex: 1;
+}
+
+.morocco__story-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 500;
+  letter-spacing: -0.05rem;
+  line-height: 1;
+  text-transform: none;
+  color: var(--ink);
+}
+
+.morocco__story-col p {
+  margin: 0 0 1em;
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.morocco__story-col p:last-child {
+  margin-bottom: 0;
+}
+
+.morocco__story-col strong {
   font-weight: 700;
 }
 
-/* ---------- Móvil ---------- */
+@media (max-width: 900px) {
+  .morocco__titulo,
+  .morocco__lead,
+  .morocco__cta,
+  .morocco__story-title {
+    font-size: 2rem;
+  }
 
-@media (max-width: 1023px) {
-  .morocco__frase {
+  .morocco__hero-header {
+    width: 95%;
+  }
+
+  .morocco__lead,
+  .morocco__cta {
     text-indent: 0;
   }
 
-  .morocco section.morocco__pilares {
-    grid-template-columns: 1fr;
-  }
-
-  .morocco__retrato img {
+  .morocco__about-img img {
     width: 100%;
     min-width: 0;
   }
+
+  .morocco__story {
+    flex-direction: column;
+  }
 }
 
-/* Sin movimiento no hay escenas que descubrir: el bloque se lee de corrido y
-   deja de reclamar una pantalla por frase. */
 @media (prefers-reduced-motion: reduce) {
-  .morocco__portada,
-  .morocco__entrada,
-  .morocco__cierre,
-  .morocco section.morocco__retrato,
-  .morocco section.morocco__pilares {
+  .morocco__hero,
+  .morocco__about,
+  .morocco__philosophy {
     min-height: 0;
   }
 
-  /* Sin apilado tampoco: las escenas vuelven a empujarse una a otra. */
-  .morocco section.morocco__retrato,
-  .morocco section.morocco__pilares {
-    position: relative;
+  .line-reveal__line {
+    transform: none;
   }
 }

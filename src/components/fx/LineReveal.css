@@ -1,6 +1,6 @@
-/* `SplitText` con `mask: "lines"` envuelve cada renglón en su propia caja
-   recortada; esto sólo asegura que la línea parte de fuera de ella y que el
-   navegador la componga en su propia capa mientras dura el gesto. */
+/* Igual que Greyloom `.line`: el renglón nace debajo de la máscara. GSAP
+   anima `y` sobre este mismo transform; no usar yPercent. */
 .line-reveal__line {
+  transform: translateY(100%);
   will-change: transform;
 }

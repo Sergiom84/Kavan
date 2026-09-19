@@ -8,95 +8,63 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
 
 type Props = {
   children: ReactNode
-  /** Espera antes de arrancar, para escalonar dos bloques del mismo golpe. */
   delay?: number
-  /** Etiqueta del contenedor. `div` rompería la semántica dentro de un `li`. */
   as?: ElementType
-  /**
-   * Ancestro que decide cuándo arranca, buscado con `closest`. Por defecto
-   * manda el propio texto, pero en una escena que ocupa la pantalla eso hace
-   * que el renglón suba pegado al borde inferior, mucho antes de que la escena
-   * esté encuadrada: para cuando el lector la mira, el gesto ya pasó. Pasando
-   * aquí la sección, el texto espera a que su escena esté en cuadro.
-   */
-  triggerSelector?: string
-  /** Punto de arranque de ScrollTrigger. */
-  start?: string
   className?: string
+  id?: string
 }
 
 /**
- * El texto entra línea a línea desde debajo de su propia caja.
- *
- * `SplitText` parte el párrafo por líneas reales —las que produce el ancho
- * disponible, no las del marcado— y enmascara cada una, así que cada renglón
- * asoma por su propio borde en vez de deslizarse sobre el papel.
- *
- * Se espera a `document.fonts.ready` antes de medir: con la tipografía de
- * respaldo puesta, las líneas se cortan donde no toca y el reparto queda mal
- * hasta que se recarga.
- *
- * Sin movimiento, el texto se queda donde está: legible y quieto.
+ * Puerto de Copy.jsx (Greyloom): cada renglón sube desde debajo de su máscara.
+ * Dispara cuando el propio texto llega a `top 75%`. Sin espera a fuentes: si
+ * se retrasa el split, el lector ve el texto quieto y el gesto ya no existe.
  */
-export function LineReveal({
-  children,
-  delay = 0,
-  as: Tag = 'div',
-  triggerSelector,
-  start = 'top 80%',
-  className,
-}: Props) {
+export function LineReveal({ children, delay = 0, as: Tag = 'div', className, id }: Props) {
   const ref = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
     const el = ref.current
     if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const mediaQuery = gsap.matchMedia()
-
-    mediaQuery.add('(prefers-reduced-motion: no-preference)', () => {
-      let split: SplitText | undefined
-      let tween: gsap.core.Tween | undefined
-      let cancelado = false
-
-      document.fonts.ready.then(() => {
-        if (cancelado) return
-
-        split = SplitText.create(el, {
-          type: 'lines',
-          mask: 'lines',
-          linesClass: 'line-reveal__line',
-          lineThreshold: 0.1,
-        })
-
-        gsap.set(split.lines, { yPercent: 100 })
-        tween = gsap.to(split.lines, {
-          yPercent: 0,
-          duration: 1,
-          stagger: 0.1,
-          ease: 'power4.out',
-          delay,
-          scrollTrigger: {
-            trigger: (triggerSelector && el.closest(triggerSelector)) || el,
-            start,
-            once: true,
-          },
-        })
-      })
-
-      return () => {
-        cancelado = true
-        tween?.scrollTrigger?.kill()
-        tween?.kill()
-        split?.revert()
-      }
+    const split = SplitText.create(el, {
+      type: 'lines',
+      mask: 'lines',
+      linesClass: 'line-reveal__line',
+      lineThreshold: 0.1,
     })
 
-    return () => mediaQuery.revert()
-  }, [delay, triggerSelector, start])
+    const textIndent = window.getComputedStyle(el).textIndent
+    const firstLine = split.lines[0] as HTMLElement | undefined
+    if (textIndent && textIndent !== '0px' && firstLine) {
+      firstLine.style.paddingLeft = textIndent
+      el.style.textIndent = '0'
+    }
+
+    gsap.set(split.lines, { y: '100%' })
+    const tween = gsap.to(split.lines, {
+      y: '0%',
+      duration: 1,
+      stagger: 0.1,
+      ease: 'power4.out',
+      delay,
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 75%',
+        once: true,
+      },
+    })
+
+    return () => {
+      tween.scrollTrigger?.kill()
+      tween.kill()
+      split.revert()
+      el.style.textIndent = ''
+    }
+  }, [delay])
 
   return (
-    <Tag ref={ref} className={className}>
+    <Tag ref={ref} id={id} className={className}>
       {children}
     </Tag>
   )

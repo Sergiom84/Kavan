@@ -1,26 +1,19 @@
+import { Link } from 'react-router'
 import { LineReveal } from '../fx/LineReveal'
 import './MoroccoIntroduction.css'
 
-/** Fotografía vertical que corta el bloque a media lectura. */
 const RETRATO = '/images/todra-garganta.webp'
 
 /**
- * Presentación del país, en cinco tiempos que se leen bajando.
- *
- * Era un bloque de prosa corrida sobre papel. Pasa a escenas que ocupan la
- * pantalla y se van descubriendo línea a línea —ver `LineReveal`—, con la duna
- * escultórica abriendo y el cierre en oscuro.
- *
- * La duna no es una fotografía del banco: sale de la forma de la onda que trajo
- * Sergio como referencia, remapeada a la paleta Sáhara y con el grano de las
- * dunas del proyecto encima, de modo que el fondo blanco del original se funde
- * con el papel del sitio.
+ * Puerto del relato Greyloom (text-17-650.mp4): hero 100svh → página blanca
+ * 100svh → retrato → dos columnas → página negra 100svh. El texto entra
+ * renglón a renglón; las secciones de 100svh hacen el corte de página.
  */
 export function MoroccoIntroduction() {
   return (
     <div className="morocco" aria-labelledby="morocco-title">
-      <section className="morocco__portada">
-        <div className="morocco__portada-media">
+      <section className="morocco__hero">
+        <div className="morocco__hero-img">
           <img
             src="/images/duna-onda.webp"
             srcSet="/images/duna-onda-1400.webp 1400w, /images/duna-onda.webp 2000w"
@@ -30,82 +23,72 @@ export function MoroccoIntroduction() {
             decoding="async"
           />
         </div>
-        {/* Manda la escena, no el renglón: así el nombre sube cuando la duna ya
-            llena la pantalla, no pegado al borde de abajo. */}
-        <LineReveal
-          as="h2"
-          className="morocco__titulo"
-          triggerSelector=".morocco__portada"
-          start="top 55%"
-          delay={0.3}
-        >
-          <span id="morocco-title">Marruecos</span>
-        </LineReveal>
+        <div className="morocco__hero-header">
+          <LineReveal as="h2" id="morocco-title" className="morocco__titulo" delay={0.5}>
+            Marruecos
+          </LineReveal>
+        </div>
       </section>
 
-      <section className="morocco__entrada">
-        <LineReveal
-          as="p"
-          className="morocco__frase"
-          triggerSelector=".morocco__entrada"
-          start="top 45%"
-        >
-          Marruecos, la puerta de entrada a África, es uno de los destinos más
-          fascinantes entre el océano Atlántico y el mar Mediterráneo. Un país donde
-          los paisajes desérticos del Sáhara y las majestuosas montañas del Alto
-          Atlas se funden con una riqueza cultural e histórica única.
+      <section className="morocco__about">
+        <LineReveal as="span" className="morocco__kicker">
+          Marruecos
         </LineReveal>
+        <div className="morocco__about-header">
+          <LineReveal as="p" className="morocco__lead">
+            Marruecos, la puerta de entrada a África, es uno de los destinos más
+            fascinantes entre el océano Atlántico y el mar Mediterráneo. Un país
+            donde los paisajes desérticos del Sáhara y las majestuosas montañas
+            del Alto Atlas se funden con una riqueza cultural e histórica única.
+          </LineReveal>
+        </div>
       </section>
 
-      <section className="morocco__retrato">
+      <section className="morocco__about-img">
         <img src={RETRATO} alt="Paredes verticales de las gargantas del Todra" loading="lazy" decoding="async" />
       </section>
 
-      <section className="morocco__pilares">
-        <div className="morocco__pilares-titulo">
-          <LineReveal as="h3">
+      <section className="morocco__story">
+        <div className="morocco__story-col">
+          <LineReveal as="h3" className="morocco__story-title">
             Si buscas una experiencia inolvidable, nuestros viajes organizados a
             Marruecos te llevan a descubrir
           </LineReveal>
         </div>
-        {/* Cada pilar entra por su cuenta y con su retardo: en un solo bloque las
-            trece líneas salían de corrido y los tres puntos se leían pegados. */}
-        <ul className="morocco__pilares-lista">
-          <li>
-            <LineReveal as="p" delay={0}>
-              <strong>Ciudades Imperiales y Medinas de Ensueño:</strong> Recorre la
-              emblemática plaza Jemaa el-Fna y la imponente Mezquita Koutoubia en
-              Marrakech, piérdete en sus coloridos zocos y sumérgete en la historia.
-            </LineReveal>
-          </li>
-          <li>
-            <LineReveal as="p" delay={0.12}>
-              <strong>Naturaleza en Estado Puro:</strong> Admira atardeceres
-              espectaculares sobre las dunas de Merzouga, explora oasis ocultos,
-              cascadas, costas escarpadas y playas paradisíacas.
-            </LineReveal>
-          </li>
-          <li>
-            <LineReveal as="p" delay={0.24}>
-              <strong>Cultura Bereber Auténtica:</strong> Visita las tradicionales
-              kasbahs de arcilla y piedra, como la famosa Ait Ben Haddou, y vive la
-              hospitalidad local en los pueblos del desierto.
-            </LineReveal>
-          </li>
-        </ul>
+        <div className="morocco__story-col">
+          <LineReveal as="p">
+            <strong>Ciudades Imperiales y Medinas de Ensueño:</strong> Recorre la
+            emblemática plaza Jemaa el-Fna y la imponente Mezquita Koutoubia en
+            Marrakech, piérdete en sus coloridos zocos y sumérgete en la historia.
+          </LineReveal>
+          <LineReveal as="p" delay={0.08}>
+            <strong>Naturaleza en Estado Puro:</strong> Admira atardeceres
+            espectaculares sobre las dunas de Merzouga, explora oasis ocultos,
+            cascadas, costas escarpadas y playas paradisíacas.
+          </LineReveal>
+          <LineReveal as="p" delay={0.16}>
+            <strong>Cultura Bereber Auténtica:</strong> Visita las tradicionales
+            kasbahs de arcilla y piedra, como la famosa Ait Ben Haddou, y vive la
+            hospitalidad local en los pueblos del desierto.
+          </LineReveal>
+        </div>
       </section>
 
-      <section className="morocco__cierre">
-        <LineReveal
-          as="p"
-          className="morocco__frase"
-          triggerSelector=".morocco__cierre"
-          start="top 45%"
-        >
-          Completa tu ruta degustando la gastronomía marroquí más auténtica y
-          disfrutando de un tradicional té a la menta bajo las estrellas. ¿Listo para
-          tu próxima aventura? Explora nuestros circuitos por Marruecos.
+      <section className="morocco__philosophy">
+        <LineReveal as="span" className="morocco__kicker">
+          La ruta
         </LineReveal>
+        <div className="morocco__about-header">
+          <LineReveal as="p" className="morocco__lead">
+            Completa tu ruta degustando la gastronomía marroquí más auténtica y
+            disfrutando de un tradicional té a la menta bajo las estrellas.
+          </LineReveal>
+          <p className="morocco__cta">
+            <Link to="/packs">
+              ¿Listo para tu próxima aventura? Explora nuestros circuitos por Marruecos
+            </Link>
+          </p>
+        </div>
       </section>
     </div>
   )
