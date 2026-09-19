@@ -10,7 +10,6 @@ type Props = {
   media: ReactNode
   children: ReactNode
   continuation?: ReactNode
-  closingCopy?: ReactNode
   className?: string
 }
 
@@ -38,13 +37,7 @@ const ESPERA_FINAL_SVH = 120
 /** Alto de scroll de la portada, sin contar la espera final. */
 const ALTURA_PORTADA_SVH = 200
 
-export function HeroSplit({
-  media,
-  children,
-  continuation,
-  closingCopy,
-  className = '',
-}: Props) {
+export function HeroSplit({ media, children, continuation, className = '' }: Props) {
   const rootRef = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -117,15 +110,6 @@ export function HeroSplit({
         timeline.to('.hero-split__intro', { autoAlpha: 0, yPercent: -6, duration: 0.16 }, 0.04)
         timeline.set('.hero-split__intro', { willChange: 'auto' }, 0.2)
 
-        if (closingCopy) {
-          timeline.fromTo(
-            '.hero-split__closing-copy',
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.14 },
-            0.2,
-          )
-        }
-
         timeline.to([continuationEl, splitEl], { autoAlpha: 1, duration: 0.001 }, APERTURA)
         timeline.set(mitades, { willChange: 'transform' }, APERTURA)
         timeline.to(mitades[0], { xPercent: -100, duration: FIN_APERTURA - APERTURA }, APERTURA)
@@ -165,7 +149,7 @@ export function HeroSplit({
     })
 
     return () => mediaQuery.revert()
-  }, [closingCopy])
+  }, [])
 
   const style = {
     '--hero-split-scroll-height': `${ALTURA_PORTADA_SVH + ESPERA_FINAL_SVH}svh`,
@@ -183,7 +167,6 @@ export function HeroSplit({
           <div className="hero-split__hero-media">{media}</div>
           <div className="hz-scrim" />
           <div className="hero-split__intro">{children}</div>
-          {closingCopy ? <div className="hero-split__closing-copy">{closingCopy}</div> : null}
         </div>
 
         {continuation ? <div className="hero-split__continuation">{continuation}</div> : null}
@@ -195,19 +178,9 @@ export function HeroSplit({
           <div className="hero-split__split" aria-hidden="true">
             <div className="hero-split__pane hero-split__pane--left">
               <div className="hero-split__pane-media">{media}</div>
-              {closingCopy ? (
-                <div className="hero-split__closing-copy hero-split__closing-copy--pane">
-                  {closingCopy}
-                </div>
-              ) : null}
             </div>
             <div className="hero-split__pane hero-split__pane--right">
               <div className="hero-split__pane-media">{media}</div>
-              {closingCopy ? (
-                <div className="hero-split__closing-copy hero-split__closing-copy--pane">
-                  {closingCopy}
-                </div>
-              ) : null}
             </div>
           </div>
         ) : null}

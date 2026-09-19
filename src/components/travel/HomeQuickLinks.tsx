@@ -57,8 +57,8 @@ export function HomeQuickLinks() {
       <video
         ref={video}
         className="home-quick-links__video"
-        src="/images/tarjetas-hero.mp4"
-        poster="/images/tarjetas-hero.webp"
+        src="/images/hero-pasillo.mp4"
+        poster="/images/hero-pasillo.webp"
         autoPlay
         muted
         loop

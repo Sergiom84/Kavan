@@ -32,13 +32,6 @@ export function HomePage() {
           />
         }
         continuation={<HomeQuickLinks />}
-        closingCopy={
-          <p className="hz-hero-lede">
-            Rutas privadas por el sur de Marruecos: dunas del Erg&nbsp;Chebbi, kasbahs de adobe,{' '}
-            <br />
-            gargantas del Todra y noches bajo un cielo sin ciudades cerca.
-          </p>
-        }
       >
         <h1 className="hz-wordmark">
           <img src="/images/logo-kavan.png" alt="Kavan" />

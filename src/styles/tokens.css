@@ -73,10 +73,13 @@
   --glass-frost: blur(28px) saturate(1.55) brightness(1.08);
 
   /* Cristal sobre fotografía: los accesos de portada dejan de flotar sobre
-     papel y pasan a apoyarse en la vista de Marrakech. El velo va en la
+     papel y pasan a apoyarse en el pasillo de arcos. El velo va en la
      sección y el cristal en la tarjeta; juntos dejan la tinta clara por
-     encima de AA y el oro por encima de AA large. */
-  --foto-tarjetas: url("/images/tarjetas-hero.webp");
+     encima de AA y el oro por encima de AA large.
+
+     Es el fotograma del vídeo que cubre el bloque, no otra fotografía: si el
+     vídeo no llega a reproducirse, lo que queda es la misma vista congelada. */
+  --foto-tarjetas: url("/images/hero-pasillo.webp");
   --scrim-tarjetas: linear-gradient(
     180deg,
     rgba(28, 20, 14, 0.34),
