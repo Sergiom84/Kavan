@@ -1,18 +1,21 @@
 import { Link } from 'react-router'
 import { LineReveal } from '../fx/LineReveal'
+import { ScrollScene, ScrollSceneGroup } from '../fx/ScrollScene'
 import './MoroccoIntroduction.css'
 
 const RETRATO = '/images/todra-garganta.webp'
 
 /**
  * Puerto del relato Greyloom (text-17-650.mp4): hero 100svh → página blanca
- * 100svh → retrato → dos columnas → página negra 100svh. El texto entra
- * renglón a renglón; las secciones de 100svh hacen el corte de página.
+ * 100svh → retrato → dos columnas → página negra 100svh. Cada texto es una
+ * escena que se clava en pantalla y se lee bajando: el scroll sube los
+ * renglones uno a uno y, terminado el último, lleva de golpe al siguiente
+ * encuadre. El retrato no es escena, pasa de largo.
  */
 export function MoroccoIntroduction() {
   return (
-    <div className="morocco" aria-labelledby="morocco-title">
-      <section className="morocco__hero">
+    <ScrollSceneGroup className="morocco">
+      <ScrollScene className="morocco__hero scroll-scene" hold={0.6}>
         <div className="morocco__hero-img">
           <img
             src="/images/duna-onda.webp"
@@ -28,9 +31,9 @@ export function MoroccoIntroduction() {
             Marruecos
           </LineReveal>
         </div>
-      </section>
+      </ScrollScene>
 
-      <section className="morocco__about">
+      <ScrollScene className="morocco__about scroll-scene">
         <LineReveal as="span" className="morocco__kicker">
           Marruecos
         </LineReveal>
@@ -42,13 +45,13 @@ export function MoroccoIntroduction() {
             del Alto Atlas se funden con una riqueza cultural e histórica única.
           </LineReveal>
         </div>
-      </section>
+      </ScrollScene>
 
       <section className="morocco__about-img">
         <img src={RETRATO} alt="Paredes verticales de las gargantas del Todra" loading="lazy" decoding="async" />
       </section>
 
-      <section className="morocco__story">
+      <ScrollScene className="morocco__story scroll-scene" hold={1.2}>
         <div className="morocco__story-col">
           <LineReveal as="h3" className="morocco__story-title">
             Si buscas una experiencia inolvidable, nuestros viajes organizados a
@@ -72,9 +75,9 @@ export function MoroccoIntroduction() {
             hospitalidad local en los pueblos del desierto.
           </LineReveal>
         </div>
-      </section>
+      </ScrollScene>
 
-      <section className="morocco__philosophy">
+      <ScrollScene className="morocco__philosophy scroll-scene">
         <LineReveal as="span" className="morocco__kicker">
           La ruta
         </LineReveal>
@@ -89,7 +92,7 @@ export function MoroccoIntroduction() {
             </Link>
           </p>
         </div>
-      </section>
-    </div>
+      </ScrollScene>
+    </ScrollSceneGroup>
   )
 }

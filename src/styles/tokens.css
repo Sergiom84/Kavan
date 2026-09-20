@@ -178,6 +178,11 @@
   --text-3: 0.75rem;       /*  12px — alias heredado */
   --text-label: 0.75rem;   /*  12px — rótulos, botones, navegación (mono) */
 
+  /* Relato Marruecos: escala estable también al cambiar la maqueta global
+     de 1440 a 375. No modifica la tipografía de las demás secciones. */
+  --morocco-unit: clamp(14px, 1.12vw, 16px);
+  --morocco-heading: clamp(32px, 3.89vw, 56px);
+
   /* Proporción de las palabras de enlace dentro de una frase mezclada:
      "PANORAMIC views, SPACIOUS LAYOUTS". Es la firma tipográfica. */
   --minor-scale: 0.46;

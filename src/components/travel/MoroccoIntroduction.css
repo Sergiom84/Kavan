@@ -1,8 +1,9 @@
-/* Layout calcado de Greyloom (globals.css + text-17-650.mp4). */
+/* Ritmo del relato Greyloom adaptado al contenido y a la escala de Kavan. */
 
 .morocco {
   position: relative;
-  background: var(--bg-1);
+  background: var(--c-pure-white);
+  font-size: var(--morocco-unit);
 }
 
 .morocco__hero,
@@ -10,13 +11,13 @@
 .morocco__philosophy {
   position: relative;
   width: 100%;
-  min-height: 100svh;
   padding: 2em;
 }
 
 /* ---------- Hero: duna a sangre, título al centro ---------- */
 
 .morocco__hero {
+  min-height: 100svh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,38 +45,45 @@
   text-align: center;
 }
 
-h2.morocco__titulo {
+.morocco__titulo {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 3.5rem;
+  font-size: var(--morocco-heading);
   font-weight: 500;
-  letter-spacing: -0.05rem;
-  line-height: 1;
+  letter-spacing: var(--track-1);
+  line-height: 1.12;
   text-transform: none;
-  color: #909090;
+  color: var(--on-photo);
 }
 
-/* ---------- About: frase grande abajo, aire arriba (corte de página) ---------- */
+/* Cada texto tiene una pantalla propia; la foto no comparte su encuadre.
+   Los fondos se cortan en el borde de la sección, sin fundidos. */
 
 .morocco__about,
 .morocco__philosophy {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  min-height: 100svh;
+  gap: calc(var(--morocco-unit) * 4);
+  padding-top: calc(var(--header-gap) + var(--morocco-unit) * 3);
 }
 
 .morocco__kicker {
+  position: absolute;
+  top: calc(var(--header-gap) + var(--morocco-unit));
+  left: calc(var(--morocco-unit) * 2);
   display: block;
   text-transform: uppercase;
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: calc(var(--morocco-unit) * 0.75);
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--ink);
 }
 
 .morocco__philosophy .morocco__kicker {
-  color: #fff;
+  color: var(--c-pure-white);
 }
 
 .morocco__about-header {
@@ -87,31 +95,31 @@ h2.morocco__titulo {
   text-indent: 25%;
   text-wrap: unset;
   font-family: var(--font-display);
-  font-size: 3.5rem;
+  font-size: var(--morocco-heading);
   font-weight: 500;
-  letter-spacing: -0.05rem;
-  line-height: 1;
+  letter-spacing: var(--track-1);
+  line-height: 1.12;
   color: var(--ink);
 }
 
 .morocco__philosophy {
-  background: #202020;
+  background: var(--ink-warm);
 }
 
 .morocco__philosophy .morocco__lead,
 .morocco__philosophy .morocco__cta,
 .morocco__philosophy .morocco__cta a {
-  color: #fff;
+  color: var(--c-pure-white);
 }
 
 .morocco__cta {
-  margin: 1em 0 0;
-  text-indent: 25%;
-  font-family: var(--font-display);
-  font-size: 3.5rem;
+  margin: calc(var(--morocco-unit) * 2) 0 0;
+  padding-left: 25%;
+  font-family: var(--font-body);
+  font-size: calc(var(--morocco-unit) * 1.125);
   font-weight: 500;
-  letter-spacing: -0.05rem;
-  line-height: 1;
+  letter-spacing: var(--track-1);
+  line-height: var(--leading-body);
 }
 
 .morocco__cta a {
@@ -132,13 +140,13 @@ h2.morocco__titulo {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: max-content;
-  padding: 8em 2em;
+  min-height: 60svh;
+  padding: 2em;
 }
 
 .morocco__about-img img {
   width: 20%;
-  min-width: 12rem;
+  min-width: calc(var(--morocco-unit) * 12);
   aspect-ratio: 4 / 5;
   object-fit: cover;
 }
@@ -146,24 +154,27 @@ h2.morocco__titulo {
 /* ---------- Historia a dos columnas ---------- */
 
 .morocco__story {
+  position: relative;
   display: flex;
   gap: 1em;
-  height: max-content;
-  margin-bottom: 8em;
+  min-height: 100svh;
+  align-items: center;
+  margin: 0;
   padding: 2em;
 }
 
 .morocco__story-col {
   flex: 1;
+  min-width: 0;
 }
 
 .morocco__story-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 3.5rem;
+  font-size: var(--morocco-heading);
   font-weight: 500;
-  letter-spacing: -0.05rem;
-  line-height: 1;
+  letter-spacing: var(--track-1);
+  line-height: 1.12;
   text-transform: none;
   color: var(--ink);
 }
@@ -171,7 +182,7 @@ h2.morocco__titulo {
 .morocco__story-col p {
   margin: 0 0 1em;
   font-family: var(--font-body);
-  font-size: 1.125rem;
+  font-size: calc(var(--morocco-unit) * 1.125);
   font-weight: 500;
   line-height: 1.25;
   color: var(--ink);
@@ -185,12 +196,18 @@ h2.morocco__titulo {
   font-weight: 700;
 }
 
-@media (max-width: 900px) {
-  .morocco__titulo,
-  .morocco__lead,
-  .morocco__cta,
-  .morocco__story-title {
-    font-size: 2rem;
+@media (max-width: 1023px) {
+  .morocco__hero,
+  .morocco__about,
+  .morocco__philosophy,
+  .morocco__story {
+    padding: 1.5em;
+  }
+
+  .morocco__about,
+  .morocco__philosophy {
+    min-height: 100svh;
+    gap: 2em;
   }
 
   .morocco__hero-header {
@@ -200,26 +217,47 @@ h2.morocco__titulo {
   .morocco__lead,
   .morocco__cta {
     text-indent: 0;
+    padding-left: 0;
   }
 
   .morocco__about-img img {
-    width: 100%;
+    width: min(65%, 320px);
     min-width: 0;
   }
 
   .morocco__story {
     flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 2em;
+  }
+
+  .morocco__story-col {
+    flex: none;
+  }
+
+  .morocco__about,
+  .morocco__philosophy {
+    padding-block: 5em 2em;
+    padding-top: calc(var(--header-gap) + var(--morocco-unit) * 3);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .morocco__hero,
   .morocco__about,
-  .morocco__philosophy {
+  .morocco__philosophy,
+  .morocco__story {
     min-height: 0;
   }
 
-  .line-reveal__line {
-    transform: none;
+  .morocco__about,
+  .morocco__philosophy {
+    padding-block: 5em 2em;
+    padding-top: calc(var(--header-gap) + var(--morocco-unit) * 3);
+  }
+
+  .morocco__hero {
+    min-height: 60svh;
   }
 }

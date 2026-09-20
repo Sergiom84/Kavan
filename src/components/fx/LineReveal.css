@@ -1,6 +1,4 @@
-/* Igual que Greyloom `.line`: el renglón nace debajo de la máscara. GSAP
-   anima `y` sobre este mismo transform; no usar yPercent. */
-.line-reveal__line {
-  transform: translateY(100%);
-  will-change: transform;
+/* El texto es visible por defecto. Sólo GSAP aplica el estado de entrada. */
+.line-reveal__line-mask {
+  overflow: clip;
 }

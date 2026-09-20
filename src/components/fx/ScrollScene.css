@@ -1,0 +1,11 @@
+/* Una escena clavada ocupa exactamente la pantalla: si el contenido la
+   desborda, el pin deja el final del texto fuera de encuadre y nadie lo lee. */
+.scroll-scene {
+  min-height: 100svh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-scene {
+    min-height: 0;
+  }
+}

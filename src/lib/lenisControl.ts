@@ -8,6 +8,11 @@ export function registerLenis(lenis: Lenis | null) {
   if (instance && locks > 0) instance.stop()
 }
 
+/** La instancia viva, para quien necesite mover el scroll sin pelearse con ella. */
+export function getLenis() {
+  return instance
+}
+
 /** Detiene Lenis y el overflow de la página. Varios bloqueos se anidan. */
 export function lockSmoothScroll() {
   locks += 1
