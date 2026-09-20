@@ -66,7 +66,7 @@ export function PackSlider({ packs, title = 'Viajes más deseados' }: Props) {
     armarRefrescoScroll()
     const mm = gsap.matchMedia()
 
-    mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
       setConEfecto(true)
 
       const altas = gsap.utils.toArray<HTMLElement>('[data-capa="alta"]', laminas)
@@ -221,8 +221,8 @@ export function PackSlider({ packs, title = 'Viajes más deseados' }: Props) {
         </ul>
       </div>
 
-      {/* Sin el efecto —móvil, tableta o movimiento reducido— el bloque enseña
-          los viajes tal cual, sin pin ni barridos. */}
+      {/* Sin el efecto —movimiento reducido— el bloque enseña los viajes
+          tal cual, sin pin ni barridos. */}
       {!conEfecto && (
         <div className="pack-slider__rejilla">
           {packs.map((p) => (

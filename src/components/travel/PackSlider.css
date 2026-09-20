@@ -184,10 +184,10 @@
   font-weight: 600;
 }
 
-/* ---------- Sin efecto: móvil, tableta y movimiento reducido ---------- */
+/* ---------- Sin efecto: sólo movimiento reducido ---------- */
 
 .pack-slider__rejilla {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: var(--space-4);
   padding: var(--space-5) var(--padding);
@@ -201,13 +201,41 @@
 }
 
 @media (max-width: 1023px) {
+  .pack-slider {
+    --slider-ancho: min(calc(100vw - 2 * var(--padding)), calc(48svh * 3 / 2));
+  }
+
   .pack-slider__escena {
-    display: none;
+    padding: 1.25em var(--padding);
+  }
+
+  .pack-slider__titulo {
+    margin-bottom: var(--space-3);
+    font-size: clamp(1.35rem, 5vw, 1.75rem);
+  }
+
+  .pack-slider__rotulo {
+    font-size: clamp(1.25rem, 6.5vw, 2.1rem);
+  }
+
+  .pack-slider__ficha {
+    min-width: min(86%, 22rem);
+    max-width: 94%;
+    padding: var(--space-2) var(--space-3);
+    bottom: 6%;
+  }
+
+  .pack-slider__ficha-ciudad {
+    font-size: calc(var(--text-2) + 1px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pack-slider__escena {
     display: none;
+  }
+
+  .pack-slider__rejilla {
+    display: grid;
   }
 }
