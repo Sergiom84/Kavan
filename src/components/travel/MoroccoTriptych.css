@@ -1,0 +1,66 @@
+/* Tríptico del relato Marruecos: tres láminas iguales que llegan de fuera del
+   margen derecho y acaban centradas en la pantalla. */
+
+.triptico {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  padding: 2em 0;
+  background: var(--c-pure-white);
+}
+
+.triptico__viewport {
+  width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  padding-inline: 1.5em;
+}
+
+.triptico__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* Con el bloque fijado manda GSAP: el recorte deja a las láminas esperar fuera
+   de cuadro sin crear desplazamiento horizontal en la página. */
+.triptico__viewport.is-pinned {
+  overflow: hidden;
+  padding-inline: 0;
+}
+
+.triptico__track {
+  display: flex;
+  gap: calc(var(--morocco-unit) * 1.5);
+  width: max-content;
+}
+
+.triptico__lamina {
+  flex: none;
+  margin: 0;
+  width: clamp(240px, 22vw, 340px);
+}
+
+.triptico__lamina img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+@media (max-width: 1023px) {
+  .triptico {
+    min-height: 0;
+    padding: 2em 0;
+  }
+
+  .triptico__lamina {
+    width: min(65vw, 320px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .triptico {
+    min-height: 0;
+  }
+}

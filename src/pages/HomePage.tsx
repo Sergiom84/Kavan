@@ -6,7 +6,6 @@ import { DiscoverMorocco } from '../components/travel/DiscoverMorocco'
 import { MoroccoMap } from '../components/travel/MoroccoMap'
 import { HeroSplit } from '../components/fx/HeroSplit'
 import { HeroLoader } from '../components/fx/HeroLoader'
-import { ImpactStrip, IMPACT_ATLAS } from '../components/ui/ImpactStrip'
 import { HERO_FALLBACK, HERO_SIZES, HERO_SRCSET } from '../data/portada'
 import './HomePage.css'
 
@@ -37,8 +36,9 @@ export function HomePage() {
           <img src="/images/logo-kavan.png" alt="Kavan" />
         </h1>
       </HeroSplit>
+      {/* Las tres fotos con zoom que había aquí viven ahora dentro del relato
+          de Marruecos, como tríptico que entra con el scroll. */}
       <MoroccoIntroduction />
-      <ImpactStrip slides={IMPACT_ATLAS} label="Paisajes del Atlas y las kasbahs" compacta />
       <PackShowcase packs={homePacks ?? []} />
       <DiscoverMorocco />
       <MoroccoMap />

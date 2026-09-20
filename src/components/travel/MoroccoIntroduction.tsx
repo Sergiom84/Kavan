@@ -1,9 +1,8 @@
 import { Link } from 'react-router'
 import { LineReveal } from '../fx/LineReveal'
 import { ScrollScene, ScrollSceneGroup } from '../fx/ScrollScene'
+import { MoroccoTriptych } from './MoroccoTriptych'
 import './MoroccoIntroduction.css'
-
-const RETRATO = '/images/todra-garganta.webp'
 
 /**
  * Puerto del relato Greyloom (text-17-650.mp4): hero 100svh → página blanca
@@ -47,9 +46,7 @@ export function MoroccoIntroduction() {
         </div>
       </ScrollScene>
 
-      <section className="morocco__about-img">
-        <img src={RETRATO} alt="Paredes verticales de las gargantas del Todra" loading="lazy" decoding="async" />
-      </section>
+      <MoroccoTriptych />
 
       <ScrollScene className="morocco__story scroll-scene" hold={1.2}>
         <div className="morocco__story-col">
