@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { armarRefrescoScroll } from '../../lib/scroll'
+import { armarRefrescoScroll, registrarFijado } from '../../lib/scroll'
 import './MoroccoTriptych.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -95,7 +95,10 @@ export function MoroccoTriptych() {
         tl.to(track, { x: () => centrado(i + 1), duration: 1 }, tramo)
       })
 
+      const soltarPrioridad = registrarFijado(scene, tl.scrollTrigger)
+
       return () => {
+        soltarPrioridad()
         viewport.classList.remove('is-pinned')
         gsap.set([track, ...laminas], { clearProps: 'transform' })
       }

@@ -28,7 +28,7 @@
   --c-bg: #f5efeb;
   --c-base-0: #f5efeb;
   --c-base-50: #ede4d8;     /* un paso bajo el papel, bandas alternas */
-  --c-base-1000: #2c353c;   /* dark slate — descripciones y tinta */
+  --c-base-1000: #000;      /* negro puro — tinta y letras oscuras */
   --c-brand-500: #8a4b2b;   /* terracota profunda — marca, hover */
   --c-pure-white: #fff;
   --c-pure-black: #000;

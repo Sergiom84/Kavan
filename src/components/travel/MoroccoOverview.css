@@ -1,0 +1,306 @@
+/* Cierre editorial de la portada: la acción, la franja con el rótulo y el
+   texto largo de "Descubre Marruecos". Vivía dentro de PackShowcase; cuando el
+   carril de tarjetas dejó paso al slider, esta mitad siguió viva y se quedó
+   con los nombres de clase de entonces: el ajuste de las dunas a sangre y de
+   la calle de 10rem está medido sobre ellos. */
+
+.pack-showcase {
+  background: var(--c-pure-white);
+  padding-top: var(--space-4);
+  padding-bottom: 0;
+}
+
+.pack-showcase-inner {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  gap: var(--space-5);
+  /* Misma calle que el bloque de Marruecos: los tres bloques editoriales de
+     la portada arrancan en la misma vertical, fotografías incluidas. */
+  padding-inline: 10rem;
+}
+
+/* ---------- Escenas del texto largo ----------
+   Mismo gesto que el relato de Marruecos: cada tramo se clava en pantalla y el
+   scroll sube los renglones. La prosa corrida de antes vive ahora aquí. */
+
+.overview {
+  position: relative;
+  background: var(--c-pure-white);
+  font-size: var(--morocco-unit);
+}
+
+.overview__lead-escena,
+.overview__dos,
+.overview__prosa,
+.overview__cierre {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  padding: 2em;
+}
+
+.overview__lead-escena,
+.overview__cierre {
+  justify-content: center;
+}
+
+.overview__lead,
+.overview__titular {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--morocco-heading);
+  font-weight: 500;
+  letter-spacing: var(--track-1);
+  line-height: 1.12;
+  color: var(--ink);
+}
+
+.overview__lead {
+  max-width: 24ch;
+  text-indent: 12%;
+}
+
+.overview__titular--centrado {
+  max-width: 22ch;
+  text-align: center;
+}
+
+/* Dos columnas: el titular mira al listado, como en «Si buscas una
+   experiencia inolvidable». */
+.overview__dos {
+  gap: 1em;
+}
+
+.overview__col {
+  flex: 1;
+  min-width: 0;
+}
+
+.overview__col p {
+  margin: 0 0 1em;
+  font-family: var(--font-body);
+  font-size: calc(var(--morocco-unit) * 1.125);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.overview__col p:last-child,
+.overview__col .overview__titular {
+  margin-bottom: 0;
+}
+
+.overview__col strong {
+  font-weight: 700;
+}
+
+.overview__prosa {
+  justify-content: center;
+}
+
+.overview__columna-prosa {
+  max-width: 58ch;
+}
+
+.overview__columna-prosa p {
+  margin: 0 0 1.25em;
+  font-family: var(--font-body);
+  font-size: calc(var(--morocco-unit) * 1.125);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.overview__columna-prosa p:last-child {
+  margin-bottom: 0;
+}
+
+.overview__columna-prosa strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* La frase que abre la prosa se lee como un rótulo, no como un párrafo más. */
+.overview__columna-prosa .overview__destacado {
+  font-family: var(--font-display);
+  font-size: calc(var(--morocco-unit) * 2);
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+@media (max-width: 1023px) {
+  .overview__lead-escena,
+  .overview__dos,
+  .overview__prosa,
+  .overview__cierre {
+    padding: 1.5em;
+  }
+
+  .overview__dos {
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 2em;
+  }
+
+  .overview__col {
+    flex: none;
+  }
+
+  .overview__lead {
+    max-width: none;
+    text-indent: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overview__lead-escena,
+  .overview__dos,
+  .overview__prosa,
+  .overview__cierre {
+    min-height: 0;
+    padding-block: 3em;
+  }
+}
+
+.pack-showcase-link {
+  align-self: center;
+  border-color: var(--logo-gold);
+  border-radius: 0;
+  color: var(--logo-gold);
+  font-family: var(--font-display);
+  /* La única acción del bloque: se sube a la escala de prosa y engorda la caja.
+     A tamaño de rótulo desaparecía contra un cierre tan ancho. */
+  font-size: calc(var(--text-body) + 0.25rem + 2px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: none;
+  padding: 1.125rem 3rem;
+}
+
+.pack-showcase-link:hover {
+  background: var(--logo-gold);
+  border-color: var(--logo-gold);
+  color: var(--accent-ink);
+}
+
+.pack-showcase-link:focus-visible {
+  outline: 2px solid var(--logo-gold);
+  outline-offset: 0.25rem;
+}
+
+.pack-showcase-closing {
+  /* Aire entre el carril de fotografías y la acción, que antes quedaba pegada
+     al pie de las tarjetas. */
+  position: relative;
+  isolation: isolate;
+  padding-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Entre la acción y el texto de "Descubre Marruecos" cabe más aire que
+     entre bloques normales: son dos piezas distintas del cierre. */
+  gap: calc(var(--space-6) + var(--space-5));
+}
+
+.pack-showcase-discover {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: none;
+  text-align: left;
+}
+
+/* El lavado de dunas que había aquí detrás se retiró con la prosa: el texto
+   largo se lee ahora escena a escena sobre papel limpio. */
+
+/* Franja de fotografía con el rótulo dentro. Va a sangre —sale de la calle de
+   10 rem del contenedor con márgenes negativos, no con `100vw`, que contaría
+   también la barra de desplazamiento— y el rótulo recupera esa calle por
+   dentro para quedar a plomo con el párrafo de debajo. */
+.pack-showcase-discover-band {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 12rem;
+  margin-block-end: var(--space-5);
+  margin-inline: -10rem;
+  padding-inline: 10rem;
+  overflow: hidden;
+}
+
+.pack-showcase-discover-band img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Franja baja: el encuadre sube al sol y las montañas. */
+  object-position: 50% 32%;
+}
+
+/* Velo por el lado del rótulo. El cielo de la fotografía es claro y el oro
+   solo aguanta sobre él con algo de sombra debajo. */
+.pack-showcase-discover-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(28, 20, 14, 0.66),
+    rgba(28, 20, 14, 0.28) 46%,
+    rgba(28, 20, 14, 0.06)
+  );
+}
+
+.pack-showcase-discover h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 3.125rem;
+  font-weight: 400;
+  line-height: var(--leading-title);
+  text-transform: none;
+  color: var(--accent-sun);
+  text-shadow: 0 2px 10px rgba(12, 8, 4, 0.72);
+}
+
+@media (max-width: 1023px) {
+  .pack-showcase {
+    padding-top: var(--space-4);
+    padding-bottom: 0;
+  }
+
+  .pack-showcase-discover-band {
+    height: 10rem;
+    margin-inline: -5rem;
+    padding-inline: 5rem;
+  }
+
+  .pack-showcase-inner {
+    padding-inline: 5rem;
+  }
+
+}
+
+@media (max-width: 767px) {
+  .pack-showcase-inner {
+    padding-inline: var(--padding);
+  }
+
+  .pack-showcase-discover-band {
+    height: 8rem;
+    margin-inline: calc(-1 * var(--padding));
+    padding-inline: var(--padding);
+  }
+
+}

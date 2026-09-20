@@ -10,7 +10,7 @@ import {
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { getLenis } from '../../lib/lenisControl'
-import { armarRefrescoScroll } from '../../lib/scroll'
+import { armarRefrescoScroll, registrarFijado } from '../../lib/scroll'
 import './ScrollScene.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -120,9 +120,11 @@ export function ScrollScene({ children, as: Tag = 'section', className, hold = 1
 
       const st = tl.scrollTrigger
       const soltarDelGrupo = st && registrarEnGrupo ? registrarEnGrupo(st) : undefined
+      const soltarPrioridad = registrarFijado(el, st)
 
       return () => {
         soltarDelGrupo?.()
+        soltarPrioridad()
         st?.kill()
         tl.kill()
         items.forEach((item) => gsap.set(item.targets, { clearProps: 'transform' }))

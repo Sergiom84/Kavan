@@ -1,5 +1,6 @@
 import { usePacks } from '../queries/hooks'
-import { PackShowcase } from '../components/travel/PackShowcase'
+import { PackSlider } from '../components/travel/PackSlider'
+import { MoroccoOverview } from '../components/travel/MoroccoOverview'
 import { HomeQuickLinks } from '../components/travel/HomeQuickLinks'
 import { MoroccoIntroduction } from '../components/travel/MoroccoIntroduction'
 import { DiscoverMorocco } from '../components/travel/DiscoverMorocco'
@@ -39,7 +40,10 @@ export function HomePage() {
       {/* Las tres fotos con zoom que había aquí viven ahora dentro del relato
           de Marruecos, como tríptico que entra con el scroll. */}
       <MoroccoIntroduction />
-      <PackShowcase packs={homePacks ?? []} />
+      <PackSlider packs={homePacks ?? []} />
+      {/* El cierre editorial del antiguo carril: la acción hacia el catálogo y
+          el texto largo de «Descubre Marruecos». */}
+      <MoroccoOverview />
       <DiscoverMorocco />
       <MoroccoMap />
     </>

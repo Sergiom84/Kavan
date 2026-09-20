@@ -45,15 +45,19 @@
   text-align: center;
 }
 
+/* Dorado del logo, el mismo del rótulo flotante «Te asesoramos». Sobre la duna
+   es un tono medio, así que la sombra es lo que lo mantiene legible tanto en el
+   cielo claro como en la arena. */
 .morocco__titulo {
   margin: 0;
   font-family: var(--font-display);
-  font-size: var(--morocco-heading);
+  font-size: calc(var(--morocco-heading) + 6px);
   font-weight: 500;
   letter-spacing: var(--track-1);
   line-height: 1.12;
   text-transform: none;
-  color: var(--on-photo);
+  color: var(--logo-gold);
+  text-shadow: 0 2px 10px rgba(12, 8, 4, 0.72), 0 1px 3px rgba(12, 8, 4, 0.9);
 }
 
 /* Cada texto tiene una pantalla propia; la foto no comparte su encuadre.

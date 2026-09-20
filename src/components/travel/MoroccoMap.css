@@ -233,8 +233,8 @@
 }
 
 /* ---------- Miniatura ----------
-   El radio es una excepción local solicitada para esta fotografía; el mapa y
-   el resto del sistema conservan la geometría plana. */
+   El recorte de herradura va en la tarjeta, no en la foto: si sólo lo lleva
+   la imagen, el fondo de la caja (rectángulo crema) asoma por las esquinas. */
 
 .mmap-card {
   position: absolute;
@@ -242,9 +242,9 @@
   width: 12rem;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border: 1px solid var(--on-photo-line);
-  border-radius: 0;
-  background: var(--card);
+  border: 0;
+  border-radius: var(--portico);
+  background: transparent;
   box-shadow: var(--shadow-card);
   transform: translate(-50%, calc(-100% - 2.5rem));
   pointer-events: none;
@@ -253,8 +253,10 @@
 
 .mmap-card img {
   display: block;
+  width: 100%;
   height: 100%;
-  border-radius: var(--portico);
+  object-fit: cover;
+  border-radius: 0;
 }
 
 @keyframes mmap-card-in {

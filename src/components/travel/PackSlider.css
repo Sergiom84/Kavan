@@ -1,0 +1,213 @@
+/* Escaparate de portada: la fotografía partida en dos bandas desplazadas, el
+   nombre de la ciudad corriendo por su carril y la ficha de cristal dentro de
+   la propia fotografía. Papel blanco, el mismo del relato de Marruecos. */
+
+.pack-slider {
+  position: relative;
+  background: var(--c-pure-white);
+}
+
+.pack-slider__escena {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 2em;
+  overflow: hidden;
+}
+
+/* En el flujo, no absoluto: así el aire que pide por arriba y por abajo es
+   suyo y no depende de dónde caiga el cuadro. Mismo dorado del logo que el
+   rótulo de Marruecos. */
+.pack-slider__titulo {
+  margin: 0 0 var(--space-5);
+  font-family: var(--font-display);
+  /* Mismo ajuste que el nombre de la ciudad que corre sobre las fotografías:
+     misma familia, mismo peso y sin la separación extra entre letras. */
+  font-size: calc(var(--text-2) + 2px);
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.1;
+  text-transform: none;
+  text-align: center;
+  color: var(--logo-gold);
+}
+
+/* ---------- Carril de nombres ---------- */
+
+.pack-slider__rotulos {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  width: var(--slider-ancho);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.pack-slider__carril {
+  display: flex;
+}
+
+/* `difference` resuelve de una vez los dos fondos: el nombre activo cae sobre
+   la fotografía y sale claro; los vecinos caen sobre el papel y salen oscuros.
+   Con un color fijo, uno de los dos siempre se perdía. */
+.pack-slider__rotulo {
+  flex: 1 0 auto;
+  width: var(--slider-ancho);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--c-pure-white);
+  mix-blend-mode: difference;
+}
+
+/* ---------- Las dos bandas ---------- */
+
+.pack-slider__laminas {
+  position: relative;
+  width: var(--slider-ancho);
+  aspect-ratio: 3 / 2;
+}
+
+.pack-slider__mitad {
+  position: absolute;
+  inset: 0;
+}
+
+/* Las bandas no se parten por el mismo sitio: la de arriba se recorta por la
+   derecha y la de abajo por la izquierda. Ese desplazamiento es el efecto. */
+.pack-slider__mitad--alta {
+  clip-path: polygon(85% 0%, 0% 0%, 0% 50%, 85% 50%);
+}
+
+.pack-slider__mitad--baja {
+  clip-path: polygon(100% 50%, 15% 50%, 15% 100%, 100% 100%);
+}
+
+.pack-slider__capa {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.pack-slider__capa img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Ficha de cristal ---------- */
+
+.pack-slider__ficha {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  z-index: 4;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: min(52%, 22rem);
+  max-width: min(76%, 34rem);
+  padding: var(--space-3) var(--space-4);
+  background: var(--glass-card);
+  -webkit-backdrop-filter: var(--glass-card-blur);
+  backdrop-filter: var(--glass-card-blur);
+  border: 1px solid var(--glass-card-line);
+  border-radius: var(--radius-glass);
+  box-shadow: var(--shadow-glass);
+  color: var(--on-photo);
+  text-align: center;
+  text-decoration: none;
+  animation: pack-slider-ficha var(--dur-md) var(--easing) both;
+  transition: background var(--dur-md) var(--easing),
+              box-shadow var(--dur-md) var(--easing);
+}
+
+.pack-slider__ficha:hover,
+.pack-slider__ficha:focus-visible {
+  background: var(--glass-card-hover);
+  box-shadow: var(--shadow-glass-hover);
+}
+
+/* Sin desenfoque el cristal se vuelve un velo opaco: mismo contraste, sin
+   el difuminado. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pack-slider__ficha {
+    background: color-mix(in srgb, var(--ink-warm) 82%, transparent);
+  }
+}
+
+@keyframes pack-slider-ficha {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.pack-slider__ficha-ciudad {
+  font-family: var(--font-display);
+  font-size: var(--text-2);
+  line-height: 1.1;
+  color: var(--accent-sun);
+  text-shadow: 0 1px 3px rgba(12, 8, 4, 0.9), 0 2px 12px rgba(12, 8, 4, 0.7);
+}
+
+.pack-slider__ficha-dato,
+.pack-slider__ficha-ruta,
+.pack-slider__ficha-precio {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-1);
+  text-shadow: 0 1px 4px rgba(12, 8, 4, 0.85);
+}
+
+/* El recorrido puede traer cuatro o cinco paradas: se le deja respirar en dos
+   renglones antes que recortarlo. */
+.pack-slider__ficha-ruta {
+  line-height: 1.4;
+  text-wrap: balance;
+  color: color-mix(in srgb, var(--on-photo) 82%, transparent);
+}
+
+.pack-slider__ficha-precio {
+  font-weight: 600;
+}
+
+/* ---------- Sin efecto: móvil, tableta y movimiento reducido ---------- */
+
+.pack-slider__rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-4);
+  padding: var(--space-5) var(--padding);
+}
+
+/* Un único ancho para el cuadro y para el carril de nombres: si se separan, el
+   nombre deja de caer sobre su fotografía. Cuando la ventana es baja manda la
+   altura, para que el cuadro no se coma el rótulo ni la ficha. */
+.pack-slider {
+  --slider-ancho: min(clamp(22rem, 62vw, 58rem), calc(66svh * 3 / 2));
+}
+
+@media (max-width: 1023px) {
+  .pack-slider__escena {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pack-slider__escena {
+    display: none;
+  }
+}

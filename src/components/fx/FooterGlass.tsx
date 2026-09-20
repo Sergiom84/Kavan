@@ -209,13 +209,15 @@ export function FooterGlass() {
 
     const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    /* Colores del degradado, tomados de la muestra de la clienta: papel cálido
-       del sistema, crema por el costado y un gris azulado que enfría la esquina
-       inferior. Van como uniformes y no incrustados en el shader para que se
-       vean de un vistazo y se puedan ajustar sin tocar GLSL. */
-    const PAPEL: [number, number, number] = [0.953, 0.945, 0.929]
-    const CREMA: [number, number, number] = [0.945, 0.925, 0.855]
-    const FRIO: [number, number, number] = [0.878, 0.898, 0.917]
+    /* Colores del degradado. El pie es negro, así que el cristal refracta noche
+       en vez de papel: el tinte cálido del sistema por el costado y un azulado
+       que enfría la esquina inferior, los tres a la misma altura de negro para
+       que se lean las facetas y no tres manchas. Van como uniformes y no
+       incrustados en el shader para que se vean de un vistazo y se puedan
+       ajustar sin tocar GLSL. */
+    const PAPEL: [number, number, number] = [0.082, 0.075, 0.067]
+    const CREMA: [number, number, number] = [0.114, 0.094, 0.071]
+    const FRIO: [number, number, number] = [0.071, 0.082, 0.102]
 
     const medir = () => {
       /* Tope de 1,5 en densidad: a 2x en una pantalla retina el coste se dobla
