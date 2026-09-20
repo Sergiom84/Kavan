@@ -265,26 +265,48 @@
 }
 
 /* ---------- Móvil ----------
-   El carrusel de destinos aporta los enlaces accesibles en pantalla pequeña;
-   aquí queda la ilustración estática, sin zonas solapadas. */
+   El lienzo se acerca para que el sur quepa. Las chinchetas siguen activas:
+   el primer toque enseña la miniatura; el segundo abre el destino. */
 
 @media (max-width: 1023px) {
   .mmap {
-    /* El lienzo se amplía al 150 % en móvil: la imagen mide vez y media el
-       ancho de la ventana y las chinchetas de CSS crecen con ella. */
     --mmap-img: 150vw;
-    height: 72vw;
+    height: 80vw;
   }
 
   .mmap-canvas {
     width: 150%;
-    margin-left: -43%;
-    top: -13.5vw;
+    margin-left: -40%;
+    top: -10vw;
   }
 
-  .mmap-hit,
+  .mmap-hit {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
   .mmap-card {
-    display: none;
+    width: 8.5rem;
+    transform: translate(-50%, calc(-100% - 1.75rem));
+    animation-name: mmap-card-in-m;
+  }
+}
+
+@keyframes mmap-card-in-m {
+  from { opacity: 0; transform: translate(-50%, calc(-100% - 1.1rem)); }
+  to   { opacity: 1; transform: translate(-50%, calc(-100% - 1.75rem)); }
+}
+
+@media (max-width: 620px) {
+  .mmap {
+    --mmap-img: 148vw;
+    height: 92vw;
+  }
+
+  .mmap-canvas {
+    width: 148%;
+    margin-left: -38%;
+    top: -7vw;
   }
 }
 

@@ -228,12 +228,35 @@
 
 @media (max-width: 1023px) {
   .discover-morocco {
-    padding: var(--space-5) 0;
+    padding: var(--space-5) 0 var(--space-4);
+  }
+
+  .discover-morocco-heading {
+    margin-bottom: var(--space-3);
   }
 
   .discover-morocco-heading,
   .discover-morocco-carousel {
     padding-inline: 5rem;
+  }
+
+  .discover-morocco-title {
+    font-size: clamp(1.85rem, 6.4vw, 2.5rem);
+  }
+
+  .discover-morocco .carousel-arrow {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.55rem;
+  }
+
+  .discover-card-media {
+    aspect-ratio: 4 / 3;
+    min-height: 14rem;
+  }
+
+  .discover-card-overlay p {
+    display: none;
   }
 }
 
@@ -253,6 +276,12 @@
 @media (max-width: 620px) {
   .discover-morocco-carousel .carousel-item {
     flex: 0 0 86%;
+  }
+
+  .discover-card-overlay {
+    min-height: 0;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-2) var(--space-2);
   }
 }
 

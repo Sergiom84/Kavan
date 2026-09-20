@@ -124,10 +124,16 @@ export function MoroccoMap() {
 
         {conPunto.map((c) => {
           const p = PUNTOS[c.slug]
+          const tactil = () =>
+            typeof window !== 'undefined' &&
+            window.matchMedia('(hover: none)').matches
+
           const props = {
             className: `mmap-hit ${activa === c.slug ? 'is-active' : ''}`,
             style: { left: `${p.x}%`, top: `${p.y}%` },
-            onMouseEnter: () => setActiva(c.slug),
+            onMouseEnter: () => {
+              if (!tactil()) setActiva(c.slug)
+            },
             onFocus: () => setActiva(c.slug),
             'aria-label': `Ver ${c.name}`,
           }
@@ -153,7 +159,14 @@ export function MoroccoMap() {
             <Link
               key={c.slug}
               to={`/destinos/${c.slug}`}
-              onClick={lockNav}
+              onClick={(e) => {
+                if (tactil() && activa !== c.slug) {
+                  e.preventDefault()
+                  setActiva(c.slug)
+                  return
+                }
+                lockNav(e)
+              }}
               {...props}
             >
               {contenido}

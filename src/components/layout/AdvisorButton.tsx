@@ -10,6 +10,7 @@ export function AdvisorButton() {
   const { pathname } = useLocation()
   const isHome = pathname === '/'
   const [visible, setVisible] = useState(() => !isHome)
+  const [tapa, setTapa] = useState(false)
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -34,10 +35,28 @@ export function AdvisorButton() {
   }, [isHome])
 
   useEffect(() => {
-    if (!visible) setOpen(false)
-  }, [visible])
+    const nodos = ['.site-footer', '.mmap']
+      .map((sel) => document.querySelector(sel))
+      .filter((n): n is Element => Boolean(n))
+    if (!nodos.length) return
 
-  if (!visible) return null
+    const visto = new Map<Element, boolean>()
+    const observador = new IntersectionObserver(
+      (entradas) => {
+        for (const entrada of entradas) visto.set(entrada.target, entrada.isIntersecting)
+        setTapa([...visto.values()].some(Boolean))
+      },
+      { threshold: 0.12 },
+    )
+    nodos.forEach((nodo) => observador.observe(nodo))
+    return () => observador.disconnect()
+  }, [pathname])
+
+  useEffect(() => {
+    if (!visible || tapa) setOpen(false)
+  }, [visible, tapa])
+
+  if (!visible || tapa) return null
 
   return (
     <div className="advisor">
